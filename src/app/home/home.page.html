@@ -11,7 +11,7 @@
     <ion-card class="ion-text-center">
       <ion-card-title>
         <ion-label>
-          <h2>Inicio de Sesión {{ nombreUsuario | uppercase }}</h2>
+          <h2>Inicio de Sesión</h2>
         </ion-label>
       </ion-card-title>
 
@@ -27,6 +27,9 @@
       </ion-card-content>
 
       <ion-button (click)="inicioSesion()">Iniciar Sesión {{ user1 }}</ion-button>
+      <ion-button (click)="registrarUsuario()">Registrarse</ion-button>
+      <br>
+      <ion-button (click)="recuperarUsuario()">Recuperar Contraseña</ion-button>
     </ion-card>
   </div>
 </ion-content>

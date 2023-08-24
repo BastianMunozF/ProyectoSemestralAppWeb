@@ -25,6 +25,22 @@ export class HomePage {
     this.router.navigate(['/paginainicioConductor'], navigationExtras);
   }
 
+  registrarUsuario(){
+    let navigationExtras: NavigationExtras = {
+
+    }
+
+    this.router.navigate(['/paginaregistrar-usuario'], navigationExtras)
+  }
+
+  recuperarUsuario(){
+    let navigationExtras: NavigationExtras = {
+
+    }
+
+    this.router.navigate(['/paginarecuperar-usuario'], navigationExtras)
+  }
+
   async alertaInicioSesion(position: 'top' | 'middle' | 'bottom'){
     const toast = await this.toastController.create({
       message: 'Inicio de Sesión satisfactorio.',

@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons class="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Registrar Usuario
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding-vertical">
+    <ion-card class="ion-text-center">
+      <ion-card-title>
+        <ion-label>
+          <h2>Registro de Usuario</h2>
+        </ion-label>
+      </ion-card-title>
+
+      <ion-card-content>
+
+        <ion-item>
+          <ion-label position="floating">Ingrese nombre de Usuario</ion-label>
+          <ion-input type="text" maxlength="25"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Ingrese su Contraseña</ion-label>
+          <ion-input type="password" maxlength="30"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Confirme su Contraseña</ion-label>
+          <ion-input type="password" maxlength="30"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Ingrese su Correo</ion-label>
+          <ion-input type="email" maxlength="30"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Ingrese su Edad</ion-label>
+          <ion-input type="number" min="1" max="3"></ion-input>
+        </ion-item>
+
+        <br>
+
+        <ion-button >Registrarse</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
