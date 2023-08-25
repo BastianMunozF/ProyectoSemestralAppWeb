@@ -3,12 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'paginalogin-usuario',
     pathMatch: 'full'
   },
   {
@@ -19,10 +15,15 @@ const routes: Routes = [
     path: 'paginarecuperar-usuario',
     loadChildren: () => import('./pages/paginarecuperar-usuario/paginarecuperar-usuario.module').then( m => m.PaginarecuperarUsuarioPageModule)
   },
+//  {
+//    path: '**',
+//    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+//  }, 
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+    path: 'paginalogin-usuario',
+    loadChildren: () => import('./pages/paginalogin-usuario/paginalogin-usuario.module').then( m => m.PaginaloginUsuarioPageModule)
   },
+
 ];
 
 @NgModule({
