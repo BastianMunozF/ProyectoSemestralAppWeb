@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'paginalogin-usuario',
     loadChildren: () => import('./pages/paginalogin-usuario/paginalogin-usuario.module').then( m => m.PaginaloginUsuarioPageModule)
   },
+  {
+    path: 'vistaperfil',
+    loadChildren: () => import('./pages/vistaperfil/vistaperfil.module').then( m => m.VistaperfilPageModule)
+  },
 
 ];
 

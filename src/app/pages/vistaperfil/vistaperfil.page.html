@@ -1,0 +1,51 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/paginaregistrar-usuario']" ><ion-icon name="home"></ion-icon>Inicio</ion-item>
+    <ion-item [routerLink]="['/vistaperfil']"><ion-icon name="person"></ion-icon>Cuenta</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="apps"></ion-icon>Servicios</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="car"></ion-icon>Viajes</ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Cuenta</ion-title>
+
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding"> 
+      <ion-icon name="person-circle" size="large" style="margin-left: 88%;"></ion-icon>
+      <ion-card>
+        <ion-item>
+          <ion-label>José Gonzalez</ion-label>
+        </ion-item> 
+        <ion-item>
+          <ion-label>25</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>josegon25@gmail.com</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Cliente</ion-label>
+        </ion-item>
+      </ion-card>
+
+      <ion-card>
+
+      </ion-card>
+    </ion-content>
+  </div>
+</ion-content>
+
+<!-- google maps codigo
+   <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d53407.240721785754!2d-70.67873335!3d-33.215340299999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1693020959310!5m2!1ses!2scl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
