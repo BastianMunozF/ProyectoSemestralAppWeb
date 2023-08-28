@@ -1,0 +1,20 @@
+<!-- Agregar menu como el de vista perfil-->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bienvenido usuario</ion-title> <!-- Interpolar dato del usuario ingresado-->
+    <ion-buttons slot="secondary" [routerLink]="['/vistaperfil']">
+      <ion-button fill="solid">
+        <ion-icon slot="start" name="person-circle">Perfil</ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">menuprincipal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>

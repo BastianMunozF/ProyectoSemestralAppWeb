@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'vistaperfil',
     loadChildren: () => import('./pages/vistaperfil/vistaperfil.module').then( m => m.VistaperfilPageModule)
+  },  {
+    path: 'menuprincipal',
+    loadChildren: () => import('./pages/menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule)
   },
+
 
 ];
 
