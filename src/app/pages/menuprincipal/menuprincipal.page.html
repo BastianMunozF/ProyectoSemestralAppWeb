@@ -1,20 +1,39 @@
-<!-- Agregar menu como el de vista perfil-->
-
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Bienvenido usuario</ion-title> <!-- Interpolar dato del usuario ingresado-->
-    <ion-buttons slot="secondary" [routerLink]="['/vistaperfil']">
-      <ion-button fill="solid">
-        <ion-icon slot="start" name="person-circle">Perfil</ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">menuprincipal</ion-title>
+      <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home"></ion-icon>jom</ion-item>
+    <ion-item [routerLink]="['/vistaperfil']"><ion-icon name="person"></ion-icon>Cuenta</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="location"></ion-icon>Donde estoy?</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="walk"></ion-icon>Tomar un viaje</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="car-sport"></ion-icon>Comenzar viaje</ion-item>
+    <ion-item [routerLink]="['/']"><ion-icon name="exit"></ion-icon>Cerrar sesion</ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Bienvenido ...</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+</ion-content> 
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Card Title</ion-card-title>
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    Here's a small text description for the card content. Nothing more, nothing less.
+  </ion-card-content>
+</ion-card>

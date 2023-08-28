@@ -30,6 +30,18 @@ const routes: Routes = [
     path: 'menuprincipal',
     loadChildren: () => import('./pages/menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule)
   },
+  {
+    path: 'miubicacion',
+    loadChildren: () => import('./pages/miubicacion/miubicacion.module').then( m => m.MiubicacionPageModule)
+  },
+  {
+    path: 'tomarviaje',
+    loadChildren: () => import('./pages/tomarviaje/tomarviaje.module').then( m => m.TomarviajePageModule)
+  },
+  {
+    path: 'comenzarviaje',
+    loadChildren: () => import('./pages/comenzarviaje/comenzarviaje.module').then( m => m.ComenzarviajePageModule)
+  },
 
 
 ];
