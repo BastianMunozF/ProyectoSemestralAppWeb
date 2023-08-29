@@ -1,19 +1,16 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary" slot="">
-    <ion-title>Bienvenido! </ion-title>
-    <ion-buttons>
+  <ion-toolbar color="primary" style="text-align: center;">
+    <ion-title>Bienvenido!</ion-title>
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-
-
   <ion-card>
     <ion-card-header color="primary">
-      <ion-card-title style="margin-left: 25%;">Iniciar Sesión</ion-card-title>
+      <ion-card-title style="text-align: center;">Iniciar Sesión</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="formularioLogin">
@@ -27,9 +24,10 @@
         </ion-item>
       </form>
       <br>
-      <ion-button style="margin-left: 4%;">Ingresar</ion-button>
-      <ion-button slot="end" style="margin-left: 28%;" [routerLink]="['/paginaregistrar-usuario']">Registrarse</ion-button>
-            
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <a href="/paginarecuperar-usuario">Recuperar Usuario</a>
+        <ion-button (click)="ingresar()">Ingresar</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

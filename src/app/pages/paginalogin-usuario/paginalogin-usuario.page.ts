@@ -6,6 +6,7 @@ import {
   FormBuilder
 } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-paginalogin-usuario',
@@ -15,7 +16,7 @@ import { AlertController } from '@ionic/angular';
 export class PaginaloginUsuarioPage implements OnInit {
   formularioLogin: FormGroup;
 
-  constructor(public fb: FormBuilder,  public alertController: AlertController) { 
+  constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router) { 
 
     this.formularioLogin = this.fb.group({
       'nombre': new FormControl("",Validators.required),
@@ -35,14 +36,15 @@ export class PaginaloginUsuarioPage implements OnInit {
       if (usuario.nombre == f.nombre && usuario.password == f.password) {
         console.log('Ingresado');
         localStorage.setItem('ingresado', 'true');
+        this.router.navigate(['/menuprincipal'])
       } else {
         const alert = await this.alertController.create({
           header: 'Datos incorrectos',
-          message: 'Tienes que llenar todos los datos',
+          message: 'Los datos ingresados no coinciden.',
           buttons: ['Aceptar'],
         });
         await alert.present();
       }
-  }
+    }
   }
 }
