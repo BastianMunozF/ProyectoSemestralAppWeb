@@ -1,13 +1,17 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>not-found</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Pagina no encontrada</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">not-found</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="container" id="container">
+    <ion-card style="display: flex; text-align: center; margin-top: 80%; margin-left: 30px; font-size: large;" color="primary">
+      <ion-label>La pagina a la cual intenta acceder no existe. Lo sentimos!</ion-label>
+    </ion-card>
+    <ion-spinner style="margin-left: 50%; margin-top: 20px; transform: scale(2);" name="circular" color="primary"></ion-spinner>
+  </div>
 </ion-content>
