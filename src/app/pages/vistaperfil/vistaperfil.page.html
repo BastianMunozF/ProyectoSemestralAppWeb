@@ -4,10 +4,12 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding" >
-    <ion-item [routerLink]="['/menuprincipal']" ><ion-icon name="home" color="primary" id="letra"></ion-icon>Inicio</ion-item>
-    <ion-item [routerLink]="['/']"><ion-icon name="apps" color="primary" id="letra"></ion-icon>Servicios</ion-item>
-    <ion-item [routerLink]="['/']"><ion-icon name="car" color="primary" id="letra"></ion-icon>Viajes</ion-item>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home"></ion-icon>inicio</ion-item>
+    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location"></ion-icon>Donde estoy?</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk"></ion-icon>Tomar un viaje</ion-item>
+    <ion-item [routerLink]="['/comenzarviaje']"><ion-icon name="car-sport"></ion-icon>Comenzar viaje</ion-item>
+    <ion-item><ion-icon name="exit"></ion-icon>Cerrar sesion</ion-item>
   </ion-content>
 </ion-menu>
 
@@ -18,7 +20,7 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Cuenta</ion-title>
+        <ion-title style="text-align: center;">Cuenta</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding"> 
