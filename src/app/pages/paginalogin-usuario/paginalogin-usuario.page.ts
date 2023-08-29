@@ -36,7 +36,7 @@ export class PaginaloginUsuarioPage implements OnInit {
       if (usuario.nombre == f.nombre && usuario.password == f.password) {
         console.log('Ingresado');
         localStorage.setItem('ingresado', 'true');
-        this.router.navigate(['/menuprincipal'])
+        this.router.navigate(['/menuprincipal']);
       } else {
         const alert = await this.alertController.create({
           header: 'Datos incorrectos',
