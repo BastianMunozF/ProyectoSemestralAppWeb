@@ -14,12 +14,14 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./paginalogin-usuario.page.scss'],
 })
 export class PaginaloginUsuarioPage implements OnInit {
+
   formularioLogin: FormGroup;
+  user: string = "";
 
   constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router) { 
 
     this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("",Validators.required),
+      'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       'password': new FormControl("",Validators.required)
     })
   }

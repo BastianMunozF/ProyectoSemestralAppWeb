@@ -17,7 +17,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
 
   constructor(public fb: FormBuilder, public alertController: AlertController) { 
     this.formularioRegistro = this.fb.group({
-      'nombre': new FormControl("", Validators.required),
+      'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       'password': new FormControl("", Validators.required),
       'confirmacionPassword': new FormControl("", Validators.required)
     });
@@ -38,6 +38,18 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       });
   
       await alert.present();
+      return;
+
+    }
+
+    if(this.formularioRegistro.valid){
+      const alert2 = await this.alertController.create({
+        header: 'Usuario Registrado',
+        message: 'Su usuario ha sido registrado exitosamente.',
+        buttons: ['Aceptar']
+      });
+
+      await alert2.present();
       return;
     }
 

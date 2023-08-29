@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VistaperfilPage implements OnInit {
 
+  nombre: string = "";
+
   constructor() { }
 
   ngOnInit() {
+    const usuarioString = localStorage.getItem('usuario');
+    if (usuarioString !== null){
+      const usuario = JSON.parse(usuarioString);
+      this.nombre = usuario.nombre;
+    }
   }
-
 }

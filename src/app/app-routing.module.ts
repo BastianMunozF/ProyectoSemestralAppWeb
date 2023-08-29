@@ -15,10 +15,6 @@ const routes: Routes = [
     path: 'paginarecuperar-usuario',
     loadChildren: () => import('./pages/paginarecuperar-usuario/paginarecuperar-usuario.module').then( m => m.PaginarecuperarUsuarioPageModule)
   },
-//  {
-//    path: '**',
-//    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-//  }, 
   {
     path: 'paginalogin-usuario',
     loadChildren: () => import('./pages/paginalogin-usuario/paginalogin-usuario.module').then( m => m.PaginaloginUsuarioPageModule)
@@ -26,7 +22,8 @@ const routes: Routes = [
   {
     path: 'vistaperfil',
     loadChildren: () => import('./pages/vistaperfil/vistaperfil.module').then( m => m.VistaperfilPageModule)
-  },  {
+  },
+  {
     path: 'menuprincipal',
     loadChildren: () => import('./pages/menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule)
   },
@@ -42,8 +39,10 @@ const routes: Routes = [
     path: 'comenzarviaje',
     loadChildren: () => import('./pages/comenzarviaje/comenzarviaje.module').then( m => m.ComenzarviajePageModule)
   },
-
-
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  }, 
 ];
 
 @NgModule({
