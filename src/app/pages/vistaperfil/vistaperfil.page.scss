@@ -26,3 +26,19 @@ ion-content{
     --ion-background-color:rgb(241, 241, 236);
     --ion-border-color:primary;
 }
+
+.containerr {
+    flex-direction: column;
+  }
+  
+  .track {
+    width: 344px;
+    background: var(--ion-color-primary);
+    padding: 16px;
+  }
+  
+  ion-card {
+    width: 100px;
+    box-shadow: none;
+    margin: 0px;
+  }

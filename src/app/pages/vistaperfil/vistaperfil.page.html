@@ -5,11 +5,11 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home"></ion-icon>inicio</ion-item>
-    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location"></ion-icon>Donde estoy?</ion-item>
-    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk"></ion-icon>Tomar un viaje</ion-item>
-    <ion-item [routerLink]="['/comenzarviaje']"><ion-icon name="car-sport"></ion-icon>Comenzar viaje</ion-item>
-    <ion-item [routerLink]="['/paginalogin-usuario']"><ion-icon name="exit"></ion-icon>Cerrar sesion</ion-item>
+    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home" color="primary"></ion-icon>inicio</ion-item>
+    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location" color="primary"></ion-icon>Donde estoy?</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Tomar un viaje</ion-item>
+    <ion-item [routerLink]="['/comenzarviaje']"><ion-icon name="car-sport" color="primary"></ion-icon>Comenzar viaje</ion-item>
+    <ion-item [routerLink]="['/paginalogin-usuario']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
   </ion-content>
 </ion-menu>
 
@@ -42,9 +42,24 @@
         <ion-item id="letra">
           <ion-label>Cliente</ion-label> 
         </ion-item>
+
+        
       </ion-card>
+      <ion-item style="margin-top: 20%;" color="primary" >
+      <div class="containerr">
+        <div class="track">
+          <ion-card id="card" button="true">
+            <ion-card-content>Card</ion-card-content>
+          </ion-card>
+        </div>
+      
+        <p>¡Desliza para una sorpresa!</p>
+      </div>
+    </ion-item>
     </ion-content>
   </div>
+
+
 </ion-content>
 
 <!-- 
