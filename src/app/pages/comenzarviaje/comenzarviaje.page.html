@@ -17,11 +17,24 @@
   <div class="ion-page" id="main-content">
     <ion-header>
       <ion-toolbar color="primary">
+        <ion-title style="text-align: center;">Comenzar viaje</ion-title>
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title style="text-align: center;">Comenzar un viaje</ion-title>
       </ion-toolbar>
     </ion-header>
   </div>
+
+  <ion-card style="margin-top: 20%;">
+    <ion-card-header>
+      <ion-card-title>Seleccione una ubicación</ion-card-title>
+    </ion-card-header>
+    <ion-searchbar placeholder="Su ubicación"></ion-searchbar>
+    <br>
+    <ion-searchbar placeholder="Seleccione su Destino"></ion-searchbar>
+    <div style="display: flex; flex-direction: row; align-items: right; justify-content: right;">
+      <ion-button fill="clear" [routerLink]="['/tomarviaje']">Buscar viajes</ion-button>
+    </div>
+  </ion-card>
+
 </ion-content>
