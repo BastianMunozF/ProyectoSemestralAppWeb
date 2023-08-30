@@ -18,6 +18,9 @@ export class PaginaloginUsuarioPage implements OnInit {
   formularioLogin: FormGroup;
   user: string = "";
 
+  nombreAdmin: string = "admin";
+  contraAdmin: string = "admin12345";
+
   constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router) { 
 
     this.formularioLogin = this.fb.group({
