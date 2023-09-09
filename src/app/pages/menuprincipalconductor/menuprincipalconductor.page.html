@@ -1,0 +1,72 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/vistaperfil']"><ion-icon name="person" color="primary"></ion-icon>Cuenta</ion-item>
+    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location" color="primary"></ion-icon>Donde estoy?</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Tomar un viaje</ion-item>
+    <ion-item [routerLink]="['/comenzarviaje']"><ion-icon name="car-sport" color="primary"></ion-icon>Comenzar viaje</ion-item>
+    <ion-item [routerLink]="['/paginalogin-usuario']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-content style="border: solid 1.5px #469597;">
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title style="text-align: center;">Menu Principal Conductores</ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+
+  <br> <br>
+
+  <div class="container" id="container">
+    <br>
+    <ion-item>
+      <ion-searchbar style="margin-bottom: 10px; margin-top: 5px;" placeholder="Elija su Destino.."></ion-searchbar>
+    </ion-item>
+    <div style="display: flex; justify-content: center;">
+      <ion-item>
+        <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=region metropolitana&amp;t=&amp;z=8&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div></div>
+      </ion-item>
+    </div>
+    <ion-item style="margin-bottom: 20px;" color="primary">
+      <ion-label> Tipos de Vehiculos Disponibles: </ion-label>
+    </ion-item>
+    <ion-item>
+      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
+        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850446603366430/image.png"
+        alt="No se encuentra imagen.">
+      <p>
+        Tipo: Standard <br>
+        Capacidad: 4 Pasajeros
+      </p>
+    </ion-item>
+    <ion-item>
+      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
+        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850482301075557/image.png"
+        alt="No se encuentra imagen.">
+      <p>
+        Tipo: Large <br>
+        Capacidad: 5/6 Pasajeros
+      </p>
+    </ion-item>
+    <ion-item>
+      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
+        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850530514616432/image.png"
+        alt="No se encuentra imagen">
+      <p>
+        Tipo: Deluxe <br>
+        Capacidad: 4 Pasajeros
+      </p>
+    </ion-item>
+  </div>
+</ion-content>
+

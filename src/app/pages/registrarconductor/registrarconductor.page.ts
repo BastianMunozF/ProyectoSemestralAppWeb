@@ -8,16 +8,21 @@ import {
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-paginaregistrar-usuario',
-  templateUrl: './paginaregistrar-usuario.page.html',
-  styleUrls: ['./paginaregistrar-usuario.page.scss'],
+  selector: 'app-registrarconductor',
+  templateUrl: './registrarconductor.page.html',
+  styleUrls: ['./registrarconductor.page.scss'],
 })
-export class PaginaregistrarUsuarioPage implements OnInit {
+export class RegistrarconductorPage implements OnInit {
+
   formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder, public alertController: AlertController) { 
+  constructor(public fb: FormBuilder, public alertController: AlertController) {
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'marca': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'modelo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      'anio': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
       'password': new FormControl("", Validators.required),
       'confirmacionPassword': new FormControl("", Validators.required)
     });
@@ -51,6 +56,10 @@ export class PaginaregistrarUsuarioPage implements OnInit {
 
       var usuario = {
         nombre: f.nombre,
+        apellido: f.apellido,
+        marca: f.marca,
+        modelo: f.modelo,
+        anio: f.anio,
         password: f.password
       }
 

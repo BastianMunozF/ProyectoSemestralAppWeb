@@ -48,6 +48,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/paginaprincipal/paginaprincipal.module').then( m => m.PaginaprincipalPageModule)
   },
   {
+    path: 'menuprincipalconductor',
+    loadChildren: () => import('./pages/menuprincipalconductor/menuprincipalconductor.module').then( m => m.MenuprincipalconductorPageModule)
+  },
+  {
+    path: 'registrarconductor',
+    loadChildren: () => import('./pages/registrarconductor/registrarconductor.module').then( m => m.RegistrarconductorPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
