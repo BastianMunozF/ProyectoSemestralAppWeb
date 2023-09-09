@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'paginalogin-usuario',
     redirectTo: 'paginalogin-usuario',
     pathMatch: 'full'
   },
@@ -44,7 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sesionconductor/sesionconductor.module').then( m => m.SesionconductorPageModule)
   },
   {
-    path: 'paginaprincipal',
+    path: '',
     loadChildren: () => import('./pages/paginaprincipal/paginaprincipal.module').then( m => m.PaginaprincipalPageModule)
   },
   {
