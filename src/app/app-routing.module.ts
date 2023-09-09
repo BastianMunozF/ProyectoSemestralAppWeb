@@ -44,14 +44,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sesionconductor/sesionconductor.module').then( m => m.SesionconductorPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
     path: 'paginaprincipal',
     loadChildren: () => import('./pages/paginaprincipal/paginaprincipal.module').then( m => m.PaginaprincipalPageModule)
   },
-
-
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
 ];
 
 @NgModule({
