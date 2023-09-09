@@ -1,13 +1,24 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>paginaprincipal</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Registrar</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-card style="margin-bottom: 80px;">
+<ion-item style="margin-left: 50px; margin-bottom: 100px;">
+<ion-button [routerLink]="['/sesionconductor']" style="max-width: 70%; border-radius: 30px;" >
+<img src="../../../assets/icon/Usuarios.png" alt="" style="border-radius: 100px;">
+</ion-button>
+</ion-item>
+</ion-card>
+<ion-item color="primary" style="margin-bottom: 60px;">
+  <ion-label style="margin-left: 50px;">¡Tu destino nuestra misión!</ion-label>
+</ion-item>
+<ion-card style="margin-bottom: 50px;">
+<ion-item style="margin-left: 50px; margin-bottom: 100px;">
+<ion-button [routerLink]="['/login-usuario']" style="max-width: 70%; border-radius: 30px;">
+<img src="../../../assets/icon/Conductores.png" alt="" style="border-radius: 90px;">
+</ion-button>
+</ion-item>
+</ion-card>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">paginaprincipal</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+
