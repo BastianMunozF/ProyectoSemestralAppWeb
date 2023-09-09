@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PaginaprincipalPageRoutingModule } from './paginaprincipal-routing.module';
 
 import { PaginaprincipalPage } from './paginaprincipal.page';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PaginaprincipalPageRoutingModule
+    PaginaprincipalPageRoutingModule,
+    MatSlideToggleModule
   ],
   declarations: [PaginaprincipalPage]
 })
