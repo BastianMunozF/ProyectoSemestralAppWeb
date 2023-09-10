@@ -62,7 +62,11 @@ const routes: Routes = [
   {
   path: '**',
   loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-},
+},  {
+    path: 'vistadminusuario',
+    loadChildren: () => import('./pages/vistadminusuario/vistadminusuario.module').then( m => m.VistadminusuarioPageModule)
+  },
+
 
 ];
 
