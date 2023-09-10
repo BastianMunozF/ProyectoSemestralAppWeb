@@ -79,13 +79,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/rutaconductor/rutaconductor.module').then( m => m.RutaconductorPageModule)
   },
   
+  
+  {
+    path: 'adminprincipal',
+    loadChildren: () => import('./pages/adminprincipal/adminprincipal.module').then( m => m.AdminprincipalPageModule)
+  },
+
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
-
-
-
 
 ];
 
