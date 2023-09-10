@@ -56,9 +56,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registrarconductor/registrarconductor.module').then( m => m.RegistrarconductorPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+    path: 'perfilusuario',
+    loadChildren: () => import('./pages/perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule)
   },
+  {
+  path: '**',
+  loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+},
+
 ];
 
 @NgModule({
