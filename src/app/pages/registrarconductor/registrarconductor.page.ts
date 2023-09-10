@@ -18,13 +18,17 @@ export class RegistrarconductorPage implements OnInit {
 
   constructor(public fb: FormBuilder, public alertController: AlertController) {
     this.formularioRegistro = this.fb.group({
-      'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
+      'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
+      'edad': new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(2), Validators.pattern('[0-9]*')]),
+      'correo': new FormControl("", [Validators.required, Validators.minLength(15), Validators.maxLength(30), Validators.pattern('[a-zA-Z@.#$%]*')]),
+      'rut': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[0-9K]*')]),
+      'fecnac': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       'marca': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      'modelo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-      'anio': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
-      'password': new FormControl("", Validators.required),
-      'confirmacionPassword': new FormControl("", Validators.required)
+      'modelo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]),
+      'anio': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern('[0-9]*')]),
+      'password': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
+      'confirmacionPassword': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')])
     });
 
   }
@@ -57,6 +61,10 @@ export class RegistrarconductorPage implements OnInit {
       var usuario = {
         nombre: f.nombre,
         apellido: f.apellido,
+        edad: f.edad,
+        correo: f.correo,
+        rut: f.rut,
+        fecnac: f.fecnac,
         marca: f.marca,
         modelo: f.modelo,
         anio: f.anio,
