@@ -1,0 +1,65 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home" color="primary"></ion-icon>Inicio</ion-item>
+    <ion-item [routerLink]="['/perfilusuario']"><ion-icon name="person" color="primary"></ion-icon>Cuenta</ion-item>
+    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location" color="primary"></ion-icon>Donde estoy?</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Tomar un viaje</ion-item>
+    <ion-item [routerLink]="['/paginalogin-usuario']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding-vertical">
+    <ion-card class="ion-text-center">
+      <ion-card-title>
+      <ion-item color="primary">
+        <ion-label>Datos personales</ion-label>
+      </ion-item>
+      </ion-card-title>
+
+      <ion-card-content>
+        <ion-item>  
+          <ion-label>Nombre: {{ variableStorage }}</ion-label>
+          <ion-input type="text">Bastian</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Apellido: </ion-label>
+          <ion-input type="text">Muñoz</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Rut: </ion-label>
+          <ion-input type="text">21.673.890-0</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Edad: </ion-label>
+          <ion-input type="text">20</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email: </ion-label>
+          <ion-input type="text">ba.munozf@duocuc.cl</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Celular: </ion-label>
+          <ion-input type="text">959432601</ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-button color="primary" [routerLink]="['/paginalogin-usuario']">Cerrar Sesión</ion-button>
+    </ion-card>
+
+  </div>
+
+</ion-content>
