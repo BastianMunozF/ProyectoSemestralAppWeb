@@ -59,12 +59,18 @@ const routes: Routes = [
     path: 'perfilusuario',
     loadChildren: () => import('./pages/perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule)
   },
+  
   {
-  path: '**',
-  loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-},  {
     path: 'vistadminusuario',
     loadChildren: () => import('./pages/vistadminusuario/vistadminusuario.module').then( m => m.VistadminusuarioPageModule)
+  },
+  {
+    path: 'perfilconductor',
+    loadChildren: () => import('./pages/perfilconductor/perfilconductor.module').then( m => m.PerfilconductorPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
 
 

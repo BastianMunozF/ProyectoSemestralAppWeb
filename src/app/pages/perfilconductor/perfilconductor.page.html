@@ -1,24 +1,9 @@
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home" color="primary"></ion-icon>Inicio</ion-item>
-    <ion-item [routerLink]="['/perfilusuario']"><ion-icon name="person" color="primary"></ion-icon>Cuenta</ion-item>
-    <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location" color="primary"></ion-icon>Donde estoy?</ion-item>
-    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Tomar un viaje</ion-item>
-    <ion-item [routerLink]="['/paginalogin-usuario']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
-  </ion-content>
-</ion-menu>
-
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Perfil</ion-title>
+    <ion-title>Perfil Conductor</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -56,11 +41,32 @@
           <ion-label>Celular: </ion-label>
           <ion-input type="text">959432601</ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label>Tipo de Vehículo: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Modelo del Vehículo: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Año del Vehículo: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Petente: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Licencia de conducir: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
       </ion-card-content>
-      <ion-button color="primary" [routerLink]="['/menuprincipal']">Menu Usuario</ion-button>
-      <ion-button color="primary" [routerLink]="['/paginalogin-usuario']">Cerrar Sesión</ion-button>
+      <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Menu Conductor</ion-button>
+      <ion-button color="primary" [routerLink]="['/sesionconductor']">Cerrar Sesión</ion-button>
     </ion-card>
 
   </div>
 
 </ion-content>
+  
