@@ -1,0 +1,31 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu Conductor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/rutaconductor']"><ion-icon name="location" color="primary"></ion-icon>Elegir ruta</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Clientes cercanos</ion-item>
+    <ion-item [routerLink]="['/mapaconductores']"><ion-icon name="car" color="primary"></ion-icon>Conductores cercanos</ion-item>
+    <ion-item [routerLink]="['/perfilconductor']"><ion-icon name="person" color="primary"></ion-icon>Perfil</ion-item>
+    <ion-item [routerLink]="['/sesionconductor']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar color="primary" style="text-align: center;">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Mapa Conductores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="border: solid 1.5px #469597;">
+  <ion-card style="align-items: center;">
+    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=13g42MiMLzEXheaWUNPXuoGc3VjvR9TI&ehbc=2E312F&noprof=1" width="440" height="340"></iframe>
+
+    <ion-button [routerLink]="['/rutaconductor']">Ir a crear una ruta</ion-button>
+  </ion-card>
+</ion-content>

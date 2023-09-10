@@ -1,47 +1,61 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary" style="text-align: center;">
-    <ion-title>Ruta Conductor</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu Conductor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item [routerLink]="['/menuprincipalconductor']"><ion-icon name="home" color="primary"></ion-icon>Inicio</ion-item>
+    <ion-item [routerLink]="['/tomarviaje']"><ion-icon name="walk" color="primary"></ion-icon>Clientes cercanos</ion-item>
+    <ion-item [routerLink]="['/mapaconductores']"><ion-icon name="car" color="primary"></ion-icon>Conductores cercanos</ion-item>
+    <ion-item [routerLink]="['/perfilconductor']"><ion-icon name="person" color="primary"></ion-icon>Perfil</ion-item>
+    <ion-item [routerLink]="['/sesionconductor']"><ion-icon name="exit" color="primary"></ion-icon>Cerrar sesion</ion-item>
+  </ion-content>
+</ion-menu>
+
 <ion-content [fullscreen]="true">
   <div class="ion-page" id="main-content">
     <ion-card style="align-items: center;">
       <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d213460.12938323306!2d-70.85240348437333!3d-33.28443370910939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d-33.200842099999996!2d-70.6788031!4m5!1s0x9662c7025c925e0f%3A0x7f2f6a657c08d14a!2sduoc%20uc%20plaza%20norte!3m2!1d-33.3634762!2d-70.6782006!5e0!3m2!1ses!2scl!4v1694372187678!5m2!1ses!2scl" width="350" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>      </ion-card>
-        <ion-header>
-      <ion-toolbar color="primary" style="text-align: center;">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title style="text-align: center;">Cuenta</ion-title>
-      </ion-toolbar>
-    </ion-header>
+      <ion-header>
+        <ion-toolbar color="primary" style="text-align: center;">
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title style="text-align: center;">Cuenta</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
     
     <ion-content class="ion-padding">
       <ion-card class="ion-text-center">
         <ion-card-title>
-        <ion-item color="primary">
-          <ion-label>Información</ion-label>
-        </ion-item>
+          <ion-item color="primary">
+            <ion-label>Información</ion-label>
+          </ion-item>
         </ion-card-title>
+
         <ion-item>  
           <ion-label>Cantidad Pasajeros: {{ variableStorage }}</ion-label>
           <ion-input type="text"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label>Fecha: </ion-label>
           <ion-input type="text"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label>Tarifa: </ion-label>
           <ion-input type="text"></ion-input>
         </ion-item>
+
         <ion-item>
-        <ion-label>Destino: </ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-        <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" style="margin-right: 70px;">Aceptar</ion-button>
-        <ion-button color="primary" [routerLink]="['/paginalogin-usuario']">Rechazar</ion-button>
+          <ion-label>Destino: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" (click)="alertaViaje()" style="margin-right: 70px;">Aceptar</ion-button>
+        <ion-button color="primary" [routerLink]="['/sesionconductor']">Rechazar</ion-button>
       </ion-card>
     </ion-content>
 

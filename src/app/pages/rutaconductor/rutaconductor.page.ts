@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rutaconductor',
@@ -11,7 +12,7 @@ export class RutaconductorPage implements OnInit {
   claveR: string = "";
   variableStorage: any = "";
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private alertController: AlertController) {
     this.activeRoute.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
         this.claveR = this.router.getCurrentNavigation()?.extras?.state?.['']
@@ -22,6 +23,16 @@ export class RutaconductorPage implements OnInit {
 
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
+  }
+
+  async alertaViaje(){
+    const alert = await this.alertController.create({
+      header: 'Viaje Comenzado',
+      message: 'El viaje ha sido confirmado.',
+      buttons: ['Aceptar']
+    })
+
+    await alert.present();
   }
 
 }
