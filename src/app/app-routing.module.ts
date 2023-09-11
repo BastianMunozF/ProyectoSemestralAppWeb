@@ -94,10 +94,23 @@ const routes: Routes = [
     path: 'mapaclientes',
     loadChildren: () => import('./pages/mapaclientes/mapaclientes.module').then( m => m.MapaclientesPageModule)
   },
+  
+  {
+    path: 'editarperfilusuario',
+    loadChildren: () => import('./pages/editarperfilusuario/editarperfilusuario.module').then( m => m.EditarperfilusuarioPageModule)
+  },
+
+  {
+    path: 'editarperfilconductor',
+    loadChildren: () => import('./pages/editarperfilconductor/editarperfilconductor.module').then( m => m.EditarperfilconductorPageModule)
+  },
+
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
+
+
 
 ];
 

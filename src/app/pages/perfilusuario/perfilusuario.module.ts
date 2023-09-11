@@ -7,14 +7,42 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilusuarioPageRoutingModule } from './perfilusuario-routing.module';
 
 import { PerfilusuarioPage } from './perfilusuario.page';
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {NgIf} from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilusuarioPageRoutingModule
+    PerfilusuarioPageRoutingModule,
+    MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf
   ],
   declarations: [PerfilusuarioPage]
+
+  
+
+  
 })
-export class PerfilusuarioPageModule {}
+export class PerfilusuarioPageModule {
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  matcher = new MyErrorStateMatcher();
+  
+}
