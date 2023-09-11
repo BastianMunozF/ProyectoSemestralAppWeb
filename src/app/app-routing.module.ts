@@ -84,10 +84,17 @@ const routes: Routes = [
     path: 'mapaconductores',
     loadChildren: () => import('./pages/mapaconductores/mapaconductores.module').then( m => m.MapaconductoresPageModule)
   },
+  
+  {
+    path: 'inicioadmin',
+    loadChildren: () => import('./pages/inicioadmin/inicioadmin.module').then( m => m.InicioadminPageModule)
+  },
+
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
+
 ];
 
 @NgModule({
