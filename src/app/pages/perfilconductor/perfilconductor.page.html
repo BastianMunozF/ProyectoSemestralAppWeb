@@ -31,59 +31,67 @@
 
     <ion-card class="ion-text-center">
       <ion-card-title>
+
         <ion-item color="primary">
           <ion-label>Datos personales</ion-label>
         </ion-item>
+
       </ion-card-title>
 
       <ion-card-content>
+
         <ion-item>  
           <ion-label>Nombre: {{ variableStorage }}</ion-label>
-          <ion-input type="text">Bastian</ion-input>
+          <ion-input type="text" readonly>Bastian</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Apellido:</ion-label>
+          <ion-input type="text" readonly>Muñoz</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Rut:</ion-label>
+          <ion-input type="text" readonly>21.673.890-0</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Edad:</ion-label>
+          <ion-input type="text" readonly>20</ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Apellido: </ion-label>
-          <ion-input type="text">Muñoz</ion-input>
+          <ion-label>Email:</ion-label>
+          <ion-input type="text" readonly>ba.munozf@duocuc.cl</ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Rut: </ion-label>
-          <ion-input type="text">21.673.890-0</ion-input>
+          <ion-label>Celular:</ion-label>
+          <ion-input type="text" readonly>959432601</ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Edad: </ion-label>
-          <ion-input type="text">20</ion-input>
+          <ion-label>Tipo de Vehículo:</ion-label>
+          <ion-input type="text" readonly></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Email: </ion-label>
-          <ion-input type="text">ba.munozf@duocuc.cl</ion-input>
+          <ion-label>Modelo del Vehículo:</ion-label>
+          <ion-input type="text" readonly></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Celular: </ion-label>
-          <ion-input type="text">959432601</ion-input>
+          <ion-label>Año del Vehículo:</ion-label>
+          <ion-input type="text" readonly></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Tipo de Vehículo: </ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-label>Petente:</ion-label>
+          <ion-input type="text" readonly></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Modelo del Vehículo: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Año del Vehículo: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Petente: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Licencia de conducir: </ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-label>Licencia de conducir:</ion-label>
+          <ion-input type="text" readonly></ion-input>
         </ion-item>
       </ion-card-content>
+
       <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Menu Conductor</ion-button>
       <ion-button color="primary" [routerLink]="['/sesionconductor']">Cerrar Sesión</ion-button>
+
     </ion-card>
 
   </div>

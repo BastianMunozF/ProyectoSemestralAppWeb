@@ -19,15 +19,16 @@ export class RegistrarconductorPage implements OnInit {
   constructor(public fb: FormBuilder, public alertController: AlertController) {
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
-      'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
+      'apellido': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
       'edad': new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(2), Validators.pattern('[0-9]*')]),
-      'correo': new FormControl("", [Validators.required, Validators.minLength(15), Validators.maxLength(30), Validators.pattern('[a-zA-Z@.#$%]*')]),
-      'rut': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[0-9K]*')]),
-      'fecnac': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'correo': new FormControl("", [Validators.required, Validators.minLength(11), Validators.maxLength(30), Validators.pattern('[a-zA-Z@.#$%!&*,]*')]),
+      'rut': new FormControl("", [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern('[0-9K.-]*')]),
+      'fecnac': new FormControl("", [Validators.required]),
       'celular': new FormControl("", [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]*')]),
-      'marca': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      'modelo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]),
+      'marca': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]*')]),
+      'modelo': new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]),
       'anio': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern('[0-9]*')]),
+      'patente': new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[A-Z0-9]*')]),
       'password': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
       'confirmacionPassword': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')])
     });
@@ -70,6 +71,7 @@ export class RegistrarconductorPage implements OnInit {
         marca: f.marca,
         modelo: f.modelo,
         anio: f.anio,
+        patente: f.patente,
         password: f.password
       }
 
