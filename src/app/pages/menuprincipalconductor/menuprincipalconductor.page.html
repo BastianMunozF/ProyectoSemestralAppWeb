@@ -29,44 +29,41 @@
 
   <div class="container" id="container">
     <br>
-    <ion-item>
-      <ion-searchbar style="margin-bottom: 10px; margin-top: 5px;" placeholder="Elija su Destino.."></ion-searchbar>
-    </ion-item>
-    <div style="display: flex; justify-content: center;">
-      <ion-item>
-        <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=region metropolitana&amp;t=&amp;z=8&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div></div>
-      </ion-item>
-    </div>
-    <ion-item style="margin-bottom: 20px;" color="primary">
-      <ion-label> Agregar Vehiculos: </ion-label>
-    </ion-item>
-    <ion-item>
-      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
-        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850446603366430/image.png"
-        alt="No se encuentra imagen.">
-      <p>
-        Tipo: Standard <br>
-        Capacidad: 4 Pasajeros
-      </p>
-    </ion-item>
-    <ion-item>
-      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
-        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850482301075557/image.png"
-        alt="No se encuentra imagen.">
-      <p>
-        Tipo: Large <br>
-        Capacidad: 5/6 Pasajeros
-      </p>
-    </ion-item>
-    <ion-item>
-      <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
-        src="https://cdn.discordapp.com/attachments/576993832416313356/1145850530514616432/image.png"
-        alt="No se encuentra imagen">
-      <p>
-        Tipo: Deluxe <br>
-        Capacidad: 4 Pasajeros
-      </p>
-    </ion-item>
-  </div>
-</ion-content>
 
+    <ion-card>
+
+      <ion-item color="primary">
+        <ion-label style="text-align: center; font-size: x-large; font-weight: bold;">Bienvenido Conductor</ion-label>
+      </ion-item>
+
+      <div style="display: flex; justify-content: center;">
+
+        <ion-item>
+          <div class="mapouter"><div class="gmap_canvas"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d75336.51558004625!2d-70.64239648589664!3d-33.43797000051054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1694393824227!5m2!1ses-419!2scl" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
+        </ion-item>
+
+      </div>
+
+      <ion-item>
+        <mat-slide-toggle color="primary">Mostrarse como Disponible</mat-slide-toggle>
+      </ion-item>
+
+      <ion-item>
+        <mat-chip-listbox>
+          <ion-label style="margin: 5px;margin-left: 10px; margin-right: 40px;">Seleccione su Tipo de Vehículo:</ion-label>
+          <mat-chip-option color="primary" selected>Standard</mat-chip-option>
+          <mat-chip-option color="primary">Large</mat-chip-option>
+          <mat-chip-option color="primary">Deluxe</mat-chip-option>
+        </mat-chip-listbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-button [routerLink]="['/rutaconductor']">Comenzar a realizar viajes</ion-button>
+      </ion-item>
+
+    </ion-card>
+
+  </div>
+
+
+</ion-content>

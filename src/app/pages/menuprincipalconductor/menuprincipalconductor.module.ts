@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { MenuprincipalconductorPageRoutingModule } from './menuprincipalconductor-routing.module';
 
 import { MenuprincipalconductorPage } from './menuprincipalconductor.page';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MenuprincipalconductorPageRoutingModule
+    MenuprincipalconductorPageRoutingModule,
+    MatSlideToggleModule,
+    MatChipsModule
   ],
   declarations: [MenuprincipalconductorPage]
 })
