@@ -29,8 +29,8 @@ export class RegistrarconductorPage implements OnInit {
       'modelo': new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]),
       'anio': new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern('[0-9]*')]),
       'patente': new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[A-Z0-9]*')]),
-      'password': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
-      'confirmacionPassword': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9]*')])
+      'password': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9!@#$%&*]*')]),
+      'confirmacionPassword': new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9!@#$%&*]*')])
     });
 
   }
