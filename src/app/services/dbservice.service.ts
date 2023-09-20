@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
-import { error } from 'console';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Conductor } from './conductor';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,74 @@ export class DbserviceService {
   
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
     this.crearBD();
+  }
+
+  //Funciones para suscribirme al OBSERVABLE
+  dbState(){
+    return this.isDBReady.asObservable();
+  }
+
+  fetchConductor(): Observable<Conductor[]>{
+    return this.listaConductor.asObservable();
+  }
+
+  buscarConductor(){
+    return this.database.executeSql('SELECT * FROM conductor;', []).then(res => {
+      
+      //Variable para almacenar la consulta
+      let items: Conductor[] = [];
+
+      //Validar si existen registros en la consulta
+      if(res.rows.length > 0){
+
+        //En caso de haber registros, recorro y guardo los datos de la consulta
+        for(var i = 0; i < res.rows.length; i++){
+
+          //Agregar datos a mi variable
+          items.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            edad: res.rows.item(i).edad,
+            correo: res.rows.item(i).correo,
+            rut: res.rows.item(i).rut,
+            fechanacimiento: res.rows.item(i).fechanacimiento,
+            celular: res.rows.item(i).celular,
+            marca: res.rows.item(i).marca,
+            modelo: res.rows.item(i).modelo,
+            anio: res.rows.item(i).anio,
+            patente: res.rows.item(i).anio
+          })
+        }
+      }
+
+      //Actualizar observable
+      this.listaConductor.next(items as any)
+
+    })
+  }
+
+  //Funcion para insertar Conductor
+  insertarConductor(nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any, contrasena: any, confcontrasena: any){
+
+    return this.database.executeSql('INSERT INTO conductor(nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena]).then(res => {
+      this.buscarConductor();
+    })
+  }
+
+  //Funcion para actualizar Conductor
+  actualizarConductor(id: any, nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any, contrasena: any, confcontrasena: any){
+
+    return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente]).then(res => {
+      this.buscarConductor();
+    })
+  }
+
+  //Funcion para eliminar Conductor
+  eliminarConductor(id: any){
+    return this.database.executeSql('DELETE FROM conductor WHERE id = ?;', [id]).then(res => {
+      this.buscarConductor();
+    })
   }
 
   //Funcion para crear la Base de Datos.
