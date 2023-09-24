@@ -85,9 +85,9 @@ export class DbserviceService {
   }
 
   //Funcion para actualizar Conductor
-  actualizarConductor(id: any, nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any, contrasena: any, confcontrasena: any){
+  actualizarConductor(id: any, nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any){
 
-    return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente]).then(res => {
+    return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, id]).then(res => {
       this.buscarConductor();
     })
   }

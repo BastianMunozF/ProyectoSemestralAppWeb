@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Modificar Noticia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Modificar Conductor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <h2 class="ion-text-center">Conductor a Modificar</h2>
+  <ion-item>
+    <ion-label position="floating">Nombre Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="nombreConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Apellido Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="apellidoConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Edad Conductor</ion-label>
+    <ion-input type="number" [(ngModel)]="edadConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Correo Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="correoConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Rut Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="rutConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Fecha Nacimiento Conductor</ion-label>
+    <ion-input type="date" [(ngModel)]="fecnacConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Celular Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="celularConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Marca Vehículo Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="marcaConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Año Vehículo Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="anioConductor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Patente Vehículo Conductor</ion-label>
+    <ion-input type="text" [(ngModel)]="patenteConductor"></ion-input>
+  </ion-item>
+
+  <ion-button shape="block" (click)="editar()">Guardar Cambio</ion-button>
+
+</ion-content>
