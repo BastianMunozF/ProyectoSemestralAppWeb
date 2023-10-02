@@ -16,7 +16,10 @@ export class DbserviceService {
   //Variables para la creación de tablas.
 
     //Tabla para Conductores:
-    tablaConductor: string = "CREATE TABLE IF NOS EXIST conductor(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, marca VARCHAR(15) NOT NULL, modelo VARCHAR(30) NOT NULL, anio NUMBER NOT NULL, patente VARCHAR(6) NOT NULL, contrasena VARCHAR(30) NOT NULL, confcontrasena VARCHAR(30) NOT NULL);";
+    tablaConductor: string = "CREATE TABLE IF NOT EXIST conductor(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, marca VARCHAR(15) NOT NULL, modelo VARCHAR(30) NOT NULL, anio NUMBER NOT NULL, patente VARCHAR(6) NOT NULL, contrasena VARCHAR(30) NOT NULL, confcontrasena VARCHAR(30) NOT NULL);";
+
+    //Tabla para Usuarios
+    tablaUsuarios: string = "CREATE TABLE IF NOT EXIST usuario(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL);";
 
     //Variable INSERT para un registro inicial:
     registroConductor: string = "INSERT or IGNORE INTO conductor(id, nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena) VALUES (1, 'Bastian', 'Munoz', 20, 'basti.munoz.f@gmail.com', '21.235.705-7', '02/18/2003', 959044934, 'Ford', 'Mustang', 1976, 'XH6640', 'Basti123', 'Basti123');";

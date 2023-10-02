@@ -16,14 +16,32 @@
       <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()">
 
         <ion-item>
-          <ion-label position="floating">Nombre:</ion-label>
-          <ion-input formControlName="nombre"></ion-input>
+          <ion-label position="floating" required>Nombre:</ion-label>
+          <ion-input formControlName="nombre" id="nombre"></ion-input>
         </ion-item>
+
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['minlength']">Este campo requiere mínimo 3 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['pattern']">Este campo NO requiere carácteres especiales.</p>
+
+        </div>
 
         <ion-item>
           <ion-label position="floating">Apellido:</ion-label>
           <ion-input formControlName="apellido" type="text"></ion-input>
         </ion-item>
+
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('apellido')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('apellido')?.errors?.['minlength']">Este campo requiere mínimo 3 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('apellido')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('apellido')?.errors?.['pattern']">Este campo NO requiere carácteres especiales.</p>
+
+        </div>
 
         <ion-item>
           <ion-label position="floating">Rut:</ion-label>

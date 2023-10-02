@@ -1,3 +1,4 @@
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -21,7 +22,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
       'rut': new FormControl("", [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern('[0-9K.-]*')]),
       'edad': new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(2), Validators.pattern('[0-9]*')]),
-      'correo': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(30), Validators.pattern('[a-zA-Z@.#$%]*')]),
+      'correo': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(30), Validators.pattern('[a-zA-Z@.#$%]*'), Validators.email]),
       'celular': new FormControl("", [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]*')]),
       'password': new FormControl("", Validators.required),
       'confirmacionPassword': new FormControl("", Validators.required)
