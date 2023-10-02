@@ -25,7 +25,7 @@
           <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['required']">Este campo es obligatorio.</p>
           <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['minlength']">Este campo requiere mínimo 3 carácteres.</p>
           <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
-          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['pattern']">Este campo NO requiere carácteres especiales.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('nombre')?.errors?.['pattern']">Este campo NO requiere carácteres especiales ni números.</p>
 
         </div>
 
@@ -48,30 +48,93 @@
           <ion-input formControlName="rut" type="text"></ion-input>
         </ion-item>
 
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['minlength']">Este campo requiere mínimo 9 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['maxlength']">Este campo requiere máximo 13 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['pattern']">Este campo requiere puntos y guión.</p>
+
+        </div>
+
         <ion-item>
           <ion-label position="floating">Edad:</ion-label>
           <ion-input formControlName="edad" type="number"></ion-input>
         </ion-item>
+
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['min']">Este campo requiere un mínimo de 12 años de edad.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['max']">Este campo requiere una edad máxima de 100 años.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['minlength']">Este campo requiere mínimo 2 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['maxlength']">Este campo requiere máximo 2 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('edad')?.errors?.['pattern']">Este campo NO requiere letras ni carácteres especiales.</p>
+
+        </div>
 
         <ion-item>
           <ion-label position="floating">Correo:</ion-label>
           <ion-input formControlName="correo" type="text"></ion-input>
         </ion-item>
 
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['email']">Este campo debe tener estructura de correo electrónico.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['minlength']">Este campo requiere mínimo 10 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['maxlength']">Este campo requiere máximo 50 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['pattern']">Este campo NO requiere letras ni carácteres especiales.</p>
+
+        </div>
+
         <ion-item>
           <ion-label position="floating">Celular:</ion-label>
           <ion-input formControlName="celular" type="number"></ion-input>
         </ion-item>
+
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('celular')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('celular')?.errors?.['minlength']">Este campo requiere mínimo 9 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('celular')?.errors?.['maxlength']">Este campo requiere máximo 9 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('celular')?.errors?.['pattern']">Este campo NO requiere letras ni carácteres especiales.</p>
+
+        </div>
 
         <ion-item>
           <ion-label position="floating">Contraseña:</ion-label>
           <ion-input formControlName="password" type="password" ></ion-input>
         </ion-item>
 
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['minlength']">Este campo requiere mínimo 10 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['pattern']">Este campo requiere mínimo una mayúscula.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['pattern']">Este campo requiere mínimo una minúscula.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['pattern']">Este campo requiere mínimo un número.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')?.errors?.['pattern']">Este campo requiere mínimo un carácter especial.</p>
+
+        </div>
+
         <ion-item>
           <ion-label position="floating">Confirmar contraseña:</ion-label>
           <ion-input formControlName="confirmacionPassword" type="password"></ion-input>
         </ion-item>
+
+        <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
+
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['required']">Este campo es obligatorio.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['minlength']">Este campo requiere mínimo 10 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['pattern']">Este campo requiere mínimo una mayúscula.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['pattern']">Este campo requiere mínimo una minúscula.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['pattern']">Este campo requiere mínimo un número.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['pattern']">Este campo requiere mínimo un carácter especial.</p>
+
+        </div>
         <br>
         <ion-button (click)="guardar()">Registrarse</ion-button>
       </form>
