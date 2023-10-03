@@ -51,8 +51,9 @@
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
 
           <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['required']">Este campo es obligatorio.</p>
-          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['minlength']">Este campo requiere mínimo 9 carácteres.</p>
-          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['maxlength']">Este campo requiere máximo 13 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['minlength']">Este campo requiere mínimo 12 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['maxlength']">Este campo requiere máximo 14 carácteres.</p>
+          <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['pattern']">Este campo requiere sólo números.</p>
           <p color="danger" *ngIf="formularioRegistro.get('rut')?.errors?.['pattern']">Este campo requiere puntos y guión.</p>
 
         </div>
