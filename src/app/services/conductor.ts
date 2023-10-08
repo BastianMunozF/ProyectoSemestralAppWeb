@@ -7,8 +7,4 @@ export class Conductor {
     rut = "";
     fechanacimiento = "";
     celular = "";
-    marca = "";
-    modelo = "";
-    anio = "";
-    patente = "";
 }

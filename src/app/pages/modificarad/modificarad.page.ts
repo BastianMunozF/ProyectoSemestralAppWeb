@@ -16,10 +16,7 @@ export class ModificaradPage implements OnInit {
   rutConductor = "";
   fecnacConductor = "";
   celularConductor = "";
-  marcaConductor = "";
-  modeloConductor = "";
-  anioConductor = "";
-  patenteConductor = "";
+  contrasenaConductor = "";
 
   constructor(private router: Router, private activedRouter: ActivatedRoute, private bd: DbserviceService) {
     this.activedRouter.queryParams.subscribe(res => {
@@ -40,19 +37,13 @@ export class ModificaradPage implements OnInit {
 
         this.celularConductor = this.router.getCurrentNavigation()?.extras?.state?.['celularEnviado'];
 
-        this.marcaConductor = this.router.getCurrentNavigation()?.extras?.state?.['marcaEnviado'];
-
-        this.modeloConductor = this.router.getCurrentNavigation()?.extras?.state?.['modeloEnviado'];
-
-        this.anioConductor = this.router.getCurrentNavigation()?.extras?.state?.['anioEnviado'];
-
-        this.patenteConductor = this.router.getCurrentNavigation()?.extras?.state?.['patenteEnviado'];
+        this.contrasenaConductor = this.router.getCurrentNavigation()?.extras?.state?.['contrasenaEnviado'];
       }
     })
    }
 
    editar(){
-    this.bd.actualizarConductor(this.idConductor, this.nombreConductor, this.apellidoConductor, this.edadConductor, this.correoConductor, this.rutConductor, this.fecnacConductor, this.celularConductor, this.marcaConductor, this.marcaConductor, this.anioConductor, this.patenteConductor)
+    this.bd.actualizarConductor(this.idConductor, this.nombreConductor, this.apellidoConductor, this.edadConductor, this.correoConductor, this.rutConductor, this.fecnacConductor, this.celularConductor, this.contrasenaConductor)
     this.bd.presentAlert("Noticia Actualizada");
     this.router.navigate(['/listar']);
    }

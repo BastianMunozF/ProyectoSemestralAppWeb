@@ -15,17 +15,12 @@ export class AgregaradPage implements OnInit {
   rutConductor = "";
   fecnacConductor = "";
   celularConductor = "";
-  marcaConductor = "";
-  modeloConductor = "";
-  anioConductor = "";
-  patenteConductor = "";
   contrasenaConductor = "";
-  confcontrasenaConductor = "";
 
   constructor(public router:Router, private db: DbserviceService) { }
 
   insertar(){
-    this.db.insertarConductor(this.nombreConductor, this.apellidoConductor, this.edadConductor, this.correoConductor, this.rutConductor, this.fecnacConductor, this.celularConductor, this.marcaConductor, this.modeloConductor, this.anioConductor, this.patenteConductor, this.contrasenaConductor, this.confcontrasenaConductor);
+    this.db.insertarConductor(this.nombreConductor, this.apellidoConductor, this.edadConductor, this.correoConductor, this.rutConductor, this.fecnacConductor, this.celularConductor, this.contrasenaConductor);
     this.db.presentAlert("Noticia Agregada");
     this.router.navigate(['/listar']);
     

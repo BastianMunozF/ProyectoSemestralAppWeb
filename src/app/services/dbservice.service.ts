@@ -16,13 +16,22 @@ export class DbserviceService {
   //Variables para la creación de tablas.
 
     //Tabla para Conductores:
-    tablaConductor: string = "CREATE TABLE IF NOT EXIST conductor(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, marca VARCHAR(15) NOT NULL, modelo VARCHAR(30) NOT NULL, anio NUMBER NOT NULL, patente VARCHAR(6) NOT NULL, contrasena VARCHAR(30) NOT NULL, confcontrasena VARCHAR(30) NOT NULL);";
+    tablaConductor: string = "CREATE TABLE IF NOT EXIST conductor(id_conductor INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, contrasena VARCHAR(30) NOT NULL);";
+
+    //Tabla para Vehículos:
+    tablaVehiculo: string = "CREATE TABLE IF NOT EXIST vehiculo(id_vehiculo INTEGER PRIMARY KEY autoincrement, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio NUMBER NOT NULL, patente VARCHAR(6) NOT NULL);"
+
+    //Tabla para Tipo de Vehículos
+    tablaTipoVehiculo: string = "CREATE TABLE IF NOT EXIST tipo_vehiculo(standard VARCHAR(8) NOT NULL, large VARCHAR(8) NOT NULL, deluxe VARCHAR(8) NOT NULL);"
+
+    //Tabla para Viajes
+    tablaViajes: string = "CREATE TABLE IF NOT EXIST viaje(id_viaje INTEGER PRIMARY KEY autoincrement, recogida VARCHAR(80) NOT NULL, destino VARCHAR(30) NOT NULL, direccion VARCHAR(80) NOT NULL);"
 
     //Tabla para Usuarios
-    tablaUsuarios: string = "CREATE TABLE IF NOT EXIST usuario(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL);";
+    tablaUsuarios: string = "CREATE TABLE IF NOT EXIST usuario(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, contrasena VARCHAR(30) NOT NULL);";
 
     //Variable INSERT para un registro inicial:
-    registroConductor: string = "INSERT or IGNORE INTO conductor(id, nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena) VALUES (1, 'Bastian', 'Munoz', 20, 'basti.munoz.f@gmail.com', '21.235.705-7', '02/18/2003', 959044934, 'Ford', 'Mustang', 1976, 'XH6640', 'Basti123', 'Basti123');";
+    registroConductor: string = "INSERT or IGNORE INTO conductor(id, nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena) VALUES (1, 'Bastian', 'Munoz', 20, 'basti.munoz.f@gmail.com', '21.235.705-7', '02/18/2003', 959044934, 'Basti123');";
 
   //Variable observable para consultar en la Base de Datos
   listaConductor = new BehaviorSubject([]);
@@ -65,10 +74,7 @@ export class DbserviceService {
             rut: res.rows.item(i).rut,
             fechanacimiento: res.rows.item(i).fechanacimiento,
             celular: res.rows.item(i).celular,
-            marca: res.rows.item(i).marca,
-            modelo: res.rows.item(i).modelo,
-            anio: res.rows.item(i).anio,
-            patente: res.rows.item(i).anio
+            
           })
         }
       }
@@ -80,17 +86,17 @@ export class DbserviceService {
   }
 
   //Funcion para insertar Conductor
-  insertarConductor(nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any, contrasena: any, confcontrasena: any){
+  insertarConductor(nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, contrasena: any){
 
-    return this.database.executeSql('INSERT INTO conductor(nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, contrasena, confcontrasena]).then(res => {
+    return this.database.executeSql('INSERT INTO conductor(nombre, apellido, edad, correo, rut, fechanacimiento, celular,, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena]).then(res => {
       this.buscarConductor();
     })
   }
 
   //Funcion para actualizar Conductor
-  actualizarConductor(id: any, nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, marca: any, modelo: any, anio: any, patente: any){
+  actualizarConductor(id: any, nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, contrasena: any){
 
-    return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, marca, modelo, anio, patente, id]).then(res => {
+    return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena, id]).then(res => {
       this.buscarConductor();
     })
   }
