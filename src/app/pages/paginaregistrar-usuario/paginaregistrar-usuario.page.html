@@ -13,7 +13,7 @@
       <ion-card-title>Registro:</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()">
+      <form [formGroup]="formularioRegistro" (keyup.enter)="guardarUsuario()">
 
         <ion-item>
           <ion-label position="floating" required>Nombre:</ion-label>
@@ -85,7 +85,6 @@
           <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['email']">Este campo debe tener estructura de correo electrónico.</p>
           <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['minlength']">Este campo requiere mínimo 10 carácteres.</p>
           <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['maxlength']">Este campo requiere máximo 50 carácteres.</p>
-          <p color="danger" *ngIf="formularioRegistro.get('correo')?.errors?.['pattern']">Este campo NO requiere letras ni carácteres especiales.</p>
 
         </div>
 
@@ -137,7 +136,7 @@
 
         </div>
         <br>
-        <ion-button (click)="guardar()">Registrarse</ion-button>
+        <ion-button>Registrarse</ion-button>
       </form>
     </ion-card-content>
   </ion-card>

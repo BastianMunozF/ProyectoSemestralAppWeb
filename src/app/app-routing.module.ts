@@ -104,7 +104,6 @@ const routes: Routes = [
     path: 'editarperfilconductor',
     loadChildren: () => import('./pages/editarperfilconductor/editarperfilconductor.module').then( m => m.EditarperfilconductorPageModule)
   },
-
   {
     path: 'agregarad',
     loadChildren: () => import('./pages/agregarad/agregarad.module').then( m => m.AgregaradPageModule)
@@ -113,19 +112,14 @@ const routes: Routes = [
     path: 'listarad',
     loadChildren: () => import('./pages/listarad/listarad.module').then( m => m.ListaradPageModule)
   },
-  
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
     path: 'modificarad',
     loadChildren: () => import('./pages/modificarad/modificarad.module').then( m => m.ModificaradPageModule)
   },
-
-
-
-
-
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
 ];
 
 @NgModule({

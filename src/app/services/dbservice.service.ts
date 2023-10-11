@@ -3,6 +3,7 @@ import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Conductor } from './conductor';
+import { Usuario } from './usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,11 @@ export class DbserviceService {
     //Variable INSERT para un registro inicial:
     registroConductor: string = "INSERT or IGNORE INTO conductor(id, nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena) VALUES (1, 'Bastian', 'Munoz', 20, 'basti.munoz.f@gmail.com', '21.235.705-7', '02/18/2003', 959044934, 'Basti123');";
 
-  //Variable observable para consultar en la Base de Datos
+  //Variable observable para consultar conductores en la Base de Datos
   listaConductor = new BehaviorSubject([]);
+
+  //Variable observable para consultar usuarios en la Base de Datos
+  listaUsuario = new BehaviorSubject([]);
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
@@ -50,6 +54,10 @@ export class DbserviceService {
 
   fetchConductor(): Observable<Conductor[]>{
     return this.listaConductor.asObservable();
+  }
+
+  fetchUsuario(): Observable<Conductor[]>{
+    return this.listaUsuario.asObservable();
   }
 
   buscarConductor(){
@@ -74,23 +82,61 @@ export class DbserviceService {
             rut: res.rows.item(i).rut,
             fechanacimiento: res.rows.item(i).fechanacimiento,
             celular: res.rows.item(i).celular,
-            
           })
         }
       }
 
       //Actualizar observable
-      this.listaConductor.next(items as any)
+      this.listaConductor.next(items as any);
 
+    })
+  }
+
+  buscarUsuario(){
+    return this.database.executeSql('SELECT * FROM usuarios', []).then(res => {
+      //Almacenamos la consulta en esta variable
+      let items: Usuario[] = [];
+
+      //Se recorre la consulta para revisar registros
+      if(res.rows.length > 0){
+        //Guardar registros en caso de haber datos
+        for(var i = 0; i < res.rows.length; i++){
+          //Agregamos datos a variable
+          items.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            edad: res.rows.item(i).edad,
+            correo: res.rows.item(i).correo,
+            rut: res.rows.item(i).rut,
+            fechanacimiento: res.rows.item(i).fechanacimiento,
+            celular: res.rows.item(i).celular,
+            contrasena: res.rows.item(i).contrasena
+          })
+        }
+      }
+
+      //Actualizamos observable
+      this.listaUsuario.next(items as any);
     })
   }
 
   //Funcion para insertar Conductor
   insertarConductor(nombre: any, apellido: any, edad: any, correo: any, rut: any, fechanacimiento: any, celular: any, contrasena: any){
-
     return this.database.executeSql('INSERT INTO conductor(nombre, apellido, edad, correo, rut, fechanacimiento, celular,, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena]).then(res => {
       this.buscarConductor();
-    })
+    }).catch(error => {
+      console.error('Error al insertar el conductor.', error);
+    });
+  }
+
+  //Funcion para insertar Usuario
+  insertarUsuario(nombre: any, apellido: any, rut: any, edad: any, correo: any, celular: any, fechanacimiento: any, contrasena: any){
+    return this.database.executeSql('INSERT INTO usuario(nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena]).then(res => {
+      this.buscarUsuario();
+    }).catch(error => {
+      console.error('Error al insertar el usuario.', error);
+    });
   }
 
   //Funcion para actualizar Conductor
@@ -98,14 +144,18 @@ export class DbserviceService {
 
     return this.database.executeSql('UPDATE coductor SET nombre = ?, apellido = ?, edad = ?, correo = ?, rut = ?, fechanacimiento = ?, celular = ?, marca = ?, modelo = ?, anio = ?, patente = ? WHERE id = ?;', [nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena, id]).then(res => {
       this.buscarConductor();
-    })
+    }).catch(error => {
+      console.error('Error al actualizar conductor.', error);
+    });
   }
 
   //Funcion para eliminar Conductor
   eliminarConductor(id: any){
     return this.database.executeSql('DELETE FROM conductor WHERE id = ?;', [id]).then(res => {
       this.buscarConductor();
-    })
+    }).catch(error => {
+      console.error('Error al eliminar el conductor.', error);
+    });
   }
 
   //Funcion para crear la Base de Datos.
@@ -119,8 +169,7 @@ export class DbserviceService {
         //Se necesitan 2 elementos
 
         //Sirve para dar nombre a la base de datos
-        name: 'bdconductores.bd', //El nombre puede ser cualquiera, pero la terminación debe ser '.db'.
-
+        name: 'bdviago.bd', //El nombre puede ser cualquiera, pero la terminación debe ser '.db'.
         //Ubicación de la Base de Datos en el celular.
         location: 'default' //Se deja en 'default' de manera predeterminada
       }).then((db: SQLiteObject)=>{
@@ -133,9 +182,9 @@ export class DbserviceService {
       }).catch(e=>{
         
         //Capturamos y mostramos el error en la creación de la Base de Datos
-        this.presentAlert("Error en la base de datos: " + e);
+        this.presentAlert("Error en platform: " + e);
       })
-    })
+    });
   }
 
   //Funcion para crear tablas
@@ -144,6 +193,14 @@ export class DbserviceService {
       
       //Ejecutar la creación de tablas
       await this.database.executeSql(this.tablaConductor, []);
+
+      await this.database.executeSql(this.tablaUsuarios, [])
+
+      await this.database.executeSql(this.tablaVehiculo, [])
+
+      await this.database.executeSql(this.tablaViajes, [])
+
+      await this.database.executeSql(this.tablaTipoVehiculo, [])
 
       //Ejecutar los registros en la tabla
       await this.database.executeSql(this.registroConductor, []);
