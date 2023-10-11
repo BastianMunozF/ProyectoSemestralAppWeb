@@ -38,21 +38,11 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     if (this.formularioRegistro.valid){
       let form = this.formularioRegistro.value;
 
-      //Obtener datos del formulario
-      let nombre = form.nombre;
-      let apellido = form.apellido;
-      let edad = form.edad;
-      let correo = form.correo;
-      let rut = form.rut;
-      let fechanacimiento = form.fechanacimiento;
-      let celular = form.celular;
-      let contrasena = form.password;
-
       //Creamos base de datos y creamos tablas con las funciones correspondientes
       this.database.crearBD();
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(nombre, apellido, edad, correo, rut, fechanacimiento, celular, contrasena).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena).then(res => {
 
         //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
         console.log('Usuario registrado correctamente.');
