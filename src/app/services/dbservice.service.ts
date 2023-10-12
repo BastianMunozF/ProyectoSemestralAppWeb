@@ -87,8 +87,8 @@ export class DbserviceService {
   }
 
   //Funcion para insertar Usuario
-  insertarUsuario(nombre: any, apellido: any, rut: any, correo: any, celular: any, fechanacimiento: any, contrasena: any){
-    return this.database.executeSql('INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena]).then(res => {
+  insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any){
+    return this.database.executeSql('INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena]).then(res => {
       this.buscarUsuario();
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
