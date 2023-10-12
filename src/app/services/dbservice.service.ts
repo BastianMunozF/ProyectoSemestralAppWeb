@@ -117,7 +117,7 @@ export class DbserviceService {
         //Llamar a la funcion que crea las tablas
         this.crearTablas();
       }).catch(e=>{
-        
+
         //Capturamos y mostramos el error en la creación de la Base de Datos
         this.presentAlert("Error en platform: " + e);
       })
@@ -158,7 +158,7 @@ export class DbserviceService {
   async presentAlert(msj: string){
     const alert = await this.alertController.create({
       header: 'Error',
-      message: 'Se ha encontrado un error.',
+      message: msj,
       buttons: ['Aceptar']
     });
 
