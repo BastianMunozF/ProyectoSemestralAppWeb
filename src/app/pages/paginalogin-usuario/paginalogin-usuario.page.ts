@@ -34,13 +34,17 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   async iniciarSesion(){
     let f = this.formularioLogin.value;
-    let usuarioIniciado = this.database.buscarCorreo(f.correo, f.contrasena)
+    try{
+      const usuario = await this.database.buscarCorreo(f.correo, f.contrasena)
 
-    if(usuarioIniciado !== null) {
-      console.log('Usuario ingresado.');
-      this.router.navigate(['/menuprincipal']);
-    } else {
-      this.presentarAlerta('Error al iniciar sesión', 'Los datos ingresados no coinciden.')
+      if(usuario.rows.length > 0){
+        console.log('Usuario encontrado e iniciado.')
+        this.router.navigate(['/menuprincipal'])
+      } else {
+        this.presentarAlerta("Error al iniciar sesion", "El correo y contraseña que ha ingresado no existe.")
+      }
+    } catch (error) {
+      this.presentarAlerta("Error", "El usuario no ha sido encontrado")
     }
   }
 

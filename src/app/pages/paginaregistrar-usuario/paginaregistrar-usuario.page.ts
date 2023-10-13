@@ -74,15 +74,21 @@ export class PaginaregistrarUsuarioPage implements OnInit {
 
   async guardarUsuario(){
     if(this.formularioRegistro.valid){
-      let usuario = this.formularioRegistro.value;
+      const usuario = this.formularioRegistro.value;
 
-      try {
-        await this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena)
-      } catch (error) {
-        this.presentarAlerta("Error al registrar", "Se produjo un error al guardar usuario.")
+      if(usuario.password !== usuario.confirmacionPassword){
+        this.presentarAlerta("Error", "Las contraseñas no coinciden.");
+        return;
+      }
+
+      try{
+        await this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena);
+      } catch(error){
+        console.error("Error al guardar usuario", error);
+        this.presentarAlerta("Error al registrar", "Se produjo un error al guardar el usuario.");
       }
     } else {
-      this.presentarAlerta("Error al registrar", "Algunos de los datos del registro no son correctos.")
+      this.presentarAlerta("Error al registrar", "Alguno de los campos no son correctos.")
     }
   }
 
