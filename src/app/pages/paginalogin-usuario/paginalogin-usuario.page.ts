@@ -33,15 +33,17 @@ export class PaginaloginUsuarioPage implements OnInit {
   }
 
   async iniciarSesion(){
+    this.database.crearBD();
+
     let f = this.formularioLogin.value;
     let usuarioIniciado = this.database.buscarCorreo(f.correo, f.contrasena)
 
     if(usuarioIniciado !== null) {
       console.log('Usuario ingresado.');
       this.router.navigate(['/menuprincipal']);
-    } else [
+    } else {
       this.presentarAlerta('Error al iniciar sesión', 'Los datos ingresados no coinciden.')
-    ]
+    }
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
