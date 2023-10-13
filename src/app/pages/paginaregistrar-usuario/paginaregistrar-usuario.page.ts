@@ -38,9 +38,6 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     if (this.formularioRegistro.valid){
       let form = this.formularioRegistro.value;
 
-      //Creamos base de datos y creamos tablas con las funciones correspondientes
-      this.database.crearBD();
-
       //Llamamos a la funcion para insertar al usuario
       this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena).then(res => {
 
@@ -52,10 +49,12 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       }).catch(error => {
         console.error('Error al insertar el usuario.', error);
       })
+
     } else {
 
       //El formulario no es válido mostramos alerta
       this.presentarAlerta("Error", "Rellene el formulario correctamente.");
+
     }
   }
 

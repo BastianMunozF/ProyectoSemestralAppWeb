@@ -129,16 +129,15 @@ export class DbserviceService {
     try{
       
       //Ejecutar la creación de tablas
+      await this.database.executeSql(this.tablaTipo, []),
 
-      await this.database.executeSql(this.tablaTipo, []);
+      await this.database.executeSql(this.tablaRol, []),
 
-      await this.database.executeSql(this.tablaRol, []);
+      await this.database.executeSql(this.tablaUsuarios, []),
 
-      await this.database.executeSql(this.tablaUsuarios, []);
+      await this.database.executeSql(this.tablaVehiculo, []),
 
-      await this.database.executeSql(this.tablaVehiculo, []);
-
-      await this.database.executeSql(this.tablaViajes, []);
+      await this.database.executeSql(this.tablaViajes, []),
 
       await this.database.executeSql(this.tablaDetalle, []);
 
