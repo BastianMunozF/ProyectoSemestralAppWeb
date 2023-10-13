@@ -34,9 +34,6 @@ export class DbserviceService {
     //Tabla para detalle de Viajes:
     tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje));";
 
-    //Tabla para Conductores:
-    tablaConductor: string = "CREATE TABLE IF NOT EXISTS conductor(id_conductor INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, contrasena VARCHAR(30) NOT NULL);";
-
     registroRol: string = "INSERT INTO rol VALUES (1, Usuario), (2, Conductor);";
 
   //Variable observable para consultar usuarios en la Base de Datos
@@ -134,15 +131,10 @@ export class DbserviceService {
       
       //Ejecutar la creación de tablas
       await this.database.executeSql(this.tablaTipo, []),
-
       await this.database.executeSql(this.tablaRol, []),
-
       await this.database.executeSql(this.tablaUsuarios, []),
-
       await this.database.executeSql(this.tablaVehiculo, []),
-
       await this.database.executeSql(this.tablaViajes, []),
-
       await this.database.executeSql(this.tablaDetalle, []);
 
       //Ejecutar los registros en la tabla
@@ -150,6 +142,7 @@ export class DbserviceService {
 
       //Actualizar el STATUS de la Base de Datos
       this.isDBReady.next(true);
+      this.buscarUsuario();
 
     }catch(e){
 

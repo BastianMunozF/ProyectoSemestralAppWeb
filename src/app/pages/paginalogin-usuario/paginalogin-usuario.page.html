@@ -7,7 +7,7 @@
 <ion-content>
   <ion-card>
     <ion-card-header color="primary">
-      <ion-card-title style="text-align: center;">Iniciar Sesión <br> {{ user | uppercase }}</ion-card-title>
+      <ion-card-title style="text-align: center;">Iniciar Sesión <br> {{ correo | uppercase }}</ion-card-title>
     </ion-card-header>
     <img src ="../../../assets/icon/Viago (2).png" style="margin-left: 6px;" alt="">
     
@@ -19,7 +19,7 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input maxlength="30" formControlName="contrasena" [(ngModel)]="contrasena" type="contrasena"></ion-input>
+          <ion-input maxlength="30" formControlName="contrasena" [(ngModel)]="contrasena" type="password"></ion-input>
         </ion-item>
       </form>
       <br>
