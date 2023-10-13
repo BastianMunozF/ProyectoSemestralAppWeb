@@ -9,6 +9,7 @@ import {
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-paginaregistrar-usuario',
@@ -20,7 +21,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
   image: any;
   imageSource: string | undefined;
 
-  constructor(public fb: FormBuilder, public alertController: AlertController, private database: DbserviceService) { 
+  constructor(public fb: FormBuilder, public alertController: AlertController, private database: DbserviceService, public router: Router) { 
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
       'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-ZñÑ]*')]),
@@ -45,17 +46,18 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     });
   }
 
-  /*
-  guardarUsuarios(){
+  guardarUsuario(){
     //Verificar si el formulario es válido
     if (this.formularioRegistro.valid){
       let form = this.formularioRegistro.value;
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password).then(res => {
 
         //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
         console.log('Usuario registrado correctamente.');
+        this.presentarAlerta("Usuario Registrado", "El usuario ha sido registrado correctamente.")
+        this.router.navigate(['/paginalogin-usuario'])
 
         //Limpiamos el formulario después de insertar en la Base de Datos
         this.formularioRegistro.reset();
@@ -68,27 +70,6 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       //El formulario no es válido mostramos alerta
       this.presentarAlerta("Error", "Rellene el formulario correctamente.");
 
-    }
-  }
-  */
-
-  async guardarUsuario(){
-    if(this.formularioRegistro.valid){
-      const usuario = this.formularioRegistro.value;
-
-      if(usuario.password !== usuario.confirmacionPassword){
-        this.presentarAlerta("Error", "Las contraseñas no coinciden.");
-        return;
-      }
-
-      try{
-        await this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena);
-      } catch(error){
-        console.error("Error al guardar usuario", error);
-        this.presentarAlerta("Error al registrar", "Se produjo un error al guardar el usuario.");
-      }
-    } else {
-      this.presentarAlerta("Error al registrar", "Alguno de los campos no son correctos.")
     }
   }
 
