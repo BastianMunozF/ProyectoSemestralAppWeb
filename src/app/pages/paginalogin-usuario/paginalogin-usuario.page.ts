@@ -32,17 +32,21 @@ export class PaginaloginUsuarioPage implements OnInit {
   ngOnInit() {
   }
 
-  async iniciarSesion(){
-    if(this.formularioLogin.valid){
+  async iniciarSesion() {
+    if (this.formularioLogin.valid) {
       let usuario = this.formularioLogin.value;
-
-      const user = await this.database.buscarCorreo(usuario.correo, usuario.contrasena)
-
-      if(user.rows.length > 0){
+  
+      console.log('Datos del formulario:', usuario);
+  
+      const user = await this.database.buscarCorreo(usuario.correo, usuario.contrasena);
+  
+      console.log('Resultado de la consulta:', user);
+  
+      if (user.rows.length > 0) {
         this.presentarAlerta("Inicio sesión exitoso", "Se ha iniciado sesión correctamente");
         this.router.navigate(['/menuprincipal']);
       } else {
-        this.presentarAlerta("Error al iniciar sesión", "El correo y contraseña ingresados no existen.")
+        this.presentarAlerta("Error al iniciar sesión", "El correo y contraseña ingresados no existen.");
       }
     }
   }
