@@ -17,6 +17,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class PaginaregistrarUsuarioPage implements OnInit {
   formularioRegistro: FormGroup;
+  image: any;
+  imageSource: string | undefined;
 
   constructor(public fb: FormBuilder, public alertController: AlertController, private database: DbserviceService) { 
     this.formularioRegistro = this.fb.group({
