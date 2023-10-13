@@ -56,7 +56,11 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena])
+    return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
+      this.buscarUsuario();
+    }).catch(error => {
+      console.error('Error al buscar correo de usuario.', error)
+    })
   }
 
   buscarUsuario(){
