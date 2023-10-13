@@ -12,20 +12,20 @@
     <img src ="../../../assets/icon/Viago (2).png" style="margin-left: 6px;" alt="">
     
     <ion-card-content>
-      <form [formGroup]="formularioLogin">
+      <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
         <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input maxlength="25" formControlName="nombre" [(ngModel)]="user"></ion-input>
+          <ion-label position="floating">Correo</ion-label>
+          <ion-input maxlength="25" formControlName="correo" [(ngModel)]="correo"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input maxlength="30" formControlName="password" type="password"></ion-input>
+          <ion-input maxlength="30" formControlName="contrasena" [(ngModel)]="contrasena" type="contrasena"></ion-input>
         </ion-item>
       </form>
       <br>
       <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
        <ion-button> <a href="/paginarecuperar-usuario" style="color: white;">Recuperar Usuario</a></ion-button> 
-        <ion-button (click)="ingresar()">Ingresar</ion-button>
+        <ion-button type="submit">Ingresar</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
@@ -38,33 +38,3 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
-
-<!-- 
-<ion-content [fullscreen]="true">
-  <div class="ion-padding-vertical">
-    <ion-card class="ion-text-center">
-      <ion-card-title>
-        <ion-label>
-          <h2>Inicio de Sesión</h2>
-        </ion-label>
-      </ion-card-title>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input type="text" [(ngModel)]="user1" maxlength="25"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password1" maxlength="30"></ion-input>
-        </ion-item>
-      </ion-card-content>
-
-      <ion-button (click)="inicioSesion()">Iniciar Sesión {{ user1 }}</ion-button>
-      <ion-button (click)="registrarUsuario()">Registrarse</ion-button>
-      <br>
-      <ion-button (click)="recuperarUsuario()">Recuperar Contraseña</ion-button>
-    </ion-card>
-  </div>
-</ion-content>
--->

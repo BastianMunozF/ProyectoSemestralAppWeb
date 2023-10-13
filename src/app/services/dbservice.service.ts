@@ -37,7 +37,7 @@ export class DbserviceService {
     //Tabla para Conductores:
     tablaConductor: string = "CREATE TABLE IF NOT EXISTS conductor(id_conductor INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, edad NUMBER NOT NULL, correo VARCHAR(30) NOT NULL, rut VARCHAR(13) NOT NULL, fechanacimiento DATE NOT NULL, celular NUMBER NOT NULL, contrasena VARCHAR(30) NOT NULL);";
 
-    registroRol: string = "INSERT INTO rol(nombrerol) VALUES(Conductor); INSERT INTO rol(nombrerol) VALUES(Usuario);";
+    registroRol: string = "INSERT INTO rol VALUES (1, Usuario), (2, Conductor);";
 
   //Variable observable para consultar usuarios en la Base de Datos
   listaUsuario = new BehaviorSubject([]);
@@ -58,8 +58,12 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
+  buscarCorreo(correo: any, contrasena: any){
+    return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena])
+  }
+
   buscarUsuario(){
-    return this.database.executeSql('SELECT * FROM usuarios', []).then(res => {
+    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
       //Almacenamos la consulta en esta variable
       let items: Usuario[] = [];
 

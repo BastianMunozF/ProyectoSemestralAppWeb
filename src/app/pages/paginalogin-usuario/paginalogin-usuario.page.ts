@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-paginalogin-usuario',
@@ -15,44 +16,63 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class PaginaloginUsuarioPage implements OnInit {
 
-  image: any;
-  imageSource: string | undefined;
-
   formularioLogin: FormGroup;
+  correo: string = "";
+  contrasena: string = "";
   user: string = "";
 
-  nombreAdmin: string = "admin";
-  contraAdmin: string = "admin12345";
-
-  constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router) { 
+  constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router, private database: DbserviceService) { 
 
     this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      'password': new FormControl("",Validators.required)
+      'correo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      'contrasena': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)])
     })
   }
 
   ngOnInit() {
   }
 
-  async ingresar() {
-    var f = this.formularioLogin.value;
-    var usuarioString = localStorage.getItem('usuario');
+  async iniciarSesion(){
+    let f = this.formularioLogin.value;
+    let usuarioIniciado = this.database.buscarCorreo(f.correo, f.contrasena)
 
-    if (usuarioString !== null) {
-      var usuario = JSON.parse(usuarioString);
-      if (usuario.nombre == f.nombre && usuario.password == f.password) {
-        console.log('Ingresado');
-        localStorage.setItem('ingresado', 'true');
-        this.router.navigate(['/menuprincipal']);
-      } else {
-        const alert = await this.alertController.create({
-          header: 'Datos incorrectos',
-          message: 'Los datos ingresados no coinciden.',
-          buttons: ['Aceptar'],
-        });
-        await alert.present();
-      }
+    if(usuarioIniciado !== null) {
+      console.log('Usuario ingresado.');
+      this.router.navigate(['/menuprincipal']);
+    } else [
+      this.presentarAlerta('Error al iniciar sesión', 'Los datos ingresados no coinciden.')
+    ]
+  }
+
+  async presentarAlerta(titulo: string, mensaje: string){
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+}
+/*
+async ingresar() {
+  var f = this.formularioLogin.value;
+  var usuarioString = localStorage.getItem('usuario');
+
+  if (usuarioString !== null) {
+    var usuario = JSON.parse(usuarioString);
+    if (usuario.nombre == f.nombre && usuario.password == f.password) {
+      console.log('Ingresado');
+      localStorage.setItem('ingresado', 'true');
+      this.router.navigate(['/menuprincipal']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Datos incorrectos',
+        message: 'Los datos ingresados no coinciden.',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
     }
   }
 }
+*/
