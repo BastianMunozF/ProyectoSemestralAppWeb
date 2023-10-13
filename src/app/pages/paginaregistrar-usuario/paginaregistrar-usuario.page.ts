@@ -76,9 +76,13 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     if(this.formularioRegistro.valid){
       let usuario = this.formularioRegistro.value;
 
-      return this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena);
+      try {
+        await this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena)
+      } catch (error) {
+        this.presentarAlerta("Error al registrar", "Se produjo un error al guardar usuario.")
+      }
     } else {
-      this.presentarAlerta("Error al registrar", "Algunos de los campos no son correctos.")
+      this.presentarAlerta("Error al registrar", "Algunos de los datos del registro no son correctos.")
     }
   }
 
