@@ -15,11 +15,11 @@
       <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
         <ion-item>
           <ion-label position="floating">Correo</ion-label>
-          <ion-input maxlength="25" formControlName="correo" [(ngModel)]="correo"></ion-input>
+          <ion-input formControlName="correo" [(ngModel)]="correo"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input maxlength="30" formControlName="contrasena" [(ngModel)]="contrasena" type="password"></ion-input>
+          <ion-input formControlName="contrasena" [(ngModel)]="contrasena" type="password"></ion-input>
         </ion-item>
       </form>
       <br>
