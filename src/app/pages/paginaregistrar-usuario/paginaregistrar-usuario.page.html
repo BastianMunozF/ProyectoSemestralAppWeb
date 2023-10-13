@@ -130,6 +130,12 @@
           <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['pattern']">Este campo requiere mínimo un carácter especial.</p>
 
         </div>
+
+        <div id="container">
+          <ion-button (click)="takePicture()" >Tomar Foto</ion-button>
+          <img *ngIf="imageSource" [src]="imageSource" alt="imageSource" style="width: 100%;max-width: 250px;">
+        </div>
+
         <br>
         <ion-button type="submit">Registrarse</ion-button>
       </form>

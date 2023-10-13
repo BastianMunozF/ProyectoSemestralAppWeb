@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'paginalogin-usuario',
+    path: '',
     redirectTo: 'paginalogin-usuario',
     pathMatch: 'full'
   },
@@ -44,30 +44,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sesionconductor/sesionconductor.module').then( m => m.SesionconductorPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./pages/paginaprincipal/paginaprincipal.module').then( m => m.PaginaprincipalPageModule)
-  },
-  {
     path: 'menuprincipalconductor',
     loadChildren: () => import('./pages/menuprincipalconductor/menuprincipalconductor.module').then( m => m.MenuprincipalconductorPageModule)
-  },
-  {
-    path: 'registrarconductor',
-    loadChildren: () => import('./pages/registrarconductor/registrarconductor.module').then( m => m.RegistrarconductorPageModule)
   },
   {
     path: 'perfilusuario',
     loadChildren: () => import('./pages/perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule)
   },
   
-  {
-    path: 'vistadminusuario',
-    loadChildren: () => import('./pages/vistadminusuario/vistadminusuario.module').then( m => m.VistadminusuarioPageModule)
-  },
-  {
-    path: 'perfilconductor',
-    loadChildren: () => import('./pages/perfilconductor/perfilconductor.module').then( m => m.PerfilconductorPageModule)
-  },
   {
     path: 'servicioconductores',
     loadChildren: () => import('./pages/servicioconductores/servicioconductores.module').then( m => m.ServicioconductoresPageModule)
@@ -77,17 +61,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/rutaconductor/rutaconductor.module').then( m => m.RutaconductorPageModule)
   },
   {
-    path: 'adminprincipal',
-    loadChildren: () => import('./pages/adminprincipal/adminprincipal.module').then( m => m.AdminprincipalPageModule)
-  },
-  {
     path: 'mapaconductores',
     loadChildren: () => import('./pages/mapaconductores/mapaconductores.module').then( m => m.MapaconductoresPageModule)
-  },
-  
-  {
-    path: 'inicioadmin',
-    loadChildren: () => import('./pages/inicioadmin/inicioadmin.module').then( m => m.InicioadminPageModule)
   },
 
   {
@@ -100,10 +75,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/editarperfilusuario/editarperfilusuario.module').then( m => m.EditarperfilusuarioPageModule)
   },
 
-  {
-    path: 'editarperfilconductor',
-    loadChildren: () => import('./pages/editarperfilconductor/editarperfilconductor.module').then( m => m.EditarperfilconductorPageModule)
-  },
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)

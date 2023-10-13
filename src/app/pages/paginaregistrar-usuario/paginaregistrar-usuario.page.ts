@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
 
 @Component({
   selector: 'app-paginaregistrar-usuario',
@@ -31,6 +32,15 @@ export class PaginaregistrarUsuarioPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt
+    });
   }
 
   guardarUsuario(){
