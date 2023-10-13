@@ -15,6 +15,9 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class PaginaloginUsuarioPage implements OnInit {
 
+  image: any;
+  imageSource: string | undefined;
+
   formularioLogin: FormGroup;
   user: string = "";
 

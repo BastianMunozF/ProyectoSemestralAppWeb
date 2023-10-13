@@ -1,6 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-perfilusuario',
@@ -19,6 +21,8 @@ export class PerfilusuarioPage implements OnInit {
   edadU!: number;
   correoU: string = "";
   celularU!: number;
+  image: any;
+  imageSource: string | undefined;
 
   constructor(private router: Router, private activeRoute: ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(param => {
@@ -40,9 +44,13 @@ export class PerfilusuarioPage implements OnInit {
       this.correoU = usuario.correo;
       this.celularU = usuario.celular;
     }
-
-    this.variableStorage = localStorage.getItem('token');
+  }
+  takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt
+    });
   }
 }
-
-
