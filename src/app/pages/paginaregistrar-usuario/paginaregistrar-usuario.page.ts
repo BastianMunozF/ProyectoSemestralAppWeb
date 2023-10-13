@@ -45,7 +45,8 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     });
   }
 
-  guardarUsuario(){
+  /*
+  guardarUsuarios(){
     //Verificar si el formulario es válido
     if (this.formularioRegistro.valid){
       let form = this.formularioRegistro.value;
@@ -67,6 +68,17 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       //El formulario no es válido mostramos alerta
       this.presentarAlerta("Error", "Rellene el formulario correctamente.");
 
+    }
+  }
+  */
+
+  guardarUsuario(){
+    if(this.formularioRegistro.valid){
+      let usuario = this.formularioRegistro.value;
+
+      this.database.insertarUsuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.fechanacimiento, usuario.rut, usuario.celular, usuario.contrasena);
+    } else {
+      this.presentarAlerta("Error al registrar", "Algunos de los campos no son correctos.")
     }
   }
 

@@ -33,8 +33,6 @@ export class PaginaloginUsuarioPage implements OnInit {
   }
 
   async iniciarSesion(){
-    this.database.crearBD();
-
     let f = this.formularioLogin.value;
     let usuarioIniciado = this.database.buscarCorreo(f.correo, f.contrasena)
 
