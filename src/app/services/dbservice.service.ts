@@ -34,7 +34,7 @@ export class DbserviceService {
     //Tabla para detalle de Viajes:
     tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje));";
 
-    registroRol: string = "INSERT INTO rol VALUES (1, Usuario), (2, Conductor);";
+    registroRol: string = "INSERT INTO rol VALUES (1, 'Usuario'), (2, 'Conductor');";
 
   //Variable observable para consultar usuarios en la Base de Datos
   listaUsuario = new BehaviorSubject([]);
