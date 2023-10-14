@@ -21,12 +21,12 @@
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="contrasena" [(ngModel)]="contrasena" type="password"></ion-input>
         </ion-item>
+        <br>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+          <ion-button> <a href="/paginarecuperar-usuario" style="color: white;">Recuperar Usuario</a></ion-button> 
+          <ion-button type="submit">Ingresar</ion-button>
+        </div>
       </form>
-      <br>
-      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
-       <ion-button> <a href="/paginarecuperar-usuario" style="color: white;">Recuperar Usuario</a></ion-button> 
-        <ion-button type="submit">Ingresar</ion-button>
-      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
