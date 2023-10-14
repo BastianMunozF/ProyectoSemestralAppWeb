@@ -59,7 +59,7 @@ export class DbserviceService {
       if(res.rows.length > 0){
         return res.rows.item(0);
       } else {
-        return true;
+        return null;
       }
     }).catch(error => {
       this.presentAlert("Error al buscar un usuario:" + error);
