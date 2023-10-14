@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Conductor } from './conductor';
 import { Usuario } from './usuario';
 
@@ -42,7 +43,7 @@ export class DbserviceService {
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
   
-  constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
+  constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController, private router: Router) {
     this.crearBD();
   }
 
@@ -56,7 +57,14 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]);
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      if(res.rows.length > 0){
+        this.presentAlert("Sesión iniciada correctamente.");
+        this.router.navigate(['/menuprincipal'])
+      } else {
+        this.presentAlert("Los datos ingresados no coinciden")
+      }
+    })
   }
 
   buscarUsuario(){
