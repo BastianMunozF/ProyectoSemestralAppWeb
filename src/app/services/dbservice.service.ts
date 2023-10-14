@@ -56,10 +56,23 @@ export class DbserviceService {
 
   buscarCorreo(correo: any, contrasena: any){
     return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      let usuario: Usuario[] = [];
+
       if(res.rows.length > 0){
-        return res;
-      } else {
-        return null;
+        //Guardamos los registros en caso de haber datos
+        for(var i = 0; i < res.rows.length; i++){
+          //Agregamos los datos a la variable
+          usuario.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            correo: res.rows.item(i).correo,
+            fechanacimiento: res.rows.item(i).fechanacimiento,
+            rut: res.rows.item(i).rut,
+            celular: res.rows.item(i).celular,
+            contrasena: res.rows.item(i).contrasena
+          })
+        }
       }
     }).catch(error => {
       this.presentAlert("Error al buscar un usuario:" + error);

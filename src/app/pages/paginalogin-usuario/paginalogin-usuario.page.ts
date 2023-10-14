@@ -36,14 +36,10 @@ export class PaginaloginUsuarioPage implements OnInit {
     let user = this.formularioLogin.value
     this.database.buscarCorreo(user.correo, user.contrasena).then(usuario => {
       if(usuario){
-        if(usuario.correo == user.correo && usuario.contrasena == user.contrasena){
-          this.presentarAlerta("Sesión iniciada", "Usuario iniciado correctamente.")
-          this.router.navigate(['/menuprincipal'])
-        } else {
-          this.presentarAlerta("Error al iniciar sesión", "Los datos que intenta ingresar no coinciden.")
-        }
+        this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.")
+        this.router.navigate(['/menuprincipal'])
       } else {
-        this.presentarAlerta("Error al iniciar sesión", "El usuario que intenta ingresar no existe.")
+        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
       }
     })
   }
