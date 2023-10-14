@@ -34,7 +34,14 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion(){
     let f = this.formularioLogin.value;
-    return this.database.buscarCorreo(f.correo, f.contrasena);
+    return this.database.buscarCorreo(f.correo, f.contrasena).then(res => {
+      if(res.rows.length > 0){
+        this.presentarAlerta("Inicio de sesión", "Sesión iniciada correctamente.");
+        this.router.navigate(['/menuprincipal'])
+      } else {
+        this.presentarAlerta("Error en iniciar sesión", "Los datos ingresados no coinciden o son incorrectos.");
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

@@ -57,14 +57,7 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-      if(res.rows.length > 0){
-        this.presentAlert("Sesión iniciada correctamente.");
-        this.router.navigate(['/menuprincipal'])
-      } else {
-        this.presentAlert("Los datos ingresados no coinciden")
-      }
-    })
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]);
   }
 
   buscarUsuario(){
