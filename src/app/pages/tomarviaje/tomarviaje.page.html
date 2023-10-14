@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title style="text-align: center;">Viajes disponibles</ion-title>
+    <ion-title style="text-align: center;">Agenda</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,20 +22,48 @@
   </ion-content>
 </ion-menu>
 
-<ion-content style="border: solid 1.5px #469597;">
-  <div class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title style="text-align: center;">Tomar un viaje</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </div>
-  <app-componente1></app-componente1>
-</ion-content>
+<ion-content>
+  <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-title>Agenda tu Viaje</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formularioViaje">
 
-<ion-card #card style="width: 110px; --width: 370px;" color="primary">
-  <ion-card-content>¡Descuento!</ion-card-content>
-</ion-card>
-<ion-button (click)="play()">Play</ion-button>
-<ion-button (click)="pause()">Pause</ion-button>
-<ion-button (click)="stop()">Stop</ion-button>
+        <ion-item>
+          <ion-label position="floating" required>Fecha Viaje:</ion-label>
+          <ion-input formControlName="f_viaje" type="date"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Hora Salida:</ion-label>
+          <ion-input formControlName="hora_salida" id="horasalida"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Salida:</ion-label>
+          <ion-input formControlName="salida" id="salida"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Destino:</ion-label>
+          <ion-input formControlName="destino" id="destino"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Cantidad Asientos:</ion-label>
+          <ion-input formControlName="cant_asientos" id="cantasientos"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Total:</ion-label>
+          <ion-input formControlName="total" id="total"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Valor Asiento:</ion-label>
+          <ion-input formControlName="valor_asiento" id="valorasiento"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Estado:</ion-label>
+          <ion-input formControlName="estado" id="estado"></ion-input>
+        </ion-item>
+        <ion-button type="submit">Tomar Viaje</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

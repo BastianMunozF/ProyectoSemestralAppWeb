@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard, IonCardContent } from '@ionic/angular';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+
 
 
 @Component({
@@ -9,11 +11,24 @@ import { AnimationController, IonCard, IonCardContent } from '@ionic/angular';
   styleUrls: ['./tomarviaje.page.scss'],
 })
 export class TomarviajePage implements OnInit {
+  formularioViaje: FormGroup;
+
   @ViewChild(IonCard, { read: ElementRef }) card!: ElementRef<HTMLIonCardElement>;
 
   private animation!: Animation;
 
-  constructor(private animationCtrl: AnimationController) { }
+  constructor(private animationCtrl: AnimationController, private formBuilder: FormBuilder) {
+    this.formularioViaje = this.formBuilder.group({
+      f_viaje: [''],
+      hora_salida: [''],
+      salida: [''],
+      destino: [''],
+      cant_asientos: [''],
+      total: [''],
+      valor_asiento: [''],
+      estado: [''],
+    });
+   }
 
   ngOnInit() {
     
@@ -29,18 +44,6 @@ export class TomarviajePage implements OnInit {
         { offset: 0.72, width: 'var(--width)' },
         { offset: 1, width: '240px' },
       ]);
-  }
-
-  play() {
-    this.animation.play();
-  }
-
-  pause() {
-    this.animation.pause();
-  }
-
-  stop() {
-    this.animation.stop();
   }
 }
 
