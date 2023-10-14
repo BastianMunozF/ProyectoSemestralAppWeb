@@ -55,7 +55,7 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql("SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
       if(res.rows.length > 0){
         return res.rows.item(0);
       } else {
@@ -98,7 +98,11 @@ export class DbserviceService {
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any){
     return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena]).then(res => {
-      this.buscarUsuario();
+      if(res){
+        this.buscarUsuario();
+      } else {
+        this.presentAlert("Error al insertar usuario en la base de datos.")
+      }
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
     });

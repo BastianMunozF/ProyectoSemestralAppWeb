@@ -54,13 +54,18 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       //Llamamos a la funcion para insertar al usuario
       this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password).then(res => {
 
-        //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
-        console.log('Usuario registrado correctamente.');
-        this.presentarAlerta("Usuario Registrado", "El usuario ha sido registrado correctamente.")
-        this.router.navigate(['/paginalogin-usuario'])
+        if(res !== null){
+          //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
+          console.log('Usuario registrado correctamente.');
+          this.presentarAlerta("Usuario Registrado", "El usuario ha sido registrado correctamente.")
+          this.router.navigate(['/paginalogin-usuario'])
 
-        //Limpiamos el formulario después de insertar en la Base de Datos
-        this.formularioRegistro.reset();
+          //Limpiamos el formulario después de insertar en la Base de Datos
+          this.formularioRegistro.reset();
+        } else {
+          console.log('Usuario no registrado.')
+          this.presentarAlerta("Error al registrar", "Rellene el formulario correctamente.")
+        }
       }).catch(error => {
         console.error('Error al insertar el usuario.', error);
       })
