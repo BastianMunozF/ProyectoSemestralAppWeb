@@ -5,6 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Conductor } from './conductor';
 import { Usuario } from './usuario';
+import { rejects } from 'assert';
+import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +63,7 @@ export class DbserviceService {
   }
 
   buscarUsuario(){
-    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
+    return this.database.executeSql("SELECT * FROM usuario", []).then(res => {
       //Almacenamos la consulta en esta variable
       let items: Usuario[] = [];
 
@@ -90,7 +92,7 @@ export class DbserviceService {
 
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any){
-    return this.database.executeSql('INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?)', [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena]).then(res => {
+    return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena]).then(res => {
       this.buscarUsuario();
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
