@@ -63,7 +63,7 @@ export class DbserviceService {
       }
     }).catch(error => {
       this.presentAlert("Error al buscar un usuario:" + error);
-      return false;
+      return null;
     })
   }
 
