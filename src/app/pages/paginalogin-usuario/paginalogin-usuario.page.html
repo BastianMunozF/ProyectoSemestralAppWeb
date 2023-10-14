@@ -13,19 +13,26 @@
     
     <ion-card-content>
       <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
+
         <ion-item>
           <ion-label position="floating">Correo</ion-label>
           <ion-input formControlName="correo" [(ngModel)]="correo"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="contrasena" [(ngModel)]="contrasena" type="password"></ion-input>
         </ion-item>
+
         <br>
         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+
           <ion-button> <a href="/paginarecuperar-usuario" style="color: white;">Recuperar Usuario</a></ion-button> 
-          <ion-button type="submit">Ingresar</ion-button>
+
         </div>
+
+        <ion-button type="submit">Ingresar</ion-button>
+
       </form>
     </ion-card-content>
   </ion-card>
