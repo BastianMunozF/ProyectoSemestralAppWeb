@@ -3,9 +3,11 @@ import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Conductor } from './conductor';
 import { Usuario } from './usuario';
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +59,16 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]);
+    return this.database.executeSql("SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      if(res.rows.length > 0){
+        return res.rows.item(0);
+      } else {
+        return null;
+      }
+    }).catch(error => {
+      this.presentAlert("Error al buscar un usuario:" + error);
+      return false;
+    })
   }
 
   buscarUsuario(){
