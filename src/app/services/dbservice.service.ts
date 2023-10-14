@@ -4,10 +4,6 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 @Injectable({
   providedIn: 'root'
 })
