@@ -5,8 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Conductor } from './conductor';
 import { Usuario } from './usuario';
-import { rejects } from 'assert';
-import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
