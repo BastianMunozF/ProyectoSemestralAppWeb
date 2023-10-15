@@ -32,16 +32,32 @@ export class PaginaloginUsuarioPage implements OnInit {
   ngOnInit() {
   }
 
-  iniciarSesion(){
-    let user = this.formularioLogin.value
-    this.database.buscarCorreo(user.correo, user.contrasena).then(usuario => {
-      if(usuario){
-        this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.")
-        this.router.navigate(['/menuprincipal'])
-      } else{
-        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.")
-      }
-    })
+  iniciarSesion() {
+    const user = this.formularioLogin.value;
+    
+    // Validación de entrada
+    if (!user.correo || !user.contrasena) {
+      this.presentarAlerta("Error al iniciar sesión", "Por favor, complete todos los campos.");
+      return;
+    }
+  
+    // Llamada a la base de datos
+    this.database.buscarCorreo(user.correo, user.contrasena)
+      .then(usuario => {
+        if (usuario) {
+          // Sesión iniciada con éxito
+          this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.");
+          this.router.navigate(['/menuprincipal']);
+        } else {
+          // Datos de inicio de sesión incorrectos
+          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.");
+        }
+      })
+      .catch(error => {
+        // Manejo de errores
+        console.error("Error al buscar usuario en la base de datos:", error);
+        this.presentarAlerta("Error al iniciar sesión", "Ocurrió un error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.");
+      });
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
