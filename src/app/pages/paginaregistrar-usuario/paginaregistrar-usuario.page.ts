@@ -30,7 +30,8 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       'correo': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(50), Validators.email]),
       'celular': new FormControl("", [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]*')]),
       'password': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9@#$%^&*.,]*')]),
-      'confirmacionPassword': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9.,@#$%^&*.,]*')])
+      'confirmacionPassword': new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9.,@#$%^&*.,]*')]),
+      'id_rol': new FormControl("", [Validators.required])
     });
   }
 
@@ -52,7 +53,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       let form = this.formularioRegistro.value;
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, form.id_rol).then(res => {
 
         if(res !== null){
           //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta

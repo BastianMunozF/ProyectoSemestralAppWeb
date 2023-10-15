@@ -132,6 +132,14 @@
 
         </div>
 
+        <ion-item>
+          <ion-label for="id">Tipo de Usuario</ion-label>
+          <select id="id" name="id" formControlName="id_rol">
+            <option value="1">Cliente</option>
+            <option value="2">Conductor</option>
+          </select>
+        </ion-item>
+
         <div id="container">
           <ion-button (click)="takePicture()" >Tomar Foto</ion-button>
           <img *ngIf="imageSource" [src]="imageSource" alt="imageSource" style="width: 100%;max-width: 250px;">
