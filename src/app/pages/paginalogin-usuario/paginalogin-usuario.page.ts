@@ -40,7 +40,7 @@ export class PaginaloginUsuarioPage implements OnInit {
     this.database.buscarCorreo(this.correo, this.contrasena).then((datos) => {
       this.usuario = datos[0]
 
-      if(form.correo === this.usuario.correo && form.contrasena === this.usuario.contrasena){
+      if(this.usuario && form.correo === this.usuario.correo && form.contrasena === this.usuario.contrasena){
         this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.");
         this.router.navigate(['/menuprincipal']);
         this.formularioLogin.reset();
