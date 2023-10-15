@@ -47,6 +47,7 @@ export class PaginaloginUsuarioPage implements OnInit {
           // Sesión iniciada con éxito
           this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.");
           this.router.navigate(['/menuprincipal']);
+          this.formularioLogin.reset();
         } else {
           // Datos de inicio de sesión incorrectos
           this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen o la contraseña es incorrecta.");
