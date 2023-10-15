@@ -78,6 +78,13 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     }
   }
 
+  contrasenasCoinciden(){
+    let comtrasena = this.formularioRegistro.get('password')?.value;
+    let confirmacion = this.formularioRegistro.get('confirmacionPassword')?.value
+
+    return comtrasena === confirmacion;
+  }
+
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({
       header: titulo,
