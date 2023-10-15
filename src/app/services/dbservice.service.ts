@@ -4,6 +4,8 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
+import { Busuario } from './busuario';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,9 +57,18 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: string, contrasena: string) {
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena])
-      .then(res => {
-        return res.rows.length > 0; // Retorna un valor booleano directamente
+    return this.database.executeSql("SELECT correo, contrasena FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+        let items: Busuario[] = [];
+
+        if(res.rows.length > 0){
+          for(var i = 0; i < res.rows.length; i++){
+            items.push({
+              correo: res.rows.item(i).correo,
+              contrasena: res.rows.item(i).contrasena
+            })
+          }
+        }
+        return items;
       })
       .catch(error => {
         this.presentAlert("Error al buscar un usuario: " + error);
