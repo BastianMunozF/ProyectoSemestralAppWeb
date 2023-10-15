@@ -45,7 +45,8 @@ export class PaginaloginUsuarioPage implements OnInit {
           localStorage.setItem('rol', usuario.id_rol);
           this.router.navigate(['/menuprincipal']).then(() => {
             this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.")
-          });
+          })
+          this.formularioLogin.reset();
         } else {
           this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no son correctos.")
         }
