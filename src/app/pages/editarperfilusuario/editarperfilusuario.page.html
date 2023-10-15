@@ -1,9 +1,9 @@
-
 <ion-header>
   <ion-toolbar color="primary" style="text-align: center;">
     <ion-title>Editar Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-menu contentId="main-content">
   <ion-content class="ion-padding">
     <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home" color="primary"></ion-icon>Inicio</ion-item>
@@ -14,40 +14,35 @@
   </ion-content>
 </ion-menu>
 
-    <ion-content class="ion-padding">
-      <ion-card class="ion-text-center">
-        <form [formGroup]="formularioActualizar" (ngSubmit)="actualizarUsuario()">
-          <ion-card-title>
-            <ion-item color="primary">
-              <ion-label>Datos personales</ion-label>
-            </ion-item>
-            </ion-card-title>
-            <ion-item>  
-              <ion-label>Nombre:</ion-label>
-              <ion-input type="text"> {{ usuario.nombre }}</ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Apellido:</ion-label>
-              <ion-input type="text">{{ usuario.apellido }}</ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Correo:</ion-label>
-              <ion-input type="text">{{ usuario.correo }}</ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Fecha Nacimiento:</ion-label>
-              <ion-input type="date">{{ usuario.fechanacimiento }}</ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Rut:</ion-label>
-              <ion-input type="text">{{ usuario.rut }}</ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Celular:</ion-label>
-              <ion-input type="text">{{ usuario.celular }}</ion-input>
-            </ion-item>
-            <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
-            <ion-button color="primary" (click)="actualizarUsuario()">Guardar</ion-button>
-        </form>
-      </ion-card>
-    </ion-content>
+<ion-content>
+  <div class="ion-page" id="main-content">
+    <form [formGroup]="formularioActualizar" (ngSubmit)="actualizarUsuario()">
+      <ion-item>  
+        <ion-label>Nombre:</ion-label>
+        <ion-input formControlName="nombre" type="text" placeholder="{{ usuario.nombre }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Apellido:</ion-label>
+        <ion-input formControlName="apellido" type="text" placeholder="{{ usuario.apellido }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Correo:</ion-label>
+        <ion-input formControlName="correo" type="text" placeholder="{{ usuario.correo }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fecha Nacimiento:</ion-label>
+        <ion-input formControlName="fechanacimiento" type="date" placeholder="{{ usuario.fechanacimiento }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Rut:</ion-label>
+        <ion-input formControlName="rut" type="text" placeholder="{{ usuario.rut }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Celular:</ion-label>
+        <ion-input formControlName="celular" type="text" placeholder="{{ usuario.celular }}"></ion-input>
+      </ion-item>
+      <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
+      <ion-button color="primary" (click)="actualizarUsuario()">Guardar</ion-button>
+    </form>
+  </div>
+</ion-content>
