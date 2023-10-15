@@ -34,12 +34,12 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion(){
     let user = this.formularioLogin.value
-    this.database.buscarCorreo(user.correo, user.contrasena).then(usuarioIniciado => {
-      if(usuarioIniciado.length > 0){
-        this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.")
+    this.database.buscarCorreo(user.correo, user.contrasena).then(usuario => {
+      if(usuario == true){
+        this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.")
         this.router.navigate(['/menuprincipal'])
-      } else {
-        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
+      } else if(usuario == false){
+        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.")
       }
     })
   }

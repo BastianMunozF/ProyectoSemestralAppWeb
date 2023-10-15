@@ -54,35 +54,19 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: string, contrasena: string): Promise<Usuario[]> {
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena])
-      .then(res => {
-        let usuarios: Usuario[] = [];
+  buscarCorreo(correo: string, contrasena: string){
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
   
-        if (res.rows.length > 0) {
-          for (let i = 0; i < res.rows.length; i++) {
-            const usuario = res.rows.item(i);
-            usuarios.push({
-              id: usuario.id,
-              nombre: usuario.nombre,
-              apellido: usuario.apellido,
-              correo: usuario.correo,
-              fechanacimiento: usuario.fechanacimiento,
-              rut: usuario.rut,
-              celular: usuario.celular,
-              contrasena: usuario.contrasena
-            });
-          }
-          
-          this.listaUsuario.next(usuarios as any)
-        }
-  
-        return usuarios;
-      })
-      .catch(error => {
-        this.presentAlert("Error al buscar un usuario: " + error);
-        throw error; // Propaga el error para que lo maneje la capa superior
-      });
+      if (res.rows.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch(error => {
+      this.presentAlert("Error al buscar un usuario: " + error);
+      throw error; // Propaga el error para que lo maneje la capa superior
+    });
   }
 
   buscarUsuario(){
