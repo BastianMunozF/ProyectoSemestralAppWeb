@@ -139,8 +139,8 @@ export class DbserviceService {
 
   }
 
-  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any){
-    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE nombre = ?',[nombre,apellido,correo,fechanacimiento,rut,celular]).then(res=>{
+  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any, id: any){
+    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE id = ?',[nombre,apellido,correo,fechanacimiento,rut,celular, id]).then(res=>{
       if(res){
         this.buscarUsuario();
       } else {

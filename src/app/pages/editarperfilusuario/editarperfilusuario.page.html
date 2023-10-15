@@ -1,10 +1,10 @@
 
-  <ion-header>
-    <ion-toolbar color="primary" style="text-align: center;">
-      <ion-title>Editar Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-menu contentId="main-content">
+<ion-header>
+  <ion-toolbar color="primary" style="text-align: center;">
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-menu contentId="main-content">
   <ion-content class="ion-padding">
     <ion-item [routerLink]="['/menuprincipal']"><ion-icon name="home" color="primary"></ion-icon>Inicio</ion-item>
     <ion-item [routerLink]="['/miubicacion']"><ion-icon name="location" color="primary"></ion-icon>Donde estoy?</ion-item>
@@ -16,36 +16,38 @@
 
     <ion-content class="ion-padding">
       <ion-card class="ion-text-center">
-        <ion-card-title>
-        <ion-item color="primary">
-          <ion-label>Datos personales</ion-label>
-        </ion-item>
-        </ion-card-title>
-        <ion-item>  
-          <ion-label>Nombre:</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Apellido: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Correo: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Fecha Nacimiento: </ion-label>
-          <ion-input type="date"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Rut: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Celular: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
-        <ion-button color="primary" [routerLink]="['/menuprincipal']">Guardar</ion-button>
+        <form [fromGroup]="formularioActualizar" (ngSubmit)="actaulizarUsuario()">
+          <ion-card-title>
+            <ion-item color="primary">
+              <ion-label>Datos personales</ion-label>
+            </ion-item>
+            </ion-card-title>
+            <ion-item>  
+              <ion-label>Nombre:</ion-label>
+              <ion-input type="text"> {{ usuario.nombre }}</ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Apellido:</ion-label>
+              <ion-input type="text">{{ usuario.apellido }}</ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Correo:</ion-label>
+              <ion-input type="text">{{ usuario.correo }}</ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Fecha Nacimiento:</ion-label>
+              <ion-input type="date">{{ usuario.fechanacimiento }}</ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Rut:</ion-label>
+              <ion-input type="text">{{ usuario.rut }}</ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Celular:</ion-label>
+              <ion-input type="text">{{ usuario.celular }}</ion-input>
+            </ion-item>
+            <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
+            <ion-button color="primary" (click)="actaulizarUsuario()">Guardar</ion-button>
+        </form>
       </ion-card>
     </ion-content>
