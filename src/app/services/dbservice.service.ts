@@ -54,18 +54,15 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: string, contrasena: string){
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-      if (res.rows.length > 0) {
-        return res = true;
-      } else {
-        return res = false;
-      }
-    })
-    .catch(error => {
-      this.presentAlert("Error al buscar un usuario: " + error);
-      throw error; // Propaga el error para que lo maneje la capa superior
-    });
+  buscarCorreo(correo: string, contrasena: string) {
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena])
+      .then(res => {
+        return res.rows.length > 0; // Retorna un valor booleano directamente
+      })
+      .catch(error => {
+        this.presentAlert("Error al buscar un usuario: " + error);
+        throw error; // Propaga el error para que lo maneje la capa superior
+      });
   }
 
   buscarUsuario(){
