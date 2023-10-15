@@ -56,11 +56,10 @@ export class DbserviceService {
 
   buscarCorreo(correo: string, contrasena: string){
     return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-  
       if (res.rows.length > 0) {
-        return true;
+        return res = true;
       } else {
-        return false;
+        return res = false;
       }
     })
     .catch(error => {
