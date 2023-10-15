@@ -56,32 +56,17 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  async buscarCorreo(correo: string, contrasena: string): Promise<boolean> {
-    try {
-      const consulta = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?";
-      const parametros = [correo, contrasena]
-      const result = await this.database.executeSql(consulta, parametros);
-      return result.rows.length > 0;
-    } catch (error) {
-      console.error("Error al buscar usuario en la base de datos: ", error)
-      return false
-    }
-  }
-
-  async buscarId(correo: string): Promise<number | null>{
-    try {
-      const consulta = "SELECT id FROM usuario WHERE correo = ?";
-      const parametro = [correo];
-      const resultado = await this.database.executeSql(consulta, parametro);
-      
-      if(resultado.rows.length > 0){
-        return resultado.rows.item(0).id;
+  buscarCorreo(correo: string, contrasena: string){
+    return this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
+      if(res.rows.length > 0){
+        return res.rows.item(0);
+      } else {
+        return null;
       }
-      return null
-    } catch (error){
-      console.error("Error al obtener id de usuario: ", error);
-      return null
-    }
+    }).catch(error => {
+      this.presentAlert("Error al buscar usuario:" + error);
+      return false;
+    })
   }
 
   buscarDatosUsuario(id: any){

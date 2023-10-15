@@ -43,24 +43,15 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   async iniciarSesion() {
     if(this.formularioLogin.valid){
-      const correo = this.correo
-      const contrasena = this.contrasena
-
-      const usuarioValido = await this.database.buscarCorreo(correo, contrasena);
-
-      if(usuarioValido){
-        const usuario = await this.database.buscarId(correo);
-
-        if(usuario !== null){
-          this.idActual = usuario
-
-          localStorage.setItem('id', this.usuario.toString());
-        }
+      this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
+        localStorage.setItem('id', usuario.id);
+        localStorage.setItem('rol', usuario.id_rol);
+        this.router.navigate(['/menuprincipal']);
+      }).then(() => {
         this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
-        this.router.navigate(['/menuprincipal'])
-      } else {
-        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
-      }
+      });
+    } else {
+      this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
     }
   }
 
