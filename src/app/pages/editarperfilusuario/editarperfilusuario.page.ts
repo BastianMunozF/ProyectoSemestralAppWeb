@@ -20,11 +20,8 @@ export class EditarperfilusuarioPage implements OnInit {
   usuario!: Usuario;
 
   formularioActualizar: FormGroup;
-  usuarioR: string = "";
-  claveR: string = "";
-  variableStorage: any = "";
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
+  constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
 
     const idUser = localStorage.getItem('id');
     database.buscarDatosUsuario(idUser).then((datos) => {
