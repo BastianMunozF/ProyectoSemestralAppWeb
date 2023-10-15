@@ -23,37 +23,44 @@ export class PaginaloginUsuarioPage implements OnInit {
   user: string = "";
   usuario!: Busuario;
 
+  idActual: number | null = null;
+
   constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router, private database: DbserviceService) { 
 
     this.formularioLogin = this.fb.group({
       'correo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       'contrasena': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)])
     })
+
+    const idActual = localStorage.getItem('id')
+    if(idActual){
+      this.idActual =+ idActual
+    }
   }
 
   ngOnInit() {
   }
 
   async iniciarSesion() {
-    try {
-      const usuario = await this.database.buscarCorreo(this.correo, this.contrasena);
-      if (usuario !== null) {
-        // Usuario encontrado, almacenar información en el almacenamiento local
-        localStorage.setItem('id', usuario.id);
-        localStorage.setItem('rol', usuario.id_rol);
-  
-        // Redirigir al usuario a la página principal
-        this.router.navigate(['/menuprincipal']).then(() => {
-          this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
-        });
+    if(this.formularioLogin.valid){
+      const correo = this.correo
+      const contrasena = this.contrasena
+
+      const usuarioValido = await this.database.buscarCorreo(correo, contrasena);
+
+      if(usuarioValido){
+        const usuario = await this.database.buscarId(correo);
+
+        if(usuario !== null){
+          this.idActual = usuario
+
+          localStorage.setItem('id', this.usuario.toString());
+        }
+        this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
+        this.router.navigate(['/menuprincipal'])
       } else {
-        // No se encontró un usuario con las credenciales proporcionadas
-        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos");
+        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
       }
-    } catch (error) {
-      // Manejar errores, mostrar mensajes de error o registrarlos según sea necesario
-      console.error('Error al iniciar sesión:', error);
-      this.presentarAlerta("Error al iniciar sesión", "Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.");
     }
   }
 
