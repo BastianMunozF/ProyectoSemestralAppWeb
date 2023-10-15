@@ -15,11 +15,11 @@ export class PerfilusuarioPage implements OnInit {
   imageSource: string | undefined;
   usuario!: Usuario;
 
-  constructor(public database: DbserviceService) {
-    const userId = localStorage.getItem('id');
+  constructor(private database: DbserviceService) {
+    const userId = localStorage.getItem('id')
 
-    database.buscarDatosUsuario(userId).then((datos) => {
-      this.usuario = datos[0];
+    database.buscarDatosUsuario(userId).then((perfil) => {
+      this.usuario = perfil[0];
     })
   }
 
