@@ -1,6 +1,4 @@
-import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Usuario } from 'src/app/services/usuario';
@@ -17,7 +15,7 @@ export class PerfilusuarioPage implements OnInit {
   imageSource: string | undefined;
   usuario!: Usuario;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private database: DbserviceService) {
+  constructor(public database: DbserviceService) {
     const userId = localStorage.getItem('id');
 
     database.buscarDatosUsuario(userId).then((datos) => {
