@@ -35,17 +35,22 @@ export class PaginaloginUsuarioPage implements OnInit {
   }
 
   iniciarSesion() {
+    // Llamar a la función para buscar el usuario en la base de datos
     this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
-      if(usuario !== null){
+      if (usuario !== null) {
+        // Usuario encontrado, almacenar información en el almacenamiento local
         localStorage.setItem('id', usuario.id);
         localStorage.setItem('rol', usuario.id_rol);
+  
+        // Redirigir al usuario a la página principal
         this.router.navigate(['/menuprincipal']).then(() => {
           this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
-        })
+        });
       } else {
-        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos")
+        // No se encontró un usuario con las credenciales proporcionadas
+        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos");
       }
-    })
+    });
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
