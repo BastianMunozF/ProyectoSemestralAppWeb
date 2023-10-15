@@ -34,8 +34,8 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion(){
     let user = this.formularioLogin.value
-    this.database.buscarCorreo(user.correo, user.contrasena).then(usuario => {
-      if(usuario){
+    this.database.buscarCorreo(user.correo, user.contrasena).then(usuarioIniciado => {
+      if(usuarioIniciado.length > 0){
         this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.")
         this.router.navigate(['/menuprincipal'])
       } else {

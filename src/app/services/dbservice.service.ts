@@ -54,30 +54,35 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: any, contrasena: any){
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-      let usuario: Usuario[] = [];
-
-      if(res.rows.length > 0){
-        //Guardamos los registros en caso de haber datos
-        for(var i = 0; i < res.rows.length; i++){
-          //Agregamos los datos a la variable
-          usuario.push({
-            id: res.rows.item(i).id,
-            nombre: res.rows.item(i).nombre,
-            apellido: res.rows.item(i).apellido,
-            correo: res.rows.item(i).correo,
-            fechanacimiento: res.rows.item(i).fechanacimiento,
-            rut: res.rows.item(i).rut,
-            celular: res.rows.item(i).celular,
-            contrasena: res.rows.item(i).contrasena
-          })
+  buscarCorreo(correo: string, contrasena: string): Promise<Usuario[]> {
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena])
+      .then(res => {
+        let usuarios: Usuario[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            const usuario = res.rows.item(i);
+            usuarios.push({
+              id: usuario.id,
+              nombre: usuario.nombre,
+              apellido: usuario.apellido,
+              correo: usuario.correo,
+              fechanacimiento: usuario.fechanacimiento,
+              rut: usuario.rut,
+              celular: usuario.celular,
+              contrasena: usuario.contrasena
+            });
+          }
+          
+          this.listaUsuario.next(usuarios as any)
         }
-      }
-    }).catch(error => {
-      this.presentAlert("Error al buscar un usuario:" + error);
-      return null;
-    })
+  
+        return usuarios;
+      })
+      .catch(error => {
+        this.presentAlert("Error al buscar un usuario: " + error);
+        throw error; // Propaga el error para que lo maneje la capa superior
+      });
   }
 
   buscarUsuario(){
