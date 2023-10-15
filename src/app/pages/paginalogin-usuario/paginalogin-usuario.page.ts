@@ -44,7 +44,7 @@ export class PaginaloginUsuarioPage implements OnInit {
     // Llamada a la base de datos
     this.database.buscarCorreo(user.correo, user.contrasena)
       .then(usuario => {
-        if (usuario == user) {
+        if (usuario !== null) {
           // Sesión iniciada con éxito
           this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.");
           this.router.navigate(['/menuprincipal']);
