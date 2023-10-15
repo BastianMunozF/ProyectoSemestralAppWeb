@@ -32,26 +32,24 @@ export class PaginaloginUsuarioPage implements OnInit {
       'contrasena': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)])
     })
 
-    const idActual = localStorage.getItem('id')
-    if(idActual){
-      this.idActual =+ idActual
-    }
   }
 
   ngOnInit() {
   }
 
-  async iniciarSesion() {
+  iniciarSesion() {
     if(this.formularioLogin.valid){
       this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
-        localStorage.setItem('id', usuario.id);
-        localStorage.setItem('rol', usuario.id_rol);
-        this.router.navigate(['/menuprincipal']);
-      }).then(() => {
-        this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
-      });
-    } else {
-      this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
+        if(usuario !== null){
+          localStorage.setItem('id', usuario.id);
+          localStorage.setItem('rol', usuario.id_rol);
+          this.router.navigate(['/menuprincipal']).then(() => {
+            this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.")
+          });
+        } else {
+          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no son correctos.")
+        }
+      })
     }
   }
 
