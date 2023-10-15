@@ -64,13 +64,13 @@ const routes: Routes = [
     path: 'editarperfilusuario',
     loadChildren: () => import('./pages/editarperfilusuario/editarperfilusuario.module').then( m => m.EditarperfilusuarioPageModule)
   },
-
+  {
+    path: 'registrarvehiculo',
+    loadChildren: () => import('./pages/registrarvehiculo/registrarvehiculo.module').then( m => m.RegistrarvehiculoPageModule)
+  },
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
-    path: 'registrarvehiculo',
-    loadChildren: () => import('./pages/registrarvehiculo/registrarvehiculo.module').then( m => m.RegistrarvehiculoPageModule)
   },
 
 ];
