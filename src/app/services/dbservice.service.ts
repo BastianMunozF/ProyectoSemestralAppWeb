@@ -57,14 +57,8 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: string, contrasena: string) {
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-      if (res.rows.length > 0) {
-        const usuario = res.rows.item(0);
-        if (usuario.contrasena === contrasena) {
-          return usuario;
-        }
-      }
-      return null; // Devolver null si no se encuentra el usuario o la contraseña no coincide
+    return this.database.executeSql("SELECT correo, contrasena FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      return res;
     })
     .catch(error => {
       this.presentAlert("Error al buscar un usuario: " + error);
