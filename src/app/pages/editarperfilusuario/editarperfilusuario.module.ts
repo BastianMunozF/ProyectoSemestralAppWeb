@@ -12,9 +12,9 @@ import { EditarperfilusuarioPage } from './editarperfilusuario.page';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
-    EditarperfilusuarioPageRoutingModule
+    EditarperfilusuarioPageRoutingModule,
+    ReactiveFormsModule,
   ],
   declarations: [EditarperfilusuarioPage]
 })
