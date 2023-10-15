@@ -38,9 +38,10 @@ export class PaginaloginUsuarioPage implements OnInit {
     if (this.formularioLogin.valid) {
       let form = this.formularioLogin.value;
 
+      console.log('Formulario de inicio de sesión:', form);
+
       this.database.buscarCorreo(form.correo, form.contrasena).then((datos) => {
         console.log('Datos de la base de datos:', datos);
-        console.log('Datos del formulario:', form);
 
         if (datos && datos.length > 0) {
           this.usuario = datos[0];
