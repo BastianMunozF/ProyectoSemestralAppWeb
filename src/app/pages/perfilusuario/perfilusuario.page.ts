@@ -15,11 +15,26 @@ export class PerfilusuarioPage implements OnInit {
   imageSource: string | undefined;
   usuario!: Usuario;
 
+  //Variables para guardar datos del usuario
+  nombre: string = "";
+  apellido: string = "";
+  correo: string = "";
+  fechanacimiento: any;
+  rut: string = "";
+  celular: any;
+
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
     database.buscarDatosUsuario(userId).then((perfil) => {
       this.usuario = perfil[0];
+
+      this.nombre = this.usuario.nombre;
+      this.apellido = this.usuario.apellido;
+      this.correo = this.usuario.correo;
+      this.fechanacimiento = this.usuario.fechanacimiento;
+      this.rut = this.usuario.rut;
+      this.celular = this.usuario.celular;
     })
   }
 
