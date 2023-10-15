@@ -56,20 +56,17 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: string, contrasena: string) {
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-      if (res.rows.length > 0) {
-        // Se encontraron resultados, entonces el usuario está registrado
-        const usuario = {
-          correo: res.rows.item(0).correo,
-          contrasena: res.rows.item(0).contrasena
-        };
-        return [usuario];
+  buscarCorreo(correo: any, contrasena: any) {
+    return this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
+      if(res.rows.length > 0){
+        return res.rows.item(0);
       } else {
-        // No se encontraron resultados, el usuario no está registrado
-        return [];
+        return null;
       }
-    });
+    }).catch(e => {
+      this.presentAlert("Error al buscar usuario: " + e);
+      return false;
+    })
   }
 
   buscarDatosUsuario(id: any){

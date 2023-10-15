@@ -35,34 +35,17 @@ export class PaginaloginUsuarioPage implements OnInit {
   }
 
   iniciarSesion() {
-    if (this.formularioLogin.valid) {
-      let form = this.formularioLogin.value;
-
-      console.log('Formulario de inicio de sesión:', form);
-
-      this.database.buscarCorreo(form.correo, form.contrasena).then((datos) => {
-        console.log('Datos de la base de datos:', datos);
-
-        if (datos && datos.length > 0) {
-          this.usuario = datos[0];
-
-          if (form.correo === this.usuario.correo && form.contrasena === this.usuario.contrasena) {
-            console.log('Sesión iniciada con éxito');
-            this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.");
-            this.router.navigate(['/menuprincipal']);
-            this.formularioLogin.reset();
-          } else {
-            console.log('Contraseña incorrecta');
-            this.presentarAlerta("Error al iniciar sesión", "La contraseña es incorrecta.");
-          }
-        } else {
-          console.log('Correo no encontrado');
-          this.presentarAlerta("Error al iniciar sesión", "El correo no se encuentra registrado.");
-        }
-      });
-    } else {
-      this.presentarAlerta("Error", "Rellena el formulario correctamente.");
-    }
+    this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
+      if(usuario !== null){
+        localStorage.setItem('id', usuario.id);
+        localStorage.setItem('rol', usuario.id_rol);
+        this.router.navigate(['/menuprincipal']).then(() => {
+          this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
+        })
+      } else {
+        this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos")
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
