@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>registrarvehiculo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header collapse="condense">
+        <ion-card-title size="large">registrarvehiculo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formularioVehiculo">
+        <ion-item>
+          <ion-label position="floating" required>Marca:</ion-label>
+          <ion-input formControlName="marca" type=""></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Modelo:</ion-label>
+          <ion-input formControlName="modelo" type=""></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Año:</ion-label>
+          <ion-input formControlName="annio" type=""></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Patente:</ion-label>
+          <ion-input formControlName="patente" type=""></ion-input>
+        </ion-item>
+        <ion-button type="submit">Registrar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+

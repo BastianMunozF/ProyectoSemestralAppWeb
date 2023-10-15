@@ -119,6 +119,8 @@ export class DbserviceService {
     })
   }
 
+
+
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id_rol: any){
     return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol]).then(res => {
@@ -130,6 +132,11 @@ export class DbserviceService {
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
     });
+  }
+
+  tomarViaje(f_viaje: any, hora_salida: any, salida:any, destino:any, cant_asientos:any, total:any, valor_asiento:any, estado:any){
+    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, total, valor_asiento, estado")
+
   }
 
   actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any){
