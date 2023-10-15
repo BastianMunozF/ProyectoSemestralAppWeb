@@ -39,28 +39,27 @@ export class PaginaloginUsuarioPage implements OnInit {
       let form = this.formularioLogin.value;
 
       this.database.buscarCorreo(form.correo, form.contrasena).then((datos) => {
+        console.log('Datos de la base de datos:', datos);
+        console.log('Datos del formulario:', form);
+
         if (datos && datos.length > 0) {
-          // La consulta devuelve resultados
           this.usuario = datos[0];
 
-          // Compara el correo y la contraseña con los datos del usuario encontrado
-          if (
-            form.correo === this.usuario.correo &&
-            form.contrasena === this.usuario.contrasena
-          ) {
+          if (form.correo === this.usuario.correo && form.contrasena === this.usuario.contrasena) {
+            console.log('Sesión iniciada con éxito');
             this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.");
             this.router.navigate(['/menuprincipal']);
             this.formularioLogin.reset();
           } else {
-            this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.");
+            console.log('Contraseña incorrecta');
+            this.presentarAlerta("Error al iniciar sesión", "La contraseña es incorrecta.");
           }
         } else {
-          // No se encontraron resultados para el correo y contraseña ingresados
-          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.");
+          console.log('Correo no encontrado');
+          this.presentarAlerta("Error al iniciar sesión", "El correo no se encuentra registrado.");
         }
       });
     } else {
-      // El formulario no es válido, muestra un mensaje de error
       this.presentarAlerta("Error", "Rellena el formulario correctamente.");
     }
   }
