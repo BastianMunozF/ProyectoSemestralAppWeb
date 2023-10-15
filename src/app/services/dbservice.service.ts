@@ -57,23 +57,19 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: string, contrasena: string) {
-    return this.database.executeSql("SELECT correo, contrasena FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
-        let items: Busuario[] = [];
-
-        if(res.rows.length > 0){
-          for(var i = 0; i < res.rows.length; i++){
-            items.push({
-              correo: res.rows.item(i).correo,
-              contrasena: res.rows.item(i).contrasena
-            })
-          }
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      if (res.rows.length > 0) {
+        const usuario = res.rows.item(0);
+        if (usuario.contrasena === contrasena) {
+          return usuario;
         }
-        return items;
-      })
-      .catch(error => {
-        this.presentAlert("Error al buscar un usuario: " + error);
-        throw error; // Propaga el error para que lo maneje la capa superior
-      });
+      }
+      return null; // Devolver null si no se encuentra el usuario o la contraseña no coincide
+    })
+    .catch(error => {
+      this.presentAlert("Error al buscar un usuario: " + error);
+      throw error; // Propaga el error para que lo maneje la capa superior
+    });
   }
 
   buscarUsuario(){

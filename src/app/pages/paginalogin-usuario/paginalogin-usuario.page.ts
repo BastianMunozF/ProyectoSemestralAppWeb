@@ -41,16 +41,15 @@ export class PaginaloginUsuarioPage implements OnInit {
       return;
     }
   
-    // Llamada a la base de datos
     this.database.buscarCorreo(user.correo, user.contrasena)
       .then(usuario => {
-        if (usuario !== null) {
+        if (usuario) {
           // Sesión iniciada con éxito
           this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.");
           this.router.navigate(['/menuprincipal']);
         } else {
           // Datos de inicio de sesión incorrectos
-          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.");
+          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen o la contraseña es incorrecta.");
         }
       })
       .catch(error => {
