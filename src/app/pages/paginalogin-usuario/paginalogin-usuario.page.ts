@@ -36,7 +36,7 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion() {
     // Llamar a la función para buscar el usuario en la base de datos
-    this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
+    return this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
       if (usuario !== null) {
         // Usuario encontrado, almacenar información en el almacenamiento local
         localStorage.setItem('id', usuario.id);
