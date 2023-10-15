@@ -12,15 +12,14 @@ import { from } from 'rxjs';
 export class PerfilusuarioPage implements OnInit {
   usuarioR: string = "";
   claveR: string = "";
-  variableStorage: any = "";
 
   //Variables para guardar los datos del Usuario
-  nombreU: string = "";
-  apellidoU: string = "";
-  rutU: string = "";
-  edadU!: number;
-  correoU: string = "";
-  celularU!: number;
+  nombre: string = "";
+  apellido: string = "";
+  correo: string = "";
+  fechnacimiento!: Date;
+  rut: string = "";
+  celular!: number;
   image: any;
   imageSource: string | undefined;
 
@@ -34,16 +33,7 @@ export class PerfilusuarioPage implements OnInit {
   }
 
   ngOnInit() {
-    const usuarioString = localStorage.getItem('usuario');
-    if (usuarioString !== null){
-      const usuario = JSON.parse(usuarioString);
-      this.nombreU = usuario.nombre;
-      this.apellidoU = usuario.apellido;
-      this.rutU = usuario.rut;
-      this.edadU = usuario.edad;
-      this.correoU = usuario.correo;
-      this.celularU = usuario.celular;
-    }
+
   }
   takePicture = async () => {
     const image = await Camera.getPhoto({
