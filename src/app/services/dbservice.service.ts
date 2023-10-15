@@ -134,7 +134,13 @@ export class DbserviceService {
 
   actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any){
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE nombre = ?',[nombre,apellido,correo,fechanacimiento,rut,celular]).then(res=>{
-      this.buscarUsuario();
+      if(res){
+        this.buscarUsuario();
+      } else {
+        this.presentAlert("Error al actualizar usuario.")
+      }
+    }).catch(error => {
+      console.error('Error al actualizar usuario en base de datos:', error)
     })
   }
 
