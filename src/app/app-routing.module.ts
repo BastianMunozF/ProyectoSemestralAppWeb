@@ -34,10 +34,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/comenzarviaje/comenzarviaje.module').then( m => m.ComenzarviajePageModule)
   },
   {
-    path: 'sesionconductor',
-    loadChildren: () => import('./pages/sesionconductor/sesionconductor.module').then( m => m.SesionconductorPageModule)
-  },
-  {
     path: 'menuprincipalconductor',
     loadChildren: () => import('./pages/menuprincipalconductor/menuprincipalconductor.module').then( m => m.MenuprincipalconductorPageModule)
   },

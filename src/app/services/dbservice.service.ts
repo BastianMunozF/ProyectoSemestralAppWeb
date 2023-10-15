@@ -106,6 +106,12 @@ export class DbserviceService {
     });
   }
 
+  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any){
+    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE nombre = ?',[nombre,apellido,correo,fechanacimiento,rut,celular]).then(res=>{
+      this.buscarUsuario();
+    })
+  }
+
   //Funcion para crear la Base de Datos.
   crearBD(){
     //Verificar si el celular está listo para crear Base de Datos, se crea en el constructor con la variable 'platform'.
