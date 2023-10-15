@@ -56,17 +56,21 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: any, contrasena: any) {
-    return this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
-      if(res.rows.length > 0){
-        return res.rows.item(0);
+  async buscarCorreo(correo: any, contrasena: any) {
+    try {
+      const result = await this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]);
+      if (result.rows.length > 0) {
+        // Usuario encontrado, devolvemos el primer usuario
+        return result.rows.item(0);
       } else {
+        // No se encontró un usuario con las credenciales proporcionadas
         return null;
       }
-    }).catch(e => {
-      this.presentAlert("Error al buscar usuario: " + e);
-      return false;
-    })
+    } catch (error) {
+      // Error al buscar usuario
+      console.error('Error al buscar usuario:', error);
+      throw error;
+    }
   }
 
   buscarDatosUsuario(id: any){

@@ -34,9 +34,9 @@ export class PaginaloginUsuarioPage implements OnInit {
   ngOnInit() {
   }
 
-  iniciarSesion() {
-    // Llamar a la función para buscar el usuario en la base de datos
-    return this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
+  async iniciarSesion() {
+    try {
+      const usuario = await this.database.buscarCorreo(this.correo, this.contrasena);
       if (usuario !== null) {
         // Usuario encontrado, almacenar información en el almacenamiento local
         localStorage.setItem('id', usuario.id);
@@ -50,7 +50,11 @@ export class PaginaloginUsuarioPage implements OnInit {
         // No se encontró un usuario con las credenciales proporcionadas
         this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos");
       }
-    });
+    } catch (error) {
+      // Manejar errores, mostrar mensajes de error o registrarlos según sea necesario
+      console.error('Error al iniciar sesión:', error);
+      this.presentarAlerta("Error al iniciar sesión", "Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.");
+    }
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
