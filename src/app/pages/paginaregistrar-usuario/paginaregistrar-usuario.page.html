@@ -121,7 +121,7 @@
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
 
-          <p color="danger" *ngIf="formularioRegistro.get('password')?.value? !== formularioRegistro.get('confirmacionPassword')?.value?">Las contraseñas no coinciden</p>
+          <p color="danger" *ngIf="formularioRegistro.get('password')? !== formularioRegistro.get('confirmacionPassword')?">Las contraseñas no coinciden</p>
           <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['required']">Este campo es obligatorio.</p>
           <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['minlength']">Este campo requiere mínimo 10 carácteres.</p>
           <p color="danger" *ngIf="formularioRegistro.get('confirmacionPassword')?.errors?.['maxlength']">Este campo requiere máximo 30 carácteres.</p>
