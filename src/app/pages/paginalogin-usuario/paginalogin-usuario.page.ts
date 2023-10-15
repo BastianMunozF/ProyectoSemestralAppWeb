@@ -8,6 +8,7 @@ import {
 import { AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Busuario } from 'src/app/services/busuario';
 
 @Component({
   selector: 'app-paginalogin-usuario',
@@ -20,6 +21,7 @@ export class PaginaloginUsuarioPage implements OnInit {
   correo: string = "";
   contrasena: string = "";
   user: string = "";
+  usuario!: Busuario;
 
   constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router, private database: DbserviceService) { 
 
@@ -33,31 +35,19 @@ export class PaginaloginUsuarioPage implements OnInit {
   }
 
   iniciarSesion() {
-    const user = this.formularioLogin.value;
-    
-    // Validación de entrada
-    if (!user.correo || !user.contrasena) {
-      this.presentarAlerta("Error al iniciar sesión", "Por favor, complete todos los campos.");
-      return;
+    let form = this.formularioLogin.value;
+
+    this.database.buscarCorreo(this.correo, this.contrasena).then((datos) => {
+      this.usuario = datos[0]
+    })
+
+    if(form.correo === this.usuario.correo && form.contrasena === this.usuario.contrasena){
+      this.presentarAlerta("Sesión iniciada", "El inicio de sesión ha sido exitoso.");
+      this.router.navigate(['/menuprincipal']);
+      this.formularioLogin.reset();
+    } else {
+      this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados son incorrectos.")
     }
-  
-    this.database.buscarCorreo(user.correo, user.contrasena)
-      .then(usuario => {
-        if (usuario !== null) {
-          // Sesión iniciada con éxito
-          this.presentarAlerta("Sesión iniciada", "Ha iniciado sesión correctamente.");
-          this.router.navigate(['/menuprincipal']);
-          this.formularioLogin.reset();
-        } else {
-          // Datos de inicio de sesión incorrectos
-          this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen o la contraseña es incorrecta.");
-        }
-      })
-      .catch(error => {
-        // Manejo de errores
-        console.error("Error al buscar usuario en la base de datos:", error);
-        this.presentarAlerta("Error al iniciar sesión", "Ocurrió un error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.");
-      });
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

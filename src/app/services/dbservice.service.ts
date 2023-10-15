@@ -56,18 +56,42 @@ export class DbserviceService {
     return this.listaUsuario.asObservable();
   }
 
-  buscarCorreo(correo: string, contrasena: string) {
+  buscarCorreo(correo: any, contrasena: any) {
     return this.database.executeSql("SELECT correo, contrasena FROM usuario WHERE correo = ? AND contrasena = ?", [correo, contrasena]).then(res => {
+      let ingreso: Busuario[] = [];
+
       if(res.rows.length > 0){
-        return res.rows.item(0);
-      } else {
-        return null;
+        for(var i = 0; i < res.rows.length; i++){
+          ingreso.push({
+            correo: res.rows.item(i).correo,
+            contrasena: res.rows.item(i).contrasena
+          })
+        }
       }
+      return ingreso;
     })
-    .catch(error => {
-      this.presentAlert("Error al buscar un usuario: " + error);
-      throw error; // Propaga el error para que lo maneje la capa superior
-    });
+  }
+
+  buscarDatosUsuario(id: any){
+    return this.database.executeSql("SELECT * FROM usuario WHERE id = ?", [id]).then(res => {
+      let datos: Usuario[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          datos.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            correo: res.rows.item(i).correo,
+            fechanacimiento: res.rows.item(i).fechanacimiento,
+            rut: res.rows.item(i).rut,
+            celular: res.rows.item(i).celular,
+            contrasena: res.rows.item(i).contrasena
+          })
+        }
+      }
+      return datos;
+    })
   }
 
   buscarUsuario(){
