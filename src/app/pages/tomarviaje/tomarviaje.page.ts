@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard, IonCardContent } from '@ionic/angular';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-
-
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tomarviaje',
@@ -17,33 +17,49 @@ export class TomarviajePage implements OnInit {
 
   private animation!: Animation;
 
-  constructor(private animationCtrl: AnimationController, private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private database: DbserviceService, private alertController: AlertController) {
     this.formularioViaje = this.formBuilder.group({
-      f_viaje: [''],
-      hora_salida: [''],
-      salida: [''],
-      destino: [''],
-      cant_asientos: [''],
-      total: [''],
-      valor_asiento: [''],
-      estado: [''],
+      'f_viaje': new FormControl("", [Validators.required]),
+      'hora_salida': new FormControl("", [Validators.required]),
+      'salida': new FormControl("", [Validators.required]),
+      'destino': new FormControl("", [Validators.required]),
+      'total': new FormControl("", [Validators.required])
     });
-   }
+  }
 
   ngOnInit() {
     
   }
-  ngAfterViewInit() {
-    this.animation = this.animationCtrl
-      .create()
-      .addElement(this.card.nativeElement)
-      .duration(3000)
-      .iterations(Infinity)
-      .keyframes([
-        { offset: 0, width: '80px' },
-        { offset: 0.72, width: 'var(--width)' },
-        { offset: 1, width: '240px' },
-      ]);
+
+  tomarViaje(){
+    if(this.formularioViaje.valid){
+      let form = this.formularioViaje.value;
+
+      this.database.tomarViaje(form.f_viaje, form.hora_salida, form.salida, form.destino, form.total).then(res => {
+        if(res !== null){
+          console.log('Viaje ingresado correctamente.');
+          this.presentarAlerta("Viaje reservado", "El viaje ha sido reservado correctamente.");
+          //Redireccionar a una página de historial de viajes ->
+        } else {
+          console.log('Viaje no reservado');
+          this.presentarAlerta("Error al reservar", "Rellene el formulario correctamente.")
+        }
+      }).catch(error => {
+        console.error('Error al reservar el viaje:', error);
+      })
+    } else {
+      this.presentarAlerta("Error al reservar", "Rellene el formulario correctamente.")
+    }
+  }
+
+  async presentarAlerta(titulo: string, mensaje: string){
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
   }
 }
 

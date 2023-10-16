@@ -4,7 +4,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
-import { Busuario } from './busuario';
+import { Viajeuser } from './viajeuser';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,8 @@ export class DbserviceService {
 
   //Variable observable para consultar usuarios en la Base de Datos
   listaUsuario = new BehaviorSubject([]);
+
+  listaViajeuser = new BehaviorSubject([]);
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
@@ -94,6 +96,27 @@ export class DbserviceService {
     })
   }
 
+  buscarViajeuser(){
+    return this.database.executeSql("SELECT * FROM viajeuser", []).then(res => {
+      let items: Viajeuser[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          items.push({
+            id_viajeuser: res.rows.item(i).id_viajeuser,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            total: res.rows.item(i).total
+          })
+        }
+      }
+
+      this.listaViajeuser.next(items as any)
+    })
+  }
+
   buscarUsuario(){
     return this.database.executeSql("SELECT * FROM usuario", []).then(res => {
       //Almacenamos la consulta en esta variable
@@ -122,28 +145,29 @@ export class DbserviceService {
     })
   }
 
-
-
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id_rol: any){
     return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol]).then(res => {
       if(res){
         this.buscarUsuario();
       } else {
-        this.presentAlert("Error al insertar usuario en la base de datos.")
+        this.presentAlert("Error al insertar usuario en la base de datos.");
       }
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
     });
   }
 
-  //Funcion para insertar Vehiculo
-  insertarVehiculo(){
-    
-  }
-
-  tomarViaje(f_viaje: any, hora_salida: any, salida:any, destino:any, cant_asientos:any, total:any, valor_asiento:any, estado:any){
-    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, total, valor_asiento, estado")
+  tomarViaje(f_viaje: any, hora_salida: any, salida: any, destino: any, total: any){
+    return this.database.executeSql("INSERT INTO viajeuser VALUES(f_viaje, hora_salida, salida, destino, total) VALUES(?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, total]).then(res => {
+      if(res){
+        this.buscarViajeuser();
+      } else {
+        this.presentAlert("Error al insertar viaje en la base de datos.");
+      }
+    }).catch(error => {
+      console.error('Error al insertar el viaje.', error);
+    })
 
   }
 

@@ -13,19 +13,22 @@
       <ion-card-title>Agenda tu Viaje</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formularioViaje">
+      <form [formGroup]="formularioViaje" (ngSubmit)="tomarViaje()">
 
         <ion-item>
           <ion-label position="floating" required>Fecha Viaje:</ion-label>
           <ion-input formControlName="f_viaje" type="date"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="floating" required>Hora Salida:</ion-label>
-          <ion-input formControlName="hora_salida" id="horasalida"></ion-input>
+          <ion-input formControlName="hora_salida" type="text" id="horasalida"></ion-input>
         </ion-item>
+
         <ion-item>
+
           <ion-label>Salida:</ion-label>
-          <select name="sede" id="sede">
+          <select name="salida" id="salida" formControlName="salida">
             <option value="pnorte">Sede Plaza Norte</option>
             <option value="alameda">Sede Alameda</option>
             <option value="valle">Sede Pedro Alonso de Valle</option>
@@ -40,56 +43,46 @@
             <option value="carlos">Sede San Carlos de Apoquindo</option>
             <option value="joaquin">Sede San Joaquin</option>
           </select>
-          <ion-input formControlName="salida" id="salida"></ion-input>
+
         </ion-item>
+
         <ion-item>
           <ion-label>Destino:</ion-label>
-          <select name="comuna" id="comuna">
+          <select name="destino" id="destino" formControlName="destino">
             <option value="cerrillos">Cerrillos</option>
-            <option value="cerro">Cerro Navia</option>
+            <option value="cerronavia">Cerro Navia</option>
             <option value="conchali">Conchalí</option>
-            <option value="bosque">El Bosque</option>
-            <option value="central">Estación Central</option>
+            <option value="elbosque">El Bosque</option>
+            <option value="estacioncentral">Estación Central</option>
             <option value="huechuraba">Huechuraba</option>
-            <option value="indepe">Independencia</option>
-            <option value="cisterna">La Cisterna</option>
-            <option value="florida">La Florida</option>
-            <option value="granja">La Granja</option>
-            <option value="pintana">La Pintana</option>
-            <option value="reina">La Reina</option>
-            <option value="condes">Las Condes</option>
-            <option value="barnechea">Lo Barnechea</option>
-            <option value="espejo">Lo Espejo</option>
-            <option value="prado">Lo Prado</option>
+            <option value="independencia">Independencia</option>
+            <option value="lacisterna">La Cisterna</option>
+            <option value="laflorida">La Florida</option>
+            <option value="lagranja">La Granja</option>
+            <option value="lapintana">La Pintana</option>
+            <option value="lareina">La Reina</option>
+            <option value="lascondes">Las Condes</option>
+            <option value="lobarnechea">Lo Barnechea</option>
+            <option value="loespejo">Lo Espejo</option>
+            <option value="loprado">Lo Prado</option>
             <option value="macul">Macúl</option>
             <option value="maipu">Maipú</option>
             <option value="nunoa">Ñuñoa</option>
-            <option value="pedro">Pedro Aguirre Cerda</option>
-            <option value="pena">Peñalolén</option>
+            <option value="pedroaguirrecerda">Pedro Aguirre Cerda</option>
+            <option value="penalolen">Peñalolén</option>
             <option value="providencia">Providencia</option>
-            <option value="puda">Pudahuel</option>
-            <option value="quili">Quilicura</option>
+            <option value="pudahuel">Pudahuel</option>
+            <option value="quilicura">Quilicura</option>
             <option value="colina">Colina</option>
           </select>
-          <ion-input formControlName="destino" id="destino"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating" required>Cantidad Asientos:</ion-label>
-          <ion-input formControlName="cant_asientos" id="cantasientos"></ion-input>
-        </ion-item>
+        
         <ion-item>
           <ion-label position="floating" required>Total:</ion-label>
           <ion-input formControlName="total" id="total"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating" required>Valor Asiento:</ion-label>
-          <ion-input formControlName="valor_asiento" id="valorasiento"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating" required>Estado:</ion-label>
-          <ion-input formControlName="estado" id="estado"></ion-input>
-        </ion-item>
-        <ion-button type="submit">Tomar Viaje</ion-button>
+        
+        <ion-button type="submit" (click)="tomarViaje()">Tomar Viaje</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
