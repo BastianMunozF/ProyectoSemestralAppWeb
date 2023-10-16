@@ -44,3 +44,27 @@
 
 </ion-content>
 
+<ion-footer>
+  <section style="display: flex; justify-content: center; align-items: center;">
+    <div class="example-button-row">
+      <div class="example-flex-container">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']">
+          <ion-icon name="home" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']">
+          <ion-icon name="location" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/tomarviaje']">
+          <ion-icon name="walk" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/comenzarviaje']">
+          <ion-icon name="car-sport" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']">
+          <ion-icon name="exit" color="primary"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </section>
+</ion-footer>
+
