@@ -24,8 +24,6 @@ export class PerfilusuarioPage implements OnInit {
   celular: any;
   fotoPerfil!: string;
 
-  idRol = localStorage.getItem('rol');
-
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
