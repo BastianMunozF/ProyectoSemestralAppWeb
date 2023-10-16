@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 export class PaginarecuperarUsuarioPage implements OnInit {
 
   formularioRecuperar: FormGroup;
+  correo: string = "";
+  rut: string = "";
+  contrasena: string = "";
+  confcontrasena: string = "";
 
   constructor(private fb: FormBuilder, private database: DbserviceService, private alertController: AlertController, private router: Router) {
     this.formularioRecuperar = this.fb.group({
