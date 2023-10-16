@@ -8,6 +8,9 @@ import { TomarviajePageRoutingModule } from './tomarviaje-routing.module';
 
 import { TomarviajePage } from './tomarviaje.page';
 import { Componente1Component } from 'src/app/components/componente1/componente1.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import { Componente1Component } from 'src/app/components/componente1/componente1
     FormsModule,
     IonicModule,
     TomarviajePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [TomarviajePage, Componente1Component]
 })

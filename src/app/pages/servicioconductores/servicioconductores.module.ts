@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { ServicioconductoresPageRoutingModule } from './servicioconductores-routing.module';
 
 import { ServicioconductoresPage } from './servicioconductores.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ServicioconductoresPageRoutingModule
+    ServicioconductoresPageRoutingModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [ServicioconductoresPage]
 })

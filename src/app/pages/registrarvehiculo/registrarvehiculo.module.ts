@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { RegistrarvehiculoPageRoutingModule } from './registrarvehiculo-routing.module';
 
 import { RegistrarvehiculoPage } from './registrarvehiculo.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -14,7 +17,10 @@ import { RegistrarvehiculoPage } from './registrarvehiculo.page';
     FormsModule,
     IonicModule,
     RegistrarvehiculoPageRoutingModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [RegistrarvehiculoPage]
 })

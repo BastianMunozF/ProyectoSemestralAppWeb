@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { MapaconductoresPageRoutingModule } from './mapaconductores-routing.module';
 
 import { MapaconductoresPage } from './mapaconductores.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapaconductoresPageRoutingModule
+    MapaconductoresPageRoutingModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [MapaconductoresPage]
 })

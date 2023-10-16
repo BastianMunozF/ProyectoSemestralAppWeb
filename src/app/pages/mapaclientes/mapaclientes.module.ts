@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { MapaclientesPageRoutingModule } from './mapaclientes-routing.module';
 
 import { MapaclientesPage } from './mapaclientes.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapaclientesPageRoutingModule
+    MapaclientesPageRoutingModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [MapaclientesPage]
 })
