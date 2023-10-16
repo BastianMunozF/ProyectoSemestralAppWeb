@@ -20,32 +20,32 @@
       
       <ion-item>
         <ion-label>Nombre:</ion-label>
-        <ion-input formControlName="nombre" type="text" placeholder="Nombre">{{ nombreU }}</ion-input>
+        <ion-input formControlName="nombre" type="text" value="{{ nombreU }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Apellido:</ion-label>
-        <ion-input formControlName="apellido" type="text" placeholder="Apellido">{{ apellidoU }}</ion-input>
+        <ion-input formControlName="apellido" type="text" value="{{ apellidoU }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Correo:</ion-label>
-        <ion-input formControlName="correo" type="email" placeholder="Correo">{{ correoU }}</ion-input>
+        <ion-input formControlName="correo" type="email" valu="{{ correoU }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Fecha Nacimiento:</ion-label>
-        <ion-input formControlName="fechanacimiento" type="date" placeholder="Fecha de Nacimiento">{{ fechanacimientoU }}</ion-input>
+        <ion-input formControlName="fechanacimiento" type="date" value="{{ fechanacimientoU }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Rut:</ion-label>
-        <ion-input formControlName="rut" type="text" placeholder="Rut">{{ rutU }}</ion-input>
+        <ion-input formControlName="rut" type="text" value="{{ rutU }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Celular:</ion-label>
-        <ion-input formControlName="celular" type="number" placeholder="Celular">{{ celularU }}</ion-input>
+        <ion-input formControlName="celular" type="number" value="{{ celularU }}"></ion-input>
       </ion-item>
 
       <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
