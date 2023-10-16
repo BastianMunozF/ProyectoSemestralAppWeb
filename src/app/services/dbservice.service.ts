@@ -137,6 +137,11 @@ export class DbserviceService {
     });
   }
 
+  //Funcion para insertar Vehiculo
+  insertarVehiculo(){
+    
+  }
+
   tomarViaje(f_viaje: any, hora_salida: any, salida:any, destino:any, cant_asientos:any, total:any, valor_asiento:any, estado:any){
     return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, total, valor_asiento, estado")
 

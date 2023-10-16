@@ -17,6 +17,14 @@
     <ion-card-content>
       <img *ngIf="imageSource" [src]="imageSource" alt="imageSource" style="width: 100%;max-width: 250px;">
 
+      <ion-item>
+        <ion-label position="stacked">Foto de Perfil</ion-label>
+        <ion-button (click)="takePicture()">Tomar foto</ion-button>
+        <div class="profile-picture" *ngIf="fotoPerfil">
+          <img [src]="fotoPerfil" alt="Foto de perfil">
+        </div>
+      </ion-item>
+
       <ion-item>  
         <ion-label>Nombre: {{ nombre }}</ion-label>
       </ion-item>
