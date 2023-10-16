@@ -8,7 +8,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { IonicModule } from '@ionic/angular';
 
 import { EditarperfilusuarioPageRoutingModule } from './editarperfilusuario-routing.module';
-
 import { EditarperfilusuarioPage } from './editarperfilusuario.page';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { EditarperfilusuarioPage } from './editarperfilusuario.page';
     IonicModule,
     EditarperfilusuarioPageRoutingModule,
     ReactiveFormsModule,
-    MatButtonModule, MatDividerModule, MatIconModule
+    MatButtonModule, MatDividerModule, MatIconModule,
   ],
   declarations: [EditarperfilusuarioPage]
 })

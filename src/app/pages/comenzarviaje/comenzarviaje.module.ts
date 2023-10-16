@@ -18,7 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     IonicModule,
     ComenzarviajePageRoutingModule,
-    MatButtonModule, MatDividerModule, MatIconModule
+    MatButtonModule, MatDividerModule, MatIconModule,
   ],
   declarations: [ComenzarviajePage]
 })

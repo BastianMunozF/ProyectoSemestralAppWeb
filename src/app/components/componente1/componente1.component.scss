@@ -1,33 +1,31 @@
-#container {
-    color:black; 
-    width: 95%;
-    border-bottom: 5%;
-    border: solid 1.5px #469597;
-
-}
-
-#us{
-    margin-left: 3%;
-    font-family: 'calibri';
-    font-size: xx-large;
-    
-}
-
-#letra{
-    font-family: 'arial';
-    font-size: medium;
-    font-weight: 500;
-}
-
-.color{
-    color: var(--ion-color-new-shade) ;
-}
-
-ion-content{
-    --ion-background-color:rgb(241, 241, 236);
-    --ion-border-color:primary;
-}
-
-ion-card{
-    --ion-border-color:rgb(141, 38, 38);
-}
+section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }

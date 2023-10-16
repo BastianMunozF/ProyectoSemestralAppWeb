@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { TomarviajePageRoutingModule } from './tomarviaje-routing.module';
 
 import { TomarviajePage } from './tomarviaje.page';
-import { Componente1Component } from 'src/app/components/componente1/componente1.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -23,6 +22,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatDividerModule,
     MatButtonModule
   ],
-  declarations: [TomarviajePage, Componente1Component]
+  declarations: [TomarviajePage]
 })
 export class TomarviajePageModule {}
