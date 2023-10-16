@@ -27,6 +27,8 @@ export class EditarperfilusuarioPage implements OnInit {
   rutU: string = "";
   celularU: any;
 
+  idRol = localStorage.getItem('rol');
+
   formularioActualizar: FormGroup;
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
@@ -41,7 +43,6 @@ export class EditarperfilusuarioPage implements OnInit {
       this.fechanacimientoU = this.usuario.fechanacimiento;
       this.rutU = this.usuario.rut;
       this.celularU = this.usuario.celular;
-
     })
 
     this.formularioActualizar = this.fb.group({

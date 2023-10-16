@@ -23,7 +23,7 @@ export class PaginaloginUsuarioPage implements OnInit {
   user: string = "";
   usuario!: Busuario;
 
-  constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router, private database: DbserviceService) { 
+  constructor(public fb: FormBuilder, public alertController: AlertController, public router: Router, private database: DbserviceService) { 
 
     this.formularioLogin = this.fb.group({
       'correo': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
