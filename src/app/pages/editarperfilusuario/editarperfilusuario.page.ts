@@ -45,12 +45,12 @@ export class EditarperfilusuarioPage implements OnInit {
     })
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl("this.nombreU"),
-      'apellido': new FormControl("this.apellidoU"),
-      'correo': new FormControl("this.correoU"),
-      'fechanacimiento': new FormControl("this.fechanacimientoU"),
-      'rut': new FormControl("this.rutU"),
-      'celular': new FormControl("this.celularU")
+      'nombre': new FormControl("{{ this.nombreU }}"),
+      'apellido': new FormControl("{{ this.apellidoU }}"),
+      'correo': new FormControl("{{ this.correoU }}"),
+      'fechanacimiento': new FormControl("{{ this.fechanacimientoU }}"),
+      'rut': new FormControl("{{ this.rutU }}"),
+      'celular': new FormControl("{{ this.celularU }}")
     })
   }
 
