@@ -30,7 +30,7 @@
       
       <ion-item>
         <ion-label>Correo:</ion-label>
-        <ion-input formControlName="correo" type="text" placeholder="Correo">{{ correoU }}</ion-input>
+        <ion-input formControlName="correo" type="email" placeholder="Correo">{{ correoU }}</ion-input>
       </ion-item>
       
       <ion-item>
@@ -45,7 +45,7 @@
 
       <ion-item>
         <ion-label>Celular:</ion-label>
-        <ion-input formControlName="celular" type="text" placeholder="Celular">{{ celularU }}</ion-input>
+        <ion-input formControlName="celular" type="number" placeholder="Celular">{{ celularU }}</ion-input>
       </ion-item>
 
       <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>

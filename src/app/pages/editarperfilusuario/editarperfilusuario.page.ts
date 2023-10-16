@@ -66,7 +66,7 @@ export class EditarperfilusuarioPage implements OnInit {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
-          this.router.navigate(['/menuprincipal'])
+          this.router.navigate(['/perfilusuario'])
           this.formularioActualizar.reset();
         } else {
           console.log("Error al actualizar datos");
