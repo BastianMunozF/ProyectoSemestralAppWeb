@@ -19,13 +19,29 @@ export class EditarperfilusuarioPage implements OnInit {
 
   usuario!: Usuario;
 
+  //Variables para guardar datos del usuario
+  nombre: string = "";
+  apellido: string = "";
+  correo: string = "";
+  fechanacimiento: any;
+  rut: string = "";
+  celular: any;
+
   formularioActualizar: FormGroup;
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
 
     const idUser = localStorage.getItem('id');
     database.buscarDatosUsuario(idUser).then((datos) => {
-      this.usuario = datos[0]
+      this.usuario = datos[0];
+
+      this.nombre = this.usuario.nombre;
+      this.apellido = this.usuario.apellido;
+      this.correo = this.usuario.correo;
+      this.fechanacimiento = this.usuario.fechanacimiento;
+      this.rut = this.usuario.rut;
+      this.celular = this.usuario.celular;
+
     })
 
     this.formularioActualizar = this.fb.group({
