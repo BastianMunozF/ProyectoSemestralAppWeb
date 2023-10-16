@@ -1,84 +1,125 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="text-align: center;">ViaGo Conductores</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu Conductor</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-card-content class="ion-padding">
+  <ion-card class="ion-text-center">
+    <ion-card-title>
+      <ion-item color="primary">
+        <ion-label>Viaje</ion-label>
+      </ion-item>
+    </ion-card-title>
 
-<ion-content [fullscreen]="true">
-  <div class="ion-page" id="main-content">
-    <ion-card style="align-items: center;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d213460.12938323306!2d-70.85240348437333!3d-33.28443370910939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d-33.200842099999996!2d-70.6788031!4m5!1s0x9662c7025c925e0f%3A0x7f2f6a657c08d14a!2sduoc%20uc%20plaza%20norte!3m2!1d-33.3634762!2d-70.6782006!5e0!3m2!1ses!2scl!4v1694372187678!5m2!1ses!2scl" width="350" height="350" style="border: 0; margin-left: 12px; margin-top: 12px; margin-bottom: 7px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>      </ion-card>
-      <ion-header>
-        <ion-toolbar color="primary" style="text-align: center;">
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title style="text-align: center;">Ruta Conductor</ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <form [formGroup]="formularioRuta" (ngSubmit)="crearRuta()">
 
-    
-    <ion-content class="ion-padding">
-      <ion-card class="ion-text-center">
-        <ion-card-title>
-          <ion-item color="primary">
-            <ion-label>Información</ion-label>
-          </ion-item>
-        </ion-card-title>
+      <ion-item>
+        <ion-label position="floating" required>Fecha Viaje:</ion-label>
+        <ion-input formControlName="f_viaje" type="date"></ion-input>
+      </ion-item>
 
-        <ion-item>  
-          <ion-label>Cantidad Pasajeros: {{ variableStorage }}</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating" required>Hora Salida:</ion-label>
+        <ion-input formControlName="hora_salida" type="text" id="horasalida"></ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label>Fecha: </ion-label>
-          <ion-input type="date"></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label>Salida:</ion-label>
+        <select name="salida" id="salida" formControlName="salida">
+          <option value="pnorte">Sede Plaza Norte</option>
+          <option value="alameda">Sede Alameda</option>
+          <option value="valle">Sede Pedro Alonso de Valle</option>
+          <option value="varas">Sede Antonio Varas</option>
+          <option value="ed">Sede Educación Continua</option>
+          <option value="maipu">Sede Maipú</option>
+          <option value="milipilla">Sede Milipilla</option>
+          <option value="poeste">Sede Plaza Oeste</option>
+          <option value="pvespucio">Sede Plaza Vespucio</option>
+          <option value="palto">Sede Puente Alto</option>
+          <option value="bernardo">Sede San Bernardo</option>
+          <option value="carlos">Sede San Carlos de Apoquindo</option>
+          <option value="joaquin">Sede San Joaquin</option>
+        </select>
 
-        <ion-item>
-          <ion-label>Tarifa: </ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
+      </ion-item>
 
-        <ion-item>
-          <ion-label>Destino: </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" (click)="alertaViaje()" style="margin-right: 70px;">Aceptar</ion-button>
-        <ion-button color="primary" [routerLink]="['/sesionconductor']">Rechazar</ion-button>
-      </ion-card>
-    </ion-content>
+      <ion-item>
+        <ion-label>Destino:</ion-label>
+        <select name="destino" id="destino" formControlName="destino">
+          <option value="cerrillos">Cerrillos</option>
+          <option value="cerronavia">Cerro Navia</option>
+          <option value="conchali">Conchalí</option>
+          <option value="elbosque">El Bosque</option>
+          <option value="estacioncentral">Estación Central</option>
+          <option value="huechuraba">Huechuraba</option>
+          <option value="independencia">Independencia</option>
+          <option value="lacisterna">La Cisterna</option>
+          <option value="laflorida">La Florida</option>
+          <option value="lagranja">La Granja</option>
+          <option value="lapintana">La Pintana</option>
+          <option value="lareina">La Reina</option>
+          <option value="lascondes">Las Condes</option>
+          <option value="lobarnechea">Lo Barnechea</option>
+          <option value="loespejo">Lo Espejo</option>
+          <option value="loprado">Lo Prado</option>
+          <option value="macul">Macúl</option>
+          <option value="maipu">Maipú</option>
+          <option value="nunoa">Ñuñoa</option>
+          <option value="pedroaguirrecerda">Pedro Aguirre Cerda</option>
+          <option value="penalolen">Peñalolén</option>
+          <option value="providencia">Providencia</option>
+          <option value="pudahuel">Pudahuel</option>
+          <option value="quilicura">Quilicura</option>
+          <option value="colina">Colina</option>
+        </select>
+      </ion-item>
 
-  </div>
+      <ion-item>
+        <ion-label position="floating" required>Cantidad Asientos:</ion-label>
+        <ion-input formControlName="cant_asientos" type="text" id="cant_asientos"></ion-input>
+      </ion-item>
 
-</ion-content>
+      <ion-item>
+        <ion-label position="floating" required>Total:</ion-label>
+        <ion-input formControlName="total" type="text" id="total"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>Valor Asientos:</ion-label>
+        <ion-input formControlName="valor_asiento" type="text" id="valor_asiento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>Estado:</ion-label>
+        <ion-input formControlName="estado" type="text" id="estado"></ion-input>
+      </ion-item>
+    </form>
+    <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" (click)="alertaViaje()" style="margin-right: 70px;">Aceptar</ion-button>
+    <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Rechazar</ion-button>
+  </ion-card>
+</ion-card-content>
 
 <ion-footer>
-  <section style="display: flex; justify-content: center; align-items: center;">
-    <div class="example-button-row">
-      <div class="example-flex-container">
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
-          <ion-icon name="home" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
-          <ion-icon name="location" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
-          <ion-icon name="person" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
-          <ion-icon name="car-sport" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
-          <ion-icon name="exit" color="primary"></ion-icon>
-        </button>
+    <section style="display: flex; justify-content: center; align-items: center;">
+      <div class="example-button-row">
+        <div class="example-flex-container">
+          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
+            <ion-icon name="home" color="primary"></ion-icon>
+          </button>
+          <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
+            <ion-icon name="location" color="primary"></ion-icon>
+          </button>
+          <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
+            <ion-icon name="person" color="primary"></ion-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
+            <ion-icon name="car-sport" color="primary"></ion-icon>
+          </button>
+          <button mat-icon-button aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
+            <ion-icon name="exit" color="primary"></ion-icon>
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 </ion-footer>
-
-
-
-

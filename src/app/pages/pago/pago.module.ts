@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ServicioconductoresPageRoutingModule } from './servicioconductores-routing.module';
+import { PagoPageRoutingModule } from './pago-routing.module';
 
-import { ServicioconductoresPage } from './servicioconductores.page';
+import { PagoPage } from './pago.page';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,11 +16,12 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     FormsModule,
     IonicModule,
-    ServicioconductoresPageRoutingModule,
+    PagoPageRoutingModule,
+    MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    MatButtonModule
+    ReactiveFormsModule
   ],
-  declarations: [ServicioconductoresPage]
+  declarations: [PagoPage]
 })
-export class ServicioconductoresPageModule {}
+export class PagoPageModule {}

@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="text-align: center;" color="primary">
+    <ion-title> <ion-icon name="card" style="margin-right: 10px;"> </ion-icon>Pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-toolbar color="primary">
+        <ion-title size="large"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAACBElEQVR4nGNgGCzgf3090ykPj6RzPj6dNMAdJ7y8HLFafMrNLelGXNzXV9XV/6mOq6r+n/P3f3PU0VEew+LTPj4TXtfU/P/e308TfDct7f1xZ2cHDIunuHuvmRCX+n9aeh5NcHtQ5PfJTh4RGBZnO/ucMHPw/U9LXOLkUTB4LJ4yUEF9eqAS12moxT9Xr/5PbfCdGIt/zJ37//fx41TF39EtDmvY3R3auPdqaMPeawnVm97mNWz6n9+8jSq4vW3d/3d9EzGD2r9qi0FC9/G3Xdve/+/e/oHquHju1f+r2hdjsbh6s0PWtIvvaWEpCNesePh/dvsKyi0+fe8jUXjNqY/EWzx9w7H/exaF/z+wOhWOd80LQLH44etPROFtF0m0+OrBqv//3y2GY5Dlg8LiBUc+EoWn7cWM4299ff+vRka+PeHoqI9i8ZRNF//vWJ79f+fyLDjeujSX4sTVnD3h7Rkfn2tnfHyunvH27gDnYXqk6uD63RMwSqpBYfGKo3fhcfvowTa4ZuQ4h4mB5GFiIH0gsaOXTsHFQGyiLZ617xlYAwhvP3MZbglMDGYYCIPkYWIgfTCHw8Rgjhk6Qf2fCEw1i2chBTUxeIim6vLtChEt+99ULXvwv3o59XHKxFNfAut2JGJYDALB9dsdght2Tw6t3z2D2jioZnsCA8N/RqwWDwQAALhOdMuOmtsnAAAAAElFTkSuQmCC">Ingrese sus Datos</ion-title>
+      </ion-toolbar>
+    </ion-card-header>
+
+
+    <form [formGroup]="formularioPago" (ngSubmit)="efectuarPago()">
+
+      <ion-item>
+        <ion-label position="floating" required>Nombre:</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>Apellido:</ion-label>
+        <ion-input formControlName="apellido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>Número de Tarjeta:</ion-label>
+        <ion-input formControlName="numerot"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>Fecha Caducidad:</ion-label>
+        <ion-input formControlName="fecha"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" required>CVV:</ion-label>
+        <ion-input formControlName="cvv"></ion-input>
+      </ion-item>
+    </form>
+  </ion-card>
+</ion-content>
+

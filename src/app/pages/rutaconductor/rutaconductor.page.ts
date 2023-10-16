@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-rutaconductor',
@@ -11,18 +13,28 @@ export class RutaconductorPage implements OnInit {
   usuarioR: string = "";
   claveR: string = "";
   variableStorage: any = "";
+  formularioRuta: FormGroup;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private alertController: AlertController) {
-    this.activeRoute.queryParams.subscribe(param => {
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.claveR = this.router.getCurrentNavigation()?.extras?.state?.['']
-        this.usuarioR = this.router.getCurrentNavigation()?.extras?.state?.['']
-      }
-    })
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private alertController: AlertController, private formBuilder: FormBuilder) {
+    this.formularioRuta = this.formBuilder.group({
+      'f_viaje': new FormControl("", [Validators.required]),
+      'hora_salida': new FormControl("", [Validators.required]),
+      'salida': new FormControl("", [Validators.required]),
+      'destino': new FormControl("", [Validators.required]),
+      'cant_asientos': new FormControl("", [Validators.required]),
+      'total': new FormControl("", [Validators.required]),
+      'valor_asiento': new FormControl("", [Validators.required]),
+      'estado': new FormControl("", [Validators.required])
+      
+    });
    }
 
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
+  }
+
+  crearRuta(){
+
   }
 
   async alertaViaje(){
