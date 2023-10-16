@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialusuarioPage implements OnInit {
 
+  fechaviaje: any;
+  horasalida: string = "";
+  salida: string = "";
+  destino: any;
+
   constructor() { }
 
   ngOnInit() {
