@@ -49,6 +49,10 @@
         <ion-label>Celular: {{ celular }}</ion-label>
       </ion-item>
 
+      <div ngIf="idRol === '2'">
+        <ion-button [routerLink]="['/registrarvehiculo']">Registrar Vehículo</ion-button>
+      </div>
+
       <ion-button color="primary" [routerLink]="['/editarperfilusuario']">Editar</ion-button>
       <ion-button color="primary" [routerLink]="['/paginalogin-usuario']">Cerrar Sesión</ion-button>
     </ion-card-content>

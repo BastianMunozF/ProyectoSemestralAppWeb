@@ -38,10 +38,6 @@
         <ion-input formControlName="celular" type="number" value="{{ celularU }}"></ion-input>
       </ion-item>
 
-      <div ngIf="idRol === '2'">
-        <ion-button [routerLink]="['/registrarvehiculo']">Registrar Vehículo</ion-button>
-      </div>
-
       <ion-button color="primary" [routerLink]="['/perfilusuario']">Perfil Usuario</ion-button>
       <ion-button color="primary" (click)="actualizarUsuario()">Guardar</ion-button>
     </form>
