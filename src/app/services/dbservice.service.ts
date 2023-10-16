@@ -40,6 +40,8 @@ export class DbserviceService {
 
     registroRol: string = "INSERT INTO rol VALUES (1, 'Usuario'), (2, 'Conductor');";
 
+    registroTipoVehiculo: string = "INSERT INTO tipo VALUES (1, 'Standard'), (2, 'Large'), (3, 'Deluxe')"
+
   //Variable observable para consultar usuarios en la Base de Datos
   listaUsuario = new BehaviorSubject([]);
 
@@ -227,6 +229,7 @@ export class DbserviceService {
 
       //Ejecutar los registros en la tabla
       await this.database.executeSql(this.registroRol, []);
+      await this.database.executeSql(this.registroTipoVehiculo, []);
 
       //Actualizar el STATUS de la Base de Datos
       this.isDBReady.next(true);
