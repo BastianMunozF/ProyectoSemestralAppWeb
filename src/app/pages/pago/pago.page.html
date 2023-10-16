@@ -17,28 +17,30 @@
 
       <ion-item>
         <ion-label position="floating" required>Nombre:</ion-label>
-        <ion-input formControlName="nombre"></ion-input>
+        <ion-input formControlName="nombre" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating" required>Apellido:</ion-label>
-        <ion-input formControlName="apellido"></ion-input>
+        <ion-input formControlName="apellido" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating" required>Número de Tarjeta:</ion-label>
-        <ion-input formControlName="numerot"></ion-input>
+        <ion-input formControlName="numerot" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating" required>Fecha Caducidad:</ion-label>
-        <ion-input formControlName="fecha"></ion-input>
+        <ion-input formControlName="fecha" type="date"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating" required>CVV:</ion-label>
-        <ion-input formControlName="cvv"></ion-input>
+        <ion-input formControlName="cvv" type="number"></ion-input>
       </ion-item>
+
+      <ion-button type="submit">Pagar</ion-button>
     </form>
   </ion-card>
 </ion-content>

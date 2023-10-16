@@ -178,10 +178,22 @@ export class DbserviceService {
       if(res){
         this.buscarUsuario();
       } else {
-        this.presentAlert("Error al actualizar usuario.")
+        this.presentAlert("Error al actualizar usuario.");
       }
     }).catch(error => {
-      console.error('Error al actualizar usuario en base de datos:', error)
+      console.error('Error al actualizar usuario en base de datos:', error);
+    })
+  }
+
+  recuperarUsuario(contrasena: any, correo: any, rut: any){
+    return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND contrasena = ?', [contrasena, correo, rut]).then(res => {
+      if(res){
+        this.buscarUsuario();
+      } else {
+        this.presentAlert("Error al actualizar contraseña.");
+      }
+    }).catch(error => {
+      console.error('Error al modificar la contraseña de usuario en la base de datos:', error);
     })
   }
 
