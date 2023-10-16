@@ -67,9 +67,24 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
   {
+    path: 'perfilconductor',
+    loadChildren: () => import('./pages/perfilconductor/perfilconductor.module').then( m => m.PerfilconductorPageModule)
+  },
+  {
+    path: 'historialusuario',
+    loadChildren: () => import('./pages/historialusuario/historialusuario.module').then( m => m.HistorialusuarioPageModule)
+  },
+  {
+    path: 'historialconductor',
+    loadChildren: () => import('./pages/historialconductor/historialconductor.module').then( m => m.HistorialconductorPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
+
+
+
 
 ];
 

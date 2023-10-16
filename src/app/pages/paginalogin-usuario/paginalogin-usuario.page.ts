@@ -49,7 +49,7 @@ export class PaginaloginUsuarioPage implements OnInit {
               this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
             })
           } else if (user_rol = '2'){
-            this.router.navigate(['/menuprincipalconductor']).then(() => {
+            this.router.navigate(['/registrarvehiculo']).then(() => {
               this.presentarAlerta("Sesión iniciada", "La sesión de conductor ha sido iniciada con éxito.");
             })
           } else {
