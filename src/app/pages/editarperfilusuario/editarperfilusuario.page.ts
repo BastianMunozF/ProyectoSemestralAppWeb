@@ -20,12 +20,12 @@ export class EditarperfilusuarioPage implements OnInit {
   usuario!: Usuario;
 
   //Variables para guardar datos del usuario
-  nombre: string = "";
-  apellido: string = "";
-  correo: string = "";
-  fechanacimiento: any;
-  rut: string = "";
-  celular: any;
+  nombreU: string = "";
+  apellidoU: string = "";
+  correoU: string = "";
+  fechanacimientoU: any;
+  rutU: string = "";
+  celularU: any;
 
   formularioActualizar: FormGroup;
 
@@ -35,12 +35,12 @@ export class EditarperfilusuarioPage implements OnInit {
     database.buscarDatosUsuario(idUser).then((datos) => {
       this.usuario = datos[0];
 
-      this.nombre = this.usuario.nombre;
-      this.apellido = this.usuario.apellido;
-      this.correo = this.usuario.correo;
-      this.fechanacimiento = this.usuario.fechanacimiento;
-      this.rut = this.usuario.rut;
-      this.celular = this.usuario.celular;
+      this.nombreU= this.usuario.nombre;
+      this.apellidoU = this.usuario.apellido;
+      this.correoU = this.usuario.correo;
+      this.fechanacimientoU = this.usuario.fechanacimiento;
+      this.rutU = this.usuario.rut;
+      this.celularU = this.usuario.celular;
 
     })
 
