@@ -23,8 +23,6 @@ export class PaginaloginUsuarioPage implements OnInit {
   user: string = "";
   usuario!: Busuario;
 
-  idActual: number | null = null;
-
   constructor(public fb: FormBuilder,  public alertController: AlertController, public router: Router, private database: DbserviceService) { 
 
     this.formularioLogin = this.fb.group({
@@ -43,9 +41,21 @@ export class PaginaloginUsuarioPage implements OnInit {
         if(usuario !== null){
           localStorage.setItem('id', usuario.id);
           localStorage.setItem('rol', usuario.id_rol);
-          this.router.navigate(['/menuprincipal']).then(() => {
-            this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.")
-          })
+
+          let user_rol = localStorage.getItem('id');
+
+          if(user_rol = '1'){
+            this.router.navigate(['/menuprincipal']).then(() => {
+              this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
+            })
+          } else if (user_rol = '2'){
+            this.router.navigate(['/menuconductor']).then(() => {
+              this.presentarAlerta("Sesión iniciada", "La sesión de conductor ha sido iniciada con éxito.");
+            })
+          } else {
+            this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.")
+          }
+          
           this.formularioLogin.reset();
         } else {
           this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no son correctos.")
