@@ -22,8 +22,7 @@ export class TomarviajePage implements OnInit {
       'f_viaje': new FormControl("", [Validators.required]),
       'hora_salida': new FormControl("", [Validators.required]),
       'salida': new FormControl("", [Validators.required]),
-      'destino': new FormControl("", [Validators.required]),
-      'total': new FormControl("", [Validators.required])
+      'destino': new FormControl("", [Validators.required])
     });
   }
 
@@ -35,7 +34,7 @@ export class TomarviajePage implements OnInit {
     if(this.formularioViaje.valid){
       let form = this.formularioViaje.value;
 
-      this.database.tomarViaje(form.f_viaje, form.hora_salida, form.salida, form.destino, form.total).then(res => {
+      this.database.tomarViaje(form.f_viaje, form.hora_salida, form.salida, form.destino).then(res => {
         if(res !== null){
           console.log('Viaje ingresado correctamente.');
           this.presentarAlerta("Viaje reservado", "El viaje ha sido reservado correctamente.");
