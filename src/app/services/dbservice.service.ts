@@ -72,6 +72,26 @@ export class DbserviceService {
     return this.listaViajeuser.asObservable();
   }
 
+  historialUsuario(){
+    return this.database.executeSql('SELECT * FROM viajeuser', []).then(res => {
+      let items: Historialusuario[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          items.push({
+            id_viajeuser: res.rows.item(i).id_viajeuser,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            total: res.rows.item(i).total
+          });
+        }
+      }
+      this.listaViajeuser.next(items as any);
+    })
+  }
+
   buscarCorreo(correo: string, contrasena: string){
     return this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
       if(res.rows.length > 0){
