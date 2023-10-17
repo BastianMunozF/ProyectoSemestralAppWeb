@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { HistorialconductorPageRoutingModule } from './historialconductor-routing.module';
 
 import { HistorialconductorPage } from './historialconductor.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HistorialconductorPageRoutingModule
+    HistorialconductorPageRoutingModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [HistorialconductorPage]
 })
