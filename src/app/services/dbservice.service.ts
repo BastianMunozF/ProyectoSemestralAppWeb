@@ -189,6 +189,17 @@ export class DbserviceService {
     })
   }
 
+  recuperarBuscar(correo: string, rut: string){
+    return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND rut = ?', [correo, rut]).then(res => {
+
+      if(res.rows.length > 0){
+        return res.rows.item(0);
+      } else {
+        return null;
+      }
+    })
+  }
+
   recuperarUsuario(contrasena: any, correo: any, rut: any){
     return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND rut = ?', [contrasena, correo, rut]).then(res => {
       if(res){
