@@ -10,24 +10,24 @@
 <ion-content>
   <ion-card>
     <ion-card-header color="primary">
-      <ion-card-title>Recuperar Contraseña:</ion-card-title>
+      <ion-card-title>Ingrese Datos:</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <form [formGroup]="formularioRecuperar" (ngSubmit)="recuperarContrasena()">
 
         <ion-item>
-          <ion-label position="floating">Ingrese Correo Registrado:</ion-label>
+          <ion-label position="floating">Correo Registrado:</ion-label>
           <ion-input type="text" formControlName="correo"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Ingrese Rut Asociado a la Cuenta:</ion-label>
+          <ion-label position="floating">Rut Asociado a la Cuenta:</ion-label>
           <ion-input type="text" formControlName="rut"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Ingrese Nueva Contraseña:</ion-label>
+          <ion-label position="floating">Nueva Contraseña:</ion-label>
           <ion-input type="password" formControlName="contrasena"></ion-input>
         </ion-item>
 
