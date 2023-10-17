@@ -72,8 +72,8 @@ export class DbserviceService {
     return this.listaViajeuser.asObservable();
   }
 
-  historialUsuario(){
-    return this.database.executeSql('SELECT * FROM viajeuser', []).then(res => {
+  historialUsuario(id: any){
+    return this.database.executeSql('SELECT * FROM viajeuser WHERE id = ?', [id]).then(res => {
       let items: Historialusuario[] = [];
 
       if(res.rows.length > 0){
@@ -88,7 +88,7 @@ export class DbserviceService {
           });
         }
       }
-      this.listaViajeuser.next(items as any);
+      return this.listaViajeuser.next(items as any);
     })
   }
 
