@@ -12,28 +12,31 @@
   </ion-header>
 
   <h2 class="ion-text-center" color="primary">Historial de Viajes</h2>
-
   <ion-list>
     <ion-item-sliding *ngFor="let x for arregloHistorial">
 
       <ion-item>
-        <ion-label>{{ x.fechaviaje }}</ion-label>
+        <ion-label>
+          <p style="word-wrap: break-word;white-space: normal;">{{ x.fechaviaje }}</p>
+        </ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ x.horasalida }}</ion-label>
+        <ion-label>
+          <p style="word-wrap: break-word;white-space: normal;">{{ x.horasalida }}</p>
+        </ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ x.salida }}</ion-label>
+        <ion-label>
+          <p style="word-wrap: break-word;white-space: normal;">{{ x.salida }}</p>
+        </ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ x.destino }}</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>{{ x.total }}</ion-label>
+        <ion-label>
+          <p style="word-wrap: break-word;white-space: normal;">{{ x.destino }}</p>
+        </ion-label>
       </ion-item>
 
     </ion-item-sliding>
@@ -63,7 +66,3 @@
     </div>
   </section>
 </ion-footer>
-
-
-
-

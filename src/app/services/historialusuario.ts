@@ -4,5 +4,4 @@ export class Historialusuario {
     hora_salida = "";
     salida = "";
     destino = "";
-    total = "";
 }

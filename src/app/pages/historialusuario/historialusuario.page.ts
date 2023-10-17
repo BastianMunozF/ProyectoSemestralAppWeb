@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Router } from '@angular/router';
-import { Historialusuario } from 'src/app/services/historialusuario';
 
 @Component({
   selector: 'app-historialusuario',
@@ -16,8 +15,7 @@ export class HistorialusuarioPage implements OnInit {
       fechaviaje: '',
       horasalida: '',
       salida: '',
-      destino: '',
-      total: ''
+      destino: ''
     }
   ]
 

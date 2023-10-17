@@ -37,7 +37,7 @@ export class DbserviceService {
     tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, total INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado BOOLEAN NOT NULL, id_vehiculo INTEGER NOT NULL, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo));";
 
     //Tabla para Viajes(Clientes):
-    tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, total INTEGER NOT NULL, id_vehiculo INTEGER, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo))";
+    tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, id_vehiculo INTEGER, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo))";
 
     //Tabla para detalle de Viajes:
     tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje));";
@@ -83,8 +83,7 @@ export class DbserviceService {
             f_viaje: res.rows.item(i).f_viaje,
             hora_salida: res.rows.item(i).hora_salida,
             salida: res.rows.item(i).salida,
-            destino: res.rows.item(i).destino,
-            total: res.rows.item(i).total
+            destino: res.rows.item(i).destino
           });
         }
       }
