@@ -12,10 +12,6 @@ import { Router } from '@angular/router';
 export class PaginarecuperarUsuarioPage implements OnInit {
 
   formularioRecuperar: FormGroup;
-  correo: string = "";
-  rut: string = "";
-  contrasena: string = "";
-  confcontrasena: string = "";
 
   constructor(private fb: FormBuilder, private database: DbserviceService, private alertController: AlertController, private router: Router) {
     this.formularioRecuperar = this.fb.group({
@@ -33,7 +29,7 @@ export class PaginarecuperarUsuarioPage implements OnInit {
       this.database.recuperarUsuario(form.contrasena, form.correo, form.rut).then(res => {
         if(res !== null){
           console.log('Contraseña actualizada correctamente.');
-          this.presentarAlerta("Contraseña recuperada", "La contraseña que ha ingresado ");
+          this.presentarAlerta("Contraseña recuperada", "La contraseña que ha ingresado ha sido actualizada.");
           this.router.navigate(['/paginalogin-usuario']);
           this.formularioRecuperar.reset();
         } else {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegistrarvehiculoPage implements OnInit {
       annio: new FormControl("", [Validators.required]),
       patente: new FormControl("", [Validators.required]),
     });
-   }
+  }
 
   ngOnInit() {
   }
