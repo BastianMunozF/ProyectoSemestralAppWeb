@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Registrar Vehiculo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
-    <ion-card-header collapse="condense">
+    <ion-card-header collapse="condense" color="primary">
         <ion-card-title size="large">Ingrese Vehículo</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -32,30 +32,6 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-
-<ion-footer>
-  <section style="display: flex; justify-content: center; align-items: center;">
-    <div class="example-button-row">
-      <div class="example-flex-container">
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
-          <ion-icon name="home" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
-          <ion-icon name="location" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
-          <ion-icon name="person" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
-          <ion-icon name="car-sport" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
-          <ion-icon name="exit" color="primary"></ion-icon>
-        </button>
-      </div>
-    </div>
-  </section>
-</ion-footer>
 
 
 
