@@ -29,8 +29,9 @@ export class PaginarecuperarUsuarioPage implements OnInit {
       this.database.recuperarUsuario(form.contrasena, form.correo, form.rut).then(res => {
         if(res !== null){
           console.log('Contraseña actualizada correctamente.');
-          this.presentarAlerta("Contraseña recuperada", "La contraseña que ha ingresado ha sido actualizada.");
-          this.router.navigate(['/paginalogin-usuario']);
+          this.router.navigate(['/paginalogin-usuario']).then(() => {
+            this.presentarAlerta("Contraseña recuperada", "La contraseña que ha ingresado ha sido actualizada.");
+          })
           this.formularioRecuperar.reset();
         } else {
           console.log('Error al recuperar contraseña.');
