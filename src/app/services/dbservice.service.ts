@@ -88,7 +88,7 @@ export class DbserviceService {
           });
         }
       }
-      return this.listaViajeuser.next(items as any);
+      this.listaViajeuser.next(items as any);
     })
   }
 

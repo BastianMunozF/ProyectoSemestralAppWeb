@@ -12,6 +12,7 @@ export class HistorialusuarioPage implements OnInit {
 
   arregloHistorial: any = [
     {
+      id_viajeuser: '',
       fechaviaje: '',
       horasalida: '',
       salida: '',
