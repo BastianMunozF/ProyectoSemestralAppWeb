@@ -35,7 +35,7 @@ export class PaginarecuperarUsuarioPage implements OnInit {
           this.formularioRecuperar.reset();
         } else {
           console.log('Error al recuperar contraseña.');
-          this.presentarAlerta("Error al recuperar contraseña", "Rellene el formulario correctamente.");
+          this.presentarAlerta("Error al recuperar contraseña", "El correo o rut no corresponden a la cuenta.");
         }
       }).catch(error => {
         console.error("Error en base de datos al recuperar contraseña: ", error)

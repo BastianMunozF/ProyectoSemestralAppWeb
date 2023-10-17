@@ -179,9 +179,10 @@ export class DbserviceService {
   actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any, id: any){
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE id = ?',[nombre,apellido,correo,fechanacimiento,rut,celular, id]).then(res=>{
       if(res){
-        this.buscarUsuario();
+        return true;
       } else {
         this.presentAlert("Error al actualizar usuario.");
+        return null;
       }
     }).catch(error => {
       console.error('Error al actualizar usuario en base de datos:', error);
@@ -190,11 +191,10 @@ export class DbserviceService {
 
   recuperarUsuario(contrasena: any, correo: any, rut: any){
     return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND rut = ?', [contrasena, correo, rut]).then(res => {
-      if(res.rows.length > 0){
-        return res.rows.item(0);
+      if(res){
+        this.buscarUsuario();
       } else {
         this.presentAlert("Error al actualizar contraseña.");
-        return null;
       }
     }).catch(error => {
       console.error('Error al modificar la contraseña de usuario en la base de datos:', error);
