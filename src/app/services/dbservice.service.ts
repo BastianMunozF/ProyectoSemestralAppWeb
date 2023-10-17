@@ -190,10 +190,11 @@ export class DbserviceService {
 
   recuperarUsuario(contrasena: any, correo: any, rut: any){
     return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND rut = ?', [contrasena, correo, rut]).then(res => {
-      if(res){
-        this.buscarUsuario();
+      if(res.rows.length > 0){
+        return res.rows.item(0);
       } else {
         this.presentAlert("Error al actualizar contraseña.");
+        return null;
       }
     }).catch(error => {
       console.error('Error al modificar la contraseña de usuario en la base de datos:', error);
