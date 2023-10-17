@@ -189,7 +189,7 @@ export class DbserviceService {
   }
 
   recuperarUsuario(contrasena: any, correo: any, rut: any){
-    return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND contrasena = ?', [contrasena, correo, rut]).then(res => {
+    return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND rut = ?', [contrasena, correo, rut]).then(res => {
       if(res){
         this.buscarUsuario();
       } else {
