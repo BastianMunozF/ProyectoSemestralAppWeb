@@ -15,7 +15,8 @@ export class HistorialusuarioPage implements OnInit {
       fechaviaje: '',
       horasalida: '',
       salida: '',
-      destino: ''
+      destino: '',
+      total: ''
     }
   ]
 
