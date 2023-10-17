@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Router } from '@angular/router';
+import { Historialusuario } from 'src/app/services/historialusuario';
 
 @Component({
   selector: 'app-historialusuario',
@@ -7,14 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialusuarioPage implements OnInit {
 
-  fechaviaje: any;
-  horasalida: string = "";
-  salida: string = "";
-  destino: any;
+  arregloHistorial: any = [
+    {
+      fechaviaje: '',
+      horasalida: '',
+      salida: '',
+      destino: ''
+    }
+  ]
 
-  constructor() { }
+  constructor(private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
+    this.database.dbState().subscribe(res => {
+      if(res){
+        this.database.fetchViajeUser().subscribe(datos => {
+          this.arregloHistorial = datos;
+        })
+      }
+    })
   }
 
 }

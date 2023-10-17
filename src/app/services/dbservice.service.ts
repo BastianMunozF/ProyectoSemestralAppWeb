@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
 import { Viajeuser } from './viajeuser';
+import { Historialusuario } from './historialusuario';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,7 @@ export class DbserviceService {
     registroTipoVehiculo: string = "INSERT INTO tipo VALUES (1, 'Standard'), (2, 'Large'), (3, 'Deluxe')"
 
   //Variable observable para consultar usuarios en la Base de Datos
+
   listaUsuario = new BehaviorSubject([]);
 
   listaViajeuser = new BehaviorSubject([]);
@@ -64,6 +66,10 @@ export class DbserviceService {
 
   fetchUsuario(): Observable<Usuario[]>{
     return this.listaUsuario.asObservable();
+  }
+
+  fetchViajeUser(): Observable<Historialusuario[]>{
+    return this.listaViajeuser.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
