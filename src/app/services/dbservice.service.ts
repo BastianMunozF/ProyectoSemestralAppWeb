@@ -191,7 +191,6 @@ export class DbserviceService {
 
   recuperarBuscar(correo: string, rut: string){
     return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND rut = ?', [correo, rut]).then(res => {
-
       if(res.rows.length > 0){
         return res.rows.item(0);
       } else {
