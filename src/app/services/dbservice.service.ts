@@ -137,8 +137,7 @@ export class DbserviceService {
             f_viaje: res.rows.item(i).f_viaje,
             hora_salida: res.rows.item(i).hora_salida,
             salida: res.rows.item(i).salida,
-            destino: res.rows.item(i).destino,
-            total: res.rows.item(i).total
+            destino: res.rows.item(i).destino
           })
         }
       }
@@ -201,8 +200,8 @@ export class DbserviceService {
 
   }
 
-  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any, id: any){
-    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ? WHERE id = ?',[nombre,apellido,correo,fechanacimiento,rut,celular, id]).then(res=>{
+  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any, contrasena: any, id: any){
+    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id]).then(res=>{
       if(res){
         return true;
       } else {

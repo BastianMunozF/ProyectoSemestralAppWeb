@@ -4,5 +4,4 @@ export class Viajeuser {
     hora_salida = "";
     salida = "";
     destino = "";
-    total = "";
 }

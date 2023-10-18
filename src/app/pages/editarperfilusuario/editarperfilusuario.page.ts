@@ -26,6 +26,7 @@ export class EditarperfilusuarioPage implements OnInit {
   fechanacimientoU: any;
   rutU: string = "";
   celularU: any;
+  contrasenaU: any;
 
   formularioActualizar: FormGroup;
 
@@ -41,6 +42,7 @@ export class EditarperfilusuarioPage implements OnInit {
       this.fechanacimientoU = this.usuario.fechanacimiento;
       this.rutU = this.usuario.rut;
       this.celularU = this.usuario.celular;
+      this.contrasenaU = this.usuario.contrasena;
 
     })
 
@@ -50,7 +52,8 @@ export class EditarperfilusuarioPage implements OnInit {
       'correo': new FormControl(""),
       'fechanacimiento': new FormControl(""),
       'rut': new FormControl(""),
-      'celular': new FormControl("")
+      'celular': new FormControl(""),
+      'contrasnea': new FormControl("")
     })
   }
 
@@ -62,7 +65,7 @@ export class EditarperfilusuarioPage implements OnInit {
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena, id).then(res => {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
