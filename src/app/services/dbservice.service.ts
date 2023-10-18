@@ -227,8 +227,10 @@ export class DbserviceService {
     return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE correo = ? AND rut = ?', [contrasena, correo, rut]).then(res => {
       if(res){
         this.buscarUsuario();
+        return true;
       } else {
         this.presentAlert("Error al actualizar contraseña.");
+        return null;
       }
     }).catch(error => {
       console.error('Error al modificar la contraseña de usuario en la base de datos:', error);
