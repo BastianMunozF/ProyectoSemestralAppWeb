@@ -33,7 +33,7 @@ export class EditarperfilusuarioPage implements OnInit {
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
 
     const idUser = localStorage.getItem('id');
-    database.buscarDatosUsuario(idUser).then((datos) => {
+    this.database.buscarDatosUsuario(idUser).then((datos) => {
       this.usuario = datos[0];
 
       this.nombreU= this.usuario.nombre;
@@ -78,6 +78,8 @@ export class EditarperfilusuarioPage implements OnInit {
       }).catch(error => {
         console.error("Error en base de datos al actualizar datos: ", error)
       })
+    } else {
+      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
     }
   }
 

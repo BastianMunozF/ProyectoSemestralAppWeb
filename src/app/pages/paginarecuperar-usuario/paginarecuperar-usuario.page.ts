@@ -29,7 +29,7 @@ export class PaginarecuperarUsuarioPage implements OnInit {
       let form = this.formularioRecuperar.value;
 
       this.database.recuperarBuscar(form.correo, form.rut).then(result => {
-        if(result !== null){
+        if(result){
           this.database.recuperarUsuario(form.contrasena, form.correo, form.rut).then(res => {
             if(res !== null){
               console.log('Contraseña actualizada correctamente.');
