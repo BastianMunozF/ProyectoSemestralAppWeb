@@ -43,52 +43,52 @@ export class EditarperfilconductorPage implements OnInit {
     this.celularU = this.usuario.celular;
     this.contrasenaU = this.usuario.contrasena;
 
-  })
-
-  this.formularioActualizar = this.fb.group({
-    'nombre': new FormControl(""),
-    'apellido': new FormControl(""),
-    'correo': new FormControl(""),
-    'fechanacimiento': new FormControl(""),
-    'rut': new FormControl(""),
-    'celular': new FormControl(""),
-    'contrasena': new FormControl("")
-  })
-}
-
-ngOnInit() {
-}
-
-actualizarUsuario(){
-  if(this.formularioActualizar.valid){
-    let form = this.formularioActualizar.value;
-    let id = localStorage.getItem('id')
-
-    this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena, id).then(res => {
-      if(res !== null){
-        console.log('Datos actualizados correctamente.');
-        this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
-        this.router.navigate(['/perfilusuario'])
-        this.formularioActualizar.reset();
-      } else {
-        console.log("Error al actualizar datos");
-        this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.")
-      }
-    }).catch(error => {
-      console.error("Error en base de datos al actualizar datos: ", error)
     })
-  } else {
-    this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
+
+    this.formularioActualizar = this.fb.group({
+      'nombre': new FormControl(""),
+      'apellido': new FormControl(""),
+      'correo': new FormControl(""),
+      'fechanacimiento': new FormControl(""),
+      'rut': new FormControl(""),
+      'celular': new FormControl(""),
+      'contrasena': new FormControl("")
+    })
   }
-}
 
-async presentarAlerta(titulo: string, mensaje: string){
-  const alert = await this.alertController.create({
-    header: titulo,
-    message: mensaje,
-    buttons: ['Aceptar']
-  });
+  ngOnInit() {
+  }
 
-  await alert.present();
-}
+  actualizarUsuario(){
+    if(this.formularioActualizar.valid){
+      let form = this.formularioActualizar.value;
+      let id = localStorage.getItem('id')
+
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena, id).then(res => {
+        if(res !== null){
+          console.log('Datos actualizados correctamente.');
+          this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
+          this.router.navigate(['/perfilusuario'])
+          this.formularioActualizar.reset();
+        } else {
+          console.log("Error al actualizar datos");
+          this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.")
+        }
+      }).catch(error => {
+        console.error("Error en base de datos al actualizar datos: ", error)
+      })
+    } else {
+      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
+    }
+  }
+
+  async presentarAlerta(titulo: string, mensaje: string){
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
 }
