@@ -50,7 +50,7 @@ export class PerfilconductorPage implements OnInit {
       this.modelo = this.vehiculo.modelo;
       this.annio = this.vehiculo.annio;
       this.patente = this.vehiculo.patente;
-      this.tipo_vehiculo = this.vehiculo.id_tipo;
+      this.tipo_vehiculo = this.vehiculo.id_tipo.toString();
     })
   }
 
