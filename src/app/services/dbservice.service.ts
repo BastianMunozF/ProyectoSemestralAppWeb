@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Usuario } from './usuario';
 import { Viajeuser } from './viajeuser';
 import { Historialusuario } from './historialusuario';
+import { Vehiculo } from './vehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,8 @@ export class DbserviceService {
 
   listaViajeuser = new BehaviorSubject([]);
 
+  listaVehiculo = new BehaviorSubject([]);
+
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
   
@@ -67,6 +70,10 @@ export class DbserviceService {
   fetchUsuario(): Observable<Usuario[]>{
     return this.listaUsuario.asObservable();
   }
+
+  fetchVehiculo(): Observable<Vehiculo[]>{
+    return this.listaVehiculo.asObservable();
+  } 
 
   fetchViajeUser(): Observable<Historialusuario[]>{
     return this.listaViajeuser.asObservable();
@@ -174,6 +181,28 @@ export class DbserviceService {
     })
   }
 
+  buscarVehiculo(){
+    return this.database.executeSql("SELECT * FROM vehiculo", []).then(res => {
+      let items: Vehiculo[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          items.push({
+            id_vehiculo: res.rows.item(i).id_vehiculo,
+            marca: res.rows.item(i).marca,
+            modelo: res.rows.item(i).modelo,
+            annio: res.rows.item(i).annio,
+            patente: res.rows.item(i).patente,
+            asientos: res.rows.item(i).asientos,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_tipo: res.rows.item(i).id_tipo
+          })
+        }
+      }
+      this.listaVehiculo.next(items as any);
+    })
+  }
+
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id_rol: any){
     return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol]).then(res => {
@@ -185,6 +214,18 @@ export class DbserviceService {
     }).catch(error => {
       console.error('Error al insertar el usuario.', error);
     });
+  }
+
+  insertarVehiculo(marca: any, modelo: any, annio: any, patente: any, asientos: any, id_usuario: any, id_tipo: any){
+    return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, annio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
+      if(res){
+        this.buscarVehiculo();;
+      } else {
+        this.presentAlert("Error al insertar vehículo en la base de datos.");
+      }
+    }).catch(error => {
+      console.error('Error al insertar el vehículo.', error)
+    })
   }
 
   tomarViaje(f_viaje: any, hora_salida: any, salida: any, destino: any){

@@ -13,19 +13,31 @@
       <form [formGroup]="formularioVehiculo">
         <ion-item>
           <ion-label position="floating" required>Marca:</ion-label>
-          <ion-input formControlName="marca" type=""></ion-input>
+          <ion-input formControlName="marca" type="text"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating" required>Modelo:</ion-label>
-          <ion-input formControlName="modelo" type=""></ion-input>
+          <ion-input formControlName="modelo" type="text"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating" required>Año:</ion-label>
-          <ion-input formControlName="annio" type=""></ion-input>
+          <ion-input formControlName="annio" type="number"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating" required>Patente:</ion-label>
-          <ion-input formControlName="patente" type=""></ion-input>
+          <ion-input formControlName="patente" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" required>Asientos:</ion-label>
+          <ion-input formControlName="cant_asientos" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label for="id_tipo">Tipo de Vehículo</ion-label>
+          <select name="id_tipo" id="id_tipo" formControlName="id_tipo">
+            <option value="1">Standard</option>
+            <option value="2">Large</option>
+            <option value="3">Deluxe</option>
+          </select>
         </ion-item>
         <ion-button type="submit">Registrar</ion-button>
       </form>
