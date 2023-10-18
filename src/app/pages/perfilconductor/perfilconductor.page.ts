@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Usuario } from 'src/app/services/usuario';
+import { Vehiculo } from 'src/app/services/vehiculo';
 
 @Component({
   selector: 'app-perfilconductor',
@@ -12,6 +13,7 @@ export class PerfilconductorPage implements OnInit {
   image: any;
   imageSource: string | undefined;
   usuario!: Usuario;
+  vehiculo!: Vehiculo
 
   //Variables para guardar datos del usuario
   nombre: string = "";
@@ -40,7 +42,17 @@ export class PerfilconductorPage implements OnInit {
       this.rut = this.usuario.rut;
       this.celular = this.usuario.celular;
     });
-   }
+
+    database.buscarVehiculoUsuario(userId).then((perfil) => {
+      this.vehiculo = perfil[0];
+
+      this.marca = this.vehiculo.marca;
+      this.modelo = this.vehiculo.modelo;
+      this.annio = this.vehiculo.annio;
+      this.patente = this.vehiculo.patente;
+      this.tipo_vehiculo = this.vehiculo.id_tipo;
+    })
+  }
 
   ngOnInit() {
   }

@@ -64,7 +64,12 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>Tipo de Vehículo: {{ tipo_vehiculo }}</ion-label>
+    <ion-label>
+      Tipo de Vehículo: <br>
+      <p ngIf="{{ tipo_vehiculo }} == 1">Standard</p>
+      <p ngIf="{{ tipo_vehiculo }} == 2">Large</p>
+      <p ngIf="{{ tipo_vehiculo }} == 3">Deluxe</p>
+    </ion-label>
   </ion-item>
 
   <ion-button color="primary" [routerLink]="['/editarperfilconductor']">Editar</ion-button>
