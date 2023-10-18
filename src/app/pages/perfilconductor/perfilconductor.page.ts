@@ -13,7 +13,7 @@ export class PerfilconductorPage implements OnInit {
   image: any;
   imageSource: string | undefined;
   usuario!: Usuario;
-  vehiculo!: Vehiculo
+  vehiculo!: Vehiculo;
 
   //Variables para guardar datos del usuario
   nombre: string = "";
