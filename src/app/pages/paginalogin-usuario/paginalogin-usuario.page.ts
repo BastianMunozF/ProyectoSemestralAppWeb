@@ -42,14 +42,14 @@ export class PaginaloginUsuarioPage implements OnInit {
           localStorage.setItem('id', usuario.id);
           localStorage.setItem('rol', usuario.id_rol.toString());
 
-          let user_rol = localStorage.getItem('rol');
+          let user_rol = localStorage.getItem('rol')?.toString();
 
           if(user_rol === '1'){
             this.router.navigate(['/menuprincipal']).then(() => {
               this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
             })
           } else if (user_rol = '2'){
-            this.router.navigate(['/registrarvehiculo']).then(() => {
+            this.router.navigate(['/menuprincipalconductor']).then(() => {
               this.presentarAlerta("Sesión iniciada", "La sesión de conductor ha sido iniciada con éxito.");
             })
           } else {
