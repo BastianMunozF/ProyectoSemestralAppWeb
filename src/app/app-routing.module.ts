@@ -79,17 +79,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/historialconductor/historialconductor.module').then( m => m.HistorialconductorPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
     path: 'editarperfilconductor',
     loadChildren: () => import('./pages/editarperfilconductor/editarperfilconductor.module').then( m => m.EditarperfilconductorPageModule)
   },
-
-
-
-
-
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
 ];
 
 @NgModule({

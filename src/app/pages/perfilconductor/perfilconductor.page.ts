@@ -32,7 +32,7 @@ export class PerfilconductorPage implements OnInit {
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
-    database.buscarDatosUsuario(userId).then((perfil) => {
+    this.database.buscarDatosUsuario(userId).then((perfil) => {
       this.usuario = perfil[0];
 
       this.nombre = this.usuario.nombre;
@@ -43,7 +43,7 @@ export class PerfilconductorPage implements OnInit {
       this.celular = this.usuario.celular;
     });
 
-    database.buscarVehiculoUsuario(userId).then((perfil) => {
+    this.database.buscarVehiculoUsuario(userId).then((perfil) => {
       this.vehiculo = perfil[0];
 
       this.marca = this.vehiculo.marca;
