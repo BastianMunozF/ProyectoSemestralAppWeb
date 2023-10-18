@@ -133,6 +133,12 @@ export class DbserviceService {
     })
   }
 
+  buscarVehiculoUsuario(id: any){
+    return this.database.executeSql("SELECT * FROM vehiculo WHERE id_usuario = ?", [id]).then(res => {
+      let datos
+    })
+  }
+
   buscarViajeuser(){
     return this.database.executeSql("SELECT * FROM viajeuser", []).then(res => {
       let items: Viajeuser[] = [];

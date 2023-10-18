@@ -20,6 +20,11 @@ export class PerfilconductorPage implements OnInit {
   fechanacimiento: any;
   rut: string = "";
   celular: any;
+  marca: any;
+  modelo: any;
+  annio: any;
+  patente: any;
+  tipo_vehiculo: any;
   fotoPerfil!: string;
 
   constructor(private database: DbserviceService) {

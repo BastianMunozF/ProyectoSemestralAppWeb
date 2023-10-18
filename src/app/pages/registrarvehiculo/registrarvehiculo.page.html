@@ -10,7 +10,7 @@
         <ion-card-title size="large">Ingrese Vehículo</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formularioVehiculo">
+      <form [formGroup]="formularioVehiculo" (ngSubmit)="guardarVehiculo()">
         <ion-item>
           <ion-label position="floating" required>Marca:</ion-label>
           <ion-input formControlName="marca" type="text"></ion-input>
