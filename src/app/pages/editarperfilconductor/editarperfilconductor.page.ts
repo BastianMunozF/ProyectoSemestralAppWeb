@@ -46,13 +46,13 @@ export class EditarperfilconductorPage implements OnInit {
     })
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl(""),
-      'apellido': new FormControl(""),
-      'correo': new FormControl(""),
-      'fechanacimiento': new FormControl(""),
-      'rut': new FormControl(""),
-      'celular': new FormControl(""),
-      'contrasena': new FormControl("")
+      'nombre': new FormControl("", [Validators.required]),
+      'apellido': new FormControl("", [Validators.required]),
+      'correo': new FormControl("", [Validators.required]),
+      'fechanacimiento': new FormControl("", [Validators.required]),
+      'rut': new FormControl("", [Validators.required]),
+      'celular': new FormControl("", [Validators.required]),
+      'contrasena': new FormControl("", [Validators.required])
     })
   }
 
