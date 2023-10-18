@@ -53,7 +53,7 @@ export class EditarperfilusuarioPage implements OnInit {
       'fechanacimiento': new FormControl(""),
       'rut': new FormControl(""),
       'celular': new FormControl(""),
-      'contrasnea': new FormControl("")
+      'contrasena': new FormControl("")
     })
   }
 
