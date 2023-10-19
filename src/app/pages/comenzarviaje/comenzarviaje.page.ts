@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap } from '@capacitor/google-maps';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-comenzarviaje',
@@ -18,16 +17,17 @@ export class ComenzarviajePage implements OnInit {
 
   async createMap() {
 
-    const coordinates = Geolocation.getCurrentPosition();
+    const coordinates = await Geolocation.getCurrentPosition();
+    let apiKey = 'AIzaSyC0fDW4dwRCQCVVNuKE18IBn-gJYpg3T84';
 
     this.newMap = await GoogleMap.create({
       id: 'map',
       element: this.mapRef.nativeElement,
-      apiKey: 'AIzaSyC0fDW4dwRCQCVVNuKE18IBn-gJYpg3T84',
+      apiKey: apiKey,
       config: {
         center: {
-          lat: (await coordinates).coords.latitude,
-          lng: (await coordinates).coords.longitude,
+          lat: coordinates.coords.latitude,
+          lng: coordinates.coords.longitude,
         },
         zoom: 8,
       },
