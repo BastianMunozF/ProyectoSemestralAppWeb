@@ -23,7 +23,7 @@ export class ComenzarviajePage implements OnInit {
     this.newMap = await GoogleMap.create({
       id: 'map',
       element: this.mapRef.nativeElement,
-      apiKey: environment.apiKey,
+      apiKey: 'AIzaSyC0fDW4dwRCQCVVNuKE18IBn-gJYpg3T84',
       config: {
         center: {
           lat: (await coordinates).coords.latitude,
