@@ -17,7 +17,6 @@ export class ComenzarviajePage implements OnInit {
   constructor() { }
 
   async createMap() {
-    let coordenadas = Geolocation.getCurrentPosition();
 
     this.newMap = await GoogleMap.create({
       id: 'map',
@@ -25,8 +24,8 @@ export class ComenzarviajePage implements OnInit {
       apiKey: environment.apiKey,
       config: {
         center: {
-          lat: (await coordenadas).coords.latitude,
-          lng: (await coordenadas).coords.longitude,
+          lat: 33.6,
+          lng: -117.9,
         },
         zoom: 8,
       },
