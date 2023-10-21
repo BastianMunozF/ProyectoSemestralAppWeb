@@ -14,8 +14,6 @@ export class ComenzarviajePage implements OnInit {
   mapRef!: ElementRef<HTMLElement>;
   newMap!: GoogleMap;
 
-  constructor() { }
-
   async createMap() {
     let coordenadas = await Geolocation.getCurrentPosition();
 
@@ -32,6 +30,8 @@ export class ComenzarviajePage implements OnInit {
       },
     });
   }
+
+  constructor() { }
 
   ngOnInit() {
       
