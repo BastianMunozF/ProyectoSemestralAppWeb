@@ -10,6 +10,7 @@ import { ComenzarviajePage } from './comenzarviaje.page';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { Componente1Component } from 'src/app/components/componente1/componente1.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -20,6 +21,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     IonicModule,
     ComenzarviajePageRoutingModule,
     MatButtonModule, MatDividerModule, MatIconModule,
+    Componente1Component
   ],
   declarations: [ComenzarviajePage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
