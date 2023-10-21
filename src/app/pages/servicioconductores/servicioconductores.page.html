@@ -1,26 +1,47 @@
-<ion-content>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" style="text-align: center;">
+    <ion-title>Servicios Conductor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
   <div class="ion-page" id="main-content">
+
     <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title style="text-align: center;">Comenzar viaje</ion-title>
+      <ion-toolbar color="primary" style="text-align: center;">
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
+        <ion-title style="text-align: center;">Cuenta</ion-title>
       </ion-toolbar>
     </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-card class="ion-text-center">
+        <ion-card-title>
+        <ion-item color="primary">
+          <ion-label>Información</ion-label>
+        </ion-item>
+        </ion-card-title>
+        <ion-item>  
+          <ion-label>Fecha: {{ variableStorage }}</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Destino: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tarifa: </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" style="margin-right: 70px;">Volver</ion-button>
+        <ion-button color="primary" [routerLink]="['/paginalogin-usuario']">Guardar</ion-button>
+      </ion-card>
+    </ion-content>
+
   </div>
 
-  <ion-card style="margin-top: 20%;">
-    <ion-card-header>
-      <ion-card-title color="primary">Seleccione una ubicación</ion-card-title>
-    </ion-card-header>
-    
-    <capacitor-google-map #map></capacitor-google-map>
-
-    <ion-item>
-      <ion-button [routerLink]="['/pago']" style="text-align: center;">Efectuar Pago</ion-button>
-    </ion-item>
-  </ion-card>
 </ion-content>
 
 <ion-footer>
@@ -46,3 +67,5 @@
     </div>
   </section>
 </ion-footer>
+
+

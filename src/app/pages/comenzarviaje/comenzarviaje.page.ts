@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { GoogleMap } from '@capacitor/google-maps';
+import { GoogleMap, Marker } from '@capacitor/google-maps';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,8 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ComenzarviajePage implements OnInit {
 
-  @ViewChild('map')
-  mapRef!: ElementRef<HTMLElement>;
+  @ViewChild('map') mapRef!: ElementRef;
   newMap!: GoogleMap;
 
   constructor() { }
@@ -36,6 +35,23 @@ export class ComenzarviajePage implements OnInit {
         zoom: 8,
       },
     });
+    this.addMarker();
+  }
+
+  async addMarker(){
+    const coordinates = await Geolocation.getCurrentPosition();
+
+    const markers: Marker[] = [
+      {
+        coordinate: {
+          lat: coordinates.coords.latitude,
+          lng: coordinates.coords.longitude,
+        },
+        title: 'Ubicación Actual'
+      }
+    ];
+
+    await this.newMap.addMarkers(markers);
   }
 
   ngOnInit() { 
