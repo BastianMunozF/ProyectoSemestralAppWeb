@@ -15,7 +15,8 @@
       <ion-card-title color="primary">Seleccione una ubicación</ion-card-title>
     </ion-card-header>
 
-    <capacitor-google-map id="map"></capacitor-google-map>
+    <capacitor-google-map #map></capacitor-google-map>
+    <button (click)="createMap()">Create Map</button>
 
     <ion-item>
       <ion-button [routerLink]="['/pago']" style="text-align: center;">Efectuar Pago</ion-button>
