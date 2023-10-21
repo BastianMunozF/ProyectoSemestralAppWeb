@@ -11,8 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +19,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     ComenzarviajePageRoutingModule,
     MatButtonModule, MatDividerModule, MatIconModule
   ],
-  declarations: [ComenzarviajePage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [ComenzarviajePage]
 })
 export class ComenzarviajePageModule {}

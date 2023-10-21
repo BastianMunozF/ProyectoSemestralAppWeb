@@ -1,1 +1,49 @@
-<capacitor-google-map id='map' #map></capacitor-google-map>
+<ion-content>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title style="text-align: center;">Comenzar viaje</ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+
+  <ion-card style="margin-top: 20%;">
+    <ion-card-header>
+      <ion-card-title color="primary">Seleccione una ubicación</ion-card-title>
+    </ion-card-header>
+    
+    <!--MAPA-->
+    <capacitor-google-map id='map' #map></capacitor-google-map>
+
+    <ion-item>
+      <ion-button [routerLink]="['/pago']" style="text-align: center;">Efectuar Pago</ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <section style="display: flex; justify-content: center; align-items: center;">
+    <div class="example-button-row">
+      <div class="example-flex-container">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
+          <ion-icon name="home" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
+          <ion-icon name="location" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
+          <ion-icon name="person" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
+          <ion-icon name="car-sport" color="primary"></ion-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
+          <ion-icon name="exit" color="primary"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </section>
+</ion-footer>

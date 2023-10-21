@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, Marker } from '@capacitor/google-maps';
-import { Geolocation } from '@capacitor/geolocation';
+import { Geolocation } from '@capacitor/geolocation'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-comenzarviaje',
@@ -9,7 +10,8 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class ComenzarviajePage implements OnInit {
 
-  @ViewChild('map') mapRef!: ElementRef;
+  @ViewChild('map')
+  mapRef!: ElementRef;
   newMap!: GoogleMap;
 
   constructor() { }
@@ -25,7 +27,7 @@ export class ComenzarviajePage implements OnInit {
     this.newMap = await GoogleMap.create({
       id: 'map',
       element: this.mapRef.nativeElement,
-      apiKey: 'AIzaSyC0fDW4dwRCQCVVNuKE18IBn-gJYpg3T84',
+      apiKey: environment.apiKey,
       config: {
         center: {
           lat: coordinates.coords.latitude,
@@ -53,6 +55,7 @@ export class ComenzarviajePage implements OnInit {
     await this.newMap.addMarkers(markers);
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+      
+  }
 }
