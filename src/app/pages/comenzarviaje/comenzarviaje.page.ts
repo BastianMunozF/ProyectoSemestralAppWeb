@@ -11,18 +11,13 @@ import { environment } from 'src/environments/environment';
 export class ComenzarviajePage implements OnInit {
 
   @ViewChild('map')
-  mapRef!: ElementRef;
+  mapRef!: ElementRef<HTMLElement>;
   newMap!: GoogleMap;
 
   constructor() { }
 
-  ionViewDidEnter(){
-    this.createMap();
-  }
-
   async createMap() {
-
-    const coordinates = await Geolocation.getCurrentPosition();
+    let coordenadas = Geolocation.getCurrentPosition();
 
     this.newMap = await GoogleMap.create({
       id: 'map',
@@ -30,29 +25,12 @@ export class ComenzarviajePage implements OnInit {
       apiKey: environment.apiKey,
       config: {
         center: {
-          lat: coordinates.coords.latitude,
-          lng: coordinates.coords.longitude,
+          lat: (await coordenadas).coords.latitude,
+          lng: (await coordenadas).coords.longitude,
         },
         zoom: 8,
       },
     });
-    this.addMarker();
-  }
-
-  async addMarker(){
-    const coordinates = await Geolocation.getCurrentPosition();
-
-    const markers: Marker[] = [
-      {
-        coordinate: {
-          lat: coordinates.coords.latitude,
-          lng: coordinates.coords.longitude,
-        },
-        title: 'Ubicación Actual'
-      }
-    ];
-
-    await this.newMap.addMarkers(markers);
   }
 
   ngOnInit() {
