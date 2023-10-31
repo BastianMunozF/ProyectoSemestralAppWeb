@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { GoogleMap, Marker } from '@capacitor/google-maps';
+import { GoogleMap } from '@capacitor/google-maps';
 import { Geolocation } from '@capacitor/geolocation'
 import { environment } from 'src/environments/environment';
 
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './comenzarviaje.page.html',
   styleUrls: ['./comenzarviaje.page.scss'],
 })
+
 export class ComenzarviajePage implements OnInit {
 
   @ViewChild('map')

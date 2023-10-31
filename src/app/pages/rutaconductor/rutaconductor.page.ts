@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-rutaconductor',
   templateUrl: './rutaconductor.page.html',
@@ -27,14 +26,13 @@ export class RutaconductorPage implements OnInit {
       'estado': new FormControl("", [Validators.required])
       
     });
-   }
+  }
 
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
   }
 
   crearRuta(){
-
   }
 
   async alertaViaje(){

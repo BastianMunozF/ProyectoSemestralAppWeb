@@ -15,17 +15,19 @@
     <form [formGroup]="formularioRuta" (ngSubmit)="crearRuta()">
 
       <ion-item>
-        <ion-label position="floating" required>Fecha Viaje:</ion-label>
+        <ion-label>Fecha Viaje:</ion-label>
         <ion-input formControlName="f_viaje" type="date"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" required>Hora Salida:</ion-label>
-        <ion-input formControlName="hora_salida" type="text" id="horasalida"></ion-input>
+        <ion-label>Hora Salida:</ion-label>
+        <ion-input formControlName="hora_salida" type="time" id="horasalida"></ion-input>
       </ion-item>
 
       <ion-item>
+
         <ion-label>Salida:</ion-label>
+
         <select name="salida" id="salida" formControlName="salida">
           <option value="pnorte">Sede Plaza Norte</option>
           <option value="alameda">Sede Alameda</option>
@@ -76,8 +78,16 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" required>Cantidad Asientos:</ion-label>
-        <ion-input formControlName="cant_asientos" type="text" id="cant_asientos"></ion-input>
+        <ion-label>Cantidad Asientos:</ion-label>
+
+        <select name="cant_asientos" id="cant_asientos" formControlName="cant_asientos">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
       </ion-item>
 
       <ion-item>

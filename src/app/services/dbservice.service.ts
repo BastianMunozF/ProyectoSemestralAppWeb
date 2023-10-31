@@ -7,6 +7,7 @@ import { Usuario } from './usuario';
 import { Viajeuser } from './viajeuser';
 import { Historialusuario } from './historialusuario';
 import { Vehiculo } from './vehiculo';
+import { Viaje } from './viaje';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +29,11 @@ export class DbserviceService {
     //Tabla para Usuarios
     tablaUsuarios: string = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, correo VARCHAR(30) NOT NULL, fechanacimiento DATE NOT NULL, rut VARCHAR(13) NOT NULL, celular INTEGER NOT NULL, contrasena VARCHAR(30) NOT NULL, id_rol INTEGER NOT NULL, FOREIGN KEY(id_rol) REFERENCES rol(id_rol));";
 
-    //Tabla para tarjeta Usuarios:
-    tablaPagoUsuario: string = "CREATE TABLE IF NOT EXISTS pago(id_pago INTEGER PRIMARY KEY AUTOINCREMENT, num_tarjeta NUMBER NOT NULL, fecha_caducidad DATE NOT NULL, cvv NUMBER NOT NULL, id INTEGER NOT NULL, FOREIGN KEY(id) REFERENCES usuario(id))";
-
     //Tabla para Vehículos:
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
 
     //Tabla para Viajes(Conductor):
-    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, total INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado BOOLEAN NOT NULL, id_vehiculo INTEGER NOT NULL, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo));";
+    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, id_vehiculo INTEGER NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo), FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
 
     //Tabla para Viajes(Clientes):
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
@@ -175,6 +173,29 @@ export class DbserviceService {
     })
   }
 
+  buscarViaje(){
+    return this.database.executeSql("SELECT * FROM viaje", []).then(res => {
+      let items: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          items.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            id_vehiculo: res.rows.item(i).id_vehiculo,
+            id_condudctor: res.rows.item(i).id_conductor
+          })
+        }
+      }
+      return items;
+    })
+  }
+
   buscarUsuario(){
     return this.database.executeSql("SELECT * FROM usuario", []).then(res => {
       //Almacenamos la consulta en esta variable
@@ -241,12 +262,22 @@ export class DbserviceService {
   insertarVehiculo(marca: any, modelo: any, annio: any, patente: any, asientos: any, id_usuario: any, id_tipo: any){
     return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, annio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
       if(res){
-        this.buscarVehiculo();;
+        this.buscarVehiculo();
       } else {
         this.presentAlert("Error al insertar vehículo en la base de datos.");
       }
     }).catch(error => {
       console.error('Error al insertar el vehículo.', error)
+    })
+  }
+
+  insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, id_vehiculo: any, id_conductor: any){
+    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, id_vehiculo, id_conductor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, id_vehiculo, id_conductor]).then(res => {
+      if(res){
+        this.buscarViaje();
+      } else {
+        this.presentAlert('Error al insertar ruta.')
+      }
     })
   }
 
@@ -263,7 +294,7 @@ export class DbserviceService {
 
   }
 
-  actualizarPerfil(nombre:any, apellido:any, correo:any, fechanacimiento:any, rut:any, celular: any, contrasena: any, id: any){
+  actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id: any){
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id]).then(res=>{
       if(res){
         return true;
