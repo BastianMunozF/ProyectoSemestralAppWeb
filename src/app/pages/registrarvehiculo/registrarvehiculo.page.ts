@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-
+import { Vehiculo } from 'src/app/services/vehiculo';
 
 @Component({
   selector: 'app-registrarvehiculo',
@@ -12,6 +12,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 })
 export class RegistrarvehiculoPage implements OnInit {
   formularioVehiculo: FormGroup;
+  vehiculo!: Vehiculo;
 
   constructor(private formBuilder: FormBuilder, private database: DbserviceService, private router: Router, private alertController: AlertController) {
     this.formularioVehiculo = this.formBuilder.group({
@@ -34,6 +35,7 @@ export class RegistrarvehiculoPage implements OnInit {
 
       this.database.insertarVehiculo(form.marca, form.modelo, form.annio, form.patente, form.cant_asientos, id_user, form.id_tipo).then(res => {
         if(res !== null){
+          localStorage.setItem('id_vehiculo', this.vehiculo.id_usuario.toString());
           console.log('Vehículo registrado exitosamente.');
           this.presentarAlerta("Vehiculo Registrado", "Su vehículo ha sido registrado con éxito.");
           this.router.navigate(['/menuprincipalconductor']);

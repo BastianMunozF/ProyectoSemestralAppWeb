@@ -7,5 +7,5 @@ export class Viaje {
     cant_asientos = "";
     valor_asiento = "";
     id_vehiculo = "";
-    id_condudctor = "";
+    id_conductor = "";
 }

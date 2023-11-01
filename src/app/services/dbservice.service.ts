@@ -49,7 +49,7 @@ export class DbserviceService {
 
   listaUsuario = new BehaviorSubject([]);
 
-  listaViajeuser = new BehaviorSubject([]);
+  listaViaje = new BehaviorSubject([]);
 
   listaVehiculo = new BehaviorSubject([]);
 
@@ -73,27 +73,8 @@ export class DbserviceService {
     return this.listaVehiculo.asObservable();
   } 
 
-  fetchViajeUser(): Observable<Historialusuario[]>{
-    return this.listaViajeuser.asObservable();
-  }
-
-  historialUsuario(id: any){
-    return this.database.executeSql('SELECT * FROM viajeuser WHERE id = ?', [id]).then(res => {
-      let items: Historialusuario[] = [];
-
-      if(res.rows.length > 0){
-        for(var i = 0; i < res.rows.length; i++){
-          items.push({
-            id_viajeuser: res.rows.item(i).id_viajeuser,
-            f_viaje: res.rows.item(i).f_viaje,
-            hora_salida: res.rows.item(i).hora_salida,
-            salida: res.rows.item(i).salida,
-            destino: res.rows.item(i).destino
-          });
-        }
-      }
-      this.listaViajeuser.next(items as any);
-    })
+  fetchViaje(): Observable<Viaje[]>{
+    return this.listaViaje.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -153,26 +134,6 @@ export class DbserviceService {
     })
   }
 
-  buscarViajeuser(){
-    return this.database.executeSql("SELECT * FROM viajeuser", []).then(res => {
-      let items: Viajeuser[] = [];
-
-      if(res.rows.length > 0){
-        for(var i = 0; i < res.rows.length; i++){
-          items.push({
-            id_viajeuser: res.rows.item(i).id_viajeuser,
-            f_viaje: res.rows.item(i).f_viaje,
-            hora_salida: res.rows.item(i).hora_salida,
-            salida: res.rows.item(i).salida,
-            destino: res.rows.item(i).destino
-          })
-        }
-      }
-
-      this.listaViajeuser.next(items as any)
-    })
-  }
-
   buscarViaje(){
     return this.database.executeSql("SELECT * FROM viaje", []).then(res => {
       let items: Viaje[] = [];
@@ -188,11 +149,11 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             id_vehiculo: res.rows.item(i).id_vehiculo,
-            id_condudctor: res.rows.item(i).id_conductor
+            id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
-      return items;
+      return this.listaViaje.next(items as any);
     })
   }
 
@@ -278,20 +239,9 @@ export class DbserviceService {
       } else {
         this.presentAlert('Error al insertar ruta.')
       }
-    })
-  }
-
-  tomarViaje(f_viaje: any, hora_salida: any, salida: any, destino: any){
-    return this.database.executeSql("INSERT INTO viajeuser VALUES(f_viaje, hora_salida, salida, destino) VALUES(?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino]).then(res => {
-      if(res){
-        this.buscarViajeuser();
-      } else {
-        this.presentAlert("Error al insertar viaje en la base de datos.");
-      }
     }).catch(error => {
-      console.error('Error al insertar el viaje.', error);
+      console.error('Error al insertar el vehículo:', error)
     })
-
   }
 
   actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id: any){
