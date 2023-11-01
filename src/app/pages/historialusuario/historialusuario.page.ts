@@ -24,7 +24,7 @@ export class HistorialusuarioPage implements OnInit {
   ngOnInit() {
     this.database.dbState().subscribe(res => {
       if(res){
-        this.database.fetchViajeUser().subscribe(datos => {
+        this.database.fetchViaje().subscribe(datos => {
           this.arregloHistorial = datos;
         })
       }

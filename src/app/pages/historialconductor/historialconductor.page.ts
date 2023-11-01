@@ -12,9 +12,7 @@ export class HistorialconductorPage implements OnInit {
   salida: string = "";
   destino: string = "";
   cantidadasientos: string = "";
-  total: string = "";
   valorasiento: string = "";
-  estado: string = "";
 
   constructor() { }
 

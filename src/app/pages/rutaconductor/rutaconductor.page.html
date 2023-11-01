@@ -91,22 +91,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" required>Total:</ion-label>
-        <ion-input formControlName="total" type="text" id="total"></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label position="floating" required>Valor Asientos:</ion-label>
         <ion-input formControlName="valor_asiento" type="text" id="valor_asiento"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating" required>Estado:</ion-label>
-        <ion-input formControlName="estado" type="text" id="estado"></ion-input>
-      </ion-item>
     </form>
-    <ion-button color="primary" [routerLink]="['/menuprincipalconductor']" (click)="alertaViaje()" style="margin-right: 70px;">Aceptar</ion-button>
-    <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Rechazar</ion-button>
+    <ion-button color="primary" style="margin-right: 70px;" type="submit">Aceptar</ion-button>
+    <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Volver al menú principal</ion-button>
   </ion-card>
 </ion-card-content>
 
