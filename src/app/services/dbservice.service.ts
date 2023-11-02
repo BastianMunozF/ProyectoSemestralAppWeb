@@ -153,7 +153,7 @@ export class DbserviceService {
           })
         }
       }
-      return this.listaViaje.next(items as any);
+      this.listaViaje.next(items as any);
     })
   }
 
@@ -321,7 +321,6 @@ export class DbserviceService {
       await this.database.executeSql(this.tablaVehiculo, []);
       await this.database.executeSql(this.tablaViajes, []);
       await this.database.executeSql(this.tablaDetalle, []);
-      await this.database.executeSql(this.tablaViajesUser, []);
 
       //Ejecutar los registros en la tabla
       await this.database.executeSql(this.registroRol, []);
