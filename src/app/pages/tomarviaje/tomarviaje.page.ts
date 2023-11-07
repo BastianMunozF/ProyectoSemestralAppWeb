@@ -39,7 +39,7 @@ export class TomarviajePage implements OnInit {
 
           console.log('Ruta creada correctamente.');
           this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
-          this.router.navigate(['/menuprincipalconductor']);
+          this.router.navigate(['/menuprincipal']);
 
           this.formularioRuta.reset();
 
