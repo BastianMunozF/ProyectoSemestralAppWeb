@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { IonicModule } from '@ionic/angular';
@@ -15,14 +14,11 @@ import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     RutaconductorPageRoutingModule,
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   declarations: [RutaconductorPage]
 })

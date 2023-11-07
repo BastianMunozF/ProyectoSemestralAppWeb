@@ -7,9 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { TomarviajePageRoutingModule } from './tomarviaje-routing.module';
 
 import { TomarviajePage } from './tomarviaje.page';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [

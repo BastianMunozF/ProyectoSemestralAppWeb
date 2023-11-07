@@ -4,8 +4,6 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
-import { Viajeuser } from './viajeuser';
-import { Historialusuario } from './historialusuario';
 import { Vehiculo } from './vehiculo';
 import { Viaje } from './viaje';
 
@@ -153,7 +151,7 @@ export class DbserviceService {
           })
         }
       }
-      this.listaViaje.next(items as any);
+      return this.listaViaje.next(items as any);
     })
   }
 
