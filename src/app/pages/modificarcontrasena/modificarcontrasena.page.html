@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modificar Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Modificar Contraseña</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>Cambiar Contraseña</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <form [formGroup]="formularioContrasena" (ngSubmit)="cambiarContrsena()">
+
+        <ion-item>
+
+          <ion-label>Ingrese su Contraseña Actual:</ion-label>
+          <ion-input formControlName="actual" id="actual" type="password"></ion-input>
+
+        </ion-item>
+
+        <ion-item>
+
+          <ion-label>Ingrese su Nueva Contraseña:</ion-label>
+          <ion-input formControlName="nueva" type="password"></ion-input>
+
+        </ion-item>
+
+        <ion-item>
+
+          <ion-label>Confirme Nueva Contraseña:</ion-label>
+          <ion-input formControlName="confnueva" type="password"></ion-input>
+
+        </ion-item>
+
+        <ion-button type="submit">Cambiar Contraseña</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -242,8 +242,8 @@ export class DbserviceService {
     })
   }
 
-  actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id: any){
-    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id]).then(res=>{
+  actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, id: any){
+    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, id]).then(res=>{
       if(res){
         return true;
       } else {
@@ -252,6 +252,27 @@ export class DbserviceService {
       }
     }).catch(error => {
       console.error('Error al actualizar usuario en base de datos:', error);
+    })
+  }
+
+  actualizarContrasena(contrasena: any, id: any){
+    return this.database.executeSql('UPDATE usuario SET contrasena = ? WHERE id = ?', [contrasena, id]).then(res => {
+      if(res){
+        return true;
+      } else {
+        this.presentAlert("Error al actualizar contraseña.");
+        return null;
+      }
+    })
+  }
+
+  verificarContrasena(id: any){
+    return this.database.executeSql('SELECT contrasena FROM usuario WHERE id = ?', [id]).then(res => {
+      if(res){
+        return res;
+      } else {
+        return null;
+      }
     })
   }
 

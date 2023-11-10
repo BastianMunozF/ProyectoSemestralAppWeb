@@ -64,7 +64,7 @@ export class EditarperfilconductorPage implements OnInit {
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.contrasena, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, id).then(res => {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
