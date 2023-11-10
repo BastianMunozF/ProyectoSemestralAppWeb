@@ -30,8 +30,6 @@ export class RutaconductorPage implements OnInit {
   constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
 
   ngOnInit() {
-    this.database.buscarViaje();
-
     this.database.dbState().subscribe(res => {
       if(res){
         this.database.fetchViaje().subscribe(datos => {

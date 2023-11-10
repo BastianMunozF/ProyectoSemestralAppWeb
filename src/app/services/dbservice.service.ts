@@ -151,7 +151,7 @@ export class DbserviceService {
           })
         }
       }
-      return this.listaViaje.next(items as any);
+      this.listaViaje.next(items as any);
     })
   }
 

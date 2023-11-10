@@ -35,10 +35,11 @@ export class RegistrarvehiculoPage implements OnInit {
 
       this.database.insertarVehiculo(form.marca, form.modelo, form.annio, form.patente, form.cant_asientos, id_user, form.id_tipo).then(res => {
         if(res !== null){
-          localStorage.setItem('id_vehiculo', this.vehiculo.id_usuario.toString());
+          localStorage.setItem('id_vehiculo', this.vehiculo.id_vehiculo.toString());
           console.log('Vehículo registrado exitosamente.');
           this.presentarAlerta("Vehiculo Registrado", "Su vehículo ha sido registrado con éxito.");
           this.router.navigate(['/menuprincipalconductor']);
+
           this.formularioVehiculo.reset();
         } else {
           console.log('Error al registrar Vehículo');
