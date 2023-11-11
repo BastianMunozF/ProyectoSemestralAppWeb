@@ -95,7 +95,11 @@
 
       <ion-item>
         <ion-label position="floating" required>Valor Asientos:</ion-label>
-        <ion-input formControlName="valor_asiento" type="text" id="valor_asiento"></ion-input>
+        <select name="valor_asiento" id="valor_asiento" formControlName="valor_asiento">
+          <option value="2500">Standard: $2.500</option>
+          <option value="5000">Large: $5.000</option>
+          <option value="7500">Deluxe: $7.500</option>
+        </select>
       </ion-item>
 
       <ion-button color="primary" style="margin-right: 70px;" type="submit">Aceptar</ion-button>
