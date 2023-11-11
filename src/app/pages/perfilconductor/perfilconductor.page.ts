@@ -24,7 +24,7 @@ export class PerfilconductorPage implements OnInit {
   celular: any;
   marca: any;
   modelo: any;
-  annio: number = 0;
+  annio: any;
   patente: any;
   tipo_vehiculo: any;
   fotoPerfil!: string;

@@ -222,10 +222,8 @@ export class DbserviceService {
     return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, anio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
       if(res){
         this.buscarVehiculo();
-        return true;
       } else {
         this.presentAlert("Error al insertar vehículo en la base de datos.");
-        return null;
       }
     }).catch(error => {
       console.error('Error al insertar el vehículo.', error)

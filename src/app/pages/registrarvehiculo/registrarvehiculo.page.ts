@@ -12,7 +12,6 @@ import { Vehiculo } from 'src/app/services/vehiculo';
 })
 export class RegistrarvehiculoPage implements OnInit {
   formularioVehiculo: FormGroup;
-  vehiculo!: Vehiculo;
 
   constructor(private formBuilder: FormBuilder, private database: DbserviceService, private router: Router, private alertController: AlertController) {
     this.formularioVehiculo = this.formBuilder.group({
@@ -35,7 +34,7 @@ export class RegistrarvehiculoPage implements OnInit {
 
       this.database.insertarVehiculo(form.marca, form.modelo, form.annio, form.patente, form.cant_asientos, id_user, form.id_tipo).then(res => {
         if(res !== null){
-          localStorage.setItem('id_vehiculo', this.vehiculo.id_vehiculo.toString());
+
           console.log('Vehículo registrado exitosamente.');
           this.presentarAlerta("Vehiculo Registrado", "Su vehículo ha sido registrado con éxito.");
           this.router.navigate(['/menuprincipalconductor']);
