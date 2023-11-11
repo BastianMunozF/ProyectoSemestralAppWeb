@@ -33,6 +33,9 @@ export class ModificarcontrasenaPage implements OnInit {
             this.database.actualizarContrasena(form.nueva, id_user).then(res => {
               if(res){
                 this.presentarAlerta("Contraseña Actualizada", "Su contraseña ha sido actualizada con éxito.");
+                this.router.navigate(['/perfilusuario']);
+
+                this.formularioContrasena.reset();
               } else {
                 this.presentarAlerta("Error al actualizar contraseña", "La contraseña actual ingresada no existe.");
               }
