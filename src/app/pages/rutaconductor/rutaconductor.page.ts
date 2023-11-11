@@ -25,6 +25,7 @@ export class RutaconductorPage implements OnInit {
       id_vehiculo: '',
       id_conductor: ''
     }
+
   ]
 
   constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
