@@ -26,13 +26,14 @@ export class PerfilconductorPage implements OnInit {
   modelo: any;
   annio: any;
   patente: any;
+  asientos: any;
   tipo_vehiculo: any;
   fotoPerfil!: string;
 
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
-    database.buscarDatosUsuario(userId).then((perfil) => {
+    this.database.buscarDatosUsuario(userId).then((perfil) => {
       this.usuario = perfil[0];
 
       this.nombre = this.usuario.nombre;
@@ -43,13 +44,14 @@ export class PerfilconductorPage implements OnInit {
       this.celular = this.usuario.celular;
     });
 
-    database.buscarVehiculoUsuario(userId).then((perfil) => {
+    this.database.buscarVehiculoUsuario(userId).then((perfil) => {
       this.vehiculo = perfil[0];
 
       this.marca = this.vehiculo.marca;
       this.modelo = this.vehiculo.modelo;
-      this.annio = this.vehiculo.annio;
+      this.annio = this.vehiculo.annio.toString();
       this.patente = this.vehiculo.patente;
+      this.asientos = this.vehiculo.asientos;
       this.tipo_vehiculo = this.vehiculo.id_tipo.toString();
     });
   }
