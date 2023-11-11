@@ -112,14 +112,23 @@ export class DbserviceService {
 
   buscarVehiculoUsuario(id: any){
     return this.database.executeSql("SELECT * FROM vehiculo WHERE id_usuario = ?", [id]).then(res => {
+      let datos: Vehiculo[] = [];
+
       if(res.rows.length > 0){
-        return res.rows.item(0);
-      } else {
-        return null;
+        for(var i = 0; i < res.rows.length; i++){
+          datos.push({
+            id_vehiculo: res.rows.item(i).id_vehiculo,
+            marca: res.rows.item(i).marca,
+            modelo: res.rows.item(i).modelo,
+            annio: res.rows.item(i).annio,
+            patente: res.rows.item(i).patente,
+            asientos: res.rows.item(i).asientos,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_tipo: res.rows.item(i).id_tipo
+          });
+        }
       }
-    }).catch(error => {
-      console.error('Error la buscar vehiculo: ', + error);
-      return null;
+      return datos;
     })
   }
 
