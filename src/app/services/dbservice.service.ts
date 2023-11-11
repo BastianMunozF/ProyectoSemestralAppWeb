@@ -152,7 +152,7 @@ export class DbserviceService {
         }
       }
       this.listaViaje.next(items as any);
-    })
+    });
   }
 
   buscarUsuario(){
