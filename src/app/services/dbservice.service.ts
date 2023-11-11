@@ -219,7 +219,7 @@ export class DbserviceService {
   }
 
   insertarVehiculo(marca: any, modelo: any, annio: any, patente: any, asientos: any, id_usuario: any, id_tipo: any){
-    return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, annio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
+    return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, anio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
       if(res){
         this.buscarVehiculo();
       } else {
