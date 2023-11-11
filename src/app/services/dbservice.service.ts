@@ -111,7 +111,7 @@ export class DbserviceService {
   }
 
   buscarVehiculoUsuario(id: any){
-    return this.database.executeSql("SELECT id_vehiculo FROM vehiculo WHERE id_usuario = ?", [id]).then(res => {
+    return this.database.executeSql("SELECT * FROM vehiculo WHERE id_usuario = ?", [id]).then(res => {
       if(res.rows.length > 0){
         return res.rows.item(0);
       } else {
