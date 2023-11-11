@@ -29,7 +29,7 @@ export class ModificarcontrasenaPage implements OnInit {
 
       if(form.nueva === form.confnueva){
         this.database.verificarContrasena(id_user).then(contrasena => {
-          if(form.actual === contrasena){
+          if(contrasena){
             this.database.actualizarContrasena(form.nueva, id_user).then(res => {
               if(res){
                 this.presentarAlerta("Contraseña Actualizada", "Su contraseña ha sido actualizada con éxito.");
