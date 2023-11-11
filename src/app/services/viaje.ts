@@ -6,6 +6,4 @@ export class Viaje {
     destino = "";
     cant_asientos = "";
     valor_asiento = "";
-    id_vehiculo = "";
-    id_conductor = "";
 }

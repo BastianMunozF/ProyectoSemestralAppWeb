@@ -31,7 +31,7 @@ export class DbserviceService {
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
 
     //Tabla para Viajes(Conductor):
-    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, id_vehiculo INTEGER NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo), FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
+    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL;";
 
     //Tabla para Viajes(Clientes):
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
@@ -137,7 +137,7 @@ export class DbserviceService {
       let items: Viaje[] = [];
 
       if(res.rows.length > 0){
-        for(var i = 0; i < res.rows.length; i++){
+        for(var i=0; i<res.rows.length; i++){
           items.push({
             id_viaje: res.rows.item(i).id_viaje,
             f_viaje: res.rows.item(i).f_viaje,
@@ -145,9 +145,7 @@ export class DbserviceService {
             salida: res.rows.item(i).salida,
             destino: res.rows.item(i).destino,
             cant_asientos: res.rows.item(i).cant_asientos,
-            valor_asiento: res.rows.item(i).valor_asiento,
-            id_vehiculo: res.rows.item(i).id_vehiculo,
-            id_conductor: res.rows.item(i).id_conductor
+            valor_asiento: res.rows.item(i).valor_asiento
           })
         }
       }

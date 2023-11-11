@@ -21,9 +21,7 @@ export class RutaconductorPage implements OnInit {
       salida: '',
       destino: '',
       cant_asientos: '',
-      valor_asiento: '',
-      id_vehiculo: '',
-      id_conductor: ''
+      valor_asiento: ''
     }
 
   ]
