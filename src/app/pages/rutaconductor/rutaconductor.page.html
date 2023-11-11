@@ -11,19 +11,23 @@
 
     <ion-item-sliding *ngFor="let x of arregloViajes">
 
-      <ion-item>
-        <ion-label>
-
-          <strong>{{ x.destino }}</strong>
-  
-          <p>Salida: {{ x.salida }}</p>
-          <p>Hora Salida: {{ x.hora_salida }}</p>
-          <p>Fecha Salida: {{ x.f_viaje }}</p>
-          <p>Asientos: {{ x.cant_asientos }}</p>
-          <p>Valor asientos: {{ x.valor_asiento }}</p>
-
-        </ion-label>
-      </ion-item>
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>
+    
+              <strong>{{ x.destino }}</strong>
+      
+              <p style="word-wrap: break-word;white-space: normal;">Salida: {{ x.salida }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Hora Salida: {{ x.hora_salida }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Fecha Salida: {{ x.f_viaje }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Asientos: {{ x.cant_asientos }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Valor asientos: {{ x.valor_asiento }}</p>
+    
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
 
     </ion-item-sliding>
 
