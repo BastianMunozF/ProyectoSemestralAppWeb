@@ -9,7 +9,7 @@
 
   <ion-list>
 
-    <ion-item-sliding *ngFor="let x for arregloViajes">
+    <ion-item-sliding *ngFor="let x of arregloViajes">
 
       <ion-item>
         <ion-label>
@@ -18,7 +18,7 @@
   
           <p>Salida: {{ x.salida }}</p>
           <p>Hora Salida: {{ x.hora_salida }}</p>
-          <p>Fecha Salida: {{ x.f_salida }}</p>
+          <p>Fecha Salida: {{ x.f_viaje }}</p>
           <p>Asientos: {{ x.cant_asientos }}</p>
           <p>Valor asientos: {{ x.valor_asiento }}</p>
 
