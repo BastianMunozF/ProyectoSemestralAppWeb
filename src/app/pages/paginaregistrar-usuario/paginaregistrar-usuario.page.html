@@ -59,7 +59,7 @@
 
         <ion-item>
           <ion-label position="floating">Fecha de Nacimiento:</ion-label>
-          <ion-input formControlName="fechanacimiento" type="date"></ion-input>
+          <ion-input formControlName="fechanacimiento" type="date" max="2005-11-11" min="1923-01-01"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
