@@ -6,7 +6,7 @@
 
 <ion-content>
 <ion-card color="primary">
-  <h2>Listado de viajes</h2>
+  <h2 style="margin: 10px;">Listado de viajes</h2>
 </ion-card>
 
   <ion-list>
@@ -16,7 +16,9 @@
           <ion-item>
     
             <ion-label>
-              <strong>{{ x.destino }}</strong>
+              <strong>{{ x.destino | uppercase }}</strong>
+
+              <br>
     
               <p style="word-wrap: break-word;white-space: normal;">Salida: {{x.salida}}</p>
               <p style="word-wrap: break-word;white-space: normal;">Hora Salida: {{x.hora_salida}}</p>
