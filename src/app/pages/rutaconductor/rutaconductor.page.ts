@@ -13,30 +13,19 @@ export class RutaconductorPage implements OnInit {
   claveR: string = "";
   variableStorage: any = "";
 
-  arregloViajes: any = [
-    {
-      id_viaje: '',
-      f_viaje: '',
-      hora_salida: '',
-      salida: '',
-      destino: '',
-      cant_asientos: '',
-      valor_asiento: ''
-    }
+  arregloViajes: any;
 
-  ]
-
-  constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) {
-    this.database.dbState().subscribe(res => {
-      if(res){
-        this.database.fetchViaje().subscribe(datos => {
-          this.arregloViajes = datos;
-        })
-      }
-    });
-  }
+  constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
 
   ngOnInit() {
+  }
+
+  buscarViajes(){
+    this.database.buscarViaje().then((data) => {
+      this.arregloViajes = data;
+    }).catch(e => {
+      console.log('Error al buscar viajes: ', + e)
+    });
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
