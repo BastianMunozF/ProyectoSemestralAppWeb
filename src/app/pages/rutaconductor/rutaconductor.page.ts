@@ -26,16 +26,17 @@ export class RutaconductorPage implements OnInit {
 
   ]
 
-  constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
-
-  ngOnInit() {
+  constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) {
     this.database.dbState().subscribe(res => {
       if(res){
         this.database.fetchViaje().subscribe(datos => {
           this.arregloViajes = datos;
         })
       }
-    })
+    });
+  }
+
+  ngOnInit() {
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
