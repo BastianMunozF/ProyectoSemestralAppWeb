@@ -31,13 +31,13 @@ export class DbserviceService {
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
 
     //Tabla para Viajes(Conductor):
-    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL;";
+    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado VARCHAR(20) NOT NULL, id_usuario INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id));";
 
     //Tabla para Viajes(Clientes):
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
 
     //Tabla para detalle de Viajes:
-    tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje));";
+    tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, id_vehiculo INTEGER NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje), FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo), FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
 
     registroRol: string = "INSERT INTO rol VALUES (1, 'Usuario'), (2, 'Conductor');";
 
@@ -229,8 +229,8 @@ export class DbserviceService {
     })
   }
 
-  insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, id_vehiculo: any, id_conductor: any){
-    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, id_vehiculo, id_conductor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, id_vehiculo, id_conductor]).then(res => {
+  insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, estado: any, id_conductor: any){
+    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor]).then(res => {
       if(res){
         this.buscarViaje();
       } else {
@@ -239,6 +239,16 @@ export class DbserviceService {
     }).catch(error => {
       console.error('Error al insertar el vehículo:', error)
     })
+  }
+
+  insertarViajeAceptado(id_usuario: any, id_viaje: any, id_vehiculo: any, id_conductor: any){
+    return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje, id_vehiculo) VALUES (?, ?, ?, ?)", [id_usuario, id_viaje, id_vehiculo, id_conductor]).then(res => {
+      if(res){
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, id: any){

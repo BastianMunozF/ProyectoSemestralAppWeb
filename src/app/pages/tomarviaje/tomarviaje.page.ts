@@ -32,9 +32,9 @@ export class TomarviajePage implements OnInit {
     if(this.formularioRuta.valid){
       let form = this.formularioRuta.value;
       let id_user = localStorage.getItem('id');
-      let id_vehiculo = localStorage.getItem('id_vehiculo');
+      let estado = 'Pendiente';
 
-      this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, id_vehiculo, id_user).then(res => {
+      this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
         if(res !== null){
 
           console.log('Ruta creada correctamente.');

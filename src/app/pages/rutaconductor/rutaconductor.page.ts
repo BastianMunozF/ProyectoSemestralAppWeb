@@ -28,6 +28,19 @@ export class RutaconductorPage implements OnInit {
     });
   }
 
+  aceptarViaje(){
+    let id_vehiculo = localStorage.getItem('id_vehiculo')
+    let id_conductor = localStorage.getItem('id')
+
+    this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
+      if(res){
+        this.presentarAlerta("Viaje confirmado", "El viaje ha sido comenzado con éxito.");
+      } else {
+        this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
+      }
+    });
+  }
+
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({
       header: titulo,
