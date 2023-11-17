@@ -132,6 +132,29 @@ export class DbserviceService {
     })
   }
 
+  buscarViajeUser(id: any){
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ?", [id]).then(res => {
+      let datos: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          datos.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario
+          })
+        }
+      }
+      return datos;
+    });
+  }
+
   buscarViaje(){
     return this.database.executeSql("SELECT * FROM viaje", []).then(res => {
       let items: Viaje[] = [];
@@ -145,7 +168,9 @@ export class DbserviceService {
             salida: res.rows.item(i).salida,
             destino: res.rows.item(i).destino,
             cant_asientos: res.rows.item(i).cant_asientos,
-            valor_asiento: res.rows.item(i).valor_asiento
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario
           })
         }
       }
