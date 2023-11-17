@@ -16,10 +16,10 @@
 
     <br>
 
-    <ion-card>
+    <ion-card color="primary">
       <ion-card-content>
-        <ion-card-title>Clima Actual: </ion-card-title>
-        <ion-label>{{ clima?.data[0]?.coordinates[0]?.dates[0]?.value }}</ion-label>
+        <ion-card-title style="text-align: center; font-size: xx-large;">Clima Parcial <ion-icon name="partly-sunny-sharp"></ion-icon> </ion-card-title>
+        <ion-label style="display: flex; flex-direction: column; align-items: center; font-size: xx-large;">{{ clima?.data[0]?.coordinates[0]?.dates[0]?.value }}°C</ion-label>
       </ion-card-content>
     </ion-card>
 
