@@ -14,10 +14,12 @@
 
   <div class="container" id="container">
 
+    <br>
+
     <ion-card>
       <ion-card-content>
-        <ion-card-title>Clima Actual</ion-card-title>
-        <p>{{ clima }}</p>
+        <ion-card-title>Clima Actual: </ion-card-title>
+        <ion-label>{{ clima?.data[0]?.coordinates[0]?.dates[0]?.value }}</ion-label>
       </ion-card-content>
     </ion-card>
 
@@ -59,8 +61,6 @@
       </p>
     </ion-item>
   </div>
-
-  
 </ion-content>
 
 <ion-footer>

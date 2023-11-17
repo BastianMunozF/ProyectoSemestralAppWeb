@@ -16,16 +16,15 @@ export class MenuprincipalPage {
   constructor(private apiservice: ApiService) { }
 
   async obtenerClima(){
-    setTimeout(() => {
-      this.dateTime = new Date().toUTCString();
-    })
+
+    this.dateTime = new Date().toISOString();
 
     const coordenadas = await Geolocation.getCurrentPosition();
 
     this.apiservice.getClima(this.dateTime, coordenadas.coords.latitude, coordenadas.coords.longitude).subscribe(res => {
       this.clima = res;
 
-      console.log('Clima:', this.clima)
+      console.log('Datos del clima:', this.clima)
   
     })
   }
@@ -35,17 +34,3 @@ export class MenuprincipalPage {
   }
 
 }
-
-/*
-
-setTimeout(() => {
-      this.dateTime = new Date().toUTCString();
-    })
-
-    const obtenerClima = async () => {
-      const coordinates = await Geolocation.getCurrentPosition();
-
-      this.apiservice.getClima(this.dateTime, coordinates.coords.latitude, coordinates.coords.longitude);
-    }
-
-*/
