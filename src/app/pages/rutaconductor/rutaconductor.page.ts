@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
@@ -8,7 +8,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
   templateUrl: './rutaconductor.page.html',
   styleUrls: ['./rutaconductor.page.scss'],
 })
-export class RutaconductorPage implements OnInit {
+export class RutaconductorPage {
   usuarioR: string = "";
   claveR: string = "";
   variableStorage: any = "";
@@ -17,15 +17,16 @@ export class RutaconductorPage implements OnInit {
 
   constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
 
-  ngOnInit() {
+  async obtenerViajes(){
+    this.database.fetchViaje().subscribe(res => {
+      this.arregloViajes = res;
+
+      console.log('Viajes creados:', this.arregloViajes)
+    })
   }
 
-  buscarViajes(){
-    this.database.buscarViaje().then((data) => {
-      this.arregloViajes = data;
-    }).catch(e => {
-      console.log('Error al buscar viajes: ', + e)
-    });
+  ionViewWillEnter(){
+    this.obtenerViajes();
   }
 
   aceptarViaje(){
