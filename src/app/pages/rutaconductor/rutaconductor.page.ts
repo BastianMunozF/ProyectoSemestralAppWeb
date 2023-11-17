@@ -29,8 +29,8 @@ export class RutaconductorPage implements OnInit {
   }
 
   aceptarViaje(){
-    let id_vehiculo = localStorage.getItem('id_vehiculo')
-    let id_conductor = localStorage.getItem('id')
+    let id_vehiculo = localStorage.getItem('id_vehiculo');
+    let id_conductor = localStorage.getItem('id');
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res){
