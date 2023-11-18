@@ -9,26 +9,12 @@ import { Router } from '@angular/router';
 })
 export class HistorialusuarioPage implements OnInit {
 
-  arregloHistorial: any = [
-    {
-      id_viajeuser: '',
-      fechaviaje: '',
-      horasalida: '',
-      salida: '',
-      destino: ''
-    }
-  ]
+  arregloHistorial: any;
 
   constructor(private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
-    this.database.dbState().subscribe(res => {
-      if(res){
-        this.database.fetchViaje().subscribe(datos => {
-          this.arregloHistorial = datos;
-        })
-      }
-    })
+    this.database.buscarViajeUser
   }
 
 }
