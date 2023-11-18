@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -15,7 +15,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {NgIf} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -39,7 +38,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf,
     MatIconModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    NgForOf
   ],
   declarations: [PerfilusuarioPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -32,7 +32,7 @@ export class EditarperfilusuarioPage implements OnInit {
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
 
     const idUser = localStorage.getItem('id');
-    /*
+
     this.database.buscarDatosUsuario(idUser).then((datos) => {
       this.usuario = datos[0];
 
@@ -44,7 +44,7 @@ export class EditarperfilusuarioPage implements OnInit {
       this.celularU = this.usuario.celular;
 
     })
-    */
+
 
     this.formularioActualizar = this.fb.group({
       'nombre': new FormControl("", [Validators.required]),
@@ -63,7 +63,7 @@ export class EditarperfilusuarioPage implements OnInit {
     if(this.formularioActualizar.valid){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
-      /*
+
       this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, id).then(res => {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
@@ -77,7 +77,7 @@ export class EditarperfilusuarioPage implements OnInit {
       }).catch(error => {
         console.error("Error en base de datos al actualizar datos: ", error)
       })
-      */
+
     } else {
       this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
     }

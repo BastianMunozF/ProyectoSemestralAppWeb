@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tomarviaje',
@@ -13,7 +14,7 @@ export class TomarviajePage implements OnInit {
 
   formularioRuta: FormGroup;
 
-  constructor(private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
+  constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
     this.formularioRuta = this.formBuilder.group({
       'f_viaje': new FormControl("", [Validators.required]),
       'hora_salida': new FormControl("", [Validators.required]),
@@ -32,7 +33,6 @@ export class TomarviajePage implements OnInit {
       let id_user = localStorage.getItem('id');
       let estado = 'Pendiente';
 
-      /*
       this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
         if(res !== null){
 
@@ -52,8 +52,6 @@ export class TomarviajePage implements OnInit {
       }).catch(error => {
         console.error('Error al crear la ruta:', error);
       })
-
-    */
 
     } else {
 

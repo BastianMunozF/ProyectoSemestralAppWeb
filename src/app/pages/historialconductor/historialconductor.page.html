@@ -5,7 +5,40 @@
 </ion-header>
 
 <ion-content>
-  
+  <h2 class="ion-text-center" color="primary">Historial de Viajes Aceptados</h2>
+  <ion-list>
+    <ion-item *ngFor="let viaje of arregloViajes">
+      <ion-item *ngFor="let usuario of arregloUsuario">
+        <ion-item *ngFor="let vehiculo of arregloVehiculo">
+          <ion-card>
+            <ion-card-content>
+    
+              <ion-item>
+    
+                <ion-label>
+                  <strong>Nombre de Pasajero: {{ usuario.nombre | uppercase }}</strong>
+    
+                  <br>
+          
+                  <p>Fecha de Viaje: {{ viaje.f_viaje }}</p>
+                  <p>Hora: {{ viaje.hora_salida }}</p>
+                  <p>Salida: {{ viaje.salida }}</p>
+                  <p>Asientos: {{ viaje.cant_asientos }}</p>
+                  <p>Valor por asiento: {{ viaje.valor_asiento }}</p>
+                  <p>Estado de Viaje: {{ viaje.estado }}</p>
+                  <h4>Vehiculo:</h4>
+                  <p>Marca: {{ vehiculo.marca }}</p>
+                  <p>Modelo: {{ vehiculo.modelo }}</p>
+                </ion-label>
+    
+              </ion-item>
+    
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+      </ion-item>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ion-footer>

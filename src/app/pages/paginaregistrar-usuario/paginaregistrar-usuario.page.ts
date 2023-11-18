@@ -46,9 +46,6 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     });
   }
 
-}
-  /*
-
   guardarUsuario(){
     //Verificar si el formulario es válido
     if (this.formularioRegistro.valid){
@@ -98,6 +95,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     await alert.present();
   }
 }
+
 /*
   async guardar(){
     var f = this.formularioRegistro.value;

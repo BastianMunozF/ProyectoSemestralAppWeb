@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Usuario } from './usuario';
 import { Vehiculo } from './vehiculo';
 import { Viaje } from './viaje';
+import { Detalle } from './detalle';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,7 @@ export class DbserviceService {
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  /*
+
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController, private router: Router) {
     this.crearBD();
   }
@@ -153,6 +154,25 @@ export class DbserviceService {
       }
       return datos;
     });
+  }
+
+  buscarDetalleUsuario(id_conductor: any){
+    return this.database.executeSql("SELECT * FROM detalle WHERE id_conductor = ?", [id_conductor]).then(res => {
+      let detalles: Detalle[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          detalles.push({
+            id_detalle: res.rows.item(i).id_detalle,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_viaje: res.rows.item(i).id_viaje,
+            id_vehiculo: res.rows.item(i).id_vehiculo,
+            id_conductor: res.rows.item(i).id_conductor
+          })
+        }
+      }
+      return detalles;
+    })
   }
 
   buscarViaje(){
@@ -267,7 +287,7 @@ export class DbserviceService {
   }
 
   insertarViajeAceptado(id_usuario: any, id_viaje: any, id_vehiculo: any, id_conductor: any){
-    return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje, id_vehiculo) VALUES (?, ?, ?, ?)", [id_usuario, id_viaje, id_vehiculo, id_conductor]).then(res => {
+    return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje, id_vehiculo, id_conductor) VALUES (?, ?, ?, ?)", [id_usuario, id_viaje, id_vehiculo, id_conductor]).then(res => {
       if(res){
         return true;
       } else {
@@ -298,6 +318,17 @@ export class DbserviceService {
         return null;
       }
     })
+  }
+
+  actualizarEstadoViaje(estado: any, id_usuario: any){
+    return this.database.executeSql('UPDATE viaje SET estado = ? WHERE id_usuario = ?', [estado, id_usuario]).then(res => {
+      if(res){
+        return true;
+      } else {
+        this.presentAlert("Error al actualizar estado de viaje")
+        return null;
+      }
+    });
   }
 
   verificarContrasena(id: any){
@@ -398,5 +429,4 @@ export class DbserviceService {
 
     await alert.present();
   }
-  */
 }

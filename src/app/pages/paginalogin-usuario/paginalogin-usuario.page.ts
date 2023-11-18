@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Busuario } from 'src/app/services/busuario';
 
-
 @Component({
   selector: 'app-paginalogin-usuario',
   templateUrl: './paginalogin-usuario.page.html',
@@ -38,7 +37,7 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion() {
     if(this.formularioLogin.valid){
-      /*
+
       this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
         if(usuario !== null){
           localStorage.setItem('id', usuario.id);
@@ -63,7 +62,7 @@ export class PaginaloginUsuarioPage implements OnInit {
           this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no son correctos.")
         }
       })
-      */
+
     }
   }
 

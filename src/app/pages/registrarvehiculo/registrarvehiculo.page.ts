@@ -33,7 +33,7 @@ export class RegistrarvehiculoPage implements OnInit {
     let form = this.formularioVehiculo.value;
     let id_user = localStorage.getItem('id');
 
-    /*
+
     this.database.insertarVehiculo(form.marca, form.modelo, form.annio, form.patente, form.cant_asientos, id_user, form.id_tipo)
       .then(res => {
         if (res !== null) {
@@ -56,7 +56,6 @@ export class RegistrarvehiculoPage implements OnInit {
         console.error('Error en la operación de base de datos:', error);
         this.presentarAlerta("Error", "Hubo un error en la operación de base de datos.");
       });
-      */
   } else {
     this.presentarAlerta("Error al registrar", "Rellene el formulario correctamente.");
   }

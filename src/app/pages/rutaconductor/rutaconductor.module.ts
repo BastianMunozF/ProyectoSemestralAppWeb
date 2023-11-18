@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 
 import { IonicModule } from '@ionic/angular';
@@ -10,7 +10,6 @@ import { RutaconductorPage } from './rutaconductor.page';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -19,11 +18,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     RutaconductorPageRoutingModule,
     MatIconModule,
     MatButtonModule,
-    MatDividerModule,
-    NgForOf,
-    NgIf
+    MatDividerModule
   ],
-  declarations: [RutaconductorPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [RutaconductorPage]
 })
 export class RutaconductorPageModule {}
