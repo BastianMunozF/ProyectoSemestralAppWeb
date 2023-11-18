@@ -39,8 +39,8 @@ export class RutaconductorPage implements OnInit {
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res){
-
-        let estado = 'Aceptado'
+        let estado = 'Aceptado';
+        
         this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
           if(estado) {
             console.log('Viaje actualizado.')
@@ -63,6 +63,8 @@ export class RutaconductorPage implements OnInit {
       } else {
         this.presentarAlerta("Error al rechazar viaje", "El viaje no ha podido ser rechazado.")
       }
+    }).catch(error => {
+      console.error('Error al rechazar viaje:', error)
     })
   }
 

@@ -291,7 +291,7 @@ export class DbserviceService {
       if(res){
         return true;
       } else {
-        return false;
+        return null;
       }
     });
   }
@@ -301,7 +301,7 @@ export class DbserviceService {
       if(res){
         return true;
       } else {
-        return false;
+        return null;
       }
     }).catch(e => {
       console.error('Error al eliminar viaje:', e)
