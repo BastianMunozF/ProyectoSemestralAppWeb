@@ -10,6 +10,7 @@ import { RutaconductorPage } from './rutaconductor.page';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
     MatDividerModule,
   ],
-  declarations: [RutaconductorPage]
+  declarations: [RutaconductorPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RutaconductorPageModule {}
