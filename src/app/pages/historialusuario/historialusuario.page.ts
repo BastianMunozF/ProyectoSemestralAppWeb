@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 export class HistorialusuarioPage implements OnInit {
 
   arregloHistorial: any;
+  id_usuario = localStorage.getItem('id');
 
   constructor(private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
-    this.database.buscarViajeUser
+    this.database.buscarViajeUser(this.id_usuario).then(res => {
+      this.arregloHistorial = res;
+    });
   }
 
 }

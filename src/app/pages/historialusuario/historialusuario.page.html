@@ -13,31 +13,18 @@
 
   <h2 class="ion-text-center" color="primary">Historial de Viajes</h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let x for arregloHistorial">
+    <ion-item-sliding *ngFor="let x of arregloHistorial">
 
-      <ion-item>
-        <ion-label>
-          <ion-input type="date">{{ x.fechaviaje }}</ion-input>
-        </ion-label>
-      </ion-item>
+      <ion-label>
+        <strong>{{ x.destino | uppercase }}</strong>
 
-      <ion-item>
-        <ion-label>
-          <p style="word-wrap: break-word;white-space: normal;">{{ x.horasalida }}</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>
-          <p style="word-wrap: break-word;white-space: normal;">{{ x.salida }}</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>
-          <p style="word-wrap: break-word;white-space: normal;">{{ x.destino }}</p>
-        </ion-label>
-      </ion-item>
+        <p>{{ x.f_viaje }}</p>
+        <p>{{ x.hora_salida }}</p>
+        <p>{{ x.salida }}</p>
+        <p>{{ x.cant_asientos }}</p>
+        <p>{{ x.valor_asiento }}</p>
+        <p>{{ x.estado }}</p>
+      </ion-label>
 
     </ion-item-sliding>
   </ion-list>
