@@ -28,6 +28,7 @@ export class ModificarcontrasenaPage implements OnInit {
       let id_user = localStorage.getItem('id');
 
       if(form.nueva === form.confnueva){
+        /*
         this.database.verificarContrasena(id_user).then(contrasena => {
           if(contrasena){
             this.database.actualizarContrasena(form.nueva, id_user).then(res => {
@@ -48,6 +49,7 @@ export class ModificarcontrasenaPage implements OnInit {
         }).catch(e => {
           console.error('Ha ocurrido un error al verificar contrasena: ', + e)
         })
+        */
       } else {
         this.presentarAlerta("Contraseñas incorrectas", "Las contraseñas ingresadas no coinciden.")
       }

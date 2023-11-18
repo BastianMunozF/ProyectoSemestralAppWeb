@@ -34,6 +34,7 @@ export class TomarviajePage implements OnInit {
       let id_user = localStorage.getItem('id');
       let estado = 'Pendiente';
 
+      /*
       this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
         if(res !== null){
 
@@ -53,6 +54,8 @@ export class TomarviajePage implements OnInit {
       }).catch(error => {
         console.error('Error al crear la ruta:', error);
       })
+
+    */
 
     } else {
 

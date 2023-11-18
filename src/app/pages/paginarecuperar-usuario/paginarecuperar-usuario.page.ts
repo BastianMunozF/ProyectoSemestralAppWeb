@@ -27,7 +27,7 @@ export class PaginarecuperarUsuarioPage implements OnInit {
   recuperarContrasena(){
     if(this.formularioRecuperar.valid){
       let form = this.formularioRecuperar.value;
-
+      /*
       this.database.recuperarBuscar(form.correo, form.rut).then(result => {
         if(result){
           this.database.recuperarUsuario(form.contrasena, form.correo, form.rut).then(res => {
@@ -51,6 +51,7 @@ export class PaginarecuperarUsuarioPage implements OnInit {
       }).catch(error => {
         console.error('Error al recuperar contraseña:', error)
       })
+      */
     }
   }
 

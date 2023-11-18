@@ -27,6 +27,7 @@ export class PerfilusuarioPage implements OnInit {
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
+    /*
     database.buscarDatosUsuario(userId).then((perfil) => {
       this.usuario = perfil[0];
 
@@ -37,6 +38,7 @@ export class PerfilusuarioPage implements OnInit {
       this.rut = this.usuario.rut;
       this.celular = this.usuario.celular;
     })
+    */
   }
 
   ngOnInit() {

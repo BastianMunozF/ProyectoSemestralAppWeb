@@ -20,6 +20,7 @@ export class RutaconductorPage implements OnInit {
   ngOnInit() {
   }
 
+  /*
   buscarViajes(){
     this.database.buscarViaje().then((data) => {
       this.arregloViajes = data;
@@ -40,6 +41,7 @@ export class RutaconductorPage implements OnInit {
       }
     });
   }
+  */
 
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({

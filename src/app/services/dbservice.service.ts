@@ -53,7 +53,7 @@ export class DbserviceService {
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  
+  /*
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController, private router: Router) {
     this.crearBD();
   }
@@ -398,4 +398,5 @@ export class DbserviceService {
 
     await alert.present();
   }
+  */
 }

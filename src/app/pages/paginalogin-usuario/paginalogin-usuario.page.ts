@@ -38,6 +38,7 @@ export class PaginaloginUsuarioPage implements OnInit {
 
   iniciarSesion() {
     if(this.formularioLogin.valid){
+      /*
       this.database.buscarCorreo(this.correo, this.contrasena).then(usuario => {
         if(usuario !== null){
           localStorage.setItem('id', usuario.id);
@@ -62,6 +63,7 @@ export class PaginaloginUsuarioPage implements OnInit {
           this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no son correctos.")
         }
       })
+      */
     }
   }
 

@@ -46,6 +46,9 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     });
   }
 
+}
+  /*
+
   guardarUsuario(){
     //Verificar si el formulario es válido
     if (this.formularioRegistro.valid){
