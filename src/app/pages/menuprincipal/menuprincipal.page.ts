@@ -63,5 +63,4 @@ export class MenuprincipalPage implements OnInit{
     this.obtenerClima();
     this.verificarViajeUser();
   }
-
 }
