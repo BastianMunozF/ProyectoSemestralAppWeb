@@ -2,7 +2,7 @@ export class Vehiculo {
     id_vehiculo = "";
     marca = "";
     modelo = "";
-    annio = "";
+    anio = "";
     patente = "";
     asientos = "";
     id_usuario = "";

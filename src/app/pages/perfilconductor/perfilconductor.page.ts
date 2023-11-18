@@ -33,7 +33,7 @@ export class PerfilconductorPage implements OnInit {
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
 
-    this.database.buscarDatosUsuario(userId).then((perfil) => {
+    database.buscarDatosUsuario(userId).then((perfil) => {
       this.usuario = perfil[0];
 
       this.nombre = this.usuario.nombre;
@@ -44,15 +44,15 @@ export class PerfilconductorPage implements OnInit {
       this.celular = this.usuario.celular;
     });
 
-    this.database.buscarVehiculoUsuario(userId).then((perfil) => {
+    database.buscarVehiculoUsuario(userId).then((perfil) => {
       this.vehiculo = perfil[0];
 
       this.marca = this.vehiculo.marca;
       this.modelo = this.vehiculo.modelo;
-      this.annio = this.vehiculo.annio.toString();
+      this.annio = this.vehiculo.anio;
       this.patente = this.vehiculo.patente;
       this.asientos = this.vehiculo.asientos;
-      this.tipo_vehiculo = this.vehiculo.id_tipo.toString();
+      this.tipo_vehiculo = this.vehiculo.id_tipo;
     });
   }
 

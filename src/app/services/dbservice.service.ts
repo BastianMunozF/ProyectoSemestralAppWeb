@@ -120,7 +120,7 @@ export class DbserviceService {
             id_vehiculo: res.rows.item(i).id_vehiculo,
             marca: res.rows.item(i).marca,
             modelo: res.rows.item(i).modelo,
-            annio: res.rows.item(i).annio,
+            anio: res.rows.item(i).anio,
             patente: res.rows.item(i).patente,
             asientos: res.rows.item(i).asientos,
             id_usuario: res.rows.item(i).id_usuario,
@@ -129,7 +129,7 @@ export class DbserviceService {
         }
       }
       return datos;
-    })
+    });
   }
 
   buscarViajeUser(id: any){
@@ -217,7 +217,7 @@ export class DbserviceService {
             id_vehiculo: res.rows.item(i).id_vehiculo,
             marca: res.rows.item(i).marca,
             modelo: res.rows.item(i).modelo,
-            annio: res.rows.item(i).annio,
+            anio: res.rows.item(i).anio,
             patente: res.rows.item(i).patente,
             asientos: res.rows.item(i).asientos,
             id_usuario: res.rows.item(i).id_usuario,
@@ -242,8 +242,8 @@ export class DbserviceService {
     });
   }
 
-  insertarVehiculo(marca: any, modelo: any, annio: any, patente: any, asientos: any, id_usuario: any, id_tipo: any){
-    return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, anio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, annio, patente, asientos, id_usuario, id_tipo]).then(res => {
+  insertarVehiculo(marca: any, modelo: any, anio: any, patente: any, asientos: any, id_usuario: any, id_tipo: any){
+    return this.database.executeSql("INSERT INTO vehiculo(marca, modelo, anio, patente, asientos, id_usuario, id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?)", [marca, modelo, anio, patente, asientos, id_usuario, id_tipo]).then(res => {
       if(res){
         this.buscarVehiculo();
       } else {
