@@ -8,6 +8,7 @@ import { PaginaloginUsuarioPageRoutingModule } from './paginalogin-usuario-routi
 
 import { PaginaloginUsuarioPage } from './paginalogin-usuario.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

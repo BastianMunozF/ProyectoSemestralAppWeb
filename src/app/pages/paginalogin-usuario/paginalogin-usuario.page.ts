@@ -6,9 +6,10 @@ import {
   FormBuilder
 } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Busuario } from 'src/app/services/busuario';
+
 
 @Component({
   selector: 'app-paginalogin-usuario',
