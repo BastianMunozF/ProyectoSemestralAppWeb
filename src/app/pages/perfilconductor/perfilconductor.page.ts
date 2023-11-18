@@ -22,6 +22,8 @@ export class PerfilconductorPage implements OnInit {
   fechanacimiento: any;
   rut: string = "";
   celular: any;
+
+  //Variables para guardar datos del vehiculo del usuario
   marca: any;
   modelo: any;
   annio: any;

@@ -46,25 +46,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/rutaconductor/rutaconductor.module').then( m => m.RutaconductorPageModule)
   },
   {
-    path: 'mapaconductores',
-    loadChildren: () => import('./pages/mapaconductores/mapaconductores.module').then( m => m.MapaconductoresPageModule)
-  },
-
-  {
-    path: 'mapaclientes',
-    loadChildren: () => import('./pages/mapaclientes/mapaclientes.module').then( m => m.MapaclientesPageModule)
-  },
-  {
     path: 'editarperfilusuario',
     loadChildren: () => import('./pages/editarperfilusuario/editarperfilusuario.module').then( m => m.EditarperfilusuarioPageModule)
   },
   {
     path: 'registrarvehiculo',
     loadChildren: () => import('./pages/registrarvehiculo/registrarvehiculo.module').then( m => m.RegistrarvehiculoPageModule)
-  },
-  {
-    path: 'pago',
-    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
   {
     path: 'perfilconductor',
