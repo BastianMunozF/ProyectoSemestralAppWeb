@@ -41,10 +41,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatButtonModule
   ],
   declarations: [PerfilusuarioPage]
-
-  
-
-  
 })
 export class PerfilusuarioPageModule {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
