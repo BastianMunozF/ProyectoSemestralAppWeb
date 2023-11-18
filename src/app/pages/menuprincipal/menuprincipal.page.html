@@ -16,14 +16,14 @@
 
     <br>
 
-    <ion-card color="primary">
+    <ion-card color="primary" style="margin-left: 28px;">
       <ion-card-content>
         <ion-card-title style="text-align: center; font-size: xx-large;">Clima Parcial <ion-icon name="partly-sunny-sharp"></ion-icon> </ion-card-title>
         <ion-label style="display: flex; flex-direction: column; align-items: center; font-size: xx-large;">{{ clima?.data[0]?.coordinates[0]?.dates[0]?.value }}°C</ion-label>
       </ion-card-content>
     </ion-card>
 
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; margin-left: 20px;">
       <ion-item>
         <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=region metropolitana&amp;t=&amp;z=8&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div></div>
       </ion-item>
@@ -31,7 +31,7 @@
     <br>
     <br>
     <ion-item style="margin-bottom: 20px;" color="primary">
-      <ion-label> Tipos de Vehiculos Disponibles: </ion-label>
+      <ion-label style="font-size:large;"> Tipos de Vehiculos Disponibles: </ion-label>
     </ion-item>
     <ion-item>
       <img style="border-radius: 10px; margin: 20px; max-width: 120px;"
