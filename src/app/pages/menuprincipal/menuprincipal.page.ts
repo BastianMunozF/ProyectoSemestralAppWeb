@@ -21,12 +21,14 @@ export class MenuprincipalPage {
 
     const coordenadas = await Geolocation.getCurrentPosition();
 
+    /*
     this.apiservice.getClima(this.dateTime, coordenadas.coords.latitude, coordenadas.coords.longitude).subscribe(res => {
       this.clima = res;
 
       console.log('Datos del clima:', this.clima)
 
     })
+    */ 
   }
 
   ionViewWillEnter(){
