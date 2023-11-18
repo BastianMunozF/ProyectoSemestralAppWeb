@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PaginaloginUsuarioPageRoutingModule } from './paginalogin-usuario-routing.module';
 
 import { PaginaloginUsuarioPage } from './paginalogin-usuario.page';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -17,6 +17,7 @@ import { PaginaloginUsuarioPage } from './paginalogin-usuario.page';
     IonicModule,
     PaginaloginUsuarioPageRoutingModule
   ],
-  declarations: [PaginaloginUsuarioPage]
+  declarations: [PaginaloginUsuarioPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PaginaloginUsuarioPageModule {}

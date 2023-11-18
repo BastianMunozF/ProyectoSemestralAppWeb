@@ -8,6 +8,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
   templateUrl: './rutaconductor.page.html',
   styleUrls: ['./rutaconductor.page.scss'],
 })
+
 export class RutaconductorPage implements OnInit {
   usuarioR: string = "";
   claveR: string = "";
