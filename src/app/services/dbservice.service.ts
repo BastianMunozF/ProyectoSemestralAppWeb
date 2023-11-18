@@ -296,6 +296,28 @@ export class DbserviceService {
     });
   }
 
+  eliminarViajeUser(id_viaje: any){
+    return this.database.executeSql("DELETE FROM viaje WHERE id_viaje = ?", [id_viaje]).then(res => {
+      if(res){
+        return true;
+      } else {
+        return false;
+      }
+    }).catch(e => {
+      console.error('Error al eliminar viaje:', e)
+    })
+  }
+
+  verificarViaje(id_viaje: any){
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_viaje = ?", [id_viaje]).then(res => {
+      if(res.rows.length <= 0){
+        return true;
+      } else {
+        return null;
+      }
+    })
+  }
+
   actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, id: any){
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, id]).then(res=>{
       if(res){

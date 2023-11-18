@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { ApiService } from 'src/app/services/api.service';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-menuprincipal',
@@ -8,12 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./menuprincipal.page.scss'],
 })
 
-export class MenuprincipalPage {
+export class MenuprincipalPage implements OnInit{
 
   dateTime: string = "";
   clima: any;
+  arregloHistorial: any;
+  id_usuario = localStorage.getItem('id');
 
-  constructor(private apiservice: ApiService) { }
+  constructor(private apiservice: ApiService, private database: DbserviceService, private alertController: AlertController) { }
 
   async obtenerClima(){
 
@@ -27,11 +31,37 @@ export class MenuprincipalPage {
       console.log('Datos del clima:', this.clima)
 
     })
+  }
 
+  async verificarViajeUser(){
+    this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
+      if(verificar){
+        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
+      } else {
+        console.log('Viaje aún disponible.')
+      }
+    })
+  }
+
+  async presentarAlerta(titulo: string, mensaje: string){
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+  ngOnInit() {
+    this.database.buscarViajeUser(this.id_usuario).then(res => {
+      this.arregloHistorial = res;
+    });
   }
 
   ionViewWillEnter(){
     this.obtenerClima();
+    this.verificarViajeUser();
   }
 
 }

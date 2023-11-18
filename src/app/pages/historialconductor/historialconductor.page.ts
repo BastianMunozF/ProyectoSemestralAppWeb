@@ -43,14 +43,6 @@ export class HistorialconductorPage implements OnInit {
                     //Guardamos datos del vehiculo utilizado por el conductor
                     this.arregloVehiculo = vehiculo;
 
-                    let estado = 'Aceptado'
-                    this.database.actualizarEstadoViaje(estado, this.detallesViaje.id_usuario).then(estado => {
-                      if(estado) {
-                        console.log('Viaje actualizado.')
-                      } else {
-                        console.log('El viaje no se ha actualizado.')
-                      }
-                    })
                   } else {
                     console.log('Error al buscar vehiculo.');
                   }

@@ -21,8 +21,11 @@ export class RutaconductorPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    this.buscarViajes();
+  }
 
-  buscarViajes(){
+  async buscarViajes(){
     this.database.buscarViaje().then((data) => {
       this.arregloViajes = data;
     }).catch(e => {
@@ -36,11 +39,31 @@ export class RutaconductorPage implements OnInit {
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res){
-        this.presentarAlerta("Viaje confirmado", "El viaje ha sido comenzado con éxito.");
+
+        let estado = 'Aceptado'
+        this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
+          if(estado) {
+            console.log('Viaje actualizado.')
+            this.presentarAlerta("Viaje confirmado", "El viaje ha sido comenzado con éxito.");
+          } else {
+            console.log('El viaje no se ha actualizado.')
+          }
+        })
+
       } else {
         this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
       }
     });
+  }
+
+  rechazarViaje(){
+    this.database.eliminarViajeUser(this.arregloViajes.id_viaje).then(res => {
+      if(res){
+        this.presentarAlerta("Viaje Rechazado", "El viaje ha sido rechazado con éxito.")
+      } else {
+        this.presentarAlerta("Error al rechazar viaje", "El viaje no ha podido ser rechazado.")
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
