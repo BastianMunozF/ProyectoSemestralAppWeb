@@ -14,18 +14,28 @@
   <h2 class="ion-text-center" color="primary">Historial de Viajes</h2>
   <ion-list>
     <ion-item-sliding *ngFor="let x of arregloHistorial">
+      <ion-card>
+        <ion-card-content>
 
-      <ion-label>
-        <strong>{{ x.destino | uppercase }}</strong>
+          <ion-item>
 
-        <p>{{ x.f_viaje }}</p>
-        <p>{{ x.hora_salida }}</p>
-        <p>{{ x.salida }}</p>
-        <p>{{ x.cant_asientos }}</p>
-        <p>{{ x.valor_asiento }}</p>
-        <p>{{ x.estado }}</p>
-      </ion-label>
+            <ion-label>
+              <strong>Destino: {{ x.destino | uppercase }}</strong>
 
+              <br>
+      
+              <p>Fecha de Viaje: {{ x.f_viaje }}</p>
+              <p>Hora: {{ x.hora_salida }}</p>
+              <p>Salida: {{ x.salida }}</p>
+              <p>Asientos: {{ x.cant_asientos }}</p>
+              <p>Valor por asiento: {{ x.valor_asiento }}</p>
+              <p>Estado de Viaje: {{ x.estado }}</p>
+            </ion-label>
+
+          </ion-item>
+
+        </ion-card-content>
+      </ion-card>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
