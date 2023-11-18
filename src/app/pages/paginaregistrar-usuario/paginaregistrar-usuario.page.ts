@@ -1,4 +1,3 @@
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -9,7 +8,7 @@ import {
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paginaregistrar-usuario',
