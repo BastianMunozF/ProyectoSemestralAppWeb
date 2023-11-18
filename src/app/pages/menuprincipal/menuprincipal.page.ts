@@ -25,7 +25,7 @@ export class MenuprincipalPage {
       this.clima = res;
 
       console.log('Datos del clima:', this.clima)
-  
+
     })
   }
 
