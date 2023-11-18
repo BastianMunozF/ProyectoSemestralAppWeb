@@ -15,11 +15,9 @@ export class HistorialusuarioPage implements OnInit {
   constructor(private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
-    /*
     this.database.buscarViajeUser(this.id_usuario).then(res => {
       this.arregloHistorial = res;
     });
-    */
   }
 
 }
