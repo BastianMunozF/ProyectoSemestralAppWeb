@@ -10,6 +10,7 @@ import { HistorialusuarioPage } from './historialusuario.page';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatDividerModule,
     MatButtonModule
   ],
-  declarations: [HistorialusuarioPage]
+  declarations: [HistorialusuarioPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HistorialusuarioPageModule {}

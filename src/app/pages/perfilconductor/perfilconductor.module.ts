@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilconductorPageRoutingModule } from './perfilconductor-routing.module';
 
 import { PerfilconductorPage } from './perfilconductor.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PerfilconductorPage } from './perfilconductor.page';
     IonicModule,
     PerfilconductorPageRoutingModule
   ],
-  declarations: [PerfilconductorPage]
+  declarations: [PerfilconductorPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PerfilconductorPageModule {}

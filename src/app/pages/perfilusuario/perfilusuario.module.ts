@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -40,7 +41,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatDividerModule,
     MatButtonModule
   ],
-  declarations: [PerfilusuarioPage]
+  declarations: [PerfilusuarioPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PerfilusuarioPageModule {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
