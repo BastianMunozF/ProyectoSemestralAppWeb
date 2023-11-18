@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -7,16 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilconductorPageRoutingModule } from './perfilconductor-routing.module';
 
 import { PerfilconductorPage } from './perfilconductor.page';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilconductorPageRoutingModule
+    PerfilconductorPageRoutingModule,
+    NgForOf,
+    NgIf
   ],
-  declarations: [PerfilconductorPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [PerfilconductorPage]
 })
 export class PerfilconductorPageModule {}

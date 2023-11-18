@@ -8,6 +8,7 @@ import { PaginaloginUsuarioPageRoutingModule } from './paginalogin-usuario-routi
 
 import { PaginaloginUsuarioPage } from './paginalogin-usuario.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { UpperCasePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PaginaloginUsuarioPageRoutingModule
+    PaginaloginUsuarioPageRoutingModule,
+    UpperCasePipe
   ],
   declarations: [PaginaloginUsuarioPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

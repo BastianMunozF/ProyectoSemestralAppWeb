@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tomarviaje',
@@ -15,7 +13,7 @@ export class TomarviajePage implements OnInit {
 
   formularioRuta: FormGroup;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
+  constructor(private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
     this.formularioRuta = this.formBuilder.group({
       'f_viaje': new FormControl("", [Validators.required]),
       'hora_salida': new FormControl("", [Validators.required]),

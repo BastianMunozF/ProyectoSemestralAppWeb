@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
 import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
@@ -13,7 +12,7 @@ export class MenuprincipalPage {
   dateTime: string = "";
   clima: any;
 
-  constructor(private apiservice: ApiService) { }
+  constructor() { }
 
   async obtenerClima(){
 

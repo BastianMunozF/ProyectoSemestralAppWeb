@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PaginaregistrarUsuarioPageRoutingModule } from './paginaregistrar-usuario-routing.module';
 
 import { PaginaregistrarUsuarioPage } from './paginaregistrar-usuario.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -14,8 +15,11 @@ import { PaginaregistrarUsuarioPage } from './paginaregistrar-usuario.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PaginaregistrarUsuarioPageRoutingModule
+    PaginaregistrarUsuarioPageRoutingModule,
+    NgForOf,
+    NgIf
   ],
-  declarations: [PaginaregistrarUsuarioPage]
+  declarations: [PaginaregistrarUsuarioPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PaginaregistrarUsuarioPageModule {}

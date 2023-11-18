@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, retry } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class ApiService {
   //URL de API a consumir
   apiURL = 'https://api.meteomatics.com/';
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   /*
 
