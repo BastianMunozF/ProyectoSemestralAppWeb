@@ -30,16 +30,6 @@ export class RutaconductorPage implements OnInit {
       if(res !== null){
         console.log('Viaje aceptado con éxito.')
         this.presentarAlerta("Viaje aceptado", "El viaje ha sido aceptado con éxito.")
-
-        let estado = 'Aceptado.';
-        this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
-          if(estado) {
-            console.log('Viaje actualizado.')
-            this.presentarAlerta("Viaje confirmado", "El viaje ha sido comenzado con éxito.");
-          } else {
-            console.log('El viaje no se ha actualizado.')
-          }
-        });
       } else {
         this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
       }
