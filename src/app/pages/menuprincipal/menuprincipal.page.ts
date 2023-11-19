@@ -36,9 +36,9 @@ export class MenuprincipalPage implements OnInit{
   async verificarViajeUser(){
     this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
       if(verificar){
-        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
+        console.log('Viaje aún disponible.');
       } else {
-        console.log('Viaje aún disponible.')
+        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.");
       }
     })
   }
