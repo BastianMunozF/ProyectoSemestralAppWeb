@@ -23,9 +23,10 @@ export class HistorialusuarioPage implements OnInit {
   ionViewWillEnter(){
     this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
       if(verificar){
-        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
+        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.");
       } else {
-        console.log('Viaje aún disponible.')
+        console.log('Viaje aún disponible.');
+        this.presentarAlerta("Viaje aceptado!", "Un conductor ha aceptado su viaje!");
       }
     })
   }

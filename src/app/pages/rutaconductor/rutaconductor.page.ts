@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rutaconductor',
@@ -12,7 +13,7 @@ export class RutaconductorPage implements OnInit {
 
   arregloViajes: any;
 
-  constructor(private alertController: AlertController, private database: DbserviceService) { }
+  constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
     this.database.buscarViaje().then((data) => {
@@ -27,7 +28,18 @@ export class RutaconductorPage implements OnInit {
 
     this.database.insertarViajeAceptado(id_usuario, id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res !== null){
-        this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.")
+
+        let estado = 'Aceptado.';
+
+        this.database.actualizarEstadoViaje(estado, id_usuario).then(actualizado => {
+          if(actualizado){
+            this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+            this.router.navigate(['/historialconductor'])
+          } else {
+            this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
+          }
+        })
+
       } else {
         this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
       }

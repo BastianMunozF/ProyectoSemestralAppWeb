@@ -16,7 +16,11 @@ export class HistorialconductorPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
-  async obtenerHistorial(){
+
+  ionViewWillEnter(){
+  }
+
+  ngOnInit() {
     const id_conductor = localStorage.getItem('id');
 
     this.database.buscarDetalleUsuario(id_conductor).then(detalle => {
@@ -59,13 +63,6 @@ export class HistorialconductorPage implements OnInit {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
     })
-  }
-
-  ionViewWillEnter(){
-    this.obtenerHistorial();
-  }
-
-  ngOnInit() {
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
