@@ -112,7 +112,7 @@ export class DbserviceService {
         }
       }
       return datos;
-    })
+    });
   }
 
   buscarVehiculoUsuario(id: any){
@@ -176,7 +176,7 @@ export class DbserviceService {
         }
       }
       return detalles;
-    })
+    });
   }
 
   buscarViaje(){

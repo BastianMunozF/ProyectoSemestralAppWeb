@@ -16,6 +16,52 @@ export class HistorialconductorPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
+
+  ionViewWillEnter(){
+    const id_conductor = localStorage.getItem('id');
+
+    this.database.buscarDetalleUsuario(id_conductor).then(detalle => {
+      if(detalle){
+
+        //Guardamos id's de los detalles del viaje
+        this.detallesViaje = detalle;
+
+        this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
+          if(usuario){
+
+            //Guardamos datos del usuario que ha pedido el viaje
+            this.arregloUsuario = usuario;
+
+            this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
+              if(viaje){
+
+                //Guardamos los datos del viaje aceptado
+                this.arregloViajes = viaje;
+
+                this.database.buscarVehiculoUsuario(id_conductor).then(vehiculo => {
+                  if(vehiculo){
+                    
+                    //Guardamos datos del vehiculo utilizado por el conductor
+                    this.arregloVehiculo = vehiculo;
+
+                  } else {
+                    console.log('Error al buscar vehiculo.');
+                  }
+                })
+              } else {
+                console.log('Error al buscar viaje.');
+              }
+            })
+          } else {
+            console.log('Error al buscar usuario.')
+          }
+        })
+      } else {
+        this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
+      }
+    })
+  }
+
   ngOnInit() {
     const id_conductor = localStorage.getItem('id');
 
@@ -25,43 +71,38 @@ export class HistorialconductorPage implements OnInit {
         //Guardamos id's de los detalles del viaje
         this.detallesViaje = detalle;
 
-      } else {
-        this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
-      }
-    })
-  }
+        this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
+          if(usuario){
 
-  ionViewWillEnter(){
-    this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
-      if(usuario){
+            //Guardamos datos del usuario que ha pedido el viaje
+            this.arregloUsuario = usuario;
 
-        //Guardamos datos del usuario que ha pedido el viaje
-        this.arregloUsuario = usuario;
+            this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
+              if(viaje){
 
-        this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
-          if(viaje){
+                //Guardamos los datos del viaje aceptado
+                this.arregloViajes = viaje;
 
-            //Guardamos los datos del viaje aceptado
-            this.arregloViajes = viaje;
+                this.database.buscarVehiculoUsuario(id_conductor).then(vehiculo => {
+                  if(vehiculo){
+                    
+                    //Guardamos datos del vehiculo utilizado por el conductor
+                    this.arregloVehiculo = vehiculo;
 
-            let id_conductor = localStorage.getItem('id');
-
-            this.database.buscarVehiculoUsuario(id_conductor).then(vehiculo => {
-              if(vehiculo){
-                
-                //Guardamos datos del vehiculo utilizado por el conductor
-                this.arregloVehiculo = vehiculo;
-
+                  } else {
+                    console.log('Error al buscar vehiculo.');
+                  }
+                })
               } else {
-                console.log('Error al buscar vehiculo.');
+                console.log('Error al buscar viaje.');
               }
             })
           } else {
-            console.log('Error al buscar viaje.');
+            console.log('Error al buscar usuario.')
           }
         })
       } else {
-        console.log('Error al buscar usuario.')
+        this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
     })
   }
