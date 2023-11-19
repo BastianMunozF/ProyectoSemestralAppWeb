@@ -36,8 +36,9 @@ export class RutaconductorPage implements OnInit {
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res){
-        let estado = 'Aceptado.';
+        console.log('Viaje aceptado con éxito.')
 
+        let estado = 'Aceptado.';
         this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
           if(estado) {
             console.log('Viaje actualizado.')
