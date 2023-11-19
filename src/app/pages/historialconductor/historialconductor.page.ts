@@ -28,7 +28,9 @@ export class HistorialconductorPage implements OnInit {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
     });
+  }
 
+  ionViewWillEnter(){
     this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
       if (usuario) {
         this.arregloUsuario = usuario;
