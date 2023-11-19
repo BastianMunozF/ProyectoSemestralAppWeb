@@ -9,9 +9,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class HistorialconductorPage implements OnInit {
 
-  arregloViajes: any;
-  arregloUsuario: any;
-  arregloVehiculo: any;
+  arregloViajes: any[] = [];
+  arregloUsuario: any[] = [];
+  arregloVehiculo: any[] = [];
   detallesViaje: any;
 
   id_conductor = localStorage.getItem('id');
@@ -27,6 +27,11 @@ export class HistorialconductorPage implements OnInit {
         this.detallesViaje = detalle;
 
         console.log(this.detallesViaje);
+
+        //Reiniciar los arreglos
+        this.arregloUsuario = [];
+        this.arregloViajes = [];
+        this.arregloVehiculo = [];
   
         this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
           if (usuario) {

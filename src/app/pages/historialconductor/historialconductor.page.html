@@ -7,37 +7,34 @@
 <ion-content>
   <h2 class="ion-text-center" color="primary">Historial de Viajes Aceptados</h2>
   <ion-list>
-    <ion-item *ngFor="let usuario of arregloUsuario">
-      <ion-item *ngFor="let viaje of arregloViajes">
-        <ion-item *ngFor="let vehiculo of arregloVehiculo">
-          <ion-card>
-            <ion-card-content>
-              <ion-item>
-                <ion-label>
-                  <strong>Pasajero: {{ usuario.nombre }}</strong>
-    
-                  <br>
-    
-                  <p>Fecha del Viaje: {{ viaje.f_viaje }}</p>
-                  <p>Hora de Salida: {{ viaje.hora }}</p>
-                  <p>Salida: {{ viaje.salida }}</p>
-                  <p>Destino: {{ viaje.destino }}</p>
-                  <p>Asientos Ocupados: {{ viaje.asientos }}</p>
-                  <p>Valor Asiento: {{ viaje.valor }}</p>
-                  <p>Estado: {{ viaje.estado }}</p>
-    
-                  <br>
-    
-                  <h4>Vehiculo:</h4>
-    
-                  <p>Marca: {{ vehiculo.marca }}</p>
-                  <p>Modelo: {{ vehiculo.modelo }}</p>
-                </ion-label>
-              </ion-item>
-            </ion-card-content>
-          </ion-card>
-        </ion-item>
-      </ion-item>
+    <ion-item *ngFor="let viaje of arregloViajes">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>
+              <strong>Pasajero: {{ arregloUsuario.nombre }}</strong>
+
+              <br>
+
+              <p>Fecha del Viaje: {{ viaje.f_viaje }}</p>
+              <p>Hora Salida: {{ viaje.hora }}</p>
+              <p>Salida: {{ viaje.salida }}</p>
+              <p>Destino: {{ viaje.destino }}</p>
+              <p>Asientos Reservados: {{ viaje.asientos }}</p>
+              <p>Valor Asiento: {{ viaje.valor }}</p>
+              <p>Estado: {{ viaje.estado }}</p>
+
+              <br>
+
+              <h4>Vehículo:</h4>
+
+              <p>Marca: {{ arregloVehiculo.marca }}</p>
+              <p>Modelo: {{ arregloVehiculo.modelo }}</p>
+
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
     </ion-item>
   </ion-list>
 </ion-content>
