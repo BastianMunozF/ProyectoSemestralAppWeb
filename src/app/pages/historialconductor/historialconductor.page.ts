@@ -47,7 +47,7 @@ export class HistorialconductorPage implements OnInit {
             this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
               if (viaje) {
                 this.arregloViajes = viaje;
-  
+
                 this.arregloTodo.f_viaje = this.arregloViajes.f_viaje;
                 this.arregloTodo.hora = this.arregloViajes.hora_salida;
                 this.arregloTodo.salida = this.arregloViajes.salida;
@@ -55,12 +55,14 @@ export class HistorialconductorPage implements OnInit {
                 this.arregloTodo.asientos = this.arregloViajes.cant_asientos;
                 this.arregloTodo.valor = this.arregloViajes.valor_asiento;
                 this.arregloTodo.estado = this.arregloViajes.estado;
-  
+
                 this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
                   if (vehiculo) {
                     this.arregloVehiculo = vehiculo;
                     this.arregloTodo.marca = this.arregloVehiculo.marca;
                     this.arregloTodo.modelo = this.arregloVehiculo.modelo;
+
+                    console.log(this.arregloTodo);
                   } else {
                     console.log('Error al buscar vehiculo.');
                   }

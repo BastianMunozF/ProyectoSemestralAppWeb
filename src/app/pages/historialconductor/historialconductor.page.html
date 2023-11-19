@@ -12,24 +12,24 @@
         <ion-card-content>
           <ion-item>
             <ion-label>
-              <strong>Pasajero: {{ x.nombre }}</strong>
+              <strong>Pasajero: {{ x?.nombre }}</strong>
 
               <br>
 
-              <p>Fecha del Viaje: {{ x.f_viaje }}</p>
-              <p>Hora de Salida: {{ x.hora }}</p>
-              <p>Salida: {{ x.salida }}</p>
-              <p>Destino: {{ x.destino }}</p>
-              <p>Asientos Ocupados: {{ x.asientos }}</p>
-              <p>Valor Asiento: {{ x.valor }}</p>
-              <p>Estado: {{ x.estado }}</p>
+              <p>Fecha del Viaje: {{ x?.f_viaje }}</p>
+              <p>Hora de Salida: {{ x?.hora }}</p>
+              <p>Salida: {{ x?.salida }}</p>
+              <p>Destino: {{ x?.destino }}</p>
+              <p>Asientos Ocupados: {{ x?.asientos }}</p>
+              <p>Valor Asiento: {{ x?.valor }}</p>
+              <p>Estado: {{ x?.estado }}</p>
 
               <br>
 
               <h4>Vehiculo:</h4>
 
-              <p>Marca: {{ x.marca }}</p>
-              <p>Modelo: {{ x.modelo }}</p>
+              <p>Marca: {{ x?.marca }}</p>
+              <p>Modelo: {{ x?.modelo }}</p>
             </ion-label>
           </ion-item>
         </ion-card-content>
