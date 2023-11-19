@@ -14,6 +14,21 @@ export class HistorialconductorPage implements OnInit {
   arregloVehiculo: any;
   detallesViaje: any;
 
+  arregloTodo: any = [
+    {
+      nombre: '',
+      f_viaje: '',
+      hora: '',
+      salida: '',
+      destino: '',
+      asientos: '',
+      valor: '',
+      estado: '',
+      marca: '',
+      modelo: '',
+    }
+  ]
+
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
@@ -34,6 +49,10 @@ export class HistorialconductorPage implements OnInit {
 
         //Guardamos datos del usuario que ha pedido el viaje
         this.arregloUsuario = usuario;
+
+        //Guardamos los datos en el arreglo total
+        this.arregloTodo.nombre = this.arregloUsuario.nombre;
+
       } else {
         console.log('Error al buscar usuario.');
       }
@@ -43,6 +62,16 @@ export class HistorialconductorPage implements OnInit {
       if(viaje){
         //Guardamos los datos del viaje aceptado
         this.arregloViajes = viaje;
+
+        //Guardamos datos del viaje en arreglo total
+        this.arregloTodo.f_viaje = this.arregloViajes.f_viaje;
+        this.arregloTodo.hora = this.arregloViajes.hora_salida;
+        this.arregloTodo.salida = this.arregloViajes.salida;
+        this.arregloTodo.destino = this.arregloViajes.destino;
+        this.arregloTodo.asientos = this.arregloViajes.cant_asientos;
+        this.arregloTodo.valor = this.arregloViajes.valor_asiento;
+        this.arregloTodo.estado = this.arregloViajes.estado;
+  
       } else {
         console.log('Error al buscar viaje.');
       }
@@ -53,6 +82,10 @@ export class HistorialconductorPage implements OnInit {
         
         //Guardamos datos del vehiculo utilizado por el conductor
         this.arregloVehiculo = vehiculo;
+
+        //Guardamos datos del vehiculo en arreglo total
+        this.arregloTodo.marca = this.arregloVehiculo.marca;
+        this.arregloTodo.modelo = this.arregloVehiculo.modelo;
 
       } else {
         console.log('Error al buscar vehiculo.');
