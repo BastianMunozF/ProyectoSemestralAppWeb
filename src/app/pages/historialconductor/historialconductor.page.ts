@@ -19,6 +19,9 @@ export class HistorialconductorPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
     this.database.buscarDetalleUsuario(this.id_conductor).then(detalle => {
       if (detalle) {
         this.detallesViaje = detalle;
@@ -28,9 +31,7 @@ export class HistorialconductorPage implements OnInit {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
     });
-  }
-
-  ionViewWillEnter(){
+    
     this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
       if (usuario) {
         this.arregloUsuario = usuario;
