@@ -90,6 +90,10 @@ export class DbserviceService {
   }
 
   buscarDatosUsuario(id: any){
+    if (!this.database){
+      console.error('La base de datos no está inicializada.');
+    return Promise.resolve([]);
+    }
     return this.database.executeSql("SELECT * FROM usuario WHERE id = ?", [id]).then(res => {
       let datos: Usuario[] = [];
 
