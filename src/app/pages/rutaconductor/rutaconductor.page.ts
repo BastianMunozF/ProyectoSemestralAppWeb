@@ -15,7 +15,6 @@ export class RutaconductorPage implements OnInit {
   constructor(private alertController: AlertController, private database: DbserviceService) { }
 
   ngOnInit() {
-    this.buscarViajes();
   }
 
   ionViewWillEnter(){
@@ -35,8 +34,9 @@ export class RutaconductorPage implements OnInit {
     let id_conductor = localStorage.getItem('id');
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
-      if(res){
+      if(res !== null){
         console.log('Viaje aceptado con éxito.')
+        this.presentarAlerta("Viaje aceptado", "El viaje ha sido aceptado con éxito.")
 
         let estado = 'Aceptado.';
         this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
