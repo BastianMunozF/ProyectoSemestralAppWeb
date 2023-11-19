@@ -33,6 +33,31 @@ export class MenuprincipalPage implements OnInit{
     })
   }
 
+  async verificarViajeUser(){
+    this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
+      if(verificar){
+        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
+      } else {
+        console.log('Viaje aún disponible.')
+      }
+    })
+  }
+
+  async viajeUser(){
+    this.database.buscarViajeUser(this.id_usuario).then(res => {
+      this.arregloHistorial = res;
+    });
+  }
+
+  ngOnInit(){
+    this.viajeUser();
+  }
+
+  ionViewWillEnter(){
+    this.obtenerClima();
+    this.verificarViajeUser();
+  }
+
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({
       header: titulo,
@@ -43,29 +68,4 @@ export class MenuprincipalPage implements OnInit{
     await alert.present();
   }
 
-  ngOnInit() {
-    this.database.buscarViajeUser(this.id_usuario).then(res => {
-      this.arregloHistorial = res;
-    });
-
-    this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
-      if(verificar){
-        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
-      } else {
-        console.log('Viaje aún disponible.')
-      }
-    });
-  }
-
-  ionViewWillEnter(){
-    this.obtenerClima();
-
-    this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
-      if(verificar){
-        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.")
-      } else {
-        console.log('Viaje aún disponible.')
-      }
-    })
-  }
 }

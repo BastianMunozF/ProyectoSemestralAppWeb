@@ -16,14 +16,7 @@ export class RutaconductorPage implements OnInit {
 
   arregloViajes: any;
 
-  constructor(private router: Router, private alertController: AlertController, private database: DbserviceService) { }
-
-  ngOnInit() {
-  }
-
-  ionViewWillEnter(){
-    this.buscarViajes();
-  }
+  constructor(private alertController: AlertController, private database: DbserviceService) { }
 
   async buscarViajes(){
     this.database.buscarViaje().then((data) => {
@@ -39,8 +32,8 @@ export class RutaconductorPage implements OnInit {
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res){
-        let estado = 'Aceptado';
-        
+        let estado = 'Aceptado.';
+
         this.database.actualizarEstadoViaje(estado, this.arregloViajes.id_usuario).then(estado => {
           if(estado) {
             console.log('Viaje actualizado.')
@@ -48,8 +41,7 @@ export class RutaconductorPage implements OnInit {
           } else {
             console.log('El viaje no se ha actualizado.')
           }
-        })
-
+        });
       } else {
         this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
       }
@@ -66,6 +58,13 @@ export class RutaconductorPage implements OnInit {
     }).catch(error => {
       console.error('Error al rechazar viaje:', error)
     })
+  }
+
+  ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.buscarViajes();
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
