@@ -10,14 +10,23 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./menuprincipal.page.scss'],
 })
 
-export class MenuprincipalPage implements OnInit{
+export class MenuprincipalPage implements OnInit {
 
   dateTime: string = "";
   clima: any;
-  arregloHistorial: any;
+  arregloViajes: any;
   id_usuario = localStorage.getItem('id');
 
   constructor(private apiservice: ApiService, private database: DbserviceService, private alertController: AlertController) { }
+
+  ngOnInit(){
+    
+  }
+
+  ionViewWillEnter(){
+    this.obtenerClima();
+    this.verificarViajeUser();
+  }
 
   async obtenerClima(){
 
@@ -34,28 +43,20 @@ export class MenuprincipalPage implements OnInit{
   }
 
   async verificarViajeUser(){
-    this.database.verificarViaje(this.arregloHistorial.id_viaje).then(verificar => {
-      if(verificar){
-        console.log('Viaje aún disponible.');
-      } else {
-        this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.");
-      }
-    })
-  }
+    this.database.buscarViaje().then((data) => {
+      this.arregloViajes = data;
 
-  async viajeUser(){
-    this.database.buscarViajeUser(this.id_usuario).then(res => {
-      this.arregloHistorial = res;
+      this.database.verificarViaje(this.arregloViajes.id_viaje).then(verificar => {
+        if(verificar){
+          console.log('Viaje aún disponible.');
+        } else {
+          this.presentarAlerta("Viaje rechazado", "Su viaje ha sido rechazado por el conductor.");
+        }
+      })
+
+    }).catch(e => {
+      console.log('Error al buscar viajes: ', + e)
     });
-  }
-
-  ngOnInit(){
-    this.viajeUser();
-  }
-
-  ionViewWillEnter(){
-    this.obtenerClima();
-    this.verificarViajeUser();
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

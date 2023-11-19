@@ -310,7 +310,7 @@ export class DbserviceService {
 
   verificarViaje(id_viaje: any){
     return this.database.executeSql("SELECT * FROM viaje WHERE id_viaje = ?", [id_viaje]).then(res => {
-      if(res.rows.length > 0){
+      if(res){
         return true;
       } else {
         this.presentAlert("Error al verificar el viaje.")
