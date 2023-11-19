@@ -19,7 +19,9 @@ export class HistorialconductorPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+  }
 
+  ionViewDidEnter(){
     this.database.buscarDetalleUsuario(this.id_conductor).then(detalle => {
       if (detalle) {
         this.detallesViaje = detalle;
