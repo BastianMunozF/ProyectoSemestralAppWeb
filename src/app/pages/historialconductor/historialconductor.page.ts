@@ -30,40 +30,41 @@ export class HistorialconductorPage implements OnInit {
       if (detalle) {
         this.detallesViaje = detalle;
 
-        console.log(this.detallesViaje);
+        let id_usuario: any = this.detallesViaje[1]
+
+        this.database.buscarDatosUsuario(id_usuario).then(usuario => {
+          if (usuario) {
+            this.arregloUsuario = usuario;
+    
+            console.log(this.arregloUsuario);
+
+            this.database.buscarViajeUser(id_usuario).then(viaje => {
+              if (viaje) {
+                this.arregloViajes = viaje;
+        
+                console.log(this.arregloViajes);
+
+                this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
+                  if (vehiculo) {
+                    this.arregloVehiculo = vehiculo;
+            
+                    console.log(this.arregloVehiculo);
+            
+                  } else {
+                    console.log('Error al buscar vehiculo.');
+                  }
+                });
+              } else {
+                console.log('Error al buscar viaje.');
+              }
+            });
+          } else {
+            console.log('Error al buscar usuario.');
+          }
+        });
+
       } else {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
-      }
-    });
-
-    this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
-      if (usuario) {
-        this.arregloUsuario = usuario;
-
-        console.log(this.arregloUsuario);
-      } else {
-        console.log('Error al buscar usuario.');
-      }
-    });
-
-    this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
-      if (viaje) {
-        this.arregloViajes = viaje;
-
-        console.log(this.arregloViajes);
-      } else {
-        console.log('Error al buscar viaje.');
-      }
-    });
-
-    this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
-      if (vehiculo) {
-        this.arregloVehiculo = vehiculo;
-
-        console.log(this.arregloVehiculo);
-
-      } else {
-        console.log('Error al buscar vehiculo.');
       }
     });
   }
