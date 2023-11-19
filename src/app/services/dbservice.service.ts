@@ -116,6 +116,10 @@ export class DbserviceService {
   }
 
   buscarVehiculoUsuario(id: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }
     return this.database.executeSql("SELECT * FROM vehiculo WHERE id_usuario = ?", [id]).then(res => {
       let datos: Vehiculo[] = [];
 
