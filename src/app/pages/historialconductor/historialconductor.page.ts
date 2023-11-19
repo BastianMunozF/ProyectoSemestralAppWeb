@@ -9,9 +9,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class HistorialconductorPage implements OnInit {
 
-  arregloViajes: any[] = [];
-  arregloUsuario: any[] = [];
-  arregloVehiculo: any[] = [];
+  arregloViajes: any;
+  arregloUsuario: any;
+  arregloVehiculo: any;
   detallesViaje: any;
 
   id_conductor = localStorage.getItem('id');
@@ -19,52 +19,44 @@ export class HistorialconductorPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-  }
-
-  ionViewDidEnter(){
     this.database.buscarDetalleUsuario(this.id_conductor).then(detalle => {
       if (detalle) {
         this.detallesViaje = detalle;
 
         console.log(this.detallesViaje);
-
-        //Reiniciar los arreglos
-        this.arregloUsuario = [];
-        this.arregloViajes = [];
-        this.arregloVehiculo = [];
-  
-        this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
-          if (usuario) {
-            this.arregloUsuario = usuario;
-
-            console.log(this.arregloUsuario);
-  
-            this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
-              if (viaje) {
-                this.arregloViajes = viaje;
-
-                console.log(this.arregloViajes);
-
-                this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
-                  if (vehiculo) {
-                    this.arregloVehiculo = vehiculo;
-
-                    console.log(this.arregloVehiculo);
-
-                  } else {
-                    console.log('Error al buscar vehiculo.');
-                  }
-                });
-              } else {
-                console.log('Error al buscar viaje.');
-              }
-            });
-          } else {
-            console.log('Error al buscar usuario.');
-          }
-        });
       } else {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
+      }
+    });
+
+    this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
+      if (usuario) {
+        this.arregloUsuario = usuario;
+
+        console.log(this.arregloUsuario);
+      } else {
+        console.log('Error al buscar usuario.');
+      }
+    });
+
+    this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
+      if (viaje) {
+        this.arregloViajes = viaje;
+
+        console.log(this.arregloViajes);
+      } else {
+        console.log('Error al buscar viaje.');
+      }
+    });
+
+    this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
+      if (vehiculo) {
+        this.arregloVehiculo = vehiculo;
+
+        console.log(this.arregloVehiculo);
+
+      } else {
+        console.log('Error al buscar vehiculo.');
       }
     });
   }
