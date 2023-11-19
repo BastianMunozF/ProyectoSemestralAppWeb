@@ -142,6 +142,10 @@ export class DbserviceService {
   }
 
   buscarViajeUser(id: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido o no se ha inicializado correctamente.');
+      return Promise.resolve([]);
+    }
     return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ?", [id]).then(res => {
       let datos: Viaje[] = [];
 
@@ -165,6 +169,10 @@ export class DbserviceService {
   }
 
   buscarDetalleUsuario(id_conductor: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }  
     if (!this.database) {
       console.error('Error: this.database no está definido.');
       return Promise.resolve([]);
