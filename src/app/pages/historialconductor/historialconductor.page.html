@@ -10,27 +10,23 @@
     <ion-item *ngFor="let viaje of arregloViajes">
       <ion-card>
         <ion-card-content>
-          <ion-item>
+          <ion-item *ngFor="let usuario of arregloUsuario">
             <ion-label>
-              <strong>Pasajero: {{ arregloUsuario.nombre }}</strong>
-
+              <strong>Pasajero: {{ usuario.nombre }}</strong>
               <br>
-
               <p>Fecha del Viaje: {{ viaje.f_viaje }}</p>
-              <p>Hora Salida: {{ viaje.hora }}</p>
+              <p>Hora de Salida: {{ viaje.hora }}</p>
               <p>Salida: {{ viaje.salida }}</p>
               <p>Destino: {{ viaje.destino }}</p>
-              <p>Asientos Reservados: {{ viaje.asientos }}</p>
+              <p>Asientos Ocupados: {{ viaje.asientos }}</p>
               <p>Valor Asiento: {{ viaje.valor }}</p>
               <p>Estado: {{ viaje.estado }}</p>
-
               <br>
-
-              <h4>Vehículo:</h4>
-
-              <p>Marca: {{ arregloVehiculo.marca }}</p>
-              <p>Modelo: {{ arregloVehiculo.modelo }}</p>
-
+              <h4>Vehiculos:</h4>
+              <ion-item *ngFor="let vehiculo of arregloVehiculo">
+                <p>Marca: {{ vehiculo.marca }}</p>
+                <p>Modelo: {{ vehiculo.modelo }}</p>
+              </ion-item>
             </ion-label>
           </ion-item>
         </ion-card-content>
