@@ -14,7 +14,7 @@ export class RutaconductorPage implements OnInit {
 
   constructor(private alertController: AlertController, private database: DbserviceService) { }
 
-  ngOnInit() {
+  async buscarViajes(){
     this.database.buscarViaje().then((data) => {
       this.arregloViajes = data;
     }).catch(e => {
@@ -44,6 +44,13 @@ export class RutaconductorPage implements OnInit {
         this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
       }
     });
+  }
+
+  ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.buscarViajes();
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
