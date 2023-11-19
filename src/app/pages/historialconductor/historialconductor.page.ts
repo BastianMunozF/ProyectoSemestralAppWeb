@@ -14,7 +14,9 @@ export class HistorialconductorPage implements OnInit {
   arregloVehiculo: any;
   detallesViaje: any;
 
-  constructor(private database: DbserviceService, private alertController: AlertController) {
+  constructor(private database: DbserviceService, private alertController: AlertController) { }
+
+  ngOnInit() {
     const id_conductor = localStorage.getItem('id');
 
     this.database.buscarDetalleUsuario(id_conductor).then(detalle => {
@@ -23,47 +25,45 @@ export class HistorialconductorPage implements OnInit {
         //Guardamos id's de los detalles del viaje
         this.detallesViaje = detalle;
 
-        this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
-          if(usuario){
-
-            //Guardamos datos del usuario que ha pedido el viaje
-            this.arregloUsuario = usuario;
-
-            this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
-              if(viaje){
-
-                //Guardamos los datos del viaje aceptado
-                this.arregloViajes = viaje;
-
-                this.database.buscarVehiculoUsuario(id_conductor).then(vehiculo => {
-                  if(vehiculo){
-                    
-                    //Guardamos datos del vehiculo utilizado por el conductor
-                    this.arregloVehiculo = vehiculo;
-
-                  } else {
-                    console.log('Error al buscar vehiculo.');
-                  }
-                })
-              } else {
-                console.log('Error al buscar viaje.');
-              }
-            })
-          } else {
-            console.log('Error al buscar usuario.')
-          }
-        })
       } else {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
     })
   }
 
-
   ionViewWillEnter(){
-  }
+    this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
+      if(usuario){
 
-  ngOnInit() {
+        //Guardamos datos del usuario que ha pedido el viaje
+        this.arregloUsuario = usuario;
+
+        this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
+          if(viaje){
+
+            //Guardamos los datos del viaje aceptado
+            this.arregloViajes = viaje;
+
+            let id_conductor = localStorage.getItem('id');
+
+            this.database.buscarVehiculoUsuario(id_conductor).then(vehiculo => {
+              if(vehiculo){
+                
+                //Guardamos datos del vehiculo utilizado por el conductor
+                this.arregloVehiculo = vehiculo;
+
+              } else {
+                console.log('Error al buscar vehiculo.');
+              }
+            })
+          } else {
+            console.log('Error al buscar viaje.');
+          }
+        })
+      } else {
+        console.log('Error al buscar usuario.')
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
