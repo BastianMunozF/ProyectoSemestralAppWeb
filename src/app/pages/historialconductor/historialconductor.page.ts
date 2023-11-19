@@ -14,21 +14,6 @@ export class HistorialconductorPage implements OnInit {
   arregloVehiculo: any;
   detallesViaje: any;
 
-  arregloTodo: any = [
-    {
-      nombre: '',
-      f_viaje: '',
-      hora: '',
-      salida: '',
-      destino: '',
-      asientos: '',
-      valor: '',
-      estado: '',
-      marca: '',
-      modelo: '',
-    }
-  ]
-
   id_conductor = localStorage.getItem('id');
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
@@ -38,31 +23,27 @@ export class HistorialconductorPage implements OnInit {
     this.database.buscarDetalleUsuario(this.id_conductor).then(detalle => {
       if (detalle) {
         this.detallesViaje = detalle;
+
+        console.log(this.detallesViaje);
   
         this.database.buscarDatosUsuario(this.detallesViaje.id_usuario).then(usuario => {
           if (usuario) {
             this.arregloUsuario = usuario;
-            this.arregloTodo.nombre = this.arregloUsuario.nombre;
+
+            console.log(this.arregloUsuario);
   
             this.database.buscarViajeUser(this.detallesViaje.id_usuario).then(viaje => {
               if (viaje) {
                 this.arregloViajes = viaje;
 
-                this.arregloTodo.f_viaje = this.arregloViajes.f_viaje;
-                this.arregloTodo.hora = this.arregloViajes.hora_salida;
-                this.arregloTodo.salida = this.arregloViajes.salida;
-                this.arregloTodo.destino = this.arregloViajes.destino;
-                this.arregloTodo.asientos = this.arregloViajes.cant_asientos;
-                this.arregloTodo.valor = this.arregloViajes.valor_asiento;
-                this.arregloTodo.estado = this.arregloViajes.estado;
+                console.log(this.arregloViajes);
 
                 this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
                   if (vehiculo) {
                     this.arregloVehiculo = vehiculo;
-                    this.arregloTodo.marca = this.arregloVehiculo.marca;
-                    this.arregloTodo.modelo = this.arregloVehiculo.modelo;
 
-                    console.log(this.arregloTodo);
+                    console.log(this.arregloVehiculo);
+
                   } else {
                     console.log('Error al buscar vehiculo.');
                   }
