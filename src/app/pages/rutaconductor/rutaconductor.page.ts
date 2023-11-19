@@ -20,11 +20,12 @@ export class RutaconductorPage implements OnInit {
     });
   }
 
-  aceptarViaje(){
+  aceptarViaje(id_usuario: any, id_viaje: any){
+
     let id_conductor = localStorage.getItem('id');
     let id_vehiculo = localStorage.getItem('id_vehiculo');
 
-    this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
+    this.database.insertarViajeAceptado(id_usuario, id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res !== null){
         this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.")
       } else {
