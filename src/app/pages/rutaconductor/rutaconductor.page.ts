@@ -48,18 +48,6 @@ export class RutaconductorPage implements OnInit {
     });
   }
 
-  rechazarViaje(){
-    this.database.eliminarViajeUser(this.arregloViajes.id_viaje).then(res => {
-      if(res){
-        this.presentarAlerta("Viaje Rechazado", "El viaje ha sido rechazado con éxito.")
-      } else {
-        this.presentarAlerta("Error al rechazar viaje", "El viaje no ha podido ser rechazado.")
-      }
-    }).catch(error => {
-      console.error('Error al rechazar viaje:', error)
-    })
-  }
-
   ngOnInit() {
   }
 
