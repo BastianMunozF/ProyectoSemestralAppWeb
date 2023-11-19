@@ -180,6 +180,10 @@ export class DbserviceService {
   }
 
   buscarViaje(){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
     return this.database.executeSql("SELECT * FROM viaje", []).then(res => {
       let items: Viaje[] = [];
 
