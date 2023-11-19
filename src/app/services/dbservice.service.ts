@@ -301,6 +301,7 @@ export class DbserviceService {
       if(res){
         return true;
       } else {
+        this.presentAlert("Error al eliminar el viaje del usuario.")
         return null;
       }
     }).catch(e => {
@@ -313,6 +314,7 @@ export class DbserviceService {
       if(res.rows.length = 0){
         return true;
       } else {
+        this.presentAlert("Error al verificar el viaje.")
         return null;
       }
     })

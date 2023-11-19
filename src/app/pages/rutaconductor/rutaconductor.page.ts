@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
@@ -10,13 +9,18 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 })
 
 export class RutaconductorPage implements OnInit {
-  usuarioR: string = "";
-  claveR: string = "";
-  variableStorage: any = "";
 
   arregloViajes: any;
 
   constructor(private alertController: AlertController, private database: DbserviceService) { }
+
+  ngOnInit() {
+    this.buscarViajes();
+  }
+
+  ionViewWillEnter(){
+    this.buscarViajes();
+  }
 
   async buscarViajes(){
     this.database.buscarViaje().then((data) => {
@@ -46,13 +50,6 @@ export class RutaconductorPage implements OnInit {
         this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
       }
     });
-  }
-
-  ngOnInit() {
-  }
-
-  ionViewWillEnter(){
-    this.buscarViajes();
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
