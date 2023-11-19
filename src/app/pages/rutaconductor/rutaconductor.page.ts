@@ -14,33 +14,23 @@ export class RutaconductorPage implements OnInit {
 
   constructor(private alertController: AlertController, private database: DbserviceService) { }
 
-  async buscarViajes(){
+  ngOnInit() {
     this.database.buscarViaje().then((data) => {
       this.arregloViajes = data;
-    }).catch(e => {
-      console.log('Error al buscar viajes: ', + e)
     });
   }
 
   aceptarViaje(){
-    let id_vehiculo = localStorage.getItem('id_vehiculo');
     let id_conductor = localStorage.getItem('id');
+    let id_vehiculo = localStorage.getItem('id_vehiculo');
 
     this.database.insertarViajeAceptado(this.arregloViajes.id_usuario, this.arregloViajes.id_viaje, id_vehiculo, id_conductor).then(res => {
       if(res !== null){
-        console.log('Viaje aceptado con éxito.')
-        this.presentarAlerta("Viaje aceptado", "El viaje ha sido aceptado con éxito.")
+        this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.")
       } else {
-        this.presentarAlerta("Viaje rechazado", "Ha ocurrido un error al comenzar el viaje.")
+        this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
       }
     });
-  }
-
-  ngOnInit() {
-  }
-
-  ionViewWillEnter(){
-    this.buscarViajes();
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
