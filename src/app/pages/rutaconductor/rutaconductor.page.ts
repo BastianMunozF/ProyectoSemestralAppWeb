@@ -15,13 +15,6 @@ export class RutaconductorPage implements OnInit {
   constructor(private alertController: AlertController, private database: DbserviceService) { }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter(){
-    this.buscarViajes();
-  }
-
-  async buscarViajes(){
     this.database.buscarViaje().then((data) => {
       this.arregloViajes = data;
     }).catch(e => {
