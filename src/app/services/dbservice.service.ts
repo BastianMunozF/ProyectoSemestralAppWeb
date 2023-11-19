@@ -198,6 +198,25 @@ export class DbserviceService {
     });
   }
 
+  buscarDetalle(){
+    return this.database.executeSql("SELECT * FROM detalle", []).then(res => {
+      let detalle: Detalle[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          detalle.push({
+            id_detalle: res.rows.item(i).id_detalle,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_viaje: res.rows.item(i).id_viaje,
+            id_vehiculo: res.rows.item(i).id_vehiculo,
+            id_conductor: res.rows.item(i).id_conductor
+          })
+        }
+      }
+      return detalle;
+    })
+  }
+
   buscarUsuario(){
     return this.database.executeSql("SELECT * FROM usuario", []).then(res => {
       //Almacenamos la consulta en esta variable
@@ -288,9 +307,9 @@ export class DbserviceService {
   insertarViajeAceptado(id_usuario: any, id_viaje: any, id_vehiculo: any, id_conductor: any){
     return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje, id_vehiculo, id_conductor) VALUES (?, ?, ?, ?)", [id_usuario, id_viaje, id_vehiculo, id_conductor]).then(res => {
       if(res){
-        return true;
+        this.buscarDetalle();
       } else {
-        return null;
+        this.presentAlert('Error al insertar detalle')
       }
     });
   }
