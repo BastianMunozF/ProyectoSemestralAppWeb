@@ -40,12 +40,25 @@ export class PaginaregistrarUsuarioPage implements OnInit {
   }
 
   takePicture = async () => {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt
-    });
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt
+      });
+
+      if (image && image.dataUrl) {
+        this.image = image;
+        this.fotoPerfil = image.dataUrl;
+      } else {
+        console.error('La imagen capturada es indefinida o no tiene dataUrl.');
+        this.fotoPerfil = '';
+      }
+    } catch (error) {
+      console.error('Error al tomar la foto:', error);
+      this.fotoPerfil = '';
+    }
   }
 
   onFileChange(event: any) {
