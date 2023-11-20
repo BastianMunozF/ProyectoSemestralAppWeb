@@ -295,7 +295,7 @@ export class DbserviceService {
 
   //Funcion para insertar Usuario
   insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, fotoperfil: any, id_rol: any){
-    return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, fotoperfil, id_rol]).then(res => {
+    return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, fotoperfil, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, fotoperfil, id_rol]).then(res => {
       if(res){
         this.buscarUsuario();
       } else {
