@@ -1,11 +1,13 @@
 <ion-header [translucent]="true">
-  <ion-toolbar style="text-align: center;">
+  <ion-toolbar style="text-align: center;" color="primary">
     <ion-title>Historial Conductores</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card color="primary">
   <h2 class="ion-text-center" color="primary">Historial de Viajes Aceptados</h2>
+  </ion-card>
   <ion-list>
     <ion-item *ngFor="let viaje of arregloViajes">
       <ion-card>
