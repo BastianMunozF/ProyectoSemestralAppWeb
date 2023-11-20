@@ -19,8 +19,8 @@
 
       <ion-item>
         <ion-label position="stacked">Foto de Perfil</ion-label>
-        <div class="profile-picture" *ngIf="{{ fotoPerfil }}">
-          <img [src]="{{ fotoPerfil }}" alt="Foto de perfil">
+        <div class="profile-picture" *ngIf="fotoPerfil">
+          <img [src]="fotoPerfil" alt="Foto de perfil">
         </div>
       </ion-item>
 
