@@ -52,7 +52,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       let form = this.formularioRegistro.value;
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.image, form.id_rol).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.imageSource, form.id_rol).then(res => {
 
         if(res !== null){
           //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
