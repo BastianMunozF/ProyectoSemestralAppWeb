@@ -52,7 +52,7 @@ export class PaginaregistrarUsuarioPage implements OnInit {
       let form = this.formularioRegistro.value;
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.imageSource, form.id_rol).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.image, form.id_rol).then(res => {
 
         if(res !== null){
           //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta
@@ -95,44 +95,3 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     await alert.present();
   }
 }
-
-/*
-  async guardar(){
-    var f = this.formularioRegistro.value;
-
-    if(this.formularioRegistro.invalid){
-      const alert = await this.alertController.create({
-        header: 'Datos incompletos',
-        message: 'Tienes que llenar todos los datos',
-        buttons: ['Aceptar']
-      });
-
-      await alert.present();
-      return;
-
-    }
-
-    if(this.formularioRegistro.valid){
-      const alert2 = await this.alertController.create({
-        header: 'Usuario Registrado',
-        message: 'Su usuario ha sido registrado exitosamente.',
-        buttons: ['Aceptar']
-      });
-
-      var usuario = {
-        nombre: f.nombre,
-        apellido: f.apellido,
-        rut: f.rut,
-        edad: f.edad,
-        correo: f.correo,
-        celular: f.celular,
-        password: f.password
-      }
-
-      localStorage.setItem('usuario',JSON.stringify(usuario));
-
-      await alert2.present();
-      return;
-    }
-  }
-*/
