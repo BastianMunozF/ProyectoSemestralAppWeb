@@ -7,4 +7,5 @@ export class Usuario {
     rut = "";
     celular = "";
     contrasena = "";
+    fotoperfil = "";
 }

@@ -26,7 +26,7 @@ export class DbserviceService {
     tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(10));";
 
     //Tabla para Usuarios
-    tablaUsuarios: string = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, correo VARCHAR(30) NOT NULL, fechanacimiento DATE NOT NULL, rut VARCHAR(13) NOT NULL, celular INTEGER NOT NULL, contrasena VARCHAR(30) NOT NULL, id_rol INTEGER NOT NULL, FOREIGN KEY(id_rol) REFERENCES rol(id_rol));";
+    tablaUsuarios: string = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(30) NOT NULL, apellido VARCHAR(30) NOT NULL, correo VARCHAR(30) NOT NULL, fechanacimiento DATE NOT NULL, rut VARCHAR(13) NOT NULL, celular INTEGER NOT NULL, contrasena VARCHAR(30) NOT NULL, fotoperfil VARCHAR(100) NOT NULL, id_rol INTEGER NOT NULL, FOREIGN KEY(id_rol) REFERENCES rol(id_rol));";
 
     //Tabla para Vehículos:
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
@@ -107,7 +107,8 @@ export class DbserviceService {
             fechanacimiento: res.rows.item(i).fechanacimiento,
             rut: res.rows.item(i).rut,
             celular: res.rows.item(i).celular,
-            contrasena: res.rows.item(i).contrasena
+            contrasena: res.rows.item(i).contrasena,
+            fotoperfil: res.rows.item(i).fotoperfil
           })
         }
       }
@@ -259,7 +260,8 @@ export class DbserviceService {
             correo: res.rows.item(i).correo,
             rut: res.rows.item(i).rut,
             celular: res.rows.item(i).celular,
-            contrasena: res.rows.item(i).contrasena
+            contrasena: res.rows.item(i).contrasena,
+            fotoperfil: res.rows.item(i).fotoperfil
           })
         }
       }
@@ -292,8 +294,8 @@ export class DbserviceService {
   }
 
   //Funcion para insertar Usuario
-  insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, id_rol: any){
-    return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol]).then(res => {
+  insertarUsuario(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, contrasena: any, fotoperfil: any, id_rol: any){
+    return this.database.executeSql("INSERT INTO usuario(nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, correo, fechanacimiento, rut, celular, contrasena, fotoperfil, id_rol]).then(res => {
       if(res){
         this.buscarUsuario();
       } else {
