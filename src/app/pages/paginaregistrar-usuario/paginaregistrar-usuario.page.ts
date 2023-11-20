@@ -20,6 +20,8 @@ export class PaginaregistrarUsuarioPage implements OnInit {
   image: any;
   imageSource: string | undefined;
 
+  fotoPerfil: string | undefined;
+
   constructor(public fb: FormBuilder, public alertController: AlertController, private database: DbserviceService, public router: Router) { 
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
@@ -46,13 +48,27 @@ export class PaginaregistrarUsuarioPage implements OnInit {
     });
   }
 
+  onFileChange(event: any) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fotoPerfil = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      this.fotoPerfil = '';
+    }
+  }
+
   guardarUsuario(){
     //Verificar si el formulario es válido
     if (this.formularioRegistro.valid){
       let form = this.formularioRegistro.value;
 
       //Llamamos a la funcion para insertar al usuario
-      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.image, form.id_rol).then(res => {
+      this.database.insertarUsuario(form.nombre, form.apellido,form.correo, form.fechanacimiento, form.rut, form.celular, form.password, this.fotoPerfil, form.id_rol).then(res => {
 
         if(res !== null){
           //Enviamos mensaje a la consola de que el usuario ha sido registrado de manera correcta

@@ -22,7 +22,7 @@ export class PerfilusuarioPage implements OnInit {
   fechanacimiento: any;
   rut: string = "";
   celular: any;
-  fotoPerfil!: string;
+  fotoPerfil: string | undefined;
 
   constructor(private database: DbserviceService) {
     const userId = localStorage.getItem('id')
