@@ -26,30 +26,23 @@ export class HistorialconductorPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.database.buscarDetalleUsuario(this.id_conductor).then(detalle => {
-      if (detalle) {
+    this.database.buscarDetalleUsuario(this.id_conductor).then((detalle) => {
+      if (detalle && detalle.length > 0) {
         this.detallesViaje = detalle;
 
-        let id_usuario: any = this.detallesViaje[1]
+        const id_usuario: any = this.detallesViaje[1].id_usuario;
 
-        this.database.buscarDatosUsuario(id_usuario).then(usuario => {
-          if (usuario) {
+        this.database.buscarDatosUsuario(id_usuario).then((usuario) => {
+          if (usuario && usuario.length > 0) {
             this.arregloUsuario = usuario;
-    
-            console.log(this.arregloUsuario);
 
-            this.database.buscarViajeUser(id_usuario).then(viaje => {
-              if (viaje) {
+            this.database.buscarViajeUser(id_usuario).then((viaje) => {
+              if (viaje && viaje.length > 0) {
                 this.arregloViajes = viaje;
-        
-                console.log(this.arregloViajes);
 
-                this.database.buscarVehiculoUsuario(this.id_conductor).then(vehiculo => {
-                  if (vehiculo) {
+                this.database.buscarVehiculoUsuario(this.id_conductor).then((vehiculo) => {
+                  if (vehiculo && vehiculo.length > 0) {
                     this.arregloVehiculo = vehiculo;
-            
-                    console.log(this.arregloVehiculo);
-            
                   } else {
                     console.log('Error al buscar vehiculo.');
                   }
@@ -62,7 +55,6 @@ export class HistorialconductorPage implements OnInit {
             console.log('Error al buscar usuario.');
           }
         });
-
       } else {
         this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
       }
