@@ -27,7 +27,16 @@ export class RutaconductorPage implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    let id_conductor = localStorage.getItem('id');
+
+    this.database.buscarVehiculoUsuario(id_conductor).then(res => {
+      if(res && res.length > 0){
+        this.vehiculo = res;
+      };
+    });
+  }
 
   crearRuta(){
     if(this.formularioRuta.valid){
@@ -35,48 +44,42 @@ export class RutaconductorPage implements OnInit {
       let id_user = localStorage.getItem('id');
       let estado = 'Pendiente';
 
-      this.database.buscarVehiculoUsuario(id_user).then(res => {
-        if(res && res.length > 0){
-          this.vehiculo = res;
+      if(!this.vehiculo.length){
 
-          if(!this.vehiculo.length){
+        this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de comenzar un viaje.");
+        console.log('No se ha encontrado un vehículo.');
 
-            this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de comenzar un viaje.");
-            console.log('No se ha encontrado un vehículo.');
+      } else {
+
+        console.log(this.vehiculo[6]);
+
+        if(form.cant_asientos > this.vehiculo[6]){
+
+          this.presentarAlerta("Error al crear viaje", "Su vehículo no dispone los asientos que ha ingresado en el formulario.");
+
+        } else {
+
+          this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
+            if(res !== null){
     
-          } else {
+              console.log('Ruta creada correctamente.');
+              this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
+              this.router.navigate(['/menuprincipal']);
     
-            console.log(this.vehiculo[6]);
-    
-            if(form.cant_asientos > this.vehiculo[5]){
-    
-              this.presentarAlerta("Error al crear viaje", "Su vehículo no dispone los asientos que ha ingresado en el formulario.");
+              this.formularioRuta.reset();
     
             } else {
+              
+              console.log('Ruta no confirmada.');
+              this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
     
-              this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
-                if(res !== null){
-        
-                  console.log('Ruta creada correctamente.');
-                  this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
-                  this.router.navigate(['/menuprincipal']);
-        
-                  this.formularioRuta.reset();
-        
-                } else {
-                  
-                  console.log('Ruta no confirmada.');
-                  this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
-        
-                }
-        
-              }).catch(error => {
-                console.error('Error al crear la ruta:', error);
-              });
-            };
-          };
+            }
+    
+          }).catch(error => {
+            console.error('Error al crear la ruta:', error);
+          });
         };
-      });
+      };
 
     } else {
 
