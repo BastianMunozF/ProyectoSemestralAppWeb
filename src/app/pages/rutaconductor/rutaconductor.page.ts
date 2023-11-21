@@ -46,7 +46,7 @@ export class RutaconductorPage implements OnInit {
     
           } else {
     
-            console.log(this.vehiculo[5]);
+            console.log(this.vehiculo[6]);
     
             if(form.cant_asientos > this.vehiculo[5]){
     
