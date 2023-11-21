@@ -43,40 +43,4 @@ export class PerfilusuarioPage implements OnInit {
 
   ngOnInit() {
   }
-
-  onFileChange(event: any) {
-    const selectedFile = event.target.files[0];
-
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.fotoPerfil = e.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-    } else {
-      this.fotoPerfil = '';
-    }
-  }
-
-  async takePicture() {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl,
-        source: CameraSource.Prompt
-      });
-
-      if (image && image.dataUrl) {
-        this.image = image;
-        this.fotoPerfil = image.dataUrl;
-      } else {
-        console.error('La imagen capturada es indefinida o no tiene dataUrl.');
-        this.fotoPerfil = '';
-      }
-    } catch (error) {
-      console.error('Error al tomar la foto:', error);
-      this.fotoPerfil = '';
-    }
-  }
 }

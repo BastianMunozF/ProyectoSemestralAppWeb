@@ -399,6 +399,10 @@ export class DbserviceService {
     });
   }
 
+  actualizarAsientos(){
+    
+  }
+
   verificarContrasena(id: any){
     return this.database.executeSql('SELECT contrasena FROM usuario WHERE id = ?', [id]).then(res => {
       if(res){

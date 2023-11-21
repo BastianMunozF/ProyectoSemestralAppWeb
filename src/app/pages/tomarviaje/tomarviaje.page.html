@@ -8,105 +8,42 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="ion-text-center">
-    <ion-card-title>
-      <ion-item color="primary">
-        <ion-label>Viaje</ion-label>
-      </ion-item>
-    </ion-card-title>
-
-    <form [formGroup]="formularioRuta" (ngSubmit)="crearRuta()">
-
-      <ion-item>
-        <ion-label>Fecha Viaje:</ion-label>
-        <ion-input formControlName="f_viaje" type="date"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Hora Salida:</ion-label>
-        <ion-input formControlName="hora_salida" type="time" id="horasalida"></ion-input>
-      </ion-item>
-
-      <ion-item>
-
-        <ion-label>Salida:</ion-label>
-
-        <select name="salida" id="salida" formControlName="salida">
-          <option value="SedePlazaNorte">Sede Plaza Norte</option>
-          <option value="SedeAlameda">Sede Alameda</option>
-          <option value="SedePedroAlonsoDelValle">Sede Pedro Alonso de Valle</option>
-          <option value="SedeAntonioVaras">Sede Antonio Varas</option>
-          <option value="SedeEducacionContinua">Sede Educación Continua</option>
-          <option value="SedeMaipu">Sede Maipú</option>
-          <option value="SedeMelipilla">Sede Melipilla</option>
-          <option value="SedePlazaOeste">Sede Plaza Oeste</option>
-          <option value="SedePlazaVespucio">Sede Plaza Vespucio</option>
-          <option value="SedePuenteAlto">Sede Puente Alto</option>
-          <option value="SedeSanBernardo">Sede San Bernardo</option>
-          <option value="SedeSanCarlosDeApoquindo">Sede San Carlos de Apoquindo</option>
-          <option value="SedeSanJoaquin">Sede San Joaquin</option>
-        </select>
-
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Destino:</ion-label>
-        <select name="destino" id="destino" formControlName="destino">
-          <option value="cerrillos">Cerrillos</option>
-          <option value="cerronavia">Cerro Navia</option>
-          <option value="conchali">Conchalí</option>
-          <option value="elbosque">El Bosque</option>
-          <option value="estacioncentral">Estación Central</option>
-          <option value="huechuraba">Huechuraba</option>
-          <option value="independencia">Independencia</option>
-          <option value="lacisterna">La Cisterna</option>
-          <option value="laflorida">La Florida</option>
-          <option value="lagranja">La Granja</option>
-          <option value="lapintana">La Pintana</option>
-          <option value="lareina">La Reina</option>
-          <option value="lascondes">Las Condes</option>
-          <option value="lobarnechea">Lo Barnechea</option>
-          <option value="loespejo">Lo Espejo</option>
-          <option value="loprado">Lo Prado</option>
-          <option value="macul">Macúl</option>
-          <option value="maipu">Maipú</option>
-          <option value="nunoa">Ñuñoa</option>
-          <option value="pedroaguirrecerda">Pedro Aguirre Cerda</option>
-          <option value="penalolen">Peñalolén</option>
-          <option value="providencia">Providencia</option>
-          <option value="pudahuel">Pudahuel</option>
-          <option value="quilicura">Quilicura</option>
-          <option value="colina">Colina</option>
-        </select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Cantidad Asientos:</ion-label>
-
-        <select name="cant_asientos" id="cant_asientos" formControlName="cant_asientos">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label required>Valor Asientos:</ion-label>
-        <select name="valor_asiento" id="valor_asiento" formControlName="valor_asiento">
-          <option value="2500">Standard: $2.500</option>
-          <option value="5000">Large: $5.000</option>
-          <option value="7500">Deluxe: $7.500</option>
-        </select>
-      </ion-item>
-
-      <ion-button color="primary" type="submit">Aceptar</ion-button> 
-      <ion-button color="primary" [routerLink]="['/menuprincipal']">Menú principal</ion-button>
-    </form>
-  
+  <ion-card color="primary">
+    <h2 style="margin: 10px;">Listado de viajes</h2>
   </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let x of arregloViajes">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+    
+            <ion-label>
+              <strong>{{ x.destino | uppercase }}</strong>
+
+              <br>
+    
+              <p style="word-wrap: break-word;white-space: normal;">Salida: {{ x.salida }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Hora Salida: {{ x.hora_salida }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Fecha Salida: {{ x.f_viaje }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Asientos: {{ x.cant_asientos }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Estado: {{ x.estado }}</p>
+              <p style="word-wrap: break-word;white-space: normal;">Valor asiento: {{ x.valor_asiento }}</p>
+
+              <br>
+
+              <ion-button (click)="aceptarViaje(x.id_usuario, x.id_viaje)">Aceptar Viaje</ion-button>
+
+            </ion-label>
+
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
 
 <ion-footer>

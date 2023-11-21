@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rutaconductor',
@@ -11,39 +12,53 @@ import { Router } from '@angular/router';
 
 export class RutaconductorPage implements OnInit {
 
-  arregloViajes: any;
+  formularioRuta: FormGroup;
 
-  constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
-
-  ngOnInit() {
-    this.database.buscarViaje().then((data) => {
-      this.arregloViajes = data;
+  constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
+    this.formularioRuta = this.formBuilder.group({
+      'f_viaje': new FormControl("", [Validators.required]),
+      'hora_salida': new FormControl("", [Validators.required]),
+      'salida': new FormControl("", [Validators.required]),
+      'destino': new FormControl("", [Validators.required]),
+      'cant_asientos': new FormControl("", [Validators.required]),
+      'valor_asiento': new FormControl("", [Validators.required])
     });
   }
 
-  aceptarViaje(id_usuario: any, id_viaje: any){
+  ngOnInit() {
+  }
 
-    let id_conductor = localStorage.getItem('id');
-    let id_vehiculo = localStorage.getItem('id_vehiculo');
+  crearRuta(){
+    if(this.formularioRuta.valid){
+      let form = this.formularioRuta.value;
+      let id_user = localStorage.getItem('id');
+      let estado = 'Pendiente';
 
-    this.database.insertarViajeAceptado(id_usuario, id_viaje, id_vehiculo, id_conductor).then(res => {
-      if(res !== null){
+      this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
+        if(res !== null){
 
-        let estado = 'Aceptado.';
+          console.log('Ruta creada correctamente.');
+          this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
+          this.router.navigate(['/menuprincipal']);
 
-        this.database.actualizarEstadoViaje(estado, id_usuario).then(actualizado => {
-          if(actualizado){
-            this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-            this.router.navigate(['/historialconductor'])
-          } else {
-            this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
-          }
-        })
+          this.formularioRuta.reset();
 
-      } else {
-        this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
-      }
-    });
+        } else {
+          
+          console.log('Ruta no confirmada.');
+          this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
+
+        }
+
+      }).catch(error => {
+        console.error('Error al crear la ruta:', error);
+      })
+
+    } else {
+
+      this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
+
+    }
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
