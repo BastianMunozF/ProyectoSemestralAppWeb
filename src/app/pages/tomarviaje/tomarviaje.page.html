@@ -32,7 +32,13 @@
 
               <br>
 
-              <ion-button (click)="aceptarViaje(x.id_viaje)">Aceptar Viaje</ion-button>
+              <form formGroup="formularioAceptar">
+
+                <ion-label>Asientos a reservar:</ion-label>
+                <ion-input type="number" id="asientores" name="asientores" formControlName="asientores"></ion-input>
+
+                <ion-button (click)="aceptarViaje(x.id_viaje)">Aceptar Viaje</ion-button>
+              </form>
 
             </ion-label>
 

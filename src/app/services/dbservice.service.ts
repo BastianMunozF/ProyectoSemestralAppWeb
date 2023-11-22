@@ -32,7 +32,7 @@ export class DbserviceService {
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
 
     //Tabla para Viajes(Conductor):
-    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado VARCHAR(20) NOT NULL, id_usuario INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id));";
+    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado VARCHAR(20) NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
 
     //Tabla para Viajes(Clientes):
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
@@ -319,7 +319,7 @@ export class DbserviceService {
   }
 
   insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, estado: any, id_conductor: any){
-    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor]).then(res => {
+    return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor]).then(res => {
       if(res){
         this.buscarViaje();
       } else {
@@ -388,8 +388,8 @@ export class DbserviceService {
     })
   }
 
-  actualizarEstadoViaje(estado: any, id_usuario: any){
-    return this.database.executeSql('UPDATE viaje SET estado = ? WHERE id_usuario = ?', [estado, id_usuario]).then(res => {
+  actualizarEstadoViaje(estado: any, asientos: any, id_viaje: any){
+    return this.database.executeSql('UPDATE viaje SET estado = ?, cant_asientos = ? WHERE id_viaje = ?', [estado, asientos, id_viaje]).then(res => {
       if(res){
         return true;
       } else {
