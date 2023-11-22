@@ -9,9 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MenuprincipalconductorPage implements OnInit {
 
-  constructor(private database: DbserviceService, private alertController: AlertController) { }
-
-  ngOnInit() {
+  constructor(private database: DbserviceService, private alertController: AlertController) {
     let id = localStorage.getItem('id');
 
     this.database.verificarViaje(id).then(res => {
@@ -25,6 +23,9 @@ export class MenuprincipalconductorPage implements OnInit {
 
       }
     })
+  }
+
+  ngOnInit() {
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
