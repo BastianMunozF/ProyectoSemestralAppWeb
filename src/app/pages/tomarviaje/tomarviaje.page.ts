@@ -21,12 +21,11 @@ export class TomarviajePage implements OnInit {
     });
   }
 
-  aceptarViaje(id_usuario: any, id_viaje: any){
+  aceptarViaje(id_viaje: any){
 
-    let id_conductor = localStorage.getItem('id');
-    let id_vehiculo = localStorage.getItem('id_vehiculo');
+    let id_usuario = localStorage.getItem('id');
 
-    this.database.insertarViajeAceptado(id_usuario, id_viaje, id_vehiculo, id_conductor).then(res => {
+    this.database.insertarViajeAceptado(id_usuario, id_viaje).then(res => {
       if(res !== null){
 
         let estado = 'Aceptado.';

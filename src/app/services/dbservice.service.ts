@@ -38,7 +38,7 @@ export class DbserviceService {
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
 
     //Tabla para detalle de Viajes:
-    tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, id_vehiculo INTEGER NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje), FOREIGN KEY(id_vehiculo) REFERENCES vehiculo(id_vehiculo), FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
+    tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER NOT NULL, id_viaje INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_viaje) REFERENCES viaje(id_viaje));";
 
     registroRol: string = "INSERT INTO rol VALUES (1, 'Usuario'), (2, 'Conductor');";
 
@@ -330,8 +330,8 @@ export class DbserviceService {
     })
   }
 
-  insertarViajeAceptado(id_usuario: any, id_viaje: any, id_vehiculo: any, id_conductor: any){
-    return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje, id_vehiculo, id_conductor) VALUES (?, ?, ?, ?)", [id_usuario, id_viaje, id_vehiculo, id_conductor]).then(res => {
+  insertarViajeAceptado(id_usuario: any, id_viaje: any){
+    return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje) VALUES (?, ?)", [id_usuario, id_viaje]).then(res => {
       if(res){
         this.buscarDetalle();
       } else {
@@ -353,8 +353,8 @@ export class DbserviceService {
     })
   }
 
-  verificarViaje(id_viaje: any){
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_viaje = ?", [id_viaje]).then(res => {
+  verificarViaje(id_usuario: any){
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ?", [id_usuario]).then(res => {
       if(res){
         return true;
       } else {

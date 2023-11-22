@@ -79,7 +79,7 @@ export class RutaconductorPage implements OnInit {
             }
           }
         }
-      });
+      })
 
     } else {
 
