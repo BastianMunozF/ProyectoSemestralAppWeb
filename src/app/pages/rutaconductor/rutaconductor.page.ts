@@ -15,6 +15,7 @@ export class RutaconductorPage implements OnInit {
 
   formularioRuta: FormGroup;
   vehiculo: Vehiculo[] = [];
+  asientos = this.vehiculo[6];
 
   constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
     this.formularioRuta = this.formBuilder.group({
