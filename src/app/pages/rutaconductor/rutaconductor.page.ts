@@ -28,13 +28,6 @@ export class RutaconductorPage implements OnInit {
   }
 
   ngOnInit() {
-    let id_conductor = localStorage.getItem('id');
-
-    this.database.buscarVehiculoUsuario(id_conductor).then(res => {
-      if(res && res.length > 0){
-        this.vehiculo = res;
-      };
-    });
   }
 
   crearRuta(){
@@ -43,6 +36,14 @@ export class RutaconductorPage implements OnInit {
       let form = this.formularioRuta.value;
       let id_user = localStorage.getItem('id');
       let estado = 'Pendiente';
+
+      let id_conductor = localStorage.getItem('id');
+
+      this.database.buscarVehiculoUsuario(id_conductor).then(res => {
+        if(res && res.length > 0){
+          this.vehiculo = res;
+        };
+      });
 
       if(!this.vehiculo.length){
 
