@@ -28,7 +28,6 @@ export class RutaconductorPage implements OnInit {
   }
 
   ngOnInit() {
-
     let id_conductor = localStorage.getItem('id');
 
     this.database.buscarVehiculoUsuario(id_conductor).then(res => {
@@ -51,9 +50,7 @@ export class RutaconductorPage implements OnInit {
 
       } else {
 
-        console.log(this.vehiculo[6].asientos);
-
-        if(form.cant_asientos > this.vehiculo[6].asientos){
+        if(form.cant_asientos > this.vehiculo[1].asientos){
 
           this.presentarAlerta("Error al crear viaje", "Su vehículo no dispone los asientos que ha ingresado en el formulario.");
 
