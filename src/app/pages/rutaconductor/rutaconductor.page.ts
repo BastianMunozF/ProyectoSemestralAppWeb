@@ -51,9 +51,9 @@ export class RutaconductorPage implements OnInit {
 
       } else {
 
-        console.log(this.vehiculo[5].asientos);
+        console.log(this.vehiculo[6].asientos);
 
-        if(form.cant_asientos > this.vehiculo[6]){
+        if(form.cant_asientos > this.vehiculo[6].asientos){
 
           this.presentarAlerta("Error al crear viaje", "Su vehículo no dispone los asientos que ha ingresado en el formulario.");
 
