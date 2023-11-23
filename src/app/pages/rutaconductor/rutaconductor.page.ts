@@ -35,7 +35,6 @@ export class RutaconductorPage implements OnInit {
     if(this.formularioRuta.valid){
 
       let form = this.formularioRuta.value;
-      let id_user = localStorage.getItem('id');
       let estado = 'Pendiente..';
 
       let id_conductor = localStorage.getItem('id');
@@ -44,16 +43,16 @@ export class RutaconductorPage implements OnInit {
         if(res && res.length > 0){
           this.vehiculo = res;
 
-          if(!this.vehiculo.length){
+          if(this.vehiculo.length === 0){
 
             this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de comenzar un viaje.");
             console.log('No se ha encontrado un vehículo.');
 
           } else {
 
-            if(this.vehiculo[0].asientos > form.cant_asientos){
+            if(this.vehiculo[5].asientos > form.cant_asientos){
 
-              this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_user).then(res => {
+              this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
 
                 if(res !== null){
 
