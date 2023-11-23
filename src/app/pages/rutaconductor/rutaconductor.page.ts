@@ -79,6 +79,8 @@ export class RutaconductorPage implements OnInit {
 
             }
           }
+        } else {
+          this.presentarAlerta("Error", "Alerta de ejemplo para saber si el error está en este if");
         }
       })
 
