@@ -22,7 +22,7 @@ export class RutaconductorPage implements OnInit {
       'hora_salida': new FormControl("", [Validators.required]),
       'salida': new FormControl("", [Validators.required]),
       'destino': new FormControl("", [Validators.required]),
-      'cant_asientos': new FormControl(null, [Validators.required]),
+      'cant_asientos': new FormControl("", [Validators.required]),
       'valor_asiento': new FormControl("", [Validators.required])
     });
   }
@@ -40,7 +40,7 @@ export class RutaconductorPage implements OnInit {
       let id_conductor = localStorage.getItem('id');
 
       this.database.buscarVehiculoUsuario(id_conductor).then(res => {
-        if(res && res.length > 0){
+        if(res){
           this.vehiculo = res;
 
           if(this.vehiculo.length === 0){

@@ -4,7 +4,7 @@ export class Vehiculo {
     modelo = "";
     anio = "";
     patente = "";
-    asientos = 0;
+    asientos = "";
     id_usuario = "";
     id_tipo = "";
 }
