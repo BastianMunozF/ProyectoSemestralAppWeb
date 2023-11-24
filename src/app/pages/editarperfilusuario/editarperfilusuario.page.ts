@@ -38,7 +38,7 @@ export class EditarperfilusuarioPage implements OnInit {
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
-      if(res){
+      if(datos){
         this.usuario = datos[0];
 
         this.nombreU= this.usuario.nombre;
