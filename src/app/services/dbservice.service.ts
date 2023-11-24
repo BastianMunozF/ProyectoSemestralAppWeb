@@ -196,6 +196,35 @@ export class DbserviceService {
     });
   }
 
+  buscarViajeId(id_viaje: any){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
+    return this.database.executeSql('SELECT * FROM viaje WHERE id_viaje = ?', [id_viaje]).then(res => {
+      let viaje: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          viaje.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario
+          })
+        }
+      }
+
+      return viaje;
+
+    });
+  }
+
   buscarViaje(){
     if (!this.database) {
       console.error('La base de datos no está inicializada.');
@@ -343,23 +372,37 @@ export class DbserviceService {
   eliminarViajeUser(id_viaje: any){
     return this.database.executeSql("DELETE FROM viaje WHERE id_viaje = ?", [id_viaje]).then(res => {
       if(res){
+
         return true;
+
       } else {
-        this.presentAlert("Error al eliminar el viaje del usuario.")
+
+        this.presentAlert("Error al eliminar el viaje del usuario.");
+
         return null;
+
       }
     }).catch(e => {
-      console.error('Error al eliminar viaje:', e)
+      console.error('Error al eliminar viaje:', e);
     })
   }
 
   verificarViaje(id_usuario: any){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
     return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ?", [id_usuario]).then(res => {
       if(res){
+
         return true;
+
       } else {
-        this.presentAlert("Error al verificar el viaje.")
+
+        this.presentAlert("Error al verificar el viaje.");
+
         return null;
+
       }
     })
   }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuprincipalconductorPage } from './menuprincipalconductor.page';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 describe('MenuprincipalconductorPage', () => {
   let component: MenuprincipalconductorPage;
@@ -8,7 +9,8 @@ describe('MenuprincipalconductorPage', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      providers: [SQLite]
+      declarations: [MenuprincipalconductorPage],
+      providers: [SQLite, DbserviceService]
     }).compileComponents();
     fixture = TestBed.createComponent(MenuprincipalconductorPage);
     component = fixture.componentInstance;
