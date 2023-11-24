@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import {
   FormGroup,
   FormControl,
-  Validators,
   FormBuilder
 } from '@angular/forms';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
 import { Usuario } from 'src/app/services/usuario';
+import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-editarperfilconductor',
@@ -27,6 +27,9 @@ export class EditarperfilconductorPage implements OnInit {
   rutU: string = "";
   celularU: any;
   contrasenaU: any;
+  fotoPerfil: string | undefined;
+  image: any;
+  imageSource: string | undefined;
 
   formularioActualizar: FormGroup;
 
@@ -43,17 +46,18 @@ export class EditarperfilconductorPage implements OnInit {
     this.rutU = this.usuario.rut;
     this.celularU = this.usuario.celular;
     this.contrasenaU = this.usuario.contrasena;
-
+    this.fotoPerfil = this.usuario.fotoperfil;
     })
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl("", [Validators.required]),
-      'apellido': new FormControl("", [Validators.required]),
-      'correo': new FormControl("", [Validators.required]),
-      'fechanacimiento': new FormControl("", [Validators.required]),
-      'rut': new FormControl("", [Validators.required]),
-      'celular': new FormControl("", [Validators.required]),
-      'contrasena': new FormControl("", [Validators.required])
+      'nombre': new FormControl(this.nombreU),
+      'apellido': new FormControl(this.apellidoU),
+      'correo': new FormControl(this.correoU),
+      'fechanacimiento': new FormControl(this.fechanacimientoU),
+      'rut': new FormControl(this.rutU),
+      'celular': new FormControl(this.celularU),
+      'contrasena': new FormControl(this.contrasenaU),
+      'fotoperfil': new FormControl(this.fotoPerfil)
     })
   }
 
@@ -65,7 +69,7 @@ export class EditarperfilconductorPage implements OnInit {
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoperfil, id).then(res => {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
@@ -81,6 +85,42 @@ export class EditarperfilconductorPage implements OnInit {
 
     } else {
       this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
+    }
+  }
+
+  takePicture = async () => {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt
+      });
+
+      if (image && image.dataUrl) {
+        this.image = image;
+        this.fotoPerfil = image.dataUrl;
+      } else {
+        console.error('La imagen capturada es indefinida o no tiene dataUrl.');
+        this.fotoPerfil = '';
+      }
+    } catch (error) {
+      console.error('Error al tomar la foto:', error);
+      this.fotoPerfil = '';
+    }
+  }
+
+  onFileChange(event: any) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fotoPerfil = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      this.fotoPerfil = '';
     }
   }
 

@@ -364,8 +364,8 @@ export class DbserviceService {
     })
   }
 
-  actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, id: any){
-    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, contrasena = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, id]).then(res=>{
+  actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, foto: any, id: any){
+    return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, fotoperfil = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, foto, id]).then(res=>{
       if(res){
         return true;
       } else {
