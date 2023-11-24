@@ -43,27 +43,19 @@ export class EditarperfilusuarioPage implements OnInit {
 
         this.usuario = datos[0];
 
-        this.nombreU = this.usuario.nombre;
-        this.apellidoU = this.usuario.apellido;
-        this.correoU = this.usuario.correo;
-        this.fechanacimientoU = this.usuario.fechanacimiento;
-        this.rutU = this.usuario.rut;
-        this.celularU = this.usuario.celular;
-        this.fotoPerfil = this.usuario.fotoperfil;
-
       }
 
     });
 
     this.formularioActualizar = this.fb.group({
 
-      'nombre': new FormControl(this.nombreU, []),
-      'apellido': new FormControl(this.apellidoU, []),
-      'correo': new FormControl(this.correoU, []),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
-      'rut': new FormControl(this.rutU, []),
-      'celular': new FormControl(this.celularU, []),
-      'fotoPerfil': new FormControl(this.fotoPerfil, [])
+      'nombre': new FormControl(this.usuario.nombre, []),
+      'apellido': new FormControl(this.usuario.apellido, []),
+      'correo': new FormControl(this.usuario.correo, []),
+      'fechanacimiento': new FormControl(this.usuario.fechanacimiento, []),
+      'rut': new FormControl(this.usuario.rut, []),
+      'celular': new FormControl(this.usuario.celular, []),
+      'fotoPerfil': new FormControl(this.usuario.fotoperfil, [])
 
     });
   }
