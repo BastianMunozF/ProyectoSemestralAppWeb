@@ -44,25 +44,6 @@ export class EditarperfilconductorPage implements OnInit {
 
   constructor(private database: DbserviceService, private fb: FormBuilder, private router: Router, private alertController: AlertController) {
 
-    this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl("{{ this.nombreU }}", []),
-      'apellido': new FormControl(this.apellidoU, []),
-      'correo': new FormControl(this.correoU, []),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
-      'rut': new FormControl(this.rutU, []),
-      'celular': new FormControl(this.celularU, []),
-      'contrasena': new FormControl(this.contrasenaU, []),
-      'fotoperfil': new FormControl(this.fotoPerfil, []),
-      'marca': new FormControl(this.marca, []),
-      'modelo': new FormControl(this.modelo, []),
-      'anio': new FormControl(this.anio, []),
-      'patente': new FormControl(this.patente, []),
-      'asientos': new FormControl(this.asientos, []),
-    })
-  }
-
-  ngOnInit() {
-
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
@@ -92,6 +73,24 @@ export class EditarperfilconductorPage implements OnInit {
       }
     });
 
+    this.formularioActualizar = this.fb.group({
+      'nombre': new FormControl(this.nombreU, []),
+      'apellido': new FormControl(this.apellidoU, []),
+      'correo': new FormControl(this.correoU, []),
+      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
+      'rut': new FormControl(this.rutU, []),
+      'celular': new FormControl(this.celularU, []),
+      'contrasena': new FormControl(this.contrasenaU, []),
+      'fotoperfil': new FormControl(this.fotoPerfil, []),
+      'marca': new FormControl(this.marca, []),
+      'modelo': new FormControl(this.modelo, []),
+      'anio': new FormControl(this.anio, []),
+      'patente': new FormControl(this.patente, []),
+      'asientos': new FormControl(this.asientos, []),
+    })
+  }
+
+  ngOnInit() {
   }
 
   actualizarUsuario(){
