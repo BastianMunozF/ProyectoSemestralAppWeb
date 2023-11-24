@@ -46,7 +46,7 @@ export class RutaconductorPage implements OnInit {
 
           this.vehiculo = res[0];
 
-          if(parseInt(this.vehiculo.asientos) >= parseInt(form.cant_asientos)){
+          if(this.vehiculo.asientos >= form.cant_asientos){
 
             this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
 

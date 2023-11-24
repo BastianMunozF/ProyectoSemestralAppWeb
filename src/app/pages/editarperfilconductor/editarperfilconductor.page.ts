@@ -43,6 +43,26 @@ export class EditarperfilconductorPage implements OnInit {
   formularioActualizar: FormGroup;
 
   constructor(private database: DbserviceService, private fb: FormBuilder, private router: Router, private alertController: AlertController) {
+
+    this.formularioActualizar = this.fb.group({
+      'nombre': new FormControl("{{ this.nombreU }}", []),
+      'apellido': new FormControl(this.apellidoU, []),
+      'correo': new FormControl(this.correoU, []),
+      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
+      'rut': new FormControl(this.rutU, []),
+      'celular': new FormControl(this.celularU, []),
+      'contrasena': new FormControl(this.contrasenaU, []),
+      'fotoperfil': new FormControl(this.fotoPerfil, []),
+      'marca': new FormControl(this.marca, []),
+      'modelo': new FormControl(this.modelo, []),
+      'anio': new FormControl(this.anio, []),
+      'patente': new FormControl(this.patente, []),
+      'asientos': new FormControl(this.asientos, []),
+    })
+  }
+
+  ngOnInit() {
+
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
@@ -68,32 +88,14 @@ export class EditarperfilconductorPage implements OnInit {
         this.patente = this.vehiculo.patente;
         this.asientos = this.vehiculo.asientos;
       }
-    })
+    });
 
-    this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl(this.nombreU, []),
-      'apellido': new FormControl(this.apellidoU, []),
-      'correo': new FormControl(this.correoU, []),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
-      'rut': new FormControl(this.rutU, []),
-      'celular': new FormControl(this.celularU, []),
-      'contrasena': new FormControl(this.contrasenaU, []),
-      'fotoperfil': new FormControl(this.fotoPerfil, []),
-      'marca': new FormControl(this.marca, []),
-      'modelo': new FormControl(this.modelo, []),
-      'anio': new FormControl(this.anio, []),
-      'patente': new FormControl(this.patente, []),
-      'asientos': new FormControl(this.asientos, []),
-    })
-  }
-
-  ngOnInit() {
   }
 
   actualizarUsuario(){
     if(this.formularioActualizar.valid){
       let form = this.formularioActualizar.value;
-      let id = localStorage.getItem('id')
+      let id = localStorage.getItem('id');
 
       this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoperfil, id).then(res => {
         if(res !== null){
