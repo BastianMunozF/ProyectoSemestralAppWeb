@@ -27,7 +27,7 @@ export class TomarviajePage implements OnInit {
     });
   }
 
-  aceptarViaje(id_viaje: any){
+  aceptarViaje(id_viaje: any, id_conductor: any){
 
     let id_usuario = localStorage.getItem('id');
 
@@ -35,7 +35,7 @@ export class TomarviajePage implements OnInit {
 
       let form = this.formularioAceptar.value;
 
-      this.database.insertarViajeAceptado(id_usuario, id_viaje).then(res => {
+      this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
         if(res !== null){
   
           let estado = 'Reservado.';
