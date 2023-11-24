@@ -46,31 +46,31 @@ export class RutaconductorPage implements OnInit {
 
           if(this.vehiculo.length > 0){
 
-            if(this.vehiculo[5] > form.cant_asientos.parseInt()){
+            if(this.vehiculo[5] >= form.cant_asientos){
 
               this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
-  
+
                 if(res !== null){
-  
+
                   console.log('Ruta creada correctamente.');
                   this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
                   this.router.navigate(['/menuprincipal']);
-      
+
                   this.formularioRuta.reset();
-  
+
                 } else {
   
                   console.log('Ruta no confirmada.');
                   this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
-  
+
                 }
-  
+
               }).catch(error => {
                 console.error('Error al crear la ruta:', error);
               });
-  
+
             } else {
-  
+
               this.presentarAlerta("Error al crear viaje", "La cantidad de asientos ingresada es mayor a los asientos del vehículo registrado.");
   
             }
