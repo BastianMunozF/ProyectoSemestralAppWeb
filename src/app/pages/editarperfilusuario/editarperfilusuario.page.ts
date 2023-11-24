@@ -37,13 +37,13 @@ export class EditarperfilusuarioPage implements OnInit {
 
     this.formularioActualizar = this.fb.group({
 
-      'nombre': new FormControl(this.nombreU, []),
-      'apellido': new FormControl(this.apellidoU, []),
-      'correo': new FormControl(this.correoU, []),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
-      'rut': new FormControl(this.rutU, []),
-      'celular': new FormControl(this.celularU, []),
-      'fotoPerfil': new FormControl(this.fotoPerfil, [])
+      'nombre': new FormControl(this.usuario.nombre, []),
+      'apellido': new FormControl(this.usuario.apellido, []),
+      'correo': new FormControl(this.usuario.correo, []),
+      'fechanacimiento': new FormControl(this.usuario.fechanacimiento, []),
+      'rut': new FormControl(this.usuario.rut, []),
+      'celular': new FormControl(this.usuario.celular, []),
+      'fotoPerfil': new FormControl(this.usuario.fotoperfil, [])
 
     });
   }
@@ -57,14 +57,6 @@ export class EditarperfilusuarioPage implements OnInit {
       if(datos){
 
         this.usuario = datos[0];
-
-        this.nombreU = this.usuario.nombre;
-        this.apellidoU = this.usuario.apellido;
-        this.correoU = this.usuario.correo;
-        this.fechanacimientoU = this.usuario.fechanacimiento;
-        this.rutU = this.usuario.rut;
-        this.celularU = this.usuario.celular;
-        this.fotoPerfil = this.usuario.fotoperfil;
 
       }
 
@@ -80,8 +72,8 @@ export class EditarperfilusuarioPage implements OnInit {
       this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
           console.log('Datos actualizados correctamente.');
-          this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.")
-          this.router.navigate(['/perfilusuario'])
+          this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
+          this.router.navigate(['/perfilusuario']);
           this.formularioActualizar.reset();
         } else {
           console.log("Error al actualizar datos");

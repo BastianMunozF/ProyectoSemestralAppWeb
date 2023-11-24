@@ -45,19 +45,18 @@ export class EditarperfilconductorPage implements OnInit {
   constructor(private database: DbserviceService, private fb: FormBuilder, private router: Router, private alertController: AlertController) {
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl("{{ this.nombreU }}", []),
-      'apellido': new FormControl(this.apellidoU, []),
-      'correo': new FormControl(this.correoU, []),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
-      'rut': new FormControl(this.rutU, []),
-      'celular': new FormControl(this.celularU, []),
-      'contrasena': new FormControl(this.contrasenaU, []),
-      'fotoperfil': new FormControl(this.fotoPerfil, []),
-      'marca': new FormControl(this.marca, []),
-      'modelo': new FormControl(this.modelo, []),
-      'anio': new FormControl(this.anio, []),
-      'patente': new FormControl(this.patente, []),
-      'asientos': new FormControl(this.asientos, []),
+      'nombre': new FormControl(this.usuario.nombre, []),
+      'apellido': new FormControl(this.usuario.apellido, []),
+      'correo': new FormControl(this.usuario.correo, []),
+      'fechanacimiento': new FormControl(this.usuario.fechanacimiento, []),
+      'rut': new FormControl(this.usuario.rut, []),
+      'celular': new FormControl(this.usuario.celular, []),
+      'fotoperfil': new FormControl(this.usuario.fotoperfil, []),
+      'marca': new FormControl(this.vehiculo.marca, []),
+      'modelo': new FormControl(this.vehiculo.modelo, []),
+      'anio': new FormControl(this.vehiculo.anio, []),
+      'patente': new FormControl(this.vehiculo.patente, []),
+      'asientos': new FormControl(this.vehiculo.asientos, []),
     })
   }
 
@@ -66,27 +65,20 @@ export class EditarperfilconductorPage implements OnInit {
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
-    this.usuario = datos[0];
 
-    this.nombreU = this.usuario.nombre;
-    this.apellidoU = this.usuario.apellido;
-    this.correoU = this.usuario.correo;
-    this.fechanacimientoU = this.usuario.fechanacimiento;
-    this.rutU = this.usuario.rut;
-    this.celularU = this.usuario.celular;
-    this.contrasenaU = this.usuario.contrasena;
-    this.fotoPerfil = this.usuario.fotoperfil;
+      if(datos !== null){
+
+        this.usuario = datos[0];
+
+      }
+
     });
 
     this.database.buscarVehiculoUsuario(idUser).then(res => {
       if(res !== null){
+
         this.vehiculo = res[0];
 
-        this.marca = this.vehiculo.marca;
-        this.modelo = this.vehiculo.modelo;
-        this.anio = this.vehiculo.anio;
-        this.patente = this.vehiculo.patente;
-        this.asientos = this.vehiculo.asientos;
       }
     });
 
