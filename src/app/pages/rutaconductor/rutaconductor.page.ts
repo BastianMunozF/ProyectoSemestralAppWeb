@@ -14,9 +14,11 @@ import { Vehiculo } from 'src/app/services/vehiculo';
 export class RutaconductorPage implements OnInit {
 
   formularioRuta: FormGroup;
-  vehiculo: Vehiculo[] = [];
+  vehiculo!: Vehiculo;
+  asientos: any;
 
   constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
+
     this.formularioRuta = this.formBuilder.group({
       'f_viaje': new FormControl("", [Validators.required]),
       'hora_salida': new FormControl("", [Validators.required]),
@@ -42,45 +44,40 @@ export class RutaconductorPage implements OnInit {
       this.database.buscarVehiculoUsuario(id_conductor).then(res => {
         if(res !== null){
 
-          this.vehiculo = res;
+          this.vehiculo = res[0];
 
-          if(this.vehiculo.length > 0){
+          if(parseInt(this.vehiculo.asientos) >= parseInt(form.cant_asientos)){
 
-            let asientos = form.cant_asientos.parseInt();
+            this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
 
-            if(this.vehiculo[5] >= asientos){
+              if(res !== null){
 
-              this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
+                console.log('Ruta creada correctamente.');
+                this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
+                this.router.navigate(['/menuprincipal']);
 
-                if(res !== null){
+                this.formularioRuta.reset();
 
-                  console.log('Ruta creada correctamente.');
-                  this.presentarAlerta("Ruta creada", "El viaje ha sido confirmado correctamente.");
-                  this.router.navigate(['/menuprincipal']);
+              } else {
 
-                  this.formularioRuta.reset();
+                console.log('Ruta no confirmada.');
+                this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
 
-                } else {
-  
-                  console.log('Ruta no confirmada.');
-                  this.presentarAlerta("Error al crear ruta", "Rellene el formulario correctamente.");
+              }
 
-                }
+            }).catch(error => {
+              console.error('Error al crear la ruta:', error);
+            });
 
-              }).catch(error => {
-                console.error('Error al crear la ruta:', error);
-              });
-
-            } else {
-
-              this.presentarAlerta("Error al crear viaje", "La cantidad de asientos ingresada es mayor a los asientos del vehículo registrado.");
-  
-            }
           } else {
-            this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de crear un viaje.")
-          }
 
+            this.presentarAlerta("Error al crear viaje", "La cantidad de asientos ingresada es mayor a los asientos del vehículo registrado.");
+
+          }
+        } else {
+          this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de crear un viaje.")
         }
+
       });
 
     } else {

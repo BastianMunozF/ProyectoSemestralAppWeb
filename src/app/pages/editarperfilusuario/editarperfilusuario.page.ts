@@ -38,7 +38,9 @@ export class EditarperfilusuarioPage implements OnInit {
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
+
       if(datos){
+
         this.usuario = datos[0];
 
         this.nombreU= this.usuario.nombre;
@@ -50,7 +52,6 @@ export class EditarperfilusuarioPage implements OnInit {
         this.fotoPerfil = this.usuario.fotoperfil;
       }
     })
-
 
     this.formularioActualizar = this.fb.group({
       'nombre': new FormControl(this.nombreU, []),
