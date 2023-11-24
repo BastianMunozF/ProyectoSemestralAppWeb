@@ -38,26 +38,28 @@ export class EditarperfilusuarioPage implements OnInit {
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
-      this.usuario = datos[0];
+      if(res){
+        this.usuario = datos[0];
 
-      this.nombreU= this.usuario.nombre;
-      this.apellidoU = this.usuario.apellido;
-      this.correoU = this.usuario.correo;
-      this.fechanacimientoU = this.usuario.fechanacimiento;
-      this.rutU = this.usuario.rut;
-      this.celularU = this.usuario.celular;
-      this.fotoPerfil = this.usuario.fotoperfil;
+        this.nombreU= this.usuario.nombre;
+        this.apellidoU = this.usuario.apellido;
+        this.correoU = this.usuario.correo;
+        this.fechanacimientoU = this.usuario.fechanacimiento;
+        this.rutU = this.usuario.rut;
+        this.celularU = this.usuario.celular;
+        this.fotoPerfil = this.usuario.fotoperfil;
+      }
     })
 
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl(this.nombreU, [Validators.required]),
-      'apellido': new FormControl(this.apellidoU, [Validators.required]),
-      'correo': new FormControl(this.correoU, [Validators.required]),
-      'fechanacimiento': new FormControl(this.fechanacimientoU, [Validators.required]),
-      'rut': new FormControl(this.rutU, [Validators.required]),
-      'celular': new FormControl(this.celularU, [Validators.required]),
-      'fotoPerfil': new FormControl(this.fotoPerfil, [Validators.required])
+      'nombre': new FormControl(this.nombreU, []),
+      'apellido': new FormControl(this.apellidoU, []),
+      'correo': new FormControl(this.correoU, []),
+      'fechanacimiento': new FormControl(this.fechanacimientoU, []),
+      'rut': new FormControl(this.rutU, []),
+      'celular': new FormControl(this.celularU, []),
+      'fotoPerfil': new FormControl(this.fotoPerfil, [])
     })
   }
 

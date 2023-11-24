@@ -367,13 +367,34 @@ export class DbserviceService {
   actualizarPerfil(nombre: any, apellido: any, correo: any, fechanacimiento: any, rut: any, celular: any, foto: any, id: any){
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, fotoperfil = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, foto, id]).then(res=>{
       if(res){
+
         return true;
+
       } else {
+
         this.presentAlert("Error al actualizar usuario.");
+
         return null;
+
       }
     }).catch(error => {
+
       console.error('Error al actualizar usuario en base de datos:', error);
+
+    })
+  }
+
+  actualizarVehiculo(marca: any, modelo: any, anio: any, patente: any, asientos: any, id: any){
+    return this.database.executeSql('UPDATE vehiculo SET marca = ?, modelo = ?, anio = ?, patente = ?, asientos = ? WHERE id_usuario = ?', [marca, modelo, anio, patente, asientos, id]).then(res => {
+      if(res){
+
+        return true;
+
+      } else {
+
+        return null;
+
+      }
     })
   }
 
