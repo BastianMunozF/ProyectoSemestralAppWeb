@@ -44,37 +44,44 @@ export class EditarperfilconductorPage implements OnInit {
 
   constructor(private database: DbserviceService, private fb: FormBuilder, private router: Router, private alertController: AlertController) {
 
+    this.formularioActualizar = this.fb.group({
+      'nombre': new FormControl(this.usuario?.nombre, []),
+      'apellido': new FormControl(this.usuario?.apellido, []),
+      'correo': new FormControl(this.usuario?.correo, []),
+      'fechanacimiento': new FormControl(this.usuario?.fechanacimiento, []),
+      'rut': new FormControl(this.usuario?.rut, []),
+      'celular': new FormControl(this.usuario?.celular, []),
+      'fotoperfil': new FormControl(this.usuario?.fotoperfil, []),
+      'marca': new FormControl(this.vehiculo?.marca, []),
+      'modelo': new FormControl(this.vehiculo?.modelo, []),
+      'anio': new FormControl(this.vehiculo?.anio, []),
+      'patente': new FormControl(this.vehiculo?.patente, []),
+      'asientos': new FormControl(this.vehiculo?.asientos, []),
+    });
+
+  }
+
+  ngOnInit() {
+
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
       if(datos !== null){
+
         this.usuario = datos[0];
+
+        this.database.buscarVehiculoUsuario(idUser).then(res => {
+          if(res !== null){
+
+            this.vehiculo = res[0];
+          }
+
+        });
+
       }
+
     });
 
-    this.database.buscarVehiculoUsuario(idUser).then(res => {
-      if(res !== null){
-        this.vehiculo = res[0];
-      }
-    });
-
-    this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl(this.usuario.nombre, []),
-      'apellido': new FormControl(this.usuario.apellido, []),
-      'correo': new FormControl(this.usuario.correo, []),
-      'fechanacimiento': new FormControl(this.usuario.fechanacimiento, []),
-      'rut': new FormControl(this.usuario.rut, []),
-      'celular': new FormControl(this.usuario.celular, []),
-      'fotoperfil': new FormControl(this.usuario.fotoperfil, []),
-      'marca': new FormControl(this.vehiculo.marca, []),
-      'modelo': new FormControl(this.vehiculo.modelo, []),
-      'anio': new FormControl(this.vehiculo.anio, []),
-      'patente': new FormControl(this.vehiculo.patente, []),
-      'asientos': new FormControl(this.vehiculo.asientos, []),
-    });
-  }
-
-  ngOnInit() {
   }
 
   actualizarUsuario(){

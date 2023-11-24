@@ -35,6 +35,20 @@ export class EditarperfilusuarioPage implements OnInit {
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
 
+    this.formularioActualizar = this.fb.group({
+
+      'nombre': new FormControl(this.usuario?.nombre, []),
+      'apellido': new FormControl(this.usuario?.apellido, []),
+      'correo': new FormControl(this.usuario?.correo, []),
+      'fechanacimiento': new FormControl(this.usuario?.fechanacimiento, []),
+      'rut': new FormControl(this.usuario?.rut, []),
+      'celular': new FormControl(this.usuario?.celular, []),
+      'fotoPerfil': new FormControl(this.usuario?.fotoperfil, [])
+
+    });
+  }
+
+  ngOnInit() {
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
@@ -46,21 +60,6 @@ export class EditarperfilusuarioPage implements OnInit {
       }
 
     });
-
-    this.formularioActualizar = this.fb.group({
-
-      'nombre': new FormControl(this.usuario.nombre, []),
-      'apellido': new FormControl(this.usuario.apellido, []),
-      'correo': new FormControl(this.usuario.correo, []),
-      'fechanacimiento': new FormControl(this.usuario.fechanacimiento, []),
-      'rut': new FormControl(this.usuario.rut, []),
-      'celular': new FormControl(this.usuario.celular, []),
-      'fotoPerfil': new FormControl(this.usuario.fotoperfil, [])
-
-    });
-  }
-
-  ngOnInit() {
   }
 
   actualizarUsuario(){
