@@ -18,7 +18,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class EditarperfilusuarioPage implements OnInit {
 
-  usuario!: Usuario;
+  usuario: Usuario | undefined;
 
   //Variables para guardar datos del usuario
   nombreU: string = "";
@@ -31,19 +31,18 @@ export class EditarperfilusuarioPage implements OnInit {
   image: any;
   imageSource: string | undefined;
 
-  formularioActualizar: FormGroup;
+  formularioActualizar!: FormGroup;
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
-
     this.formularioActualizar = this.fb.group({
 
-      'nombre': new FormControl(this.usuario?.nombre, []),
-      'apellido': new FormControl(this.usuario?.apellido, []),
-      'correo': new FormControl(this.usuario?.correo, []),
-      'fechanacimiento': new FormControl(this.usuario?.fechanacimiento, []),
-      'rut': new FormControl(this.usuario?.rut, []),
-      'celular': new FormControl(this.usuario?.celular, []),
-      'fotoPerfil': new FormControl(this.usuario?.fotoperfil, [])
+      'nombre': new FormControl(''),
+      'apellido': new FormControl(''),
+      'correo': new FormControl(''),
+      'fechanacimiento': new FormControl(''),
+      'rut': new FormControl(''),
+      'celular': new FormControl(''),
+      'fotoPerfil': new FormControl('')
 
     });
   }
@@ -56,14 +55,28 @@ export class EditarperfilusuarioPage implements OnInit {
       if(datos){
 
         this.usuario = datos[0];
-
+        this.inicializarFormulario();
       }
 
     });
   }
 
+  private inicializarFormulario(){
+    if(this.usuario){
+      this.formularioActualizar.patchValue({
+        'nombre': this.usuario.nombre || '',
+        'apellido': this.usuario.apellido || '',
+        'correo': this.usuario.correo || '',
+        'fechanacimiento': this.usuario.fechanacimiento || '',
+        'rut': this.usuario.rut || '',
+        'celular': this.usuario.celular || '',
+        'fotoPerfil': this.usuario.fotoperfil || '',
+      })
+    }
+  }
+
   actualizarUsuario(){
-    if(this.formularioActualizar.valid){
+    if(this.formularioActualizar.valid && this.usuario){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 

@@ -45,18 +45,18 @@ export class EditarperfilconductorPage implements OnInit {
   constructor(private database: DbserviceService, private fb: FormBuilder, private router: Router, private alertController: AlertController) {
 
     this.formularioActualizar = this.fb.group({
-      'nombre': new FormControl(this.usuario?.nombre, []),
-      'apellido': new FormControl(this.usuario?.apellido, []),
-      'correo': new FormControl(this.usuario?.correo, []),
-      'fechanacimiento': new FormControl(this.usuario?.fechanacimiento, []),
-      'rut': new FormControl(this.usuario?.rut, []),
-      'celular': new FormControl(this.usuario?.celular, []),
-      'fotoperfil': new FormControl(this.usuario?.fotoperfil, []),
-      'marca': new FormControl(this.vehiculo?.marca, []),
-      'modelo': new FormControl(this.vehiculo?.modelo, []),
-      'anio': new FormControl(this.vehiculo?.anio, []),
-      'patente': new FormControl(this.vehiculo?.patente, []),
-      'asientos': new FormControl(this.vehiculo?.asientos, []),
+      'nombre': new FormControl(''),
+      'apellido': new FormControl(''),
+      'correo': new FormControl(''),
+      'fechanacimiento': new FormControl(''),
+      'rut': new FormControl(''),
+      'celular': new FormControl(''),
+      'fotoperfil': new FormControl(''),
+      'marca': new FormControl(''),
+      'modelo': new FormControl(''),
+      'anio': new FormControl(''),
+      'patente': new FormControl(''),
+      'asientos': new FormControl(''),
     });
 
   }
@@ -74,6 +74,7 @@ export class EditarperfilconductorPage implements OnInit {
           if(res !== null){
 
             this.vehiculo = res[0];
+            this.inicializarFormulario();
           }
 
         });
@@ -82,6 +83,26 @@ export class EditarperfilconductorPage implements OnInit {
 
     });
 
+  }
+
+  private inicializarFormulario(){
+    if(this.usuario && this.vehiculo){
+      this.formularioActualizar.patchValue({
+        'nombre': this.usuario.nombre || '',
+        'apellido': this.usuario.apellido || '',
+        'correo': this.usuario.correo || '',
+        'fechanacimiento': this.usuario.fechanacimiento || '',
+        'rut': this.usuario.rut || '',
+        'celular': this.usuario.celular || '',
+        'fotoperfil': this.usuario.fotoperfil || '',
+        'marca': this.vehiculo.marca || '',
+        'modelo': this.vehiculo.modelo || '',
+        'anio': this.vehiculo.anio || '',
+        'patente': this.vehiculo.patente || '',
+        'asientos': this.vehiculo.asientos || '',
+      })
+
+    }
   }
 
   actualizarUsuario(){
