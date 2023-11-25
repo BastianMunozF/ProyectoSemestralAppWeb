@@ -63,7 +63,7 @@ export class EditarperfilconductorPage implements OnInit {
 
   ngOnInit() {
 
-    const idUser = localStorage.getItem('id');
+    let idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
       if(datos !== null){

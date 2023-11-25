@@ -48,7 +48,7 @@ export class EditarperfilusuarioPage implements OnInit {
   }
 
   ngOnInit() {
-    const idUser = localStorage.getItem('id');
+    let idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
 
