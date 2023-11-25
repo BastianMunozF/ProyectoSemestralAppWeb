@@ -85,6 +85,28 @@ export class EditarperfilconductorPage implements OnInit {
 
   }
 
+  ionViewWillEnter(){
+    const idUser = localStorage.getItem('id');
+
+    this.database.buscarDatosUsuario(idUser).then((datos) => {
+      if(datos !== null){
+
+        this.usuario = datos[0];
+
+        this.database.buscarVehiculoUsuario(idUser).then(res => {
+          if(res !== null){
+
+            this.vehiculo = res[0];
+            this.inicializarFormulario();
+          }
+
+        });
+
+      }
+
+    });
+  }
+
   private inicializarFormulario(){
     if(this.usuario && this.vehiculo){
       this.formularioActualizar.patchValue({
@@ -119,7 +141,7 @@ export class EditarperfilconductorPage implements OnInit {
               console.log('Datos actualizados correctamente.');
               this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
               this.router.navigate(['/perfilconductor']);
-              this.formularioActualizar.reset();
+              
 
             }
           })

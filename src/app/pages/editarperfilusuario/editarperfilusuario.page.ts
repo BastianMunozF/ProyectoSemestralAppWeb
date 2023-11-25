@@ -61,6 +61,20 @@ export class EditarperfilusuarioPage implements OnInit {
     });
   }
 
+  ionViewWillEnter(){
+    const idUser = localStorage.getItem('id');
+
+    this.database.buscarDatosUsuario(idUser).then((datos) => {
+
+      if(datos){
+
+        this.usuario = datos[0];
+        this.inicializarFormulario();
+      }
+
+    });
+  }
+
   private inicializarFormulario(){
     if(this.usuario){
       this.formularioActualizar.patchValue({
@@ -82,10 +96,13 @@ export class EditarperfilusuarioPage implements OnInit {
 
       this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
+
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
           this.router.navigate(['/perfilusuario']);
-          this.formularioActualizar.reset();
+          this.usuario = form;
+          this.inicializarFormulario();
+
         } else {
           console.log("Error al actualizar datos");
           this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.")
