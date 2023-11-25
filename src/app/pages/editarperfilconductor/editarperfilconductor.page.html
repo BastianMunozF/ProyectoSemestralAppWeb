@@ -15,60 +15,59 @@
       
       <ion-item>
         <ion-label>Nombre:</ion-label>
-        <ion-input formControlName="nombre" type="text">{{ usuario.nombre }}</ion-input>
+        <ion-input formControlName="nombre" type="text" value="{{ usuario.nombre }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Apellido:</ion-label>
-        <ion-input formControlName="apellido" type="text">{{ usuario.apellido }}</ion-input>
+        <ion-input formControlName="apellido" type="text" value="{{ usuario.apellido }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Correo:</ion-label>
-        <ion-input formControlName="correo" type="email">{{ usuario.correo }}</ion-input>
+        <ion-input formControlName="correo" type="email" value="{{ usuario.correo }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Fecha Nacimiento:</ion-label>
-        <ion-input formControlName="fechanacimiento" type="date">{{ usuario.fechanacimiento }}</ion-input>
+        <ion-input formControlName="fechanacimiento" type="date" value="{{ usuario.fechanacimiento }}"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Rut:</ion-label>
-        <ion-input formControlName="rut" type="text" [readonly]="true">{{ usuario.rut }}</ion-input>
+        <ion-input formControlName="rut" type="text" [readonly]="true" value="{{ usuario.rut }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Celular:</ion-label>
-        <ion-input formControlName="celular" type="number">{{ usuario.celular }}</ion-input>
+        <ion-input formControlName="celular" type="number" value="{{ usuario.celular }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <h3>Vehículo</h3>
 
         <ion-label>Marca:</ion-label>
-        <ion-input formControlName="marca" type="text">{{ vehiculo.marca }}</ion-input>
+        <ion-input formControlName="marca" type="text" value="{{ vehiculo.marca }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Modelo:</ion-label>
-        <ion-input formControlName="modelo" type="text">{{ vehiculo.modelo }}</ion-input>
+        <ion-input formControlName="modelo" type="text" value="{{ vehiculo.modelo }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Año:</ion-label>
-        <ion-input formControlName="anio" type="number">{{ vehiculo.anio }}</ion-input>
+        <ion-input formControlName="anio" type="number" value="{{ vehiculo.anio }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Patente:</ion-label>
-        <ion-input formControlName="patente" type="text">{{ vehiculo.patente }}</ion-input>
+        <ion-input formControlName="patente" type="text" value="{{ vehiculo.patente }}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Cantidad de Asientos:</ion-label>
-        <select name="asientos" id="asientos" formControlName="asientos">
-          {{ vehiculo.asientos }}
+        <select name="asientos" id="asientos" formControlName="asientos" value="{{ vehiculo.asientos }}">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
