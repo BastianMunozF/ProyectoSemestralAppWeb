@@ -13,6 +13,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 export class TomarviajePage implements OnInit {
 
   arregloViajes: any;
+  arregloViajeId: any;
   formularioAceptar: FormGroup;
 
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router, private fb: FormBuilder) {
@@ -35,30 +36,38 @@ export class TomarviajePage implements OnInit {
 
       let form = this.formularioAceptar.value;
 
-      this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-        if(res !== null){
-  
+      this.database.buscarViajeId(id_viaje).then(viaje => {
+        
+        if(viaje !== null){
+
+          this.arregloViajeId = viaje[0];
+
           let estado = 'Reservado.';
-          let asientos = this.arregloViajes.cant_asientos - parseInt(form.asientores);
-  
-          this.database.actualizarEstadoViaje(estado, asientos, id_viaje).then(actualizado => {
+          let asientos = this.arregloViajeId.cant_asientos - form.asientores;
 
-            if(actualizado){
+          if(asientos < 0){
 
-              this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-              this.router.navigate(['/menuprincipal']);
-
+            if(asientos <= this.arregloViajeId.cant_asientos){
+              this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+                if(res !== null){
+                  this.database.actualizarEstadoViaje(estado, asientos, id_viaje).then(actualizado => {
+                    if(actualizado){
+                      this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+                      this.router.navigate(['/menuprincipal']);
+                    } else {
+                      this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
+                    }
+                  });
+                }
+              });
             } else {
-
-              this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-
+              this.presentarAlerta("Error al aceptar viaje", "Los asientos que desea reservar son mayores a los asientos disponibles")
             }
-          })
-  
+          } else {
+            this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
+          }
         } else {
-
-          this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-
+          this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
         }
       });
     }
