@@ -14,13 +14,8 @@ export class TomarviajePage implements OnInit {
 
   arregloViajes: any;
   arregloViajeId: any;
-  formularioAceptar: FormGroup;
 
-  constructor(private alertController: AlertController, private database: DbserviceService, private router: Router, private fb: FormBuilder) {
-    this.formularioAceptar = this.fb.group({
-      'asientores': new FormControl("", [Validators.required])
-    })
-  }
+  constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
     this.database.buscarViaje().then((data) => {
@@ -32,45 +27,46 @@ export class TomarviajePage implements OnInit {
 
     let id_usuario = localStorage.getItem('id');
 
-    if(this.formularioAceptar.valid){
-
-      let form = this.formularioAceptar.value;
-
-      this.database.buscarViajeId(id_viaje).then(viaje => {
+    this.database.buscarViajeId(id_viaje).then(viaje => {
         
-        if(viaje !== null){
+      if(viaje !== null){
 
-          this.arregloViajeId = viaje[0];
+        this.arregloViajeId = viaje[0];
 
-          let estado = 'Reservado.';
-          let asientos = this.arregloViajeId.cant_asientos - form.asientores;
+        let asientos = this.arregloViajeId.cant_asientos - 1;
 
-          if(asientos < 0){
+        if(asientos > 0){
 
-            if(asientos < this.arregloViajeId.cant_asientos){
-              this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-                if(res !== null){
-                  this.database.actualizarEstadoViaje(estado, asientos, id_viaje).then(actualizado => {
-                    if(actualizado){
-                      this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-                      this.router.navigate(['/menuprincipal']);
-                    } else {
-                      this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-                    }
-                  });
+          this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+            if(res !== null){
+
+              this.database.actualizarEstadoViaje(asientos, id_viaje).then(actualizado => {
+                if(actualizado){
+
+                  this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+                  this.router.navigate(['/menuprincipal']);
+
+                } else {
+
+                  this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
+
                 }
+
               });
-            } else {
-              this.presentarAlerta("Error al aceptar viaje", "Los asientos que desea reservar son mayores a los asientos disponibles")
             }
-          } else {
-            this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
-          }
+
+          });
+
         } else {
-          this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
+
+          this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
+
         }
-      });
-    }
+      } else {
+        this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
+      }
+    });
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

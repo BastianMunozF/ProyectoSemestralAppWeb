@@ -424,7 +424,7 @@ export class DbserviceService {
 
       console.error('Error al actualizar usuario en base de datos:', error);
 
-    })
+    });
   }
 
   actualizarVehiculo(marca: any, modelo: any, anio: any, patente: any, asientos: any, id: any){
@@ -452,12 +452,12 @@ export class DbserviceService {
     })
   }
 
-  actualizarEstadoViaje(estado: any, asientos: any, id_viaje: any){
-    return this.database.executeSql('UPDATE viaje SET estado = ?, cant_asientos = ? WHERE id_viaje = ?', [estado, asientos, id_viaje]).then(res => {
+  actualizarEstadoViaje(asientos: any, id_viaje: any){
+    return this.database.executeSql('UPDATE viaje SET cant_asientos = ? WHERE id_viaje = ?', [asientos, id_viaje]).then(res => {
       if(res){
         return true;
       } else {
-        this.presentAlert("Error al actualizar estado de viaje")
+        this.presentAlert("Error al actualizar estado de viaje");
         return null;
       }
     });
