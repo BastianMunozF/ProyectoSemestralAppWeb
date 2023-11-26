@@ -74,13 +74,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modificarcontrasena/modificarcontrasena.module').then( m => m.ModificarcontrasenaPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
     path: 'viajesiniciados',
     loadChildren: () => import('./pages/viajesiniciados/viajesiniciados.module').then( m => m.ViajesiniciadosPageModule)
   },
-
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
 ];
 
 @NgModule({
