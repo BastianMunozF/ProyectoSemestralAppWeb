@@ -61,6 +61,22 @@ export class HistorialconductorPage implements OnInit {
     });
   }
 
+  comenzarViaje(id_viaje: any){
+
+    let estado = 'Viaje Iniciado.';
+    this.database.actualizarViaje(estado, id_viaje).then(viajeActualizado => {
+      if(viajeActualizado){
+
+        this.presentarAlerta("Viaje iniciado", "Su viaje ha sido iniciado con éxito.");
+
+      } else {
+
+        this.presentarAlerta("Error al comenzar viaje", "Su viaje no ha podido ser iniciado.");
+
+      }
+    })
+  }
+
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({
       header: titulo,

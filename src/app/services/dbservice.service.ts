@@ -225,6 +225,35 @@ export class DbserviceService {
     });
   }
 
+  buscarViajeAceptado(estado: any){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
+    return this.database.executeSql('SELECT * FROM viaje WHERE estado = ?', [estado]).then(res => {
+      let viaje: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          viaje.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario,
+          })
+        }
+      }
+
+      return viaje;
+
+    })
+  }
+
   buscarViaje(){
     if (!this.database) {
       console.error('La base de datos no está inicializada.');
@@ -457,10 +486,25 @@ export class DbserviceService {
       if(res){
         return true;
       } else {
-        this.presentAlert("Error al actualizar estado de viaje");
+        this.presentAlert("Error al actualizar estado de viaje.");
         return null;
       }
     });
+  }
+
+  actualizarViaje(estado: any, id_viaje: any){
+    return this.database.executeSql('UPDATE viaje SET estado = ? WHERE id_viaje = ?', [estado, id_viaje]).then(res => {
+      if(res){
+
+        return true;
+
+      } else {
+
+        this.presentAlert("Error al actualizar estado del viaje.");
+        return null;
+
+      }
+    })
   }
 
   verificarContrasena(id: any){

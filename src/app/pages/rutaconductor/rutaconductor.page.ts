@@ -37,7 +37,7 @@ export class RutaconductorPage implements OnInit {
     if(this.formularioRuta.valid){
 
       let form = this.formularioRuta.value;
-      let estado = 'Pendiente..';
+      let estado = 'Pendiente...';
 
       let id_conductor = localStorage.getItem('id');
 

@@ -76,7 +76,11 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },  {
+    path: 'viajesiniciados',
+    loadChildren: () => import('./pages/viajesiniciados/viajesiniciados.module').then( m => m.ViajesiniciadosPageModule)
   },
+
 ];
 
 @NgModule({
