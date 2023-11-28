@@ -23,23 +23,31 @@ export class PerfilusuarioPage implements OnInit {
   celular: any;
   fotoPerfil: string | undefined;
 
-  constructor(private database: DbserviceService) {
-    const userId = localStorage.getItem('id')
+  arregloUsuario: any = [
+    {
+      id_usuario: '',
+      nombre: '',
+      apellido: '',
+      correo: '',
+      fechanacimiento: '',
+      rut: '',
+      celular: '',
+      contrasena: '',
+      fotoperfil: '',
+    }
+  ]
 
-
-    this.database.buscarDatosUsuario(userId).then((perfil) => {
-      this.usuario = perfil[0];
-
-      this.nombre = this.usuario.nombre;
-      this.apellido = this.usuario.apellido;
-      this.correo = this.usuario.correo;
-      this.fechanacimiento = this.usuario.fechanacimiento;
-      this.rut = this.usuario.rut;
-      this.celular = this.usuario.celular;
-      this.fotoPerfil = this.usuario.fotoperfil;
-    })
-  }
+  constructor(private database: DbserviceService) { }
 
   ngOnInit() {
+
+    //Suscribir a observable de la base de datos.
+    this.database.dbState().subscribe(res => {
+      if(res){
+        this.database.fetchUsuario().subscribe(datos => {
+          this.arregloUsuario = datos;
+        })
+      }
+    })
   }
 }

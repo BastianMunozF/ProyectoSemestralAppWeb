@@ -19,33 +19,33 @@
 
       <ion-item>
         <ion-label position="stacked">Foto de Perfil</ion-label>
-        <div class="profile-picture" *ngIf="fotoPerfil">
-          <img [src]="fotoPerfil" alt="Foto de perfil">
+        <div class="profile-picture" *ngIf="arregloUsuario.fotoperfil">
+          <img [src]="arregloUsuario.fotoperfil" alt="Foto de perfil">
         </div>
       </ion-item>
 
       <ion-item>  
-        <ion-label>Nombre: {{ nombre }}</ion-label>
+        <ion-label>Nombre: {{ arregloUsuario.nombre }}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>Apellido: {{ apellido }}</ion-label>
+        <ion-label>Apellido: {{ arregloUsuario.apellido }}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>Correo: {{ correo }}</ion-label>
+        <ion-label>Correo: {{ arregloUsuario.correo }}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>Fecha Nacimiento: {{ fechanacimiento }}</ion-label>
+        <ion-label>Fecha Nacimiento: {{ arregloUsuario.fechanacimiento }}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>Rut: {{ rut }}</ion-label>
+        <ion-label>Rut: {{ arregloUsuario.rut }}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label>Celular: {{ celular }}</ion-label>
+        <ion-label>Celular: {{ arregloUsuario.celular }}</ion-label>
       </ion-item>
 
       <ion-button color="primary" [routerLink]="['/editarperfilusuario']">Editar</ion-button>
