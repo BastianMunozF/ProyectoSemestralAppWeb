@@ -79,9 +79,6 @@ export class DbserviceService {
   buscarCorreo(correo: string, contrasena: string){
     return this.database.executeSql('SELECT id, id_rol FROM usuario WHERE correo = ? AND contrasena = ?', [correo, contrasena]).then(res => {
       if(res.rows.length > 0){
-
-        let id_user = localStorage.getItem('id');
-        this.buscarDatosUsuario(id_user);
         return res.rows.item(0);
       } else {
         return null;
@@ -116,7 +113,7 @@ export class DbserviceService {
         }
       }
 
-      this.listaUsuario.next(datos as any)
+      this.listaUsuario.next(datos as any);
       return datos;
 
     });
