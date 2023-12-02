@@ -41,6 +41,8 @@ export class PerfilusuarioPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+    let id_user = localStorage.getItem('id')
+    this.database.buscarDatosUsuario(id_user);
 
     //Suscribir a observable de la base de datos.
     this.database.dbState().subscribe(res => {

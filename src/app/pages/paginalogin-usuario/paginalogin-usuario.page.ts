@@ -48,9 +48,7 @@ export class PaginaloginUsuarioPage implements OnInit {
           if(user_rol === '1'){
             this.router.navigate(['/menuprincipal']).then(() => {
 
-              let id_user = localStorage.getItem('id')?.toString();
               this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
-              this.database.buscarDatosUsuario(id_user);
 
             })
           } else if (user_rol = '2'){
