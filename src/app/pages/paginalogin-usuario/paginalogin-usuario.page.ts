@@ -47,16 +47,22 @@ export class PaginaloginUsuarioPage implements OnInit {
 
           if(user_rol === '1'){
             this.router.navigate(['/menuprincipal']).then(() => {
-              let id_user = localStorage.getItem('id');
+
+              let id_user = localStorage.getItem('id')?.toString();
               this.presentarAlerta("Sesión iniciada", "La sesión ha sido iniciada con éxito.");
               this.database.buscarDatosUsuario(id_user);
+
             })
           } else if (user_rol = '2'){
+
             this.router.navigate(['/menuprincipalconductor']).then(() => {
               this.presentarAlerta("Sesión iniciada", "La sesión de conductor ha sido iniciada con éxito.");
             })
+
           } else {
-            this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.")
+
+            this.presentarAlerta("Error al iniciar sesión", "Los datos ingresados no existen.");
+
           }
           
           this.formularioLogin.reset();

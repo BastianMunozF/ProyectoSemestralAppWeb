@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Usuario } from 'src/app/services/usuario';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfilusuario',
@@ -37,17 +38,33 @@ export class PerfilusuarioPage implements OnInit {
     }
   ]
 
-  constructor(private database: DbserviceService) { }
+  constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
 
     //Suscribir a observable de la base de datos.
     this.database.dbState().subscribe(res => {
       if(res){
-        this.database.fetchUsuario().subscribe(datos => {
-          this.arregloUsuario = datos;
+        console.log('Estado de la base de datos: ', res)
+        this.database.fetchUsuarioId().subscribe(datos => {
+          if(datos.length > 0){
+            this.arregloUsuario = datos;
+          } else {
+            this.presentarAlerta("Datos no encontrados", "No han sido encontrados sus datos de usuario.");
+          }
         })
       }
     })
   }
+
+  async presentarAlerta(titulo: string, mensaje: string){
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
 }

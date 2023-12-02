@@ -7,6 +7,7 @@ import { Usuario } from './usuario';
 import { Vehiculo } from './vehiculo';
 import { Viaje } from './viaje';
 import { Detalle } from './detalle';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,8 @@ export class DbserviceService {
 
   listaVehiculo = new BehaviorSubject([]);
 
+  listaUsuarioId = new BehaviorSubject([]);
+
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
@@ -74,6 +77,10 @@ export class DbserviceService {
 
   fetchViaje(): Observable<Viaje[]>{
     return this.listaViaje.asObservable();
+  }
+
+  fetchUsuarioId(): Observable<Usuario[]>{
+    return this.listaUsuarioId.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -113,7 +120,7 @@ export class DbserviceService {
         }
       }
 
-      this.listaUsuario.next(datos as any);
+      this.listaUsuarioId.next(datos as any);
       return datos;
 
     });
