@@ -41,25 +41,28 @@ export class PerfilusuarioPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+
     let id_user = localStorage.getItem('id')
     this.database.buscarDatosUsuario(id_user);
 
     //Suscribir a observable de la base de datos.
-    this.database.dbState().subscribe(res => {
-      if(res){
-        console.log('Estado de la base de datos: ', res)
-        this.database.fetchUsuarioId().subscribe(datos => {
-          if(datos.length > 0){
-            this.arregloUsuario = datos;
-          } else {
-            this.presentarAlerta("Datos no encontrados", "No han sido encontrados sus datos de usuario.");
-          }
-        })
+    this.database.fetchUsuarioId().subscribe(datos => {
+      if(datos.length > 0){
+
+        console.log('Datos del usuario: ', datos);
+        this.arregloUsuario = datos;
+
+      } else {
+
+        console.log('Datos no encontrados.');
+        this.presentarAlerta("Datos no encontrados", "No han sido encontrados sus datos de usuario.");
+
       }
-    })
+    });
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
+
     const alert = await this.alertController.create({
       header: titulo,
       message: mensaje,
