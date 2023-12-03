@@ -38,33 +38,11 @@ export class EditarperfilusuarioPage implements OnInit {
   }
 
   ngOnInit() {
-    let idUser = localStorage.getItem('id');
-
-    this.database.buscarDatosUsuario(idUser).then((datos) => {
-
-      if(datos){
-
-        this.usuario = datos[0];
-        this.inicializarFormulario();
-
-      }
-
-    });
+    this.cargarDatosUsuario();
   }
 
   ionViewWillEnter(){
-    const idUser = localStorage.getItem('id');
-
-    this.database.buscarDatosUsuario(idUser).then((datos) => {
-
-      if(datos){
-
-        this.usuario = datos[0];
-        this.inicializarFormulario();
-
-      }
-
-    });
+    this.cargarDatosUsuario();
   }
 
   private inicializarFormulario(){
@@ -80,6 +58,21 @@ export class EditarperfilusuarioPage implements OnInit {
     }
   }
 
+  private cargarDatosUsuario(){
+    const idUser = localStorage.getItem('id');
+
+    this.database.buscarDatosUsuario(idUser).then((datos) => {
+
+      if(datos){
+
+        this.usuario = datos[0];
+        this.inicializarFormulario();
+
+      }
+
+    });
+  }
+
   actualizarUsuario(){
     if(this.formularioActualizar.valid && this.usuario){
       let form = this.formularioActualizar.value;
@@ -92,7 +85,7 @@ export class EditarperfilusuarioPage implements OnInit {
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
           this.router.navigate(['/perfilusuario']);
           this.usuario = form;
-          this.inicializarFormulario();
+          this.cargarDatosUsuario();
 
         } else {
           console.log("Error al actualizar datos");
@@ -119,6 +112,7 @@ export class EditarperfilusuarioPage implements OnInit {
       if (image && image.dataUrl) {
         this.image = image;
         this.fotoPerfil = image.dataUrl;
+        this.inicializarFormulario();
       } else {
         console.error('La imagen capturada es indefinida o no tiene dataUrl.');
         this.fotoPerfil = '';
@@ -136,6 +130,7 @@ export class EditarperfilusuarioPage implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.fotoPerfil = e.target.result;
+        this.inicializarFormulario();
       };
       reader.readAsDataURL(selectedFile);
     } else {
