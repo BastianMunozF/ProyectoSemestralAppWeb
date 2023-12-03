@@ -78,7 +78,6 @@ export class EditarperfilusuarioPage implements OnInit {
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
-        'FotoPerfil': this.usuario.fotoperfil || '',
       })
     }
   }
