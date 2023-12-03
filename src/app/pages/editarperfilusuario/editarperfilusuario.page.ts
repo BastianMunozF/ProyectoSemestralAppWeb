@@ -29,7 +29,6 @@ export class EditarperfilusuarioPage implements OnInit {
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
 
-      'FotoPerfil': new FormControl(''),
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
