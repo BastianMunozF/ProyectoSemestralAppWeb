@@ -28,14 +28,12 @@ export class EditarperfilusuarioPage implements OnInit {
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
-
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
-
     });
   }
 
