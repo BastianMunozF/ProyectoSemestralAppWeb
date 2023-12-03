@@ -20,13 +20,6 @@ export class EditarperfilusuarioPage implements OnInit {
 
   usuario: Usuario | undefined;
 
-  //Variables para guardar datos del usuario
-  nombreU: string = "";
-  apellidoU: string = "";
-  correoU: string = "";
-  fechanacimientoU: any;
-  rutU: string = "";
-  celularU: any;
   fotoPerfil: string | undefined;
   image: any;
   imageSource: string | undefined;
@@ -36,13 +29,13 @@ export class EditarperfilusuarioPage implements OnInit {
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
 
+      'FotoPerfil': new FormControl(''),
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
-      'FotoPerfil': new FormControl('')
 
     });
   }
