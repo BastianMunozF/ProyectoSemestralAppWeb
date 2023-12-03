@@ -28,6 +28,7 @@ export class EditarperfilusuarioPage implements OnInit {
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
+      'fotoperfil': new FormControl(''),
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
@@ -38,27 +39,21 @@ export class EditarperfilusuarioPage implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarDatosUsuario();
+    let idUser = localStorage.getItem('id');
+
+    this.database.buscarDatosUsuario(idUser).then((datos) => {
+
+      if(datos){
+
+        this.usuario = datos[0];
+        this.inicializarFormulario();
+
+      }
+
+    });
   }
 
   ionViewWillEnter(){
-    this.cargarDatosUsuario();
-  }
-
-  private inicializarFormulario(){
-    if(this.usuario){
-      this.formularioActualizar.patchValue({
-        'nombre': this.usuario.nombre || '',
-        'apellido': this.usuario.apellido || '',
-        'correo': this.usuario.correo || '',
-        'fechanacimiento': this.usuario.fechanacimiento || '',
-        'rut': this.usuario.rut || '',
-        'celular': this.usuario.celular || '',
-      })
-    }
-  }
-
-  private cargarDatosUsuario(){
     const idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
@@ -73,19 +68,32 @@ export class EditarperfilusuarioPage implements OnInit {
     });
   }
 
+  private inicializarFormulario(){
+    if(this.usuario){
+      this.formularioActualizar.patchValue({
+        'fotoperfil': this.usuario.fotoperfil,
+        'nombre': this.usuario.nombre || '',
+        'apellido': this.usuario.apellido || '',
+        'correo': this.usuario.correo || '',
+        'fechanacimiento': this.usuario.fechanacimiento || '',
+        'rut': this.usuario.rut || '',
+        'celular': this.usuario.celular || '',
+      })
+    }
+  }
+
   actualizarUsuario(){
     if(this.formularioActualizar.valid && this.usuario){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, this.fotoPerfil, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
           this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
           this.router.navigate(['/perfilusuario']);
           this.usuario = form;
-          this.cargarDatosUsuario();
           this.inicializarFormulario();
 
         } else {
@@ -113,7 +121,6 @@ export class EditarperfilusuarioPage implements OnInit {
       if (image && image.dataUrl) {
         this.image = image;
         this.fotoPerfil = image.dataUrl;
-        this.inicializarFormulario();
       } else {
         console.error('La imagen capturada es indefinida o no tiene dataUrl.');
         this.fotoPerfil = '';
@@ -131,7 +138,6 @@ export class EditarperfilusuarioPage implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.fotoPerfil = e.target.result;
-        this.inicializarFormulario();
       };
       reader.readAsDataURL(selectedFile);
     } else {
