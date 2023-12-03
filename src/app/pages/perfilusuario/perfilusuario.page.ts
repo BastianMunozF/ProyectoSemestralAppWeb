@@ -55,7 +55,6 @@ export class PerfilusuarioPage implements OnInit {
       } else {
 
         console.log('Datos no encontrados.');
-        this.presentarAlerta("Datos no encontrados", "No han sido encontrados sus datos de usuario.");
 
       }
     });

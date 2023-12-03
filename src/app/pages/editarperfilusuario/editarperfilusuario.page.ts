@@ -42,7 +42,7 @@ export class EditarperfilusuarioPage implements OnInit {
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
-      'fotoPerfil': new FormControl('')
+      'FotoPerfil': new FormControl('')
 
     });
   }
@@ -56,6 +56,7 @@ export class EditarperfilusuarioPage implements OnInit {
 
         this.usuario = datos[0];
         this.inicializarFormulario();
+
       }
 
     });
@@ -70,6 +71,7 @@ export class EditarperfilusuarioPage implements OnInit {
 
         this.usuario = datos[0];
         this.inicializarFormulario();
+
       }
 
     });
@@ -84,7 +86,7 @@ export class EditarperfilusuarioPage implements OnInit {
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
-        'fotoPerfil': this.usuario.fotoperfil || '',
+        'FotoPerfil': this.usuario.fotoperfil || '',
       })
     }
   }
