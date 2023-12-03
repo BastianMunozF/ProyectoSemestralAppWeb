@@ -42,7 +42,7 @@ export class EditarperfilusuarioPage implements OnInit {
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
-      'FotoPerfil': new FormControl('')
+      'fotoPerfil': new FormControl('')
 
     });
   }
@@ -86,7 +86,7 @@ export class EditarperfilusuarioPage implements OnInit {
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
-        'FotoPerfil': this.usuario.fotoperfil || '',
+        'fotoPerfil': this.usuario.fotoperfil || '',
       })
     }
   }
@@ -96,7 +96,7 @@ export class EditarperfilusuarioPage implements OnInit {
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, this.fotoPerfil, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
