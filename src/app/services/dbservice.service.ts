@@ -451,6 +451,8 @@ export class DbserviceService {
     return this.database.executeSql('UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, fechanacimiento = ?, rut = ?, celular = ?, fotoperfil = ? WHERE id = ?',[nombre, apellido, correo, fechanacimiento, rut, celular, foto, id]).then(res=>{
       if(res){
 
+        let id = localStorage.getItem('id');
+        this.buscarDatosUsuario(id);
         return true;
 
       } else {
