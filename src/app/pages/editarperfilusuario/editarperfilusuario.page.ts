@@ -20,6 +20,13 @@ export class EditarperfilusuarioPage implements OnInit {
 
   usuario: Usuario | undefined;
 
+  //Variables para guardar datos del usuario
+  nombreU: string = "";
+  apellidoU: string = "";
+  correoU: string = "";
+  fechanacimientoU: any;
+  rutU: string = "";
+  celularU: any;
   fotoPerfil: string | undefined;
   image: any;
   imageSource: string | undefined;
@@ -28,13 +35,15 @@ export class EditarperfilusuarioPage implements OnInit {
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
-      'fotoperfil': new FormControl(''),
+
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
+      'FotoPerfil': new FormControl('')
+
     });
   }
 
@@ -71,13 +80,13 @@ export class EditarperfilusuarioPage implements OnInit {
   private inicializarFormulario(){
     if(this.usuario){
       this.formularioActualizar.patchValue({
-        'fotoperfil': this.usuario.fotoperfil,
         'nombre': this.usuario.nombre || '',
         'apellido': this.usuario.apellido || '',
         'correo': this.usuario.correo || '',
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
+        'FotoPerfil': this.usuario.fotoperfil || '',
       })
     }
   }
@@ -87,7 +96,7 @@ export class EditarperfilusuarioPage implements OnInit {
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id')
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, this.fotoPerfil, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
