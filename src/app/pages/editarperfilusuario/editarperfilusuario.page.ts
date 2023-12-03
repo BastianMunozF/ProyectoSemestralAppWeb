@@ -86,6 +86,7 @@ export class EditarperfilusuarioPage implements OnInit {
           this.router.navigate(['/perfilusuario']);
           this.usuario = form;
           this.cargarDatosUsuario();
+          this.inicializarFormulario();
 
         } else {
           console.log("Error al actualizar datos");
