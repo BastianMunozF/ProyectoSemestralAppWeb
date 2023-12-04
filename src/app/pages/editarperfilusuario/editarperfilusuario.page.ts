@@ -18,18 +18,16 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class EditarperfilusuarioPage implements OnInit {
 
+  formularioActualizar: FormGroup;
   usuario: Usuario | undefined;
-
-  fotoPerfil: string | undefined;
   image: any;
   imageSource: string | undefined;
 
-  formularioActualizar!: FormGroup;
+  fotoPerfil: string | undefined;
 
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
 
-      'fotoPerfil': new FormControl(''),
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
@@ -73,7 +71,6 @@ export class EditarperfilusuarioPage implements OnInit {
   private inicializarFormulario(){
     if(this.usuario){
       this.formularioActualizar.patchValue({
-        'fotoPerfil': this.usuario.fotoperfil || '',
         'nombre': this.usuario.nombre || '',
         'apellido': this.usuario.apellido || '',
         'correo': this.usuario.correo || '',
@@ -124,9 +121,10 @@ export class EditarperfilusuarioPage implements OnInit {
     if(this.formularioActualizar.valid){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id');
-      form.fotoPerfil = this.fotoPerfil;
+      let foto = this.usuario?.fotoperfil;
+      foto = this.fotoPerfil;
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, foto, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
