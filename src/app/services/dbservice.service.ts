@@ -53,6 +53,8 @@ export class DbserviceService {
 
   listaVehiculo = new BehaviorSubject([]);
 
+  listaVehiculoUser = new BehaviorSubject([]);
+
   listaUsuarioId = new BehaviorSubject([]);
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
@@ -81,6 +83,10 @@ export class DbserviceService {
 
   fetchUsuarioId(): Observable<Usuario[]>{
     return this.listaUsuarioId.asObservable();
+  }
+
+  fetchVehiculoUser(): Observable<Vehiculo[]>{
+    return this.listaVehiculoUser.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -148,6 +154,7 @@ export class DbserviceService {
           });
         }
       }
+      this.listaVehiculoUser.next(datos as any);
       return datos;
     });
   }
