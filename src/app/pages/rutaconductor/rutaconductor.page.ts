@@ -17,6 +17,19 @@ export class RutaconductorPage implements OnInit {
   vehiculo!: Vehiculo;
   asientos: any;
 
+  arregloVehiculo: any = [
+    {
+      id_vehiculo: '',
+      marca: '',
+      modelo: '',
+      anio: '',
+      patente: '',
+      asientos: '',
+      id_usuario: '',
+      id_tipo: '',
+    }
+  ]
+
   constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder, private database: DbserviceService) {
 
     this.formularioRuta = this.formBuilder.group({
@@ -42,11 +55,11 @@ export class RutaconductorPage implements OnInit {
       let id_conductor = localStorage.getItem('id');
 
       this.database.buscarVehiculoUsuario(id_conductor).then(res => {
-        if(res !== null){
+        if(res.length > 0){
 
-          this.vehiculo = res[0];
+          this.arregloVehiculo = res;
 
-          if(this.vehiculo.asientos >= form.cant_asientos){
+          if(this.arregloVehiculo.asientos >= form.cant_asientos){
 
             this.database.insertarRutaC(form.f_viaje, form.hora_salida, form.salida, form.destino, form.cant_asientos, form.valor_asiento, estado, id_conductor).then(res => {
 
@@ -74,8 +87,11 @@ export class RutaconductorPage implements OnInit {
             this.presentarAlerta("Error al crear viaje", "La cantidad de asientos ingresada es mayor a los asientos del vehículo registrado.");
 
           }
+
         } else {
-          this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de crear un viaje.")
+
+          this.presentarAlerta("Error al crear viaje", "Debe registrar un vehículo antes de crear un viaje.");
+
         }
 
       });
