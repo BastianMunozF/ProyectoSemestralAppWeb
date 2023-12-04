@@ -14,7 +14,7 @@
 
     <ion-card-content>
 
-      <ion-item *ngFor="let usuario of arregloUsuario">
+      <ion-item-sliding *ngFor="let usuario of arregloUsuario">
         <ion-item>
           <ion-label position="stacked">Foto de Perfil</ion-label>
           <div class="profile-picture" *ngIf="usuario.fotoperfil">
@@ -47,7 +47,7 @@
         </ion-item>
       </ion-item>
 
-      <ion-item *ngFor="let vehiculo of arregloVehiculo">
+      <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
         <ion-item>
           <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
         </ion-item>
