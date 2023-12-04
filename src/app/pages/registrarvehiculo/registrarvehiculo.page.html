@@ -12,23 +12,23 @@
     <ion-card-content>
       <form [formGroup]="formularioVehiculo" (ngSubmit)="guardarVehiculo()">
         <ion-item>
-          <ion-label position="floating" required>Marca:</ion-label>
+          <ion-label>Marca:</ion-label>
           <ion-input formControlName="marca" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating" required>Modelo:</ion-label>
+          <ion-label>Modelo:</ion-label>
           <ion-input formControlName="modelo" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating" required>Año:</ion-label>
+          <ion-label>Año:</ion-label>
           <ion-input formControlName="annio" type="number"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating" required>Patente:</ion-label>
+          <ion-label>Patente:</ion-label>
           <ion-input formControlName="patente" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating" required>Asientos:</ion-label>
+          <ion-label>Asientos:</ion-label>
           <select name="cant_asientos" id="cant_asientos">
             <option value="1">1</option>
             <option value="2">2</option>
