@@ -20,13 +20,6 @@ export class EditarperfilusuarioPage implements OnInit {
 
   usuario: Usuario | undefined;
 
-  //Variables para guardar datos del usuario
-  nombreU: string = "";
-  apellidoU: string = "";
-  correoU: string = "";
-  fechanacimientoU: any;
-  rutU: string = "";
-  celularU: any;
   fotoPerfil: string | undefined;
   image: any;
   imageSource: string | undefined;
@@ -41,8 +34,7 @@ export class EditarperfilusuarioPage implements OnInit {
       'correo': new FormControl(''),
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
-      'celular': new FormControl(''),
-      'fotoPerfil': new FormControl('')
+      'celular': new FormControl('')
 
     });
   }
@@ -86,36 +78,7 @@ export class EditarperfilusuarioPage implements OnInit {
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
-        'fotoPerfil': this.usuario.fotoperfil || '',
       })
-    }
-  }
-
-  actualizarUsuario(){
-    if(this.formularioActualizar.valid && this.usuario){
-      let form = this.formularioActualizar.value;
-      let id = localStorage.getItem('id')
-      form.fotoPerfil = this.fotoPerfil;
-
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
-        if(res !== null){
-
-          console.log('Datos actualizados correctamente.');
-          this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
-          this.router.navigate(['/perfilusuario']);
-          this.usuario = form;
-          this.inicializarFormulario();
-
-        } else {
-          console.log("Error al actualizar datos");
-          this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.")
-        }
-      }).catch(error => {
-        console.error("Error en base de datos al actualizar datos: ", error)
-      })
-
-    } else {
-      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
     }
   }
 
@@ -152,6 +115,33 @@ export class EditarperfilusuarioPage implements OnInit {
       reader.readAsDataURL(selectedFile);
     } else {
       this.fotoPerfil = '';
+    }
+  }
+
+  actualizarUsuario(){
+    if(this.formularioActualizar.valid){
+      let form = this.formularioActualizar.value;
+      let id = localStorage.getItem('id');
+
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, this.fotoPerfil, id).then(res => {
+        if(res !== null){
+
+          console.log('Datos actualizados correctamente.');
+          this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
+          this.router.navigate(['/perfilusuario']);
+          this.usuario = form;
+          this.inicializarFormulario();
+
+        } else {
+          console.log("Error al actualizar datos");
+          this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.")
+        }
+      }).catch(error => {
+        console.error("Error en base de datos al actualizar datos: ", error)
+      })
+
+    } else {
+      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.")
     }
   }
 

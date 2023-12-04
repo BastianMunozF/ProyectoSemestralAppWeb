@@ -13,12 +13,10 @@
     </ion-card-title>
     <form [formGroup]="formularioActualizar" (ngSubmit)="actualizarUsuario()">
 
-      <ion-item>
-        <div id="container">
-          <ion-button (click)="takePicture()" >Actualizar Foto de Perfil</ion-button>
-          <img formControlName="fotoPerfil" *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" style="width: 100%;max-width: 250px;">
-        </div>
-      </ion-item>
+      <div id="container">
+        <ion-button (click)="takePicture()" >Actualizar Foto de Perfil</ion-button>
+        <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" style="width: 100%;max-width: 250px;">
+      </div>
       
       <ion-item>
         <ion-label>Nombre:</ion-label>
