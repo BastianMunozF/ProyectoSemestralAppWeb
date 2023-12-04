@@ -29,6 +29,7 @@ export class EditarperfilusuarioPage implements OnInit {
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
 
+      'fotoPerfil': new FormControl(''),
       'nombre': new FormControl(''),
       'apellido': new FormControl(''),
       'correo': new FormControl(''),
@@ -72,6 +73,7 @@ export class EditarperfilusuarioPage implements OnInit {
   private inicializarFormulario(){
     if(this.usuario){
       this.formularioActualizar.patchValue({
+        'fotoPerfil': this.usuario.fotoperfil || '',
         'nombre': this.usuario.nombre || '',
         'apellido': this.usuario.apellido || '',
         'correo': this.usuario.correo || '',
@@ -119,12 +121,11 @@ export class EditarperfilusuarioPage implements OnInit {
   }
 
   actualizarUsuario(){
-    if(this.formularioActualizar.valid && this.usuario){
+    if(this.formularioActualizar.valid){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id');
-      let foto = this.fotoPerfil;
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, foto, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
