@@ -12,61 +12,54 @@ import { Vehiculo } from 'src/app/services/vehiculo';
 export class PerfilconductorPage implements OnInit {
   image: any;
   imageSource: string | undefined;
-  fotoPerfil: string | undefined;
-
   usuario!: Usuario;
   vehiculo!: Vehiculo;
 
-  arregloUsuario: any = [
-    {
-      id_usuario: '',
-      nombre: '',
-      apellido: '',
-      correo: '',
-      fechanacimiento: '',
-      rut: '',
-      celular: '',
-      contrasena: '',
-      fotoperfil: '',
-    }
-  ]
+  //Variables para guardar datos del usuario
+  nombre: string = "";
+  apellido: string = "";
+  correo: string = "";
+  fechanacimiento: any;
+  rut: string = "";
+  celular: any;
 
-  arregloVehiculo: any = [
-    {
-      id_vehiculo: '',
-      marca: '',
-      modelo: '',
-      anio: '',
-      patente: '',
-      asientos: '',
-      id_usuario: '',
-      id_tipo: '',
-    }
-  ]
+  //Variables para guardar datos del vehiculo del usuario
+  marca: any;
+  modelo: any;
+  annio: any;
+  patente: any;
+  asientos: any;
+  tipo_vehiculo: any;
+  fotoPerfil: string | undefined;
+
+  constructor(private database: DbserviceService) {
+    const userId = localStorage.getItem('id')
 
 
-  constructor(private database: DbserviceService) { }
+    this.database.buscarDatosUsuario(userId).then((perfil) => {
+      this.usuario = perfil[0];
+
+      this.nombre = this.usuario.nombre;
+      this.apellido = this.usuario.apellido;
+      this.correo = this.usuario.correo;
+      this.fechanacimiento = this.usuario.fechanacimiento;
+      this.rut = this.usuario.rut;
+      this.celular = this.usuario.celular;
+      this.fotoPerfil = this.usuario.fotoperfil;
+    });
+
+    this.database.buscarVehiculoUsuario(userId).then((perfil) => {
+      this.vehiculo = perfil[0];
+
+      this.marca = this.vehiculo.marca;
+      this.modelo = this.vehiculo.modelo;
+      this.annio = this.vehiculo.anio;
+      this.patente = this.vehiculo.patente;
+      this.asientos = this.vehiculo.asientos;
+      this.tipo_vehiculo = this.vehiculo.id_tipo;
+    });
+  }
 
   ngOnInit() {
-    let id_user = localStorage.getItem('id');
-
-    this.database.buscarDatosUsuario(id_user);
-    this.database.buscarVehiculoUsuario(id_user);
-
-    this.database.fetchUsuarioId().subscribe(datos => {
-      if(datos.length > 0){
-
-        console.log('Datos del usuario: ', datos);
-        this.arregloUsuario = datos;
-
-      }
-    })
-
-    this.database.fetchVehiculoUser().subscribe(datos => {
-
-      console.log('Vehículo del usuario: ', datos);
-      this.arregloVehiculo = datos;
-
-    })
   }
 }
