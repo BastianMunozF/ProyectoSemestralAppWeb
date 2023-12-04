@@ -21,24 +21,10 @@ export class EditarperfilconductorPage implements OnInit {
   usuario!: Usuario;
   vehiculo!: Vehiculo;
 
-  //Variables para guardar datos del usuario
-  nombreU: string = "";
-  apellidoU: string = "";
-  correoU: string = "";
-  fechanacimientoU: any;
-  rutU: string = "";
-  celularU: any;
-  contrasenaU: any;
   fotoPerfil: string | undefined;
   image: any;
   imageSource: string | undefined;
 
-  //Variables para guardar datos del vehiculo del usuario
-  modelo: string = "";
-  marca: string = "";
-  anio: any;
-  patente: any;
-  asientos: any;
 
   formularioActualizar: FormGroup;
 
@@ -51,7 +37,6 @@ export class EditarperfilconductorPage implements OnInit {
       'fechanacimiento': new FormControl(''),
       'rut': new FormControl(''),
       'celular': new FormControl(''),
-      'fotoperfil': new FormControl(''),
       'marca': new FormControl(''),
       'modelo': new FormControl(''),
       'anio': new FormControl(''),
@@ -116,51 +101,12 @@ export class EditarperfilconductorPage implements OnInit {
         'fechanacimiento': this.usuario.fechanacimiento || '',
         'rut': this.usuario.rut || '',
         'celular': this.usuario.celular || '',
-        'fotoperfil': this.usuario.fotoperfil || '',
         'marca': this.vehiculo.marca || '',
         'modelo': this.vehiculo.modelo || '',
         'anio': this.vehiculo.anio || '',
         'patente': this.vehiculo.patente || '',
         'asientos': this.vehiculo.asientos || '',
       })
-
-    }
-  }
-
-  actualizarUsuario(){
-    if(this.formularioActualizar.valid){
-      let form = this.formularioActualizar.value;
-      let id = localStorage.getItem('id');
-
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoperfil, id).then(res => {
-        if(res !== null){
-
-          this.database.actualizarVehiculo(form.marca, form.modelo, form.anio, form.patente, form.asientos, id).then(res => {
-            if(res !== null){
-
-              console.log('Datos actualizados correctamente.');
-              this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
-              this.router.navigate(['/perfilconductor']);
-              
-
-            }
-          })
-
-        } else {
-
-          console.log("Error al actualizar datos");
-          this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.");
-
-        }
-      }).catch(error => {
-
-        console.error("Error en base de datos al actualizar datos: ", error);
-
-      })
-
-    } else {
-
-      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.");
 
     }
   }
@@ -198,6 +144,45 @@ export class EditarperfilconductorPage implements OnInit {
       reader.readAsDataURL(selectedFile);
     } else {
       this.fotoPerfil = '';
+    }
+  }
+
+  actualizarUsuario(){
+    if(this.formularioActualizar.valid){
+      let form = this.formularioActualizar.value;
+      let id = localStorage.getItem('id');
+      let foto = this.fotoPerfil || this.usuario?.fotoperfil;
+
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, foto, id).then(res => {
+        if(res !== null){
+
+          this.database.actualizarVehiculo(form.marca, form.modelo, form.anio, form.patente, form.asientos, id).then(res => {
+            if(res !== null){
+
+              console.log('Datos actualizados correctamente.');
+              this.presentarAlerta("Datos actualizados", "Sus datos han sido actualizados con éxito.");
+              this.router.navigate(['/perfilconductor']);
+              
+
+            }
+          })
+
+        } else {
+
+          console.log("Error al actualizar datos");
+          this.presentarAlerta("Error al actualizar datos", "Rellene el formulario correctamente.");
+
+        }
+      }).catch(error => {
+
+        console.error("Error en base de datos al actualizar datos: ", error);
+
+      })
+
+    } else {
+
+      this.presentarAlerta("Error en formulario", "Rellene el formulario correctamente.");
+
     }
   }
 
