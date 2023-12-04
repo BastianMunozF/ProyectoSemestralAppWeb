@@ -15,15 +15,6 @@ export class PerfilusuarioPage implements OnInit {
   imageSource: string | undefined;
   usuario!: Usuario;
 
-  //Variables para guardar datos del usuario
-  nombre: string = "";
-  apellido: string = "";
-  correo: string = "";
-  fechanacimiento: any;
-  rut: string = "";
-  celular: any;
-  fotoPerfil: string | undefined;
-
   arregloUsuario: any = [
     {
       id_usuario: '',

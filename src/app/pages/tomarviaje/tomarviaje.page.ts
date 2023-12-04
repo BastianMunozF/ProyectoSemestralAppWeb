@@ -12,15 +12,52 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 export class TomarviajePage implements OnInit {
 
-  arregloViajes: any;
-  arregloViajeId: any;
+  arregloViajes: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
+
+  arregloViajesId: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
 
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
-    this.database.buscarViaje().then((data) => {
-      this.arregloViajes = data;
-    });
+    this.database.buscarViaje();
+
+    this.database.fetchViaje().subscribe(datos => {
+
+      if(datos.length > 0){
+
+        console.log('Viajes: ', datos);
+        this.arregloViajes = datos;
+
+      } else {
+
+        console.log('Datos no encontrados.');
+
+      }
+    })
   }
 
   aceptarViaje(id_viaje: any, id_conductor: any){
@@ -29,30 +66,24 @@ export class TomarviajePage implements OnInit {
 
     this.database.buscarViajeId(id_viaje).then(viaje => {
         
-      if(viaje !== null){
+      if(viaje.length > 0){
 
-        this.arregloViajeId = viaje[0];
+        this.arregloViajesId = viaje;
 
-        let asientos = this.arregloViajeId.cant_asientos - 1;
+        let asientos = this.arregloViajesId.cant_asientos - 1;
 
         if(asientos > 0){
 
           this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
             if(res !== null){
 
-              this.database.actualizarEstadoViaje(asientos, id_viaje).then(actualizado => {
-                if(actualizado){
+              this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+              this.router.navigate(['/menuprincipal']);
 
-                  this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-                  this.router.navigate(['/menuprincipal']);
+            } else {
 
-                } else {
+              this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
 
-                  this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-
-                }
-
-              });
             }
 
           });
@@ -63,7 +94,9 @@ export class TomarviajePage implements OnInit {
 
         }
       } else {
+
         this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
+
       }
     });
 

@@ -51,11 +51,19 @@ export class DbserviceService {
 
   listaViaje = new BehaviorSubject([]);
 
+  listaViajeId = new BehaviorSubject([]);
+
   listaVehiculo = new BehaviorSubject([]);
 
   listaVehiculoUser = new BehaviorSubject([]);
 
   listaUsuarioId = new BehaviorSubject([]);
+
+  listaDetalle = new BehaviorSubject([]);
+
+  listaDetalleId = new BehaviorSubject([]);
+
+  listaDetalleUser = new BehaviorSubject([]);
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
@@ -81,12 +89,28 @@ export class DbserviceService {
     return this.listaViaje.asObservable();
   }
 
+  fetchViajeId(): Observable<Viaje[]>{
+    return this.listaViajeId.asObservable();
+  }
+
   fetchUsuarioId(): Observable<Usuario[]>{
     return this.listaUsuarioId.asObservable();
   }
 
   fetchVehiculoUser(): Observable<Vehiculo[]>{
     return this.listaVehiculoUser.asObservable();
+  }
+
+  fetchDetalle(): Observable<Detalle[]>{
+    return this.listaDetalle.asObservable();
+  }
+
+  fetchDetalleId(): Observable<Detalle[]>{
+    return this.listaDetalleId.asObservable();
+  }
+
+  fetchDetalleUser(): Observable<Detalle[]>{
+    return this.listaDetalleUser.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -190,7 +214,7 @@ export class DbserviceService {
     if (!this.database) {
       console.error('Error: this.database no está definido.');
       return Promise.resolve([]);
-    }  
+    }
     if (!this.database) {
       console.error('Error: this.database no está definido.');
       return Promise.resolve([]);
@@ -204,13 +228,36 @@ export class DbserviceService {
             id_detalle: res.rows.item(i).id_detalle,
             id_usuario: res.rows.item(i).id_usuario,
             id_viaje: res.rows.item(i).id_viaje,
-            id_vehiculo: res.rows.item(i).id_vehiculo,
             id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
+      this.listaDetalleId.next(detalles as any);
       return detalles;
     });
+  }
+
+  buscarDetalleUser(id_usuario: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }
+    return this.database.executeSql('SELECT * FROM detalle WHERE id_usuario = ?', [id_usuario]).then(res => {
+      let detalles: Detalle[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          detalles.push({
+            id_detalle: res.rows.item(i).id_detalle,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_viaje: res.rows.item(i).id_viaje,
+            id_conductor: res.rows.item(i).id_conductor
+          })
+        }
+      }
+      this.listaDetalleUser.next(detalles as any);
+      return detalles;
+    })
   }
 
   buscarViajeId(id_viaje: any){
@@ -237,6 +284,7 @@ export class DbserviceService {
         }
       }
 
+      this.listaViajeId.next(viaje as any);
       return viaje;
 
     });
@@ -294,6 +342,7 @@ export class DbserviceService {
           })
         }
       }
+      this.listaViaje.next(items as any);
       return items;
     });
   }
@@ -308,11 +357,12 @@ export class DbserviceService {
             id_detalle: res.rows.item(i).id_detalle,
             id_usuario: res.rows.item(i).id_usuario,
             id_viaje: res.rows.item(i).id_viaje,
-            id_vehiculo: res.rows.item(i).id_vehiculo,
             id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
+
+      this.listaDetalle.next(detalle as any);
       return detalle;
     })
   }

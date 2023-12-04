@@ -9,15 +9,54 @@ import { AlertController } from '@ionic/angular';
 })
 export class HistorialusuarioPage implements OnInit {
 
-  arregloHistorial: any;
-  id_usuario = localStorage.getItem('id');
+  arregloHistorial: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
+
+  arregloDetalle: any = [
+    {
+      id_detalle: '',
+      id_usuario: '',
+      id_viaje: '',
+      id_conductor: '',
+    }
+  ]
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-    this.database.buscarViajeUser(this.id_usuario).then(res => {
-      this.arregloHistorial = res;
-    });
+    let id_usuario = localStorage.getItem('id');
+    
+    this.database.buscarDetalleUser(id_usuario);
+
+    this.database.fetchDetalleUser().subscribe(detalle => {
+      if(detalle.length > 0){
+
+        this.arregloDetalle = detalle;
+
+        this.database.buscarViajeId(this.arregloDetalle.id_viaje);
+
+        this.database.fetchViajeId().subscribe(viaje => {
+          if(viaje.length > 0){
+            this.arregloHistorial = viaje;
+          }
+        })
+
+      } else {
+
+        this.presentarAlerta("Error al buscar viajes", "Usted no ha aceptado ningún viaje.");
+      }
+    })
   }
 
   ionViewWillEnter(){
