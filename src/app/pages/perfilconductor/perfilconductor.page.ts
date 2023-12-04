@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Usuario } from 'src/app/services/usuario';
 import { Vehiculo } from 'src/app/services/vehiculo';
