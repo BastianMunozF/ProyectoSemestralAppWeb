@@ -124,6 +124,7 @@ export class EditarperfilusuarioPage implements OnInit {
     if(this.formularioActualizar.valid){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id');
+      form.fotoPerfil = this.fotoPerfil;
 
       this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, form.fotoPerfil, id).then(res => {
         if(res !== null){
