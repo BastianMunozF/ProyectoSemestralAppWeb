@@ -119,11 +119,12 @@ export class EditarperfilusuarioPage implements OnInit {
   }
 
   actualizarUsuario(){
-    if(this.formularioActualizar.valid){
+    if(this.formularioActualizar.valid && this.usuario){
       let form = this.formularioActualizar.value;
       let id = localStorage.getItem('id');
+      let foto = this.fotoPerfil;
 
-      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, this.fotoPerfil, id).then(res => {
+      this.database.actualizarPerfil(form.nombre, form.apellido, form.correo, form.fechanacimiento, form.rut, form.celular, foto, id).then(res => {
         if(res !== null){
 
           console.log('Datos actualizados correctamente.');
