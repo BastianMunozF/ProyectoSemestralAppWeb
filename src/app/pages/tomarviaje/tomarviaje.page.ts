@@ -25,6 +25,20 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
+  arregloViajesId: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
+
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
@@ -53,7 +67,9 @@ export class TomarviajePage implements OnInit {
         
       if(viaje.length > 0){
 
-        let asientos = +viaje[5].cant_asientos - 1;
+        this.arregloViajesId = viaje;
+
+        let asientos = this.arregloViajesId.cant_asientos - 1
 
         if(asientos > 0){
 
