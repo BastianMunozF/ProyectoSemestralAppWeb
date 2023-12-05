@@ -13,44 +13,44 @@
   <br>
   <br>
 
-    <ion-card>
+  <ion-card>
 
-      <ion-item color="primary">
-        <ion-label style="text-align: center; font-weight: bold; font-weight: 800;">Mapa</ion-label>
-      </ion-item>
+    <ion-item color="primary">
+      <ion-label style="text-align: center; font-weight: bold; font-weight: 800;">Mapa</ion-label>
+    </ion-item>
 
-      <div style="display: flex; justify-content: center;">
-
-        <ion-item>
-          <div class="mapouter"><div class="gmap_canvas"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d75336.51558004625!2d-70.64239648589664!3d-33.43797000051054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1694393824227!5m2!1ses-419!2scl" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
-        </ion-item>
-
-      </div>
+    <div style="display: flex; justify-content: center;">
 
       <ion-item>
-        <mat-slide-toggle color="primary">Mostrarse como Disponible</mat-slide-toggle>
-
-        <br>
-
-        <ion-button color="primary" [routerLink]="['/historialconductor']">Ver historial de Viajes</ion-button>
+        <div class="mapouter"><div class="gmap_canvas"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d75336.51558004625!2d-70.64239648589664!3d-33.43797000051054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1694393824227!5m2!1ses-419!2scl" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
       </ion-item>
 
-      <ion-item>
-        <mat-chip-listbox>
-          <ion-label style="margin: 5px;margin-left: 10px; margin-right: 40px;">Seleccione su Tipo de Vehículo:</ion-label>
-          <mat-chip-option color="primary" selected>Standard</mat-chip-option>
-          <mat-chip-option color="primary">Large</mat-chip-option>
-          <mat-chip-option color="primary">Deluxe</mat-chip-option>
-        </mat-chip-listbox>
-      </ion-item>
+    </div>
 
-      <ion-item>
-        <ion-button [routerLink]="['/rutaconductor']">Comenzar a realizar viajes</ion-button>
-      </ion-item>
+    <ion-item>
+      <mat-slide-toggle color="primary">Mostrarse como Disponible</mat-slide-toggle>
+    </ion-item>
 
-    </ion-card>
+    <ion-item>
+      <mat-chip-listbox>
+        <ion-label style="margin: 5px;margin-left: 10px; margin-right: 40px;">Seleccione su Tipo de Vehículo:</ion-label>
+        <mat-chip-option color="primary" selected>Standard</mat-chip-option>
+        <mat-chip-option color="primary">Large</mat-chip-option>
+        <mat-chip-option color="primary">Deluxe</mat-chip-option>
+      </mat-chip-listbox>
+    </ion-item>
 
+  </ion-card>
 
+  <ion-card>
+    <ion-button [routerLink]="['/rutaconductor']">Comenzar a realizar viajes</ion-button>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-button color="primary" [routerLink]="['/historialconductor']">Ver historial de Viajes</ion-button>
+    </ion-item>
+  </ion-card>
 
 </ion-content>
 
