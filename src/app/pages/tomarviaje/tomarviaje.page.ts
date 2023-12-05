@@ -47,7 +47,7 @@ export class TomarviajePage implements OnInit {
 
   aceptarViaje(id_viaje: any, id_conductor: any, cant_asientos: any){
     let id_usuario = localStorage.getItem('id');
-    let asientos = cant_asientos - 1;
+    let asientos = parseInt(cant_asientos) - 1;
 
     if(asientos > 0){
 
