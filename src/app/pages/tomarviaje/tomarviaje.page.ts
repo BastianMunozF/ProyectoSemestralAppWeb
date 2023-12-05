@@ -45,18 +45,18 @@ export class TomarviajePage implements OnInit {
     })
   }
 
-  aceptarViaje(id_viaje: any, id_conductor: any, cant_asientos: any){
-    let id_usuario = localStorage.getItem('id');
-    let asientos = parseInt(cant_asientos, 10) - 1;
+  aceptarViaje(x: any){
+    let id_user = localStorage.getItem('id');
+    let asientos = parseInt(x.cant_asientos, 10) - 1;
 
     if(asientos > 0){
 
-      this.database.buscarViajeId(id_viaje).then(viaje => {
+      this.database.buscarViajeId(x.id_viaje).then(viaje => {
         if(viaje.length > 0){
-          this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+          this.database.insertarViajeAceptado(id_user, x.id_usuario, x.id_viaje).then(res => {
             if(res !== null){
     
-              this.database.actualizarEstadoViaje(asientos, id_viaje).then(actualizado => {
+              this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(actualizado => {
 
                 if(actualizado){
     
