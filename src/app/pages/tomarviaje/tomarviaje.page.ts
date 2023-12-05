@@ -62,55 +62,56 @@ export class TomarviajePage implements OnInit {
   aceptarViaje(id_viaje: any, id_conductor: any){
 
     let id_usuario = localStorage.getItem('id');
-
+  
     this.database.buscarViajeId(id_viaje).then(viaje => {
         
       if(viaje.length > 0){
-
+  
         this.arregloViajesId = viaje;
-
+  
         let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
-
+  
         if(asientos > 0){
-
-          this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-            if(res !== null){
-
-              this.database.actualizarEstadoViaje(asientos, id_usuario).then(actualizado => {
-
-                if(actualizado){
-
+  
+          this.database.actualizarEstadoViaje(asientos, id_viaje).then(actualizado => {
+  
+            if(actualizado){
+  
+              this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+  
+                if(res !== null){
+  
                   this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
                   this.router.navigate(['/menuprincipal']);
-
+  
                 } else {
-
-                  this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-
+  
+                  this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
+  
                 }
-
-              })
-
+  
+              });
+  
             } else {
-
-              this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
-
+  
+              this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
+  
             }
-
-          });
-
+  
+          })
+  
         } else {
-
+  
           this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
-
+  
         }
       } else {
-
+  
         this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
-
+  
       }
     });
-
+  
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
