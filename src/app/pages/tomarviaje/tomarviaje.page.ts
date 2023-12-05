@@ -73,21 +73,31 @@ export class TomarviajePage implements OnInit {
 
         if(asientos > 0){
 
-          this.database.actualizarEstadoViaje(asientos, id_viaje).then(() => {
-            this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-              if(res){
-  
-                this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-                this.router.navigate(['/menuprincipal']);
-  
-              } else {
-  
-                this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
-  
-              }
-  
-            });
-          })
+          this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+            if(res !== null){
+
+              this.database.actualizarEstadoViaje(asientos, id_usuario).then(actualizado => {
+
+                if(actualizado){
+
+                  this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+                  this.router.navigate(['/menuprincipal']);
+
+                } else {
+
+                  this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
+
+                }
+
+              })
+
+            } else {
+
+              this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
+
+            }
+
+          });
 
         } else {
 
