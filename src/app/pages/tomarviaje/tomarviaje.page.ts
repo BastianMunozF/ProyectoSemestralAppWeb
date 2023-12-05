@@ -25,20 +25,6 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
-  arregloViajesId: any = [
-    {
-      id_viaje: '',
-      f_viaje: '',
-      hora_salida: '',
-      salida: '',
-      destino: '',
-      cant_asientos: '',
-      valor_asiento: '',
-      estado: '',
-      id_usuario: '',
-    }
-  ]
-
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
@@ -59,40 +45,43 @@ export class TomarviajePage implements OnInit {
     })
   }
 
-  async aceptarViaje(id_viaje: any, id_conductor: any): Promise<void> {
+  aceptarViaje(id_viaje: any, id_conductor: any, cant_asientos: any){
     let id_usuario = localStorage.getItem('id');
+    let asientos = cant_asientos - 1;
 
-    try {
-      const viaje = await this.database.buscarViajeId(id_viaje);
+    if(asientos > 0){
 
-      if (viaje.length > 0) {
-        this.arregloViajesId = viaje;
-        let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
+      this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+        if(res !== null){
 
-        if (asientos > 0) {
-          const actualizado = await this.database.actualizarEstadoViaje(asientos, id_viaje);
+          this.database.actualizarEstadoViaje(asientos, id_viaje).then(actualizado => {
+            if(actualizado){
 
-          if (actualizado) {
-            const res = await this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje);
-
-            if (res !== null) {
-              await this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
+              this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
               this.router.navigate(['/menuprincipal']);
+
             } else {
-              await this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
+
+              this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser actualizado.");
+
             }
-          } else {
-            await this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente");
-          }
+
+          })
+
         } else {
-          await this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
+
+          console.log('Error al insertar viaje en la base de datos.');
+
         }
-      } else {
-        await this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
-      }
-    } catch (error) {
-      console.error('Error al aceptar el viaje:', error);
+
+      })
+
+    } else {
+
+      this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
+
     }
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
