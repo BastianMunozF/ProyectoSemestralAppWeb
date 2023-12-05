@@ -75,7 +75,7 @@ export class TomarviajePage implements OnInit {
 
           this.database.actualizarEstadoViaje(asientos, id_viaje).then(() => {
             this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-              if(res !== null){
+              if(res){
   
                 this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
                 this.router.navigate(['/menuprincipal']);
