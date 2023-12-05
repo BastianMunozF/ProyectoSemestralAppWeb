@@ -25,6 +25,20 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
+  arregloViajesId: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
+
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
@@ -53,14 +67,20 @@ export class TomarviajePage implements OnInit {
 
       if(viaje.length > 0){
 
-        this.arregloViajes = viaje;
+        this.arregloViajesId = viaje;
 
-        this.arregloViajes.cant_asientos = this.arregloViajes.cant_asientos - 1;
+        let asientos = this.arregloViajesId[0].cant_asientos - 1;
 
-        if(this.arregloViajes.cant_asientos > 0){
+        if(asientos > 0){
 
           this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
             if(res !== null){
+
+              const viajeIndex = this.arregloViajes.findIndex((v: { id_viaje: any }) => v.id_viaje === id_viaje);
+
+              if(viajeIndex !== -1){
+                this.arregloViajes[viajeIndex].cant_asientos = asientos;
+              }
 
               this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
               this.router.navigate(['/menuprincipal']);
