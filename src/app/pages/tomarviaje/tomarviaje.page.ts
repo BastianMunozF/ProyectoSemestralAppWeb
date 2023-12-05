@@ -45,15 +45,14 @@ export class TomarviajePage implements OnInit {
     })
   }
 
-  aceptarViaje(id_viaje: any, id_conductor: any){
+  aceptarViaje(id_viaje: any, id_conductor: any, cant_asientos: any){
     let id_usuario = localStorage.getItem('id');
+    let asientos = parseInt(cant_asientos, 10) - 1;
 
-    this.database.buscarViajeId(id_viaje).then(viaje => {
-      if(viaje.length > 0){
+    if(asientos > 0){
 
-        let asientos = parseInt(viaje[0].cant_asientos) - 1;
-
-        if(asientos > 0){
+      this.database.buscarViajeId(id_viaje).then(viaje => {
+        if(viaje.length > 0){
           this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
             if(res !== null){
     
@@ -79,14 +78,19 @@ export class TomarviajePage implements OnInit {
             }
     
           })
+
+        } else {
+
+          this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no se encuentra disponible.");
+
         }
+      })
 
-      } else {
+    } else {
 
-        this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no se encuentra disponible.");
+      this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
 
-      }
-    })
+    }
 
   }
 
