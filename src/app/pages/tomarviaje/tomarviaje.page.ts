@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tomarviaje',
@@ -65,14 +64,14 @@ export class TomarviajePage implements OnInit {
     let id_usuario = localStorage.getItem('id');
 
     this.database.buscarViajeId(id_viaje).then(viaje => {
-        
+
       if(viaje.length > 0){
 
         this.arregloViajesId = viaje;
 
-        let asientos = this.arregloViajesId.cant_asientos - 1;
+        this.arregloViajesId.cant_asientos - 1;
 
-        if(asientos > 0){
+        if(this.arregloViajesId.cant_asientos > 0){
 
           this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
             if(res !== null){
@@ -93,6 +92,7 @@ export class TomarviajePage implements OnInit {
           this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
 
         }
+
       } else {
 
         this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
