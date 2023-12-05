@@ -69,31 +69,32 @@ export class TomarviajePage implements OnInit {
 
         this.arregloViajesId = viaje;
 
-        let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
+        this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
+          if(res){
 
-        if(asientos > 0){
+            let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
 
-          this.database.actualizarEstadoViaje(asientos, id_viaje).then(() => {
-            this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
-              if(res){
-  
+            if(asientos > 0){
+
+              this.database.actualizarEstadoViaje(asientos, id_viaje).then(() => {
                 this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
                 this.router.navigate(['/menuprincipal']);
-  
-              } else {
-  
-                this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
-  
-              }
-  
-            });
-          })
+              })
+    
+            } else {
+    
+              this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
+    
+            }
 
-        } else {
+          } else {
 
-          this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar ya no tiene asientos disponibles.");
+            this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser confirmado con éxito.");
 
-        }
+          }
+
+        });
+
       } else {
 
         this.presentarAlerta("Viaje no Encontrado", "El viaje que desea reservar no se encuentra disponible.");
