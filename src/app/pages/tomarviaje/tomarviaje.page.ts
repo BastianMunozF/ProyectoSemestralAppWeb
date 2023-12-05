@@ -69,7 +69,7 @@ export class TomarviajePage implements OnInit {
 
         this.arregloViajesId = viaje;
 
-        this.arregloViajesId.cant_asientos - 1;
+        this.arregloViajesId.cant_asientos = this.arregloViajesId.cant_asientos - 1;
 
         if(this.arregloViajesId.cant_asientos > 0){
 
