@@ -60,6 +60,8 @@ export class TomarviajePage implements OnInit {
   }
 
   aceptarViaje(x: any){
+    console.log('Viaje: ', x)
+
     let id_user = localStorage.getItem('id');
     let asientos: number = x.cant_asientos - 1;
 
@@ -73,10 +75,16 @@ export class TomarviajePage implements OnInit {
             } else {
               this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
             }
+          }).catch(error => {
+            this.presentarAlerta("Error aqui.", "Funcion Actualizar Estado Viaje.");
+            console.error(error);
           })
         } else {
           this.presentarAlerta("Error al reservar Viaje", "Su viaje no ha podido ser reservado.");
         }
+      }).catch(error => {
+        this.presentarAlerta("Error aqui.", "Funcion Insertar Viaje Aceptado.");
+        console.error(error);
       })
     } else {
       this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");

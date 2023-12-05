@@ -1,0 +1,29 @@
+Estos son los pasos para poder hacer funcionar la API conectada a la aplicación:
+
+La API que utilizamos en nuestra aplicación corresponde a una API de pago llamada "meteomatics", que se utiliza para obtener los datos del clima de la ubicación del dispositivo donde se ejecuta la aplicación.
+
+A continuación se presentarán los pasos a seguir:
+
+1. Entrar a la página web https://www.meteomatics.com/en/api/getting-started/.
+
+2. Hacer click en la opción "Sign up for a free API test account".
+
+3. Luego de ingresar, deberá hacer click en la opción "Sign Up Now". Esta opción se ubica debajo del texto "Weather API  Trial Account".
+
+4. Después, tendrá que rellenar el formulario solicitado para que la cuenta le llegue a su correo registrado.
+
+5. Una vez la cuenta ya creada y recibida en el correo, deberá ingresar al siguiente link 'https://login.meteomatics.com/api/v1/token' e iniciar con la cuenta creada.
+
+6. Cuando ya haya iniciado sesión, deberá ver un código como el siguiente:
+
+Ejemplo: {"access_token":"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoxLCJ1c2VyIjoiZHVvY3VjX211bm96X2Jhc3RpYW4iLCJpc3MiOiJsb2dpbi5tZXRlb21hdGljcy5jb20iLCJleHAiOjE3MDE4MjcyNTksInN1YiI6ImFjY2VzcyJ9.PDQ-HyvPutZbZNQnbIBLHeqfyzNdFVy3cZO4-onjnSX-50COV4LkKcHoJNOky8BeUdsoxUEQlLFcBGvJcUAUFA","token_type":"bearer"}
+
+7. Deberá copiar el "access_token" sin las comillas.
+
+8. Con el token ya copiado, debe ir al archivo 'api.service.ts'.
+
+9. Se encontrará con el código de funcionamiento de la API.
+
+10. Para poder hacerla funcionar, deberá reemplazar el access_token ubicado en '/json?access_token='. Justo después del '='.
+
+11. Una vez hecho esto, la API estará funcionando correctamente.
