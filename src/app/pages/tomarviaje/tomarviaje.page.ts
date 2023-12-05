@@ -61,53 +61,26 @@ export class TomarviajePage implements OnInit {
 
   aceptarViaje(x: any){
     let id_user = localStorage.getItem('id');
+    let asientos: number = x.cant_asientos - 1;
 
-    this.database.buscarViajeId(x.id_viaje).then(viaje => {
-      if(viaje !== null){
-
-        this.arregloViajesId = viaje;
-
-        let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
-
-        if(asientos > 0){
-          this.database.insertarViajeAceptado(id_user, x.id_usuario, x.id_viaje).then(res => {
-            if(res !== null){
-    
-              this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(actualizado => {
-  
-                if(actualizado){
-    
-                  this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-                  this.router.navigate(['/menuprincipal']);
-    
-                } else {
-    
-                  this.presentarAlerta("Error al aceptar viaje", "El viaje no ha podido ser actualizado.");
-    
-                }
-    
-              })
-    
+    if(asientos > 0){
+      this.database.insertarViajeAceptado(id_user, x.id_usuario, x.id_viaje).then(res => {
+        if(res !== null){
+          this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
+            if(result){
+              this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
+              this.router.navigate(['/menuprincipal']);
             } else {
-    
-              console.log('Error al insertar viaje en la base de datos.');
-    
+              this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
             }
-    
           })
         } else {
-
-          this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar ya no tiene asientos.");
-
+          this.presentarAlerta("Error al reservar Viaje", "Su viaje no ha podido ser reservado.");
         }
-
-      } else {
-
-        this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no se encuentra disponible.");
-
-      }
-    })
-
+      })
+    } else {
+      this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
+    }
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
@@ -120,26 +93,3 @@ export class TomarviajePage implements OnInit {
     await alert.present();
   }
 }
-
-
-/*
-
-this.database.insertarViajeAceptado(id_usuario, id_viaje).then(res => {
-      if(res !== null){
-
-        let estado = 'Aceptado.';
-
-        this.database.actualizarEstadoViaje(estado, id_usuario).then(actualizado => {
-          if(actualizado){
-            this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
-            this.router.navigate(['/historialconductor'])
-          } else {
-            this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
-          }
-        })
-
-      } else {
-        this.presentarAlerta("Error al aceptar viaje", "El viaje no se ha podido confirmar correctamente")
-      }
-    });
-*/
