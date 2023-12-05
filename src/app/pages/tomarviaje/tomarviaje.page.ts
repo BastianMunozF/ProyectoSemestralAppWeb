@@ -25,6 +25,20 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
+  arregloViajesId: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      id_usuario: '',
+    }
+  ]
+
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
@@ -47,17 +61,20 @@ export class TomarviajePage implements OnInit {
 
   aceptarViaje(x: any){
     let id_user = localStorage.getItem('id');
-    let asientos = parseInt(x.cant_asientos, 10) - 1;
 
-    if(asientos > 0){
+    this.database.buscarViajeId(x.id_viaje).then(viaje => {
+      if(viaje !== null){
 
-      this.database.buscarViajeId(x.id_viaje).then(viaje => {
-        if(viaje.length > 0){
+        this.arregloViajesId = viaje;
+
+        let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
+
+        if(asientos > 0){
           this.database.insertarViajeAceptado(id_user, x.id_usuario, x.id_viaje).then(res => {
             if(res !== null){
     
               this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(actualizado => {
-
+  
                 if(actualizado){
     
                   this.presentarAlerta("Viaje Aceptado", "El viaje seleccionado ha sido confirmado con éxito.");
@@ -78,19 +95,18 @@ export class TomarviajePage implements OnInit {
             }
     
           })
-
         } else {
 
-          this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no se encuentra disponible.");
+          this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar ya no tiene asientos.");
 
         }
-      })
 
-    } else {
+      } else {
 
-      this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
+        this.presentarAlerta("Error al aceptar viaje", "El viaje que desea reservar no se encuentra disponible.");
 
-    }
+      }
+    })
 
   }
 
