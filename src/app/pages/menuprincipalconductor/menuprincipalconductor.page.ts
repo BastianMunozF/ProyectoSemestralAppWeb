@@ -9,23 +9,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class MenuprincipalconductorPage implements OnInit {
 
-  constructor(private database: DbserviceService, private alertController: AlertController) {
-  }
+  constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-    let id = localStorage.getItem('id');
-
-    this.database.verificarViaje(id).then(res => {
-      if(res){
-
-        this.presentarAlerta("Viaje Confirmado", "Un pasajero ha aceptado su viaje.");
-
-      } else {
-
-        this.presentarAlerta("Viaje Disponible", "Aún sigue disponible su viaje creado.");
-
-      }
-    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
