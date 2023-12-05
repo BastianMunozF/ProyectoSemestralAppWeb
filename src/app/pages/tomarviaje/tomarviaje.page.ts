@@ -69,7 +69,7 @@ export class TomarviajePage implements OnInit {
 
         this.arregloViajesId = viaje;
 
-        let asientos = parseInt(this.arregloViajesId.cant_asientos, 10) - 1;
+        let asientos = parseInt(this.arregloViajesId[0].cant_asientos, 10) - 1;
 
         if(asientos > 0){
 
