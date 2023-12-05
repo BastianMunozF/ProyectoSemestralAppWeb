@@ -47,9 +47,9 @@ export class TomarviajePage implements OnInit {
 
   aceptarViaje(id_viaje: any, id_conductor: any, cant_asientos: any){
     let id_usuario = localStorage.getItem('id');
-    let asientos = cant_asientos - 1;
+    let asientos = parseInt(cant_asientos, 10) - 1;
 
-    if(parseInt(asientos.toString()) > 0){
+    if(asientos > 0){
 
       this.database.insertarViajeAceptado(id_usuario, id_conductor, id_viaje).then(res => {
         if(res !== null){
