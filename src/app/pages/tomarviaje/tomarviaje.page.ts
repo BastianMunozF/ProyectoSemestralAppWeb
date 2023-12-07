@@ -50,11 +50,8 @@ export class TomarviajePage implements OnInit {
 
     let id_user = localStorage.getItem('id');
 
-    this.database.buscarViajeUserAceptado(id_user, x.id_viaje);
-
-    this.database.fetchDetalleViajeUserId().subscribe(detalleuser => {
-
-      if(detalleuser.length > 0){
+    this.database.buscarViajeUserAceptado(id_user, x.id_viaje).then(viajeaceptado => {
+      if(viajeaceptado.length > 0){
 
         this.presentarAlerta("Error al reservar viaje", "Usted ya ha aceptado este viaje.");
 
@@ -76,6 +73,7 @@ export class TomarviajePage implements OnInit {
                   this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
 
                 }
+
               }).catch(error => {
 
                 this.presentarAlerta("Error aqui.", "Funcion Actualizar Estado Viaje.");
@@ -103,7 +101,9 @@ export class TomarviajePage implements OnInit {
         }
 
       }
+
     })
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

@@ -69,6 +69,10 @@ export class ViajesiniciadosPage implements OnInit {
     this.database.buscarViajeUser(id_user);
     this.database.buscarVehiculoUsuario(id_user);
 
+    this.database.fetchVehiculoUser().subscribe(vehiculo => {
+      this.arregloVehiculo = vehiculo;
+    })
+
     this.database.fetchViajeUser().subscribe(viaje => {
 
       if(viaje.length > 0){
@@ -84,26 +88,20 @@ export class ViajesiniciadosPage implements OnInit {
             console.log('Detalle del viaje: ', detalle);
             this.arregloDetalle = detalle;
 
-            this.database.fetchVehiculoUser().subscribe(vehiculo => {
 
-              console.log('Vehiculo del usuario: ', vehiculo);
-              this.arregloVehiculo = vehiculo;
+            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario);
 
-              this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario);
+            this.database.fetchUsuarioViaje().subscribe(usuario => {
+              if(usuario.length > 0){
 
-              this.database.fetchUsuarioViaje().subscribe(usuario => {
-                if(usuario.length > 0){
+                console.log('Usuario del viaje: ', usuario);
+                this.arregloUsuario = usuario;
 
-                  console.log('Usuario del viaje: ', usuario);
-                  this.arregloUsuario = usuario;
+              } else {
 
-                } else {
+                this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
 
-                  this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
-
-                }
-
-              })
+              }
 
             })
 
