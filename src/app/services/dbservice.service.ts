@@ -460,8 +460,10 @@ export class DbserviceService {
     return this.database.executeSql("INSERT INTO detalle(id_usuario, id_conductor, id_viaje) VALUES (?, ?, ?)", [id_usuario, id_conductor, id_viaje]).then(res => {
       if(res){
         this.buscarDetalle();
+        return true;
       } else {
         this.presentAlert('Error al insertar detalle');
+        return null;
       }
     });
   }
