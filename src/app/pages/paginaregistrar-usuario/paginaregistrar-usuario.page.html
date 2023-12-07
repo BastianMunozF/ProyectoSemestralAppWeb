@@ -15,6 +15,14 @@
     <ion-card-content>
       <form [formGroup]="formularioRegistro" (ngSubmit)="guardarUsuario()">
 
+        <div>
+          <ion-item>
+          <ion-button (click)="takePicture()" >Tomar Foto de Perfil</ion-button>
+          <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" style="width: 100%;max-width: 250px;">
+        </ion-item>
+        </div>
+
+
         <ion-item>
           <ion-label position="floating" required>Nombre:</ion-label>
           <ion-input formControlName="nombre" id="nombre"></ion-input>
@@ -140,10 +148,6 @@
           </select>
         </ion-item>
 
-        <div id="container">
-          <ion-button (click)="takePicture()" >Tomar Foto</ion-button>
-          <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" style="width: 100%;max-width: 250px;">
-        </div>
 
         <br>
         <ion-button type="submit">Registrarse</ion-button>
