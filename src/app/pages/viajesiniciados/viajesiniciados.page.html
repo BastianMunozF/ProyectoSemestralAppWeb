@@ -13,27 +13,27 @@
       <ion-card>
         <ion-card-content>
           <ion-item *ngFor="let usuario of arregloUsuario">
-            <ion-label>
-              <strong>Pasajeros: {{ usuario.nombre }}</strong>
-              <br>
-              <p style="word-wrap: break-word;white-space: normal;">Fecha del Viaje: {{ viaje.f_viaje }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Hora de Salida: {{ viaje.hora_salida }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Salida: {{ viaje.salida }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Destino: {{ viaje.destino }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Asientos Ocupados: {{ viaje.cant_asientos }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Valor Asiento: {{ viaje.valor_asiento }}</p>
-              <p style="word-wrap: break-word;white-space: normal;">Estado: {{ viaje.estado }}</p>
-              <br>
-              <h4>Vehiculo:</h4>
-              <br>
-              <ion-item *ngFor="let vehiculo of arregloVehiculo">
+            <ion-item *ngFor="let vehiculo of arregloVehiculo">
+              <ion-label>
+                <strong>Pasajeros: {{ usuario.nombre }}</strong>
+                <br>
+                <p style="word-wrap: break-word;white-space: normal;">Fecha del Viaje: {{ viaje.f_viaje }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Hora de Salida: {{ viaje.hora_salida }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Salida: {{ viaje.salida }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Destino: {{ viaje.destino }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Asientos Ocupados: {{ viaje.cant_asientos }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Valor Asiento: {{ viaje.valor_asiento }}</p>
+                <p style="word-wrap: break-word;white-space: normal;">Estado: {{ viaje.estado }}</p>
+                <br>
+                <h4>Vehiculo:</h4>
+                <br>
                 <p>Marca: {{ vehiculo.marca }}</p>
-
+  
                 <br>
                 
                 <p>Modelo: {{ vehiculo.modelo }}</p>
-              </ion-item>
-            </ion-label>
+              </ion-label>
+            </ion-item>
           </ion-item>
         </ion-card-content>
       </ion-card>
