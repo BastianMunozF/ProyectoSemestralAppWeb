@@ -54,34 +54,35 @@ export class MenuprincipalconductorPage implements OnInit {
         console.log('Detalle: ', res);
         this.arregloDetalle = res;
 
+        this.database.buscarViajeId(this.arregloDetalle.id_viaje).then(res => {
+          if(res !== null){
+              
+            console.log('Viaje: ', res);
+            this.arregloViaje = res;
+
+            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(res => {
+              if(res !== null){
+        
+                console.log('Usuario: ', res);
+                this.arregloUsuario = res;
+
+                this.database.buscarDetalleUsuario(this.arregloDetalle.id_usuario, this.arregloDetalle.id_viaje).then(res => {
+                  if(res !== null){
+                    this.presentarAlerta("Viaje Confirmado", "Un pasajero ha reservado su viaje.");
+                  } else {
+                    console.log('Viaje aun disponible.');
+                  }
+                })
+        
+              }
+            });
+    
+          }
+        });
+
       }
     });
 
-    this.database.buscarViajeId(this.arregloDetalle.id_viaje).then(res => {
-      if(res !== null){
-          
-        console.log('Viaje: ', res);
-        this.arregloViaje = res;
-
-      }
-    });
-
-    this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(res => {
-      if(res !== null){
-
-        console.log('Usuario: ', res);
-        this.arregloUsuario = res;
-
-      }
-    });
-
-    this.database.buscarDetalleUsuario(this.arregloDetalle.id_usuario, this.arregloDetalle.id_viaje).then(res => {
-      if(res !== null){
-        this.presentarAlerta("Viaje Confirmado", "Un pasajero ha reservado su viaje.");
-      } else {
-        console.log('Viaje aun disponible.');
-      }
-    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
