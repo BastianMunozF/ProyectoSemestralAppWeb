@@ -67,6 +67,7 @@ export class ViajesiniciadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
 
     this.database.buscarViajeUser(id_user);
+    this.database.buscarVehiculoUsuario(id_user);
 
     this.database.fetchViajeUser().subscribe(viaje => {
 
@@ -83,12 +84,11 @@ export class ViajesiniciadosPage implements OnInit {
             console.log('Detalle del viaje: ', detalle);
             this.arregloDetalle = detalle;
 
-            this.database.buscarVehiculoUsuario(id_user);
-
             this.database.fetchVehiculoUser().subscribe(vehiculo => {
 
               if(vehiculo.length > 0){
 
+                console.log('Vehiculo del usuario: ', vehiculo);
                 this.arregloVehiculo = vehiculo;
 
                 this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario);
