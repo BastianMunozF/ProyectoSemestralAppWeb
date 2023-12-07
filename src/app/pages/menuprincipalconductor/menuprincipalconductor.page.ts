@@ -48,40 +48,57 @@ export class MenuprincipalconductorPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-    this.database.buscarDetalle().then(res => {
-      if(res !== null){
+    this.database.buscarDetalle();
 
-        console.log('Detalle: ', res);
-        this.arregloDetalle = res;
+    this.database.fetchDetalle().subscribe(detalle => {
+      if(detalle.length > 0){
 
-        this.database.buscarViajeId(this.arregloDetalle.id_viaje).then(res => {
-          if(res !== null){
-              
-            console.log('Viaje: ', res);
-            this.arregloViaje = res;
+        this.arregloDetalle = detalle;
 
-            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(res => {
-              if(res !== null){
-        
-                console.log('Usuario: ', res);
-                this.arregloUsuario = res;
+        this.database.buscarViajeId(this.arregloDetalle.id_viaje);
 
-                this.database.buscarDetalleUsuario(this.arregloDetalle.id_usuario, this.arregloDetalle.id_viaje).then(res => {
-                  if(res !== null){
-                    this.presentarAlerta("Viaje Confirmado", "Un pasajero ha reservado su viaje.");
-                  } else {
-                    console.log('Viaje aun disponible.');
+        this.database.fetchViajeId().subscribe(viaje => {
+
+          if(viaje.length > 0){
+
+            this.arregloViaje = viaje;
+
+            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario);
+
+            this.database.fetchUsuarioId().subscribe(usuario => {
+                
+              if(usuario.length > 0){
+
+                this.arregloUsuario = usuario;
+
+                this.database.buscarDetalleUsuario(this.arregloDetalle.id_usuario, this.arregloDetalle.id_viaje);
+
+                this.database.fetchDetalleViajeUserId().subscribe(detalleuser => {
+
+                  if(detalleuser.length > 0){
+
+                    this.presentarAlerta("Viaje Aceptado", "Un usuario ha aceptado su viaje creado.");
+
                   }
+
                 })
-        
+
+              } else {
+
+                console.log('Usuario no encontrado.');
+
               }
-            });
-    
+
+            })
+
           }
-        });
+
+        })
 
       }
-    });
+
+    })
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

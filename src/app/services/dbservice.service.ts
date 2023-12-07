@@ -336,12 +336,25 @@ export class DbserviceService {
   }
 
   buscarViajeUserAceptado(id_usuario: any, id_viaje: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }
+
     return this.database.executeSql('SELECT * FROM detalle WHERE id_usuario = ? AND id_viaje = ?', [id_usuario, id_viaje]).then(res => {
+      let detalles: Detalle[] = [];
+
       if(res.rows.length > 0){
-        return res.rows.item(0);
-      } else {
-        return null;
+        for(var i = 0; i < res.rows.length; i++){
+          detalles.push({
+            id_detalle: res.rows.item(i).id_detalle,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_viaje: res.rows.item(i).id_viaje,
+          })
+        }
       }
+      this.listaDetalleViajeUserId.next(detalles as any);
+      return detalles;
     });
   }
 

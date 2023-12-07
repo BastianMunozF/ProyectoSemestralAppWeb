@@ -46,7 +46,7 @@ export class TomarviajePage implements OnInit {
   }
 
   aceptarViaje(x: any){
-    console.log('Viaje: ', x)
+    console.log('Viaje: ', x);
 
     let id_user = localStorage.getItem('id');
 
