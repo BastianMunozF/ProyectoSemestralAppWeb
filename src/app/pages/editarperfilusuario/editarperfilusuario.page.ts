@@ -59,6 +59,7 @@ export class EditarperfilusuarioPage implements OnInit {
 
         this.usuario = datos[0];
         this.arregloUsuario = datos;
+
         this.inicializarFormulario();
 
       }

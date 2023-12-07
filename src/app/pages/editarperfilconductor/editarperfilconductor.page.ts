@@ -25,7 +25,7 @@ export class EditarperfilconductorPage implements OnInit {
   image: any;
   imageSource: string | undefined;
 
-  arregloUsiario: any = [
+  arregloUsuario: any = [
     {
       id_usuario: '',
       nombre: '',
@@ -64,9 +64,10 @@ export class EditarperfilconductorPage implements OnInit {
     let idUser = localStorage.getItem('id');
 
     this.database.buscarDatosUsuario(idUser).then((datos) => {
-      if(datos !== null){
+      if(datos){
 
         this.usuario = datos[0];
+        this.arregloUsuario = datos;
 
         this.database.buscarVehiculoUsuario(idUser).then(res => {
           if(res !== null){
