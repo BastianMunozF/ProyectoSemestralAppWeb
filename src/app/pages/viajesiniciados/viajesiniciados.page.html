@@ -17,55 +17,59 @@
     <ion-item-sliding *ngFor="let viaje of arregloViajes">
       <ion-item-sliding *ngFor="let usuario of arregloUsuario">
         <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
-          <ion-card>
-            <ion-card-content>
-              <ion-item *ngFor="let usuario of viaje.usuario">
-                <ion-label>
-                  <strong>Pasajeros:</strong>
-                </ion-label>
-    
-                <ion-label>{{ usuario.nombre }} {{ usuario.apellido }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Salida: {{ viaje.salida }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Destino: {{ viaje.destino }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Estado: {{ viaje.estado }}</ion-label>
-              </ion-item>
-    
-              <br>
-    
-              <ion-item>
-                <ion-label><strong>Vehículo</strong></ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Modelo: {{ vehiculo.modelo }}</ion-label>
-              </ion-item>
-            </ion-card-content>
-          </ion-card>
+          <ion-item-sliding *ngFor="let detalle of arregloDetalle">
+            <ion-card>
+              <ion-card-content>
+                <ion-item *ngIf="detalle.id_usuario === usuario.id_usuario">
+                  <ion-item>
+                    <ion-label>
+                      <strong>Pasajeros:</strong>
+                    </ion-label>
+        
+                    <ion-label>{{ usuario.nombre }} {{ usuario.apellido }}</ion-label>
+                  </ion-item>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
+                </ion-item>
+                
+                <ion-item>
+                  <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Salida: {{ viaje.salida }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Destino: {{ viaje.destino }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Estado: {{ viaje.estado }}</ion-label>
+                </ion-item>
+      
+                <br>
+      
+                <ion-item>
+                  <ion-label><strong>Vehículo</strong></ion-label>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Modelo: {{ vehiculo.modelo }}</ion-label>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+          </ion-item-sliding>
         </ion-item-sliding>
       </ion-item-sliding>
     </ion-item-sliding>

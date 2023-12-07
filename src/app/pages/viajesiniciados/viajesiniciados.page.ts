@@ -89,20 +89,18 @@ export class ViajesiniciadosPage implements OnInit {
             this.arregloDetalle = detalle;
 
 
-            detalle.forEach((id: any) => {
-              this.database.buscarUsuarioViaje(id.id_usuario).then(usuario => {
-                if(usuario.length > 0){
-  
-                  console.log('Usuario del viaje: ', usuario);
-                  this.arregloUsuario = usuario;
-  
-                } else {
-  
-                  this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
-  
-                }
-  
-              })
+            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario).then(usuario => {
+              if(usuario.length > 0){
+
+                console.log('Usuario del viaje: ', usuario);
+                this.arregloUsuario = usuario;
+
+              } else {
+
+                this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
+
+              }
+
             })
 
           }
