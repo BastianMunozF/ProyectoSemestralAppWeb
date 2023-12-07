@@ -66,7 +66,17 @@ export class ViajesiniciadosPage implements OnInit {
   ngOnInit() {
     let id_user = localStorage.getItem('id');
 
-    this.database.buscarViajeUser(id_user);
+    this.database.buscarViajeUser(id_user).then(res => {
+      if(res){
+
+        console.log('Viajes del usuario: ', res);
+
+      } else {
+
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+
+      }
+    });
     this.database.buscarVehiculoUsuario(id_user);
 
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
@@ -74,41 +84,38 @@ export class ViajesiniciadosPage implements OnInit {
     })
 
     this.database.fetchViajeUser().subscribe(viaje => {
-
       if(viaje.length > 0){
 
         console.log('Viajes del usuario: ', viaje);
         this.arregloViajes = viaje;
 
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-
-        this.database.fetchDetalleViaje().subscribe(detalle => {
-          if(detalle.length > 0){
-
-            console.log('Detalle del viaje: ', detalle);
-            this.arregloDetalle = detalle;
-
-
-            this.arregloDetalle.forEach((idusuario: any) => {
-              this.database.buscarDatosUsuario(idusuario.id_usuario).then(usuario => {
-                if(usuario.length > 0){
-
-                  this.arregloUsuario = usuario;
-
-                }
-              })
-            })
-
-          }
-
-        })
-
-      } else {
-
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
-
       }
     })
+
+    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
+
+    this.database.fetchDetalleViaje().subscribe(detalle => {
+      if(detalle.length > 0){
+
+        console.log('Detalle del viaje: ', detalle);
+        this.arregloDetalle = detalle;
+
+      }
+
+    })
+
+    this.arregloDetalle.forEach((idusuario: any) => {
+      this.database.buscarDatosUsuario(idusuario.id_usuario).then(usuario => {
+        if(usuario.length > 0){
+
+          this.arregloUsuario = usuario;
+
+        }
+
+      })
+
+    })
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
