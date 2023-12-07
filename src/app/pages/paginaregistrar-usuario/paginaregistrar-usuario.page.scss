@@ -27,3 +27,29 @@ ion-content{
     --ion-background-color:#f1f1ec;
     --ion-border-color:primary;
 }
+
+.custom-button {
+    background-color: #5ba199;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px; /* Ajustar el margen entre el botón y la imagen */
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .custom-button:hover {
+    background-color: #45a049;
+  }
+  
+  .profile-picture {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 5px; /* Bordes redondeados para la imagen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un aspecto elevado */
+  }
+  
