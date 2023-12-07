@@ -89,8 +89,8 @@ export class ViajesiniciadosPage implements OnInit {
             this.arregloDetalle = detalle;
 
 
-            this.arregloDetalle.forEach((usuario: any) => {
-              this.database.buscarUsuarioViaje(usuario.id_usuario).then(usuario => {
+            detalle.forEach((id: any) => {
+              this.database.buscarUsuarioViaje(id.id_usuario).then(usuario => {
                 if(usuario.length > 0){
   
                   console.log('Usuario del viaje: ', usuario);
