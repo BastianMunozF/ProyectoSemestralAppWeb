@@ -89,9 +89,7 @@ export class ViajesiniciadosPage implements OnInit {
             this.arregloDetalle = detalle;
 
 
-            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario);
-
-            this.database.fetchUsuarioViaje().subscribe(usuario => {
+            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario).then(usuario => {
               if(usuario.length > 0){
 
                 console.log('Usuario del viaje: ', usuario);
@@ -102,7 +100,7 @@ export class ViajesiniciadosPage implements OnInit {
                 this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
 
               }
-
+            
             })
 
           }
