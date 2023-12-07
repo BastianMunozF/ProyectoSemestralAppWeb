@@ -56,7 +56,7 @@ export class TomarviajePage implements OnInit {
     console.log('Asientos: ', asientos);
 
     if(asientos > 0){
-      this.database.insertarViajeAceptado(id_user, parseInt(x.id_usuario), parseInt(x.id_viaje)).then(res => {
+      this.database.insertarViajeAceptado(id_user, x.id_viaje).then(res => {
         if(res){
           this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
             if(result){
