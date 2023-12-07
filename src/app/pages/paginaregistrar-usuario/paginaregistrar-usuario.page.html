@@ -16,8 +16,10 @@
       <form [formGroup]="formularioRegistro" (ngSubmit)="guardarUsuario()">
 
         <div>
-          <ion-button (click)="takePicture()" >Foto de Perfil</ion-button>
+          <ion-item>
+          <ion-button (click)="takePicture()" >Tomar Foto de Perfil</ion-button>
           <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" style="width: 100%;max-width: 250px;">
+        </ion-item>
         </div>
 
 
