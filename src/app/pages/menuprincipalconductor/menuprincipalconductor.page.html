@@ -27,17 +27,14 @@
 
     </div>
 
-  </ion-card>
-
-  <ion-card>
-
+    
     <ion-item>
-      <mat-slide-toggle class="ion-text-center" color="primary">Mostrarse como Disponible</mat-slide-toggle>
+      <mat-slide-toggle color="primary">Mostrarse como Disponible</mat-slide-toggle>
   </ion-item>
   
 
     <ion-item>
-      <mat-chip-listbox style="text-align: center;">
+      <mat-chip-listbox>
         <ion-label style="margin: 5px;margin-left: 10px; margin-right: 40px;">Seleccione su Tipo de Vehículo:</ion-label>
         <mat-chip-option color="primary" selected>Standard</mat-chip-option>
         <mat-chip-option color="primary">Large</mat-chip-option>
@@ -46,13 +43,6 @@
     </ion-item>
 
   </ion-card>
-
-  <br> 
-  <ion-label class="text-center">
-     <div class="center-content">
-       <ion-button [routerLink]="['/historialconductor']">Historial de tus Viajes</ion-button>
-     </div>
-   </ion-label>  
 
 </ion-content>
 
