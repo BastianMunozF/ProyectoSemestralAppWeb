@@ -53,7 +53,13 @@ export class TomarviajePage implements OnInit {
     this.database.buscarViajeUserAceptado(id_user, x.id_viaje);
 
     this.database.fetchDetalleViajeUserId().subscribe(detalleuser => {
+
       if(detalleuser.length > 0){
+
+        this.presentarAlerta("Error al reservar viaje", "Usted ya ha aceptado este viaje.");
+
+      } else {
+
         let asientos = x.cant_asientos - 1;
 
         if(asientos > 0){
@@ -95,9 +101,6 @@ export class TomarviajePage implements OnInit {
           this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
 
         }
-      } else {
-
-        this.presentarAlerta("Error al reservar viaje", "Usted ya ha aceptado este viaje.");
 
       }
     })
