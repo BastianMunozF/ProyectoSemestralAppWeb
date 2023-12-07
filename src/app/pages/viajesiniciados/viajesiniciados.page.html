@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-card color="primary">
-  <h2 class="ion-text-center" color="primary" style="font-weight: 800;">Historial de Viajes Aceptados</h2>
+  <h2 class="ion-text-center" color="primary" style="font-weight: 800;">Viajes Creados</h2>
   </ion-card>
   <ion-list>
     <ion-item *ngFor="let viaje of arregloViajes">
@@ -14,7 +14,7 @@
         <ion-card-content>
           <ion-item *ngFor="let usuario of arregloUsuario">
             <ion-label>
-              <strong>Pasajero: {{ usuario.nombre }}</strong>
+              <strong>Pasajeros: {{ usuario.nombre }}</strong>
               <br>
               <p>Fecha del Viaje: {{ viaje.f_viaje }}</p>
               <p>Hora de Salida: {{ viaje.hora_salida }}</p>
@@ -25,6 +25,7 @@
               <p>Estado: {{ viaje.estado }}</p>
               <br>
               <h4>Vehiculo:</h4>
+              <br>
               <ion-item *ngFor="let vehiculo of arregloVehiculo">
                 <p>Marca: {{ vehiculo.marca }}</p>
 
