@@ -236,7 +236,7 @@ export class DbserviceService {
       console.error('Error: this.database no está definido o no se ha inicializado correctamente.');
       return Promise.resolve([]);
     }
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ?", [id]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ?", [id]).then(res => {
       let datos: Viaje[] = [];
 
       if(res.rows.length > 0){

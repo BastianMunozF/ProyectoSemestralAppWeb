@@ -51,7 +51,7 @@ export class TomarviajePage implements OnInit {
     let id_user = localStorage.getItem('id');
 
     this.database.buscarViajeUserAceptado(id_user, x.id_viaje).then(res => {
-      if(res !== null){
+      if(res.length > 0){
 
         let asientos = x.cant_asientos - 1;
 
