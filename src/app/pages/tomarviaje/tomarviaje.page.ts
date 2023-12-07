@@ -25,20 +25,6 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
-  arregloViajesId: any = [
-    {
-      id_viaje: '',
-      f_viaje: '',
-      hora_salida: '',
-      salida: '',
-      destino: '',
-      cant_asientos: '',
-      valor_asiento: '',
-      estado: '',
-      id_usuario: '',
-    }
-  ]
-
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
@@ -63,10 +49,14 @@ export class TomarviajePage implements OnInit {
     console.log('Viaje: ', x)
 
     let id_user = localStorage.getItem('id');
-    let asientos: number = x.cant_asientos - 1;
+    let asientos = x.cant_asientos - 1;
+
+    console.log('Id Usuario: ', id_user);
+    console.log('Id Viaje: ', x.id_viaje);
+    console.log('Asientos: ', asientos);
 
     if(asientos > 0){
-      this.database.insertarViajeAceptado(id_user, x.id_usuario, x.id_viaje).then(res => {
+      this.database.insertarViajeAceptado(id_user, parseInt(x.id_usuario), parseInt(x.id_viaje)).then(res => {
         if(res){
           this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
             if(result){
