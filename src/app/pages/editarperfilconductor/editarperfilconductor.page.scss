@@ -28,3 +28,19 @@ ion-content{
     --ion-border-color:primary;
 }
 
+.profile-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px; /* Ajusta el ancho según tus necesidades */
+    height: 80px; /* Ajusta la altura según tus necesidades */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
+    border-radius: 50%; /* Hace que el contenedor tenga bordes redondeados */
+    border: 2px solid #fff; /* Añade un borde blanco alrededor del círculo */
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* Hace que la imagen tenga bordes redondeados */
+  }
