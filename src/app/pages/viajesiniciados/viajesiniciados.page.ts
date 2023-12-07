@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
+import { Viaje } from 'src/app/services/viaje';
 
 @Component({
   selector: 'app-viajesiniciados',
@@ -73,39 +74,32 @@ export class ViajesiniciadosPage implements OnInit {
       this.arregloVehiculo = vehiculo;
     })
 
-    this.database.fetchViajeUser().subscribe(viaje => {
+    this.database.fetchViajeUser().subscribe(viajeuser => {
 
-      if(viaje.length > 0){
+      if(viajeuser.length > 0){
 
-        console.log('Viajes del usuario: ', viaje);
-        this.arregloViajes = viaje;
+        console.log('Viajes del usuario: ', viajeuser);
+        this.arregloViajes = viajeuser;
 
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-
-        this.database.fetchDetalleViaje().subscribe(detalle => {
-          if(detalle.length > 0){
-
-            console.log('Detalle del viaje: ', detalle);
-            this.arregloDetalle = detalle;
-
-
-            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario).then(usuario => {
-              if(usuario.length > 0){
-
-                console.log('Usuario del viaje: ', usuario);
-                this.arregloUsuario = usuario;
-
-              } else {
-
-                this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
-
-              }
-            
-            })
-
-          }
-
-        })
+        this.arregloViajes.forEach((viaje: {id_viaje: number}) => {
+          this.database.buscarDetalleViaje(viaje.id_viaje).then(detalle => {
+            if(detalle.length > 0){
+              console.log('Detalle del viaje: ', detalle);
+              this.arregloDetalle = detalle;
+        
+              this.arregloDetalle.forEach((detalleViaje: {id_usuario: number}) => {
+                this.database.buscarUsuarioViaje(detalleViaje.id_usuario).then(usuario => {
+                  if(usuario.length > 0){
+                    console.log('Usuario del viaje: ', usuario);
+                    this.arregloUsuario.push(usuario);
+                  } else {
+                    this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
+                  }
+                })
+              });
+            }
+          });
+        });
 
       } else {
 
