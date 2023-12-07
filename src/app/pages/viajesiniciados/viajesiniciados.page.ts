@@ -68,30 +68,35 @@ export class ViajesiniciadosPage implements OnInit {
 
     this.database.buscarViajeUser(id_user);
 
-    this.database.fetchViajeUser().subscribe(datos => {
+    this.database.fetchViajeUser().subscribe(viaje => {
 
-      if(datos !== null){
+      if(viaje.length > 0){
 
-        console.log('Viajes del usuario: ', datos);
-        this.arregloViajes = datos;
+        console.log('Viajes del usuario: ', viaje);
+        this.arregloViajes = viaje;
 
         this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
 
         this.database.fetchDetalleViaje().subscribe(detalle => {
-          if(detalle){
+          if(detalle.length > 0){
 
             console.log('Detalle del viaje: ', detalle);
             this.arregloDetalle = detalle;
 
-            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
-              if(usuario){
+            this.database.buscarUsuarioViaje(this.arregloDetalle.id_usuario);
 
+            this.database.fetchUsuarioViaje().subscribe(usuario => {
+              if(usuario.length > 0){
+
+                console.log('Usuario del viaje: ', usuario);
                 this.arregloUsuario = usuario;
 
+              } else {
+
+                this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
+
               }
-
-            });
-
+            })
           }
 
         })
