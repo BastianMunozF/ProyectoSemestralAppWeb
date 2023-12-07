@@ -210,7 +210,7 @@ export class DbserviceService {
     });
   }
 
-  buscarDetalleUsuario(id_conductor: any){
+  buscarDetalleUsuario(id_usuario: any, id_viaje: any){
     if (!this.database) {
       console.error('Error: this.database no está definido.');
       return Promise.resolve([]);
@@ -219,7 +219,7 @@ export class DbserviceService {
       console.error('Error: this.database no está definido.');
       return Promise.resolve([]);
     }
-    return this.database.executeSql("SELECT * FROM detalle WHERE id_conductor = ?", [id_conductor]).then(res => {
+    return this.database.executeSql("SELECT * FROM detalle WHERE id_usuario = ? AND id_viaje = ?", [id_usuario, id_viaje]).then(res => {
       let detalles: Detalle[] = [];
 
       if(res.rows.length > 0){
@@ -228,7 +228,6 @@ export class DbserviceService {
             id_detalle: res.rows.item(i).id_detalle,
             id_usuario: res.rows.item(i).id_usuario,
             id_viaje: res.rows.item(i).id_viaje,
-            id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
@@ -251,7 +250,6 @@ export class DbserviceService {
             id_detalle: res.rows.item(i).id_detalle,
             id_usuario: res.rows.item(i).id_usuario,
             id_viaje: res.rows.item(i).id_viaje,
-            id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
@@ -367,7 +365,6 @@ export class DbserviceService {
             id_detalle: res.rows.item(i).id_detalle,
             id_usuario: res.rows.item(i).id_usuario,
             id_viaje: res.rows.item(i).id_viaje,
-            id_conductor: res.rows.item(i).id_conductor
           })
         }
       }
