@@ -3,11 +3,21 @@ import { Geolocation } from '@capacitor/geolocation';
 import { ApiService } from 'src/app/services/api.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
+import { trigger, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-menuprincipal',
   templateUrl: './menuprincipal.page.html',
   styleUrls: ['./menuprincipal.page.scss'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 
 export class MenuprincipalPage implements OnInit {
