@@ -66,21 +66,14 @@ export class ViajesiniciadosPage implements OnInit {
   ngOnInit() {
     let id_user = localStorage.getItem('id');
 
-    this.database.buscarViajeUser(id_user);
+    this.database.buscarViajeUser(id_user).then(viaje => {
+      if(viaje){
 
-    this.database.fetchViajeUser().subscribe(datos => {
-  
-      if(datos){
+        this.arregloViajes = viaje;
 
-        console.log('Viajes del usuario: ', datos);
-        this.arregloViajes = datos;
-
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-
-        this.database.fetchDetalleViaje().subscribe(detalle => {
+        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
           if(detalle){
 
-            console.log('Detalle del viaje: ', detalle);
             this.arregloDetalle = detalle;
 
             this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
@@ -89,8 +82,11 @@ export class ViajesiniciadosPage implements OnInit {
                 this.arregloUsuario = usuario;
 
               }
+
             });
+
           }
+        
         })
 
       } else {
@@ -98,7 +94,6 @@ export class ViajesiniciadosPage implements OnInit {
         this.presentarAlerta("Error al cargar viajes", "Usted aún no ha creado viajes.");
 
       }
-
     })
   }
 
