@@ -27,3 +27,30 @@ ion-content{
     --ion-background-color:#f1f1ec;
     --ion-border-color:primary;
 }
+
+ion-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%; /* Ajusta la altura según tus necesidades */
+  }
+  
+  .center-content {
+    display: flex;
+    align-items: center;
+  }
+
+ion-button {
+    font-size: 1.2em; /* Tamaño del texto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agregar sombra */
+
+  }
+
+ion-button:hover {
+    background-color: #45a049; /* Nuevo color de fondo al pasar el ratón */
+  }
+  
+  
+  
+  
+  
