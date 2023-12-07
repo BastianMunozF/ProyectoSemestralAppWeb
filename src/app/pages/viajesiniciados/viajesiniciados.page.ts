@@ -25,50 +25,6 @@ export class ViajesiniciadosPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
-    const id_usuario: any = this.detallesViaje[1].id_usuario;
-
-    this.database.buscarDetalleUsuario(this.id_conductor).then((detalle) => {
-      if (detalle && detalle.length > 0) {
-        this.detallesViaje = detalle;
-
-        let estado = 'Viaje Iniciado.'
-        this.database.buscarViajeAceptado(estado).then(viaje => {
-          if (viaje && viaje.length > 0) {
-            this.arregloViajes = viaje;
-
-            this.database.buscarVehiculoUsuario(this.id_conductor).then((vehiculo) => {
-              if (vehiculo && vehiculo.length > 0) {
-                this.arregloVehiculo = vehiculo;
-
-                this.database.buscarDatosUsuario(id_usuario).then((usuario) => {
-                  if (usuario && usuario.length > 0) {
-                    this.arregloUsuario = usuario;
-
-                  } else {
-                    console.log('Error al buscar viaje.');
-                  }
-
-                })
-
-              } else {
-                console.log('Error al buscar vehiculo.');
-              }
-            });
-          } else {
-            console.log('Error al buscar viaje.');
-          }
-
-          
-          
-        })
-
-      } else {
-        this.presentarAlerta('Viajes no encontrados', 'Usted aún no ha aceptado ningún viaje.');
-      }
-    });
-  }
-
   async presentarAlerta(titulo: string, mensaje: string){
     const alert = await this.alertController.create({
       header: titulo,
