@@ -49,36 +49,42 @@ export class TomarviajePage implements OnInit {
     console.log('Viaje: ', x)
 
     let id_user = localStorage.getItem('id');
-    let asientos = x.cant_asientos - 1;
 
-    console.log('Id Usuario: ', id_user);
-    console.log('Id Viaje: ', x.id_viaje);
-    console.log('Asientos: ', asientos);
+    this.database.buscarViajeUserAceptado(id_user, x.id_viaje).then(res => {
+      if(res){
 
-    if(asientos > 0){
-      this.database.insertarViajeAceptado(id_user, x.id_viaje).then(res => {
-        if(res){
-          this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
-            if(result){
-              this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
-              this.router.navigate(['/menuprincipal']);
+        this.presentarAlerta("Error al reservar viaje", "Usted ya ha reservado este viaje.");
+
+      } else {
+
+        let asientos = x.cant_asientos - 1;
+
+        if(asientos > 0){
+          this.database.insertarViajeAceptado(id_user, x.id_viaje).then(res => {
+            if(res){
+              this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
+                if(result){
+                  this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
+                  this.router.navigate(['/menuprincipal']);
+                } else {
+                  this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
+                }
+              }).catch(error => {
+                this.presentarAlerta("Error aqui.", "Funcion Actualizar Estado Viaje.");
+                console.error(error);
+              })
             } else {
-              this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
+              this.presentarAlerta("Error al reservar Viaje", "Su viaje no ha podido ser reservado.");
             }
           }).catch(error => {
-            this.presentarAlerta("Error aqui.", "Funcion Actualizar Estado Viaje.");
+            this.presentarAlerta("Error aqui.", "Funcion Insertar Viaje Aceptado.");
             console.error(error);
           })
         } else {
-          this.presentarAlerta("Error al reservar Viaje", "Su viaje no ha podido ser reservado.");
+          this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
         }
-      }).catch(error => {
-        this.presentarAlerta("Error aqui.", "Funcion Insertar Viaje Aceptado.");
-        console.error(error);
-      })
-    } else {
-      this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
-    }
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
