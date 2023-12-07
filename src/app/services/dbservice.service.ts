@@ -71,6 +71,8 @@ export class DbserviceService {
 
   listaDetalleViaje = new BehaviorSubject([]);
 
+  listaDetalleViajeUserId = new BehaviorSubject([]);
+
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
@@ -129,6 +131,10 @@ export class DbserviceService {
 
   fetchDetalleViaje(): Observable<Detalle[]>{
     return this.listaDetalleViaje.asObservable();
+  }
+
+  fetchDetalleViajeUserId(): Observable<Detalle[]>{
+    return this.listaDetalleViajeUserId.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -280,7 +286,7 @@ export class DbserviceService {
           })
         }
       }
-      this.listaDetalleId.next(detalles as any);
+      this.listaDetalleViajeUserId.next(detalles as any);
       return detalles;
     });
   }
