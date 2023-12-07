@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
-import { Viaje } from 'src/app/services/viaje';
+import { Detalle } from 'src/app/services/detalle';
 
 @Component({
   selector: 'app-viajesiniciados',
@@ -46,7 +46,7 @@ export class ViajesiniciadosPage implements OnInit {
     }
   ]
 
-  arregloViajes: any = [
+  arregloViaje: any = [
     {
       id_viaje: '',
       f_viaje: '',
@@ -60,7 +60,41 @@ export class ViajesiniciadosPage implements OnInit {
     }
   ]
 
-  
+  arregloViajes: any = [
+    {
+      id_viaje: '',
+      f_viaje: '',
+      hora_salida: '',
+      salida: '',
+      destino: '',
+      cant_asientos: '',
+      valor_asiento: '',
+      estado: '',
+      usuarios: [
+        {
+          id_usuario: '',
+          nombre: '',
+          apellido: '',
+          correo: '',
+          fechanacimiento: '',
+          rut: '',
+          celular: '',
+          contrasena: '',
+          fotoperfil: '',
+        }
+      ],
+      vehiculo: {
+        id_vehiculo: '',
+        marca: '',
+        modelo: '',
+        anio: '',
+        patente: '',
+        asientos: '',
+        id_usuario: '',
+        id_tipo: '',
+      }
+    }
+  ];
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
@@ -74,29 +108,20 @@ export class ViajesiniciadosPage implements OnInit {
       this.arregloVehiculo = vehiculo;
     })
 
-    this.database.fetchViajeUser().subscribe(viajeuser => {
+    this.database.fetchViajeUser().subscribe(viaje => {
 
-      if(viajeuser.length > 0){
+      if(viaje.length > 0){
 
-        console.log('Viajes del usuario: ', viajeuser);
-        this.arregloViajes = viajeuser;
+        console.log('Viajes del usuario: ', viaje);
+        this.arregloViaje = viaje;
 
-        this.arregloViajes.forEach((viaje: {id_viaje: number}) => {
-          this.database.buscarDetalleViaje(viaje.id_viaje).then(detalle => {
-            if(detalle.length > 0){
-              console.log('Detalle del viaje: ', detalle);
-              this.arregloDetalle = detalle;
-        
-              this.arregloDetalle.forEach((detalleViaje: {id_usuario: number}) => {
-                this.database.buscarUsuarioViaje(detalleViaje.id_usuario).then(usuario => {
-                  if(usuario.length > 0){
-                    console.log('Usuario del viaje: ', usuario);
-                    this.arregloUsuario.push(usuario);
-                  } else {
-                    this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
-                  }
-                })
-              });
+        this.arregloDetalle.forEach((detalleViaje: any) => {
+          this.database.buscarUsuarioViaje(detalleViaje.id_usuario).then(usuario => {
+            if (usuario.length > 0) {
+              console.log('Usuario del viaje: ', usuario);
+              detalleViaje.usuarios = usuario;
+            } else {
+              this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
             }
           });
         });
