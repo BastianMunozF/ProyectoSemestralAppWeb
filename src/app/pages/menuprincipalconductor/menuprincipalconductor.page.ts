@@ -82,7 +82,6 @@ export class MenuprincipalconductorPage implements OnInit {
 
       }
     });
-
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

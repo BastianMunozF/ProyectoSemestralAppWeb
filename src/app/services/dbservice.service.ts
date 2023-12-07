@@ -53,6 +53,8 @@ export class DbserviceService {
 
   listaViajeId = new BehaviorSubject([]);
 
+  listaViajeUser = new BehaviorSubject([]);
+
   listaVehiculo = new BehaviorSubject([]);
 
   listaVehiculoUser = new BehaviorSubject([]);
@@ -64,6 +66,8 @@ export class DbserviceService {
   listaDetalleId = new BehaviorSubject([]);
 
   listaDetalleUser = new BehaviorSubject([]);
+
+  listaDetalleViaje = new BehaviorSubject([]);
 
   //Variable observable para la manipulación del STATUS de la Base de Datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false)
@@ -93,6 +97,10 @@ export class DbserviceService {
     return this.listaViajeId.asObservable();
   }
 
+  fetchViajeUser(): Observable<Viaje[]>{
+    return this.listaViajeUser.asObservable();
+  }
+
   fetchUsuarioId(): Observable<Usuario[]>{
     return this.listaUsuarioId.asObservable();
   }
@@ -111,6 +119,10 @@ export class DbserviceService {
 
   fetchDetalleUser(): Observable<Detalle[]>{
     return this.listaDetalleUser.asObservable();
+  }
+
+  fetchDetalleViaje(): Observable<Detalle[]>{
+    return this.listaDetalleViaje.asObservable();
   }
 
   buscarCorreo(correo: string, contrasena: string){
@@ -206,6 +218,7 @@ export class DbserviceService {
           })
         }
       }
+      this.listaViajeUser.next(datos as any);
       return datos;
     });
   }
@@ -254,6 +267,28 @@ export class DbserviceService {
         }
       }
       this.listaDetalleUser.next(detalles as any);
+      return detalles;
+    })
+  }
+
+  buscarDetalleViaje(id_viaje: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }
+    return this.database.executeSql('SELECT * FROM detalle WHERE id_viaje = ?', [id_viaje]).then(res => {
+      let detalles: Detalle[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          detalles.push({
+            id_detalle: res.rows.item(i).id_detalle,
+            id_usuario: res.rows.item(i).id_usuario,
+            id_viaje: res.rows.item(i).id_viaje,
+          })
+        }
+      }
+      this.listaDetalleViaje.next(detalles as any);
       return detalles;
     })
   }
