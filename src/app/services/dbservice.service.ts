@@ -263,7 +263,7 @@ export class DbserviceService {
   buscarViajeUserAceptado(id_usuario: any, id_viaje: any){
     return this.database.executeSql('SELECT * FROM detalle WHERE id_usuario = ? AND id_viaje = ?', [id_usuario, id_viaje]).then(res => {
       if(res.rows.length > 0){
-        return true;
+        return res.rows.item(0);
       } else {
         return null;
       }

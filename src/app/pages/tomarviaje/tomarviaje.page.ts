@@ -51,11 +51,7 @@ export class TomarviajePage implements OnInit {
     let id_user = localStorage.getItem('id');
 
     this.database.buscarViajeUserAceptado(id_user, x.id_viaje).then(res => {
-      if(res){
-
-        this.presentarAlerta("Error al reservar viaje", "Usted ya ha reservado este viaje.");
-
-      } else {
+      if(res !== null){
 
         let asientos = x.cant_asientos - 1;
 
@@ -64,25 +60,45 @@ export class TomarviajePage implements OnInit {
             if(res){
               this.database.actualizarEstadoViaje(asientos, x.id_viaje).then(result => {
                 if(result){
+
                   this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
                   this.router.navigate(['/menuprincipal']);
+
                 } else {
+
                   this.presentarAlerta("Error al aceptar Viaje", "Su viaje no ha podido ser reservado.");
+
                 }
               }).catch(error => {
+
                 this.presentarAlerta("Error aqui.", "Funcion Actualizar Estado Viaje.");
                 console.error(error);
+
               })
+
             } else {
+
               this.presentarAlerta("Error al reservar Viaje", "Su viaje no ha podido ser reservado.");
+
             }
+
           }).catch(error => {
+
             this.presentarAlerta("Error aqui.", "Funcion Insertar Viaje Aceptado.");
             console.error(error);
+
           })
+
         } else {
+
           this.presentarAlerta("Error al reservar viaje", "El viaje que desea reservar no tiene asientos disponibles.");
+
         }
+
+      } else {
+
+        this.presentarAlerta("Error al reservar viaje", "Usted ya ha reservado este viaje.");
+
       }
     })
   }
