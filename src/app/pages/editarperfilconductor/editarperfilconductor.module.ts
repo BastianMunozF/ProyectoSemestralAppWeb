@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { EditarperfilconductorPageRoutingModule } from './editarperfilconductor-routing.module';
 
 import { EditarperfilconductorPage } from './editarperfilconductor.page';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -14,7 +17,10 @@ import { EditarperfilconductorPage } from './editarperfilconductor.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    EditarperfilconductorPageRoutingModule
+    EditarperfilconductorPageRoutingModule, 
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   declarations: [EditarperfilconductorPage]
 })
