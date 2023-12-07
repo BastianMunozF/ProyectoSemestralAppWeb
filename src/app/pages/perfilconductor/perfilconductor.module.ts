@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilconductorPageRoutingModule } from './perfilconductor-routing.module';
 
 import { PerfilconductorPage } from './perfilconductor.page';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilconductorPageRoutingModule
+    PerfilconductorPageRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
   ],
   declarations: [PerfilconductorPage]
 })
