@@ -8,13 +8,15 @@ import { PaginarecuperarUsuarioPageRoutingModule } from './paginarecuperar-usuar
 import { PaginarecuperarUsuarioPage } from './paginarecuperar-usuario.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     PaginarecuperarUsuarioPageRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+
   ],
   declarations: [PaginarecuperarUsuarioPage]
 })
