@@ -18,15 +18,14 @@
       <ion-item *ngFor="let vehiculo of arregloVehiculo">
         <ion-card>
           <ion-card-content>
-            <div *ngFor="let usuario of arregloUsuario">
+            <div *ngFor="let detalle of viaje.detalle">
               <ion-item>
                 <ion-label>
-                  <strong>Pasajeros:</strong>
+                  <strong>Pasajero:</strong>
                 </ion-label>
-    
-                <ion-label>Nombre: {{ usuario.nombre }} {{ usuario.apellido }}</ion-label>
-                <ion-label>Correo: {{ usuario.correo }}</ion-label>
-                <ion-label>Celular: {{ usuario.celular }}</ion-label>
+                <ion-label>Nombre: {{ detalle.usuario.nombre }} {{ detalle.usuario.apellido }}</ion-label>
+                <ion-label>Correo: {{ detalle.usuario.correo }}</ion-label>
+                <ion-label>Celular: {{ detalle.usuario.celular }}</ion-label>
               </ion-item>
             </div>
   

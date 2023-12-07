@@ -92,9 +92,6 @@ export class ViajesiniciadosPage implements OnInit {
                   if(usuario.length > 0){
                     console.log('Usuario del viaje: ', usuario);
                     this.arregloUsuario.push(usuario);
-
-                    this.presentarAlerta("Viaje Confirmado", "Un pasajero ha aceptado su viaje.");
-
                   } else {
                     this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
                   }
