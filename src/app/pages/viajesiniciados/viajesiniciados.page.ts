@@ -89,6 +89,10 @@ export class ViajesiniciadosPage implements OnInit {
         console.log('Viajes del usuario: ', viaje);
         this.arregloViajes = viaje;
 
+      } else {
+
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+
       }
     })
 
@@ -105,13 +109,15 @@ export class ViajesiniciadosPage implements OnInit {
     })
 
     this.arregloDetalle.forEach((idusuario: any) => {
-      this.database.buscarDatosUsuario(idusuario.id_usuario).then(usuario => {
+      this.database.buscarDatosUsuario(idusuario.id_usuario);
+
+      this.database.fetchUsuarioId().subscribe(usuario => {
         if(usuario.length > 0){
 
+          console.log('Datos del usuario: ', usuario);
           this.arregloUsuario = usuario;
 
         }
-
       })
 
     })
