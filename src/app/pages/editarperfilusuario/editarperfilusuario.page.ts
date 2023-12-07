@@ -25,6 +25,20 @@ export class EditarperfilusuarioPage implements OnInit {
 
   fotoPerfil: string | undefined;
 
+  arregloUsuario: any = [
+    {
+      id_usuario: '',
+      nombre: '',
+      apellido: '',
+      correo: '',
+      fechanacimiento: '',
+      rut: '',
+      celular: '',
+      contrasena: '',
+      fotoperfil: '',
+    }
+  ]
+
   constructor(private router: Router, private database: DbserviceService, private fb: FormBuilder, public alertController: AlertController) {
     this.formularioActualizar = this.fb.group({
       'nombre': new FormControl(''),
@@ -44,6 +58,7 @@ export class EditarperfilusuarioPage implements OnInit {
       if(datos){
 
         this.usuario = datos[0];
+        this.arregloUsuario = datos;
         this.inicializarFormulario();
 
       }

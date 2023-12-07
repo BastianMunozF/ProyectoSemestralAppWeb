@@ -25,6 +25,19 @@ export class EditarperfilconductorPage implements OnInit {
   image: any;
   imageSource: string | undefined;
 
+  arregloUsiario: any = [
+    {
+      id_usuario: '',
+      nombre: '',
+      apellido: '',
+      correo: '',
+      fechanacimiento: '',
+      rut: '',
+      celular: '',
+      contrasena: '',
+      fotoperfil: '',
+    }
+  ]
 
   formularioActualizar: FormGroup;
 
