@@ -66,43 +66,40 @@ export class ViajesiniciadosPage implements OnInit {
   ngOnInit() {
     let id_user = localStorage.getItem('id');
 
-    this.database.buscarViajeUser(id_user).then(data => {
-      if(data.length > 0){
+    this.database.buscarViajeUser(id_user);
 
-        this.database.fetchViajeUser().subscribe(datos => {
-  
-          if(datos.length > 0){
-    
-            console.log('Viajes del usuario: ', datos);
-            this.arregloViajes = datos;
-    
-            this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-    
-            this.database.fetchDetalleViaje().subscribe(detalle => {
-              if(detalle){
-    
-                console.log('Detalle del viaje: ', detalle);
-                this.arregloDetalle = detalle;
-    
-                this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
-                  if(usuario){
-    
-                    this.arregloUsuario = usuario;
-    
-                  }
-                });
+    this.database.fetchViajeUser().subscribe(datos => {
+
+      if(datos !== null){
+
+        console.log('Viajes del usuario: ', datos);
+        this.arregloViajes = datos;
+
+        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
+
+        this.database.fetchDetalleViaje().subscribe(detalle => {
+          if(detalle){
+
+            console.log('Detalle del viaje: ', detalle);
+            this.arregloDetalle = detalle;
+
+            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
+              if(usuario){
+
+                this.arregloUsuario = usuario;
+
               }
-            })
-    
-          } else {
-    
-            this.presentarAlerta("Error al cargar viajes", "No se han encontrado viajes.");
-    
+
+            });
+
           }
-    
+
         })
+
       } else {
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no ha creado viajes.");
+
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+
       }
     })
   }
