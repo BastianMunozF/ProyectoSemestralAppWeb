@@ -70,24 +70,22 @@ export class ViajesiniciadosPage implements OnInit {
         console.log('Viajes del usuario: ', viajes);
         this.arregloViajes = viajes;
 
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-
-        this.database.fetchDetalleViaje().subscribe(detalle => {
+        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
           if(detalle.length > 0){
-            console.log('Detalle del viaje: ', detalle);
-            this.arregloDetalle = detalle;
+              
+              this.arregloDetalle = detalle;
   
-            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario);
-
-            this.database.fetchUsuarioId().subscribe(usuario => {
-              if(usuario.length > 0){
-                console.log('Datos del usuario: ', usuario);
-                this.arregloUsuario = usuario;
-              } else {
-                this.presentarAlerta("Error al cargar datos", "No se han podido cargar los datos del usuario.");
-              }
-            
-            })
+              this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
+                if(usuario.length > 0){
+  
+                  this.arregloUsuario = usuario;
+  
+                } else {
+  
+                  console.log('Usuario no encontrado.');
+  
+                }
+              })
           }
         })
 

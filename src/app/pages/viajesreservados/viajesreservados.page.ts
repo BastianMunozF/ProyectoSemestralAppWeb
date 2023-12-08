@@ -71,32 +71,16 @@ export class ViajesreservadosPage implements OnInit {
 
         this.arregloDetalle = detalle;
 
-        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado);
-
-        this.database.fetchViajeReservado().subscribe(viaje => {
-
+        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(viaje => {
           if(viaje.length > 0){
-
             this.arregloViajes = viaje;
 
-            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
-
-            this.database.fetchUsuarioId().subscribe(usuario => {
-
+            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
               if(usuario.length > 0){
-
                 this.arregloUsuario = usuario;
-
               }
-
             })
-
-          } else {
-
-            this.presentarAlerta("No hay viajes reservados", "Usted no ha reservado ningún viaje aún.");
-    
           }
-
         })
 
       }
