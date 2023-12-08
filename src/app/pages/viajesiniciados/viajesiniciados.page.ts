@@ -108,7 +108,7 @@ export class ViajesiniciadosPage implements OnInit {
             if(usuario.length > 0){
     
               console.log('Datos del usuario: ', usuario);
-              this.arregloUsuario = usuario;
+              this.arregloUsuario.push(usuario);
     
             }
           });
