@@ -65,55 +65,41 @@ export class ViajesiniciadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
-    this.database.buscarViajeCreadoUser(id_user, estado).then(res => {
-      if(res.length > 0){
+    this.database.buscarViajeCreadoUser(id_user, estado).then(viajes => {
+    if (viajes.length > 0) {
+      console.log('Viajes del usuario: ', viajes);
+      this.arregloViajes = viajes;
 
-        console.log('Viajes del usuario: ', res);
-        this.database.fetchViajeCreadoUser().subscribe(viaje => {
+      viajes.forEach(viaje => {
+        this.database.buscarDetalleViaje(viaje.id_viaje);
 
-          if(viaje.length > 0){
-    
-            console.log('Viajes del usuario: ', viaje);
-            this.arregloViajes = viaje;
+        this.database.fetchDetalleViaje().subscribe(detalle => {
+          if (detalle.length > 0) {
+            console.log('Detalle del viaje: ', detalle);
+            this.arregloDetalle = detalle;
 
-            this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
+            detalle.forEach(det => {
+              this.database.buscarDatosUsuario(det.id_usuario);
 
-            this.database.fetchDetalleViaje().subscribe(detalle => {
-              if(detalle.length > 0){
+              this.database.fetchUsuarioId().subscribe(usuario => {
+                if (usuario.length > 0) {
+                  console.log('Datos del usuario: ', usuario);
 
-                console.log('Detalle del viaje: ', detalle);
-                this.arregloDetalle = detalle;
-
-                this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario);
-
-                this.database.fetchUsuarioId().subscribe(usuario => {
-                  if(usuario.length > 0){
-
-                    console.log('Datos del usuario: ', usuario);
-                    this.arregloUsuario.push(usuario);
-
-                  } else {
-
-                    console.log('Datos no encontrados.');
-
-                  }
-                
-                })
-
-              }
-
-            })
-
+                  // Agregar el usuario al arregloUsuario
+                  this.arregloUsuario.push(usuario);
+                } else {
+                  console.log('Datos no encontrados.');
+                }
+              });
+            });
           }
-
         });
+      });
 
-      } else {
-
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
-
-      }
-    });
+    } else {
+      this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+    }
+  });
 
     this.database.buscarVehiculoUsuario(id_user)
 
