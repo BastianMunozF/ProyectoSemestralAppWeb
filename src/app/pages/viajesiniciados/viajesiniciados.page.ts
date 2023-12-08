@@ -94,40 +94,33 @@ export class ViajesiniciadosPage implements OnInit {
       }
     })
 
-    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(res => {
-      if (res) {
-        this.database.fetchDetalleViaje().subscribe(detalle => {
-          if (detalle.length > 0) {
-            console.log('Detalle del viaje: ', detalle);
-
-            this.arregloUsuario = [];
-
-            detalle.forEach((detallePasajero: any) => {
-              this.database.buscarDatosUsuario(detallePasajero.id_usuario).then(resUsuario => {
-                if (resUsuario) {
-                  this.database.fetchUsuarioId().subscribe(usuario => {
-                    if (usuario.length > 0) {
-                      console.log('Datos del usuario: ', usuario);
-
-                      this.arregloUsuario.push(usuario);
-                    }
-
-                  });
-
-                }
-
+    this.arregloViajes.forEach((viajeIndividual: any) => {
+      this.database.buscarDetalleViaje(viajeIndividual.id_viaje).then(res => {
+        if(res){
+          this.database.fetchDetalleViaje().subscribe(detalle => {
+            if(detalle.length > 0){
+              console.log('Detalle del viaje: ', detalle);
+              viajeIndividual.detalle = detalle;
+    
+              detalle.forEach((detalleIndividual: any) => {
+                this.database.buscarDatosUsuario(detalleIndividual.id_usuario).then(resUsuario => {
+                  if(resUsuario){
+                    this.database.fetchUsuarioId().subscribe(usuario => {
+                      if(usuario.length > 0){
+                        console.log('Usuario del viaje: ', usuario);
+                        this.arregloUsuario.push(usuario);
+                      } else {
+                        this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
+                      }
+                    });
+                  }
+                });
               });
-
-            });
-
-          }
-
-        });
-
-      }
-
+            }
+          });
+        }
+      });
     });
-
   }
 
   iniciarViaje(viaje: any){
@@ -137,6 +130,11 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         this.presentarAlerta("Viaje Iniciado", "Su viaje ha sido iniciado con éxito.");
+        // Elimina el viaje del arreglo
+        const index = this.arregloViajes.indexOf(viaje);
+        if(index !== -1){
+          this.arregloViajes.splice(index, 1);
+        }
 
       } else {
 
