@@ -95,37 +95,38 @@ export class ViajesiniciadosPage implements OnInit {
     })
 
     this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(res => {
-      if(res){
+      if (res) {
         this.database.fetchDetalleViaje().subscribe(detalle => {
-          if(detalle.length > 0){
-    
+          if (detalle.length > 0) {
             console.log('Detalle del viaje: ', detalle);
-            this.arregloDetalle = detalle;
 
-            this.arregloDetalle.forEach((idusuario: any) => {
-              this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
-                if(res){
+            this.arregloUsuario = [];
+
+            detalle.forEach((detallePasajero: any) => {
+              this.database.buscarDatosUsuario(detallePasajero.id_usuario).then(resUsuario => {
+                if (resUsuario) {
                   this.database.fetchUsuarioId().subscribe(usuario => {
-                    if(usuario.length > 0){
-            
+                    if (usuario.length > 0) {
                       console.log('Datos del usuario: ', usuario);
-                      this.arregloUsuario = usuario;
-            
+
+                      this.arregloUsuario.push(usuario);
                     }
-        
+
                   });
-        
+
                 }
-        
-              })
-        
+
+              });
+
             });
-    
+
           }
-    
-        })
+
+        });
+
       }
-    })
+
+    });
 
   }
 
@@ -136,6 +137,10 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         this.presentarAlerta("Viaje Iniciado", "Su viaje ha sido iniciado con éxito.");
+        const index = this.arregloViajes.indexOf(viaje);
+        if(index !== -1){
+          this.arregloViajes.splice(index, 1);
+        }
 
       } else {
 
