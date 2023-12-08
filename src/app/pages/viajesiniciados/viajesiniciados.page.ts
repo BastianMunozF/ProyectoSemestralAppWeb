@@ -113,33 +113,6 @@ export class ViajesiniciadosPage implements OnInit {
         }
       })
     })
-
-    this.arregloViajes.forEach((viajeIndividual: any) => {
-      this.database.buscarDetalleViaje(viajeIndividual.id_viaje).then(res => {
-        if(res){
-          this.database.fetchDetalleViaje().subscribe(detalle => {
-            viajeIndividual.detalle = detalle;
-    
-            detalle.forEach((detalleIndividual: any) => {
-              this.database.buscarDatosUsuario(detalleIndividual.id_usuario).then(resUsuario => {
-                if(resUsuario){
-                  this.database.fetchUsuarioId().subscribe(usuario => {
-                    if(usuario){
-                      if (!viajeIndividual.usuarios) {
-                        viajeIndividual.usuarios = [];
-                      }
-                      viajeIndividual.usuarios.push(usuario);
-                    } else {
-                      this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
-                    }
-                  });
-                }
-              });
-            });
-          });
-        }
-      });
-    });
   }
 
   iniciarViaje(viaje: any){
