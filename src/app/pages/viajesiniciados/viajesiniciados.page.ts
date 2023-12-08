@@ -137,10 +137,6 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         this.presentarAlerta("Viaje Iniciado", "Su viaje ha sido iniciado con éxito.");
-        const index = this.arregloViajes.indexOf(viaje);
-        if(index !== -1){
-          this.arregloViajes.splice(index, 1);
-        }
 
       } else {
 
@@ -155,6 +151,10 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         this.presentarAlerta("Viaje Cancelado", "Su viaje ha sido cancelado con éxito.");
+        const index = this.arregloViajes.indexOf(viaje);
+        if(index !== -1){
+          this.arregloViajes.splice(index, 1);
+        }
 
       } else {
 

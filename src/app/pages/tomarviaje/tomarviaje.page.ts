@@ -60,9 +60,9 @@ export class TomarviajePage implements OnInit {
 
       } else {
 
-        let asientos = parseInt(x.cant_asientos) - 1;
+        if(parseInt(x.cant_asientos) > 0){
 
-        if(asientos > 0){
+          let asientos = parseInt(x.cant_asientos) - 1;
 
           this.database.insertarViajeAceptado(id_user, x.id_viaje).then(res => {
 
