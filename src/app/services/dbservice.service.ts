@@ -462,7 +462,7 @@ export class DbserviceService {
       console.error('La base de datos no está inicializada.');
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
-    return this.database.executeSql("SELECT * FROM viaje WHERE estado = 'Disponible.'", []).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE estado = Disponible.", []).then(res => {
       let items: Viaje[] = [];
 
       if(res.rows.length > 0){
@@ -491,7 +491,7 @@ export class DbserviceService {
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
 
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = 'Iniciado.'", [id_conductor]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = Iniciado.", [id_conductor]).then(res => {
       let viaje: Viaje[] = [];
 
       if(res.rows.length > 0){
