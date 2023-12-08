@@ -84,12 +84,20 @@ export class ViajesiniciadosPage implements OnInit {
                 console.log('Detalle del viaje: ', detalle);
                 this.arregloDetalle = detalle;
 
-                this.arregloDetalle.forEach((idusuario: any) => {
-                  this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
-                    if(res.length > 0){
-                      this.arregloUsuario = res;
-                    }
-                  })
+                this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario);
+
+                this.database.fetchUsuarioId().subscribe(usuario => {
+                  if(usuario.length > 0){
+
+                    console.log('Datos del usuario: ', usuario);
+                    this.arregloUsuario = usuario;
+
+                  } else {
+
+                    console.log('Datos no encontrados.');
+
+                  }
+                
                 })
 
               }
