@@ -73,7 +73,10 @@ export class TomarviajePage implements OnInit {
                 if(result){
 
                   this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
-                  this.router.navigate(['/menuprincipal']);
+                  const index = this.arregloViajes.indexOf(x);
+                  if(index !== -1){
+                    this.arregloViajes.splice(index, 1);
+                  }
 
                 } else {
 

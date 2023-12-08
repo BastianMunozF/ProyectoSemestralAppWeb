@@ -66,10 +66,7 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
-    this.database.buscarDetalleUser(id_user);
-
-    this.database.fetchDetalleUser().subscribe(detalle => {
-
+    this.database.buscarDetalleUser(id_user).then(detalle => {
       if(detalle.length > 0){
 
         this.arregloDetalle = detalle;
@@ -94,16 +91,15 @@ export class ViajesreservadosPage implements OnInit {
 
             })
 
+          } else {
+
+            this.presentarAlerta("No hay viajes reservados", "Usted no ha reservado ningún viaje aún.");
+    
           }
 
         })
 
-      } else {
-
-        this.presentarAlerta("No hay viajes reservados", "Usted no ha reservado ningún viaje aún.");
-
       }
-
     })
 
   }
