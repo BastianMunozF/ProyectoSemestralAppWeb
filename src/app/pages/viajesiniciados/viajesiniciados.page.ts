@@ -70,6 +70,15 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         console.log('Viajes del usuario: ', res);
+        this.database.fetchViajeUser().subscribe(viaje => {
+
+          if(viaje.length > 0){
+    
+            console.log('Viajes del usuario: ', viaje);
+            this.arregloViajes = viaje;
+          }
+
+        });
 
       } else {
 
@@ -81,19 +90,6 @@ export class ViajesiniciadosPage implements OnInit {
 
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
       this.arregloVehiculo = vehiculo;
-    })
-
-    this.database.fetchViajeUser().subscribe(viaje => {
-      if(viaje.length > 0){
-
-        console.log('Viajes del usuario: ', viaje);
-        this.arregloViajes = viaje;
-
-      } else {
-
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
-
-      }
     })
 
     this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
@@ -118,9 +114,9 @@ export class ViajesiniciadosPage implements OnInit {
           this.arregloUsuario = usuario;
 
         }
-      })
+      });
 
-    })
+    });
 
   }
 
