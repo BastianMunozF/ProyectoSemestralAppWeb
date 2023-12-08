@@ -72,25 +72,24 @@ export class ViajesreservadosPage implements OnInit {
     this.database.fetchDetalleUser().subscribe(detalle => {
       if(detalle.length > 0){
         this.arregloDetalle = detalle;
-      }
-    })
 
-    this.database.fetchViajeReservado().subscribe(viajes => {
-      if(viajes.length > 0){
-        this.arregloViajes = viajes;
-      }
-    })
+        this.database.fetchViajeReservado().subscribe(viajes => {
+          if(viajes.length > 0){
+            this.arregloViajes = viajes;
 
-    this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
-      if(usuario.length > 0){
-        this.database.fetchUsuarioId().subscribe(user => {
-          if(user.length > 0){
-            this.arregloUsuario = user;
+            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
+              if(usuario.length > 0){
+                this.database.fetchUsuarioId().subscribe(user => {
+                  if(user.length > 0){
+                    this.arregloUsuario = user;
+                  }
+                })
+              }
+            })
           }
         })
       }
     })
-
   }
 
   cancelarReserva(viaje: any){

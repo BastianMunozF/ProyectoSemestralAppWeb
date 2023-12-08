@@ -76,6 +76,20 @@ export class ViajescursoPage implements OnInit {
     
             console.log('Viajes del usuario: ', viaje);
             this.arregloViajes = viaje;
+
+            this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
+              if(detalle.length > 0){
+                this.arregloDetalle = detalle;
+
+                for(let i = 0; i < this.arregloDetalle.length; i++){
+                  this.database.buscarDatosUsuario(this.arregloDetalle[i].id_usuario).then(usuario => {
+                    if(usuario.length > 0){
+                      this.arregloUsuario.push(usuario);
+                    }
+                  })
+                }
+              }
+            })
           }
 
         });
@@ -93,34 +107,6 @@ export class ViajescursoPage implements OnInit {
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
       this.arregloVehiculo = vehiculo;
     })
-
-    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
-
-    this.database.fetchDetalleViaje().subscribe(detalle => {
-      if(detalle.length > 0){
-
-        console.log('Detalle del viaje: ', detalle);
-        this.arregloDetalle = detalle;
-
-      }
-
-    })
-
-    this.arregloDetalle.forEach((idusuario: any) => {
-      this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
-        if(res.length > 0){
-          this.database.fetchUsuarioId().subscribe(usuario => {
-            if(usuario.length > 0){
-    
-              console.log('Datos del usuario: ', usuario);
-              this.arregloUsuario.push(usuario);
-    
-            }
-          });
-        }
-      })
-
-    });
 
   }
 
