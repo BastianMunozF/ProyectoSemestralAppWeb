@@ -75,7 +75,7 @@ export class ViajesiniciadosPage implements OnInit {
               
               this.arregloDetalle = detalle;
   
-              this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
+              this.database.buscarDatosUsuario(parseInt(this.arregloDetalle.id_usuario)).then(usuario => {
                 if(usuario.length > 0){
   
                   this.arregloUsuario = usuario;

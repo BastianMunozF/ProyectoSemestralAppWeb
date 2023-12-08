@@ -66,23 +66,28 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
-    this.database.buscarDetalleUser(id_user).then(detalle => {
+    this.database.buscarDetalleUser(id_user);
+    this.database.buscarViajeReservado(id_user, estado);
+
+    this.database.fetchDetalleUser().subscribe(detalle => {
       if(detalle.length > 0){
-
         this.arregloDetalle = detalle;
+      }
+    })
 
-        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(viaje => {
-          if(viaje.length > 0){
-            this.arregloViajes = viaje;
+    this.database.fetchViajeReservado().subscribe(viajes => {
+      if(viajes.length > 0){
+        this.arregloViajes = viajes;
+      }
+    })
 
-            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
-              if(usuario.length > 0){
-                this.arregloUsuario = usuario;
-              }
-            })
+    this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
+      if(usuario.length > 0){
+        this.database.fetchUsuarioId().subscribe(user => {
+          if(user.length > 0){
+            this.arregloUsuario = user;
           }
         })
-
       }
     })
 
