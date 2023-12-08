@@ -72,16 +72,32 @@ export class ViajesreservadosPage implements OnInit {
 
         this.database.buscarViajeUserAceptado(id_user, this.arregloDetalle.id_viaje).then(res => {
           if(res){
-            this.arregloViajes = res;
-
-            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+            this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(res => {
               if(res){
-                this.arregloUsuario = res;
+                this.arregloViajes = res;
+
+                this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+                  if(res){
+                    this.arregloUsuario = res;
+                  }
+                }).catch(error => {
+                  console.log(error);
+                  this.presentarAlerta("Error aquí", "Error al buscar datos del usuario.");
+                })
               }
+            }).catch(error => {
+              console.log(error);
+              this.presentarAlerta("Error aquí", "Error al buscar viajes reservados.");
             })
           }
+        }).catch(error => {
+          console.log(error);
+          this.presentarAlerta("Error aquí", "Error al buscar viajes aceptados.");
         })
       }
+    }).catch(error => {
+      console.log(error);
+      this.presentarAlerta("Error aquí", "Error al buscar detalle de usuario.");
     })
   }
 
