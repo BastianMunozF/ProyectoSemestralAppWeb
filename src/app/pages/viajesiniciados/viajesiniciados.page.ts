@@ -87,38 +87,30 @@ export class ViajesiniciadosPage implements OnInit {
       }
     });
 
-    this.database.buscarVehiculoUsuario(id_user)
+    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
+    this.database.fetchDetalleViaje().subscribe(detalle => {
+      this.arregloDetalle = detalle;
+    })
 
+    this.database.buscarDetalleUsuario(this.arregloDetalle.id_usuario, this.arregloDetalle.id_viaje);
+    this.database.fetchDetalleViajeUserId().subscribe(usuario => {
+      this.arregloUsuario = usuario;
+    })
+
+    this.database.buscarVehiculoUsuario(id_user)
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
       this.arregloVehiculo = vehiculo;
     })
 
-    this.arregloViajes.forEach((viajes: any) => {
-      this.database.buscarDetalleViaje(viajes.id_viaje).then(res => {
+    this.arregloDetalle.forEach((idusuario: any) => {
+      this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
         if(res.length > 0){
-          this.database.fetchDetalleViaje().subscribe(detalle => {
-            if(detalle.length > 0){
-              console.log('Detalle del viaje: ', detalle);
-              this.arregloDetalle = detalle
-              this.arregloDetalle.forEach((idusuario: any) => {
-                this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
-                  if(res.length > 0){
-                    this.database.fetchUsuarioId().subscribe(usuario => {
-                      if(usuario.length > 0){
-                        console.log('Datos del usuario: ', usuario);
-                        this.arregloUsuario = usuario;
-                        this.arregloUsuario.push(usuario);
-                      }
-                    });
-                  }
-                })
-              });
-            }
-          })
+
+          this.arregloUsuario.push(res);
+
         }
       })
-    });
-
+    })
   }
 
   iniciarViaje(viaje: any){
