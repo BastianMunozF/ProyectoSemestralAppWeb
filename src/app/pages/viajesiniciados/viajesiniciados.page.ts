@@ -67,43 +67,32 @@ export class ViajesiniciadosPage implements OnInit {
 
     this.database.buscarViajeCreadoUser(id_user, estado).then(res => {
       if(res){
-
-        console.log('Viajes del usuario: ', res);
         this.database.fetchViajeCreadoUser().subscribe(viaje => {
-
-          if(viaje.length > 0){
+          console.log('Viajes del usuario: ', viaje);
+          this.arregloViajes = viaje;
     
-            console.log('Viajes del usuario: ', viaje);
-            this.arregloViajes = viaje;
-
-            this.arregloViajes.forEach((viaje: any) => {
-              this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
-                if(res){
-                  this.database.fetchDetalleViaje().subscribe(detalle => {
-                    this.arregloDetalle = detalle;
-              
-                    this.arregloDetalle.forEach((id: any) => {
-                      this.database.buscarDatosUsuario(id.id_usuario).then(res => {
-                        if(res){
-                          this.database.fetchUsuarioId().subscribe(usuario => {
-                            this.arregloUsuario.push(usuario);
-                          })
-                        }
-                      })
+          this.arregloViajes.forEach((viaje: any) => {
+            this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
+              if(res){
+                this.database.fetchDetalleViaje().subscribe(detalle => {
+                  this.arregloDetalle = detalle;
+            
+                  this.arregloDetalle.forEach((id: any) => {
+                    this.database.buscarDatosUsuario(id.id_usuario).then(res => {
+                      if(res){
+                        this.database.fetchUsuarioId().subscribe(usuario => {
+                          this.arregloUsuario.push(usuario);
+                        })
+                      }
                     })
                   })
-                }
-              })
-            });
-
-          }
-
+                })
+              }
+            })
+          });
         });
-
       } else {
-
         this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
-
       }
     });
 
@@ -114,6 +103,7 @@ export class ViajesiniciadosPage implements OnInit {
         })
       }
     })
+
 
   }
 
