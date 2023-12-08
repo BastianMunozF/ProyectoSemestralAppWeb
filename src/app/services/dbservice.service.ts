@@ -457,12 +457,12 @@ export class DbserviceService {
     })
   }
 
-  buscarViaje(){
+  buscarViaje(estado: any){
     if (!this.database) {
       console.error('La base de datos no está inicializada.');
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
-    return this.database.executeSql("SELECT * FROM viaje WHERE estado = Disponible.", []).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE estado = ?", [estado]).then(res => {
       let items: Viaje[] = [];
 
       if(res.rows.length > 0){
@@ -485,13 +485,13 @@ export class DbserviceService {
     });
   }
 
-  buscarViajeIniciado(id_conductor: any){
+  buscarViajeIniciado(id_conductor: any, estado: any){
     if (!this.database) {
       console.error('La base de datos no está inicializada.');
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
 
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = Iniciado.", [id_conductor]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = ?", [id_conductor, estado]).then(res => {
       let viaje: Viaje[] = [];
 
       if(res.rows.length > 0){
@@ -613,7 +613,7 @@ export class DbserviceService {
   insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, estado: any, id_conductor: any){
     return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor]).then(res => {
       if(res){
-        this.buscarViaje();
+        this.buscarViaje(estado);
       } else {
         this.presentAlert('Error al insertar ruta.')
       }

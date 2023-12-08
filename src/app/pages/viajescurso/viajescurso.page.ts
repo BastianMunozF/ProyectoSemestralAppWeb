@@ -64,8 +64,9 @@ export class ViajescursoPage implements OnInit {
   ngOnInit() {
 
     let id_user = localStorage.getItem('id');
+    let estado = 'Disponible.';
 
-    this.database.buscarViajeIniciado(id_user).then(res => {
+    this.database.buscarViajeIniciado(id_user, estado).then(res => {
       if(res){
 
         console.log('Viajes del usuario: ', res);

@@ -28,7 +28,10 @@ export class TomarviajePage implements OnInit {
   constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
 
   ngOnInit() {
-    this.database.buscarViaje();
+
+    let estado = 'Disponible.';
+
+    this.database.buscarViaje(estado);
 
     this.database.fetchViaje().subscribe(datos => {
 

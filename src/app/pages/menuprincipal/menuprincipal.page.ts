@@ -53,7 +53,8 @@ export class MenuprincipalPage implements OnInit {
   }
 
   async verificarViajeUser(){
-    this.database.buscarViaje().then((data) => {
+    let estado = 'Disponible.';
+    this.database.buscarViaje(estado).then((data) => {
       this.arregloViajes = data;
 
       this.database.verificarViaje(this.arregloViajes.id_viaje).then(verificar => {
