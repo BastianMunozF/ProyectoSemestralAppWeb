@@ -68,36 +68,41 @@ export class ViajesreservadosPage implements OnInit {
 
     this.database.buscarDetalleUser(id_user);
 
-    this.database.fetchDetalleUser().subscribe(detalle => {
-      if(detalle.length > 0){
-        this.arregloDetalle = detalle;
+this.database.fetchDetalleUser().subscribe(detalle => {
+  if(detalle.length > 0){
+    this.arregloDetalle = detalle;
 
-        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado);
+    this.arregloDetalle.forEach((detalle: any) => {
+      this.database.buscarViajeReservado(detalle.id_viaje, estado);
 
-        this.database.fetchViajeReservado().subscribe(viaje => {
-          if(viaje.length > 0){
-            this.arregloViajes = viaje;
+      this.database.fetchViajeReservado().subscribe(viaje => {
+        if(viaje.length > 0){
+          this.arregloViajes = viaje;
 
-            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
+          this.arregloViajes.forEach((viaje: any) => {
+            this.database.buscarDatosUsuario(viaje.id_usuario);
 
             this.database.fetchUsuarioId().subscribe(usuario => {
               if(usuario.length > 0){
                 this.arregloUsuario = usuario;
 
-                this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario);
+                this.arregloUsuario.forEach((usuario: any) => {
+                  this.database.buscarVehiculoUsuario(usuario.id_usuario);
 
-                this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                  if(vehiculo.length > 0){
-                    this.arregloVehiculo = vehiculo;
-                  }
-                })
+                  this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                    if(vehiculo.length > 0){
+                      this.arregloVehiculo = vehiculo;
+                    }
+                  })
+                });
               }
             })
-          }
-        })
-
-      }
-    })
+          });
+        }
+      })
+    });
+  }
+})
   }
 
   cancelarReserva(viaje: any){
