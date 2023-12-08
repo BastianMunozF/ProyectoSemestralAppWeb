@@ -67,7 +67,7 @@ export class ViajescursoPage implements OnInit {
     let estado = 'Iniciado.';
 
     this.database.buscarViajeIniciado(id_user, estado).then(res => {
-      if(res){
+      if(res.length > 0){
 
         console.log('Viajes del usuario: ', res);
         this.database.fetchViajeAceptado().subscribe(viaje => {
