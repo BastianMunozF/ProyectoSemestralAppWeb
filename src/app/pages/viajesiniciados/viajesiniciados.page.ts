@@ -67,32 +67,23 @@ export class ViajesiniciadosPage implements OnInit {
 
     this.database.buscarViajeCreadoUser(id_user, estado).then(res => {
       if(res){
+
+        console.log('Viajes del usuario: ', res);
         this.database.fetchViajeCreadoUser().subscribe(viaje => {
-          console.log('Viajes del usuario: ', viaje);
-          this.arregloViajes = viaje;
+
+          if(viaje.length > 0){
     
-          this.arregloViajes.forEach((viaje: any) => {
-            this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
-              if(res){
-                this.database.fetchDetalleViaje().subscribe(detalle => {
-                  this.arregloDetalle = detalle;
-            
-                  this.arregloDetalle.forEach((id: any) => {
-                    this.database.buscarDatosUsuario(id.id_usuario).then(res => {
-                      if(res){
-                        this.database.fetchUsuarioId().subscribe(usuario => {
-                          this.arregloUsuario.push(usuario);
-                        })
-                      }
-                    })
-                  })
-                })
-              }
-            })
-          });
+            console.log('Viajes del usuario: ', viaje);
+            this.arregloViajes = viaje;
+
+          }
+
         });
+
       } else {
+
         this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+
       }
     });
 
@@ -104,6 +95,30 @@ export class ViajesiniciadosPage implements OnInit {
       }
     })
 
+    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
+
+    this.database.fetchDetalleViaje().subscribe(detalle => {
+      if(detalle.length > 0){
+
+        this.arregloDetalle = detalle;
+
+      }
+
+    })
+
+    this.arregloDetalle.forEach((idusuario: any) => {
+      this.database.buscarDatosUsuario(idusuario.id_usuario);
+
+      this.database.fetchUsuarioId().subscribe(usuario => {
+        if(usuario.length > 0){
+
+          console.log('Datos del usuario: ', usuario);
+          this.arregloUsuario = usuario;
+
+        }
+      });
+
+    });
 
   }
 
