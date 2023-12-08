@@ -75,6 +75,27 @@ export class ViajesiniciadosPage implements OnInit {
     
             console.log('Viajes del usuario: ', viaje);
             this.arregloViajes = viaje;
+
+            this.arregloViajes.forEach((viaje: any) => {
+              this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
+                if(res){
+                  this.database.fetchDetalleViaje().subscribe(detalle => {
+                    this.arregloDetalle = detalle;
+              
+                    this.arregloDetalle.forEach((id: any) => {
+                      this.database.buscarDatosUsuario(id.id_usuario).then(res => {
+                        if(res){
+                          this.database.fetchUsuarioId().subscribe(usuario => {
+                            this.arregloUsuario.push(usuario);
+                          })
+                        }
+                      })
+                    })
+                  })
+                }
+              })
+            });
+
           }
 
         });
@@ -94,25 +115,6 @@ export class ViajesiniciadosPage implements OnInit {
       }
     })
 
-    this.arregloViajes.forEach((viaje: any) => {
-      this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
-        if(res){
-          this.database.fetchDetalleViaje().subscribe(detalle => {
-            this.arregloDetalle = detalle;
-  
-            this.arregloDetalle.forEach((id: any) => {
-              this.database.buscarDatosUsuario(id.id_usuario).then(res => {
-                if(res){
-                  this.database.fetchUsuarioId().subscribe(usuario => {
-                    this.arregloUsuario.push(usuario);
-                  })
-                }
-              })
-            })
-          })
-        }
-      })
-    })
   }
 
   iniciarViaje(viaje: any){
