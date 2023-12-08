@@ -277,12 +277,12 @@ export class DbserviceService {
     });
   }
 
-  buscarViajeCreadoUser(id: any){
+  buscarViajeCreadoUser(id: any, estado: any){
     if (!this.database) {
       console.error('Error: this.database no está definido o no se ha inicializado correctamente.');
       return Promise.resolve([]);
     }
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = 'Disponible.'", [id]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = ?", [id, estado]).then(res => {
       let datos: Viaje[] = [];
 
       if(res.rows.length > 0){
