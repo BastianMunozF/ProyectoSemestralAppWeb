@@ -57,6 +57,10 @@ export class DbserviceService {
 
   listaViajeUser = new BehaviorSubject([]);
 
+  listaViajeIniciado = new BehaviorSubject([]);
+
+  listaViajeCreadoUser = new BehaviorSubject([]);
+
   listaVehiculo = new BehaviorSubject([]);
 
   listaVehiculoUser = new BehaviorSubject([]);
@@ -107,6 +111,14 @@ export class DbserviceService {
 
   fetchViajeUser(): Observable<Viaje[]>{
     return this.listaViajeUser.asObservable();
+  }
+
+  fetchViajeAceptado(): Observable<Viaje[]>{
+    return this.listaViajeIniciado.asObservable();
+  }
+
+  fetchViajeCreadoUser(): Observable<Viaje[]>{
+    return this.listaViajeCreadoUser.asObservable();
   }
 
   fetchUsuarioId(): Observable<Usuario[]>{
@@ -263,6 +275,34 @@ export class DbserviceService {
       this.listaViajeUser.next(datos as any);
       return datos;
     });
+  }
+
+  buscarViajeCreadoUser(id: any){
+    if (!this.database) {
+      console.error('Error: this.database no está definido o no se ha inicializado correctamente.');
+      return Promise.resolve([]);
+    }
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = 'Disponible.'", [id]).then(res => {
+      let datos: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          datos.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario
+          })
+        }
+      }
+      this.listaViajeCreadoUser.next(datos as any);
+      return datos;
+    })
   }
 
   buscarDetalleUsuario(id_usuario: any, id_viaje: any){
@@ -422,7 +462,7 @@ export class DbserviceService {
       console.error('La base de datos no está inicializada.');
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
-    return this.database.executeSql("SELECT * FROM viaje", []).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE estado = 'Disponible.'", []).then(res => {
       let items: Viaje[] = [];
 
       if(res.rows.length > 0){
@@ -443,6 +483,35 @@ export class DbserviceService {
       this.listaViaje.next(items as any);
       return items;
     });
+  }
+
+  buscarViajeIniciado(id_conductor: any){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
+
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = 'Iniciado.'", [id_conductor]).then(res => {
+      let viaje: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          viaje.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario
+          })
+        }
+      }
+      this.listaViajeIniciado.next(viaje as any);
+      return viaje;
+    })
   }
 
   buscarDetalle(){
@@ -573,7 +642,7 @@ export class DbserviceService {
 
       } else {
 
-        this.presentAlert("Error al eliminar el viaje del usuario.");
+        console.log("Error al eliminar el viaje del usuario.");
 
         return null;
 

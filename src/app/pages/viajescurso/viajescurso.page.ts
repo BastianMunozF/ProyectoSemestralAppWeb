@@ -3,11 +3,13 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-viajesiniciados',
-  templateUrl: './viajesiniciados.page.html',
-  styleUrls: ['./viajesiniciados.page.scss'],
+  selector: 'app-viajescurso',
+  templateUrl: './viajescurso.page.html',
+  styleUrls: ['./viajescurso.page.scss'],
 })
-export class ViajesiniciadosPage implements OnInit {
+export class ViajescursoPage implements OnInit {
+
+  constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   // Arreglos
   arregloDetalle: any = [
@@ -59,16 +61,15 @@ export class ViajesiniciadosPage implements OnInit {
     }
   ]
 
-  constructor(private database: DbserviceService, private alertController: AlertController) { }
-
   ngOnInit() {
+
     let id_user = localStorage.getItem('id');
 
-    this.database.buscarViajeCreadoUser(id_user).then(res => {
+    this.database.buscarViajeIniciado(id_user).then(res => {
       if(res){
 
         console.log('Viajes del usuario: ', res);
-        this.database.fetchViajeCreadoUser().subscribe(viaje => {
+        this.database.fetchViajeAceptado().subscribe(viaje => {
 
           if(viaje.length > 0){
     
@@ -83,7 +84,9 @@ export class ViajesiniciadosPage implements OnInit {
         this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
 
       }
+
     });
+
     this.database.buscarVehiculoUsuario(id_user);
 
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
@@ -116,36 +119,6 @@ export class ViajesiniciadosPage implements OnInit {
 
     });
 
-  }
-
-  iniciarViaje(viaje: any){
-    let estado = 'Iniciado.'
-
-    this.database.actualizarViaje(estado, viaje.id_viaje).then(res => {
-      if(res){
-
-        this.presentarAlerta("Viaje Iniciado", "Su viaje ha sido iniciado con éxito.");
-
-      } else {
-
-        this.presentarAlerta("Error al iniciar viaje", "No se ha podido iniciar el viaje correctamente.");
-
-      }
-    })
-  }
-
-  cancelarViaje(viaje: any){
-    this.database.eliminarViajeUser(viaje.id_viaje).then(res => {
-      if(res){
-
-        this.presentarAlerta("Viaje Cancelado", "Su viaje ha sido cancelado con éxito.");
-
-      } else {
-
-        this.presentarAlerta("Error al cancelar viaje", "No se ha podido cancelar el viaje correctamente.");
-
-      }
-    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
