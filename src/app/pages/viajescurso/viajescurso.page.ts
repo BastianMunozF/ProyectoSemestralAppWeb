@@ -107,16 +107,18 @@ export class ViajescursoPage implements OnInit {
     })
 
     this.arregloDetalle.forEach((idusuario: any) => {
-      this.database.buscarDatosUsuario(idusuario.id_usuario);
-
-      this.database.fetchUsuarioId().subscribe(usuario => {
-        if(usuario.length > 0){
-
-          console.log('Datos del usuario: ', usuario);
-          this.arregloUsuario.push(usuario);
-
+      this.database.buscarDatosUsuario(idusuario.id_usuario).then(res => {
+        if(res.length > 0){
+          this.database.fetchUsuarioId().subscribe(usuario => {
+            if(usuario.length > 0){
+    
+              console.log('Datos del usuario: ', usuario);
+              this.arregloUsuario.push(usuario);
+    
+            }
+          });
         }
-      });
+      })
 
     });
 
