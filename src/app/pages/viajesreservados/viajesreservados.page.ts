@@ -66,38 +66,37 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
-    this.database.buscarDetalleUser(id_user).then(res => {
-      if(res){
-        this.arregloDetalle = res;
+    this.database.buscarDetalleUser(id_user);
 
-        this.database.buscarViajeUserAceptado(id_user, this.arregloDetalle.id_viaje).then(res => {
-          if(res){
-            this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(res => {
-              if(res){
-                this.arregloViajes = res;
+    this.database.fetchDetalleUser().subscribe(detalle => {
+      if(detalle.length > 0){
+        this.arregloDetalle = detalle;
 
-                this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
-                  if(res){
-                    this.arregloUsuario = res;
+        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado);
+
+        this.database.fetchViajeReservado().subscribe(viaje => {
+          if(viaje.length > 0){
+            this.arregloViajes = viaje;
+
+            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
+
+            this.database.fetchUsuarioId().subscribe(usuario => {
+              if(usuario.length > 0){
+                this.arregloUsuario = usuario;
+
+                this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario);
+
+                this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                  if(vehiculo.length > 0){
+                    this.arregloVehiculo = vehiculo;
                   }
-                }).catch(error => {
-                  console.log(error);
-                  this.presentarAlerta("Error aquí", "Error al buscar datos del usuario.");
                 })
               }
-            }).catch(error => {
-              console.log(error);
-              this.presentarAlerta("Error aquí", "Error al buscar viajes reservados.");
             })
           }
-        }).catch(error => {
-          console.log(error);
-          this.presentarAlerta("Error aquí", "Error al buscar viajes aceptados.");
         })
+
       }
-    }).catch(error => {
-      console.log(error);
-      this.presentarAlerta("Error aquí", "Error al buscar detalle de usuario.");
     })
   }
 
