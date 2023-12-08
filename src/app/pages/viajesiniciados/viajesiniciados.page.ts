@@ -65,33 +65,40 @@ export class ViajesiniciadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
-    this.database.buscarViajeCreadoUser(id_user, estado).then(viajes => {
-      if (viajes.length > 0) {
-        console.log('Viajes del usuario: ', viajes);
-        this.arregloViajes = viajes;
+    this.database.buscarViajeIniciado(id_user, estado).then(res => {
+      if(res.length > 0){
 
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
-          if(detalle.length > 0){
-              
-              this.arregloDetalle = detalle;
-  
-              this.database.buscarDatosUsuario(parseInt(this.arregloDetalle.id_usuario)).then(usuario => {
-                if(usuario.length > 0){
-  
-                  this.arregloUsuario = usuario;
-  
-                } else {
-  
-                  console.log('Usuario no encontrado.');
-  
+        console.log('Viajes del usuario: ', res);
+        this.database.fetchViajeAceptado().subscribe(viaje => {
+
+          if(viaje.length > 0){
+    
+            console.log('Viajes del usuario: ', viaje);
+            this.arregloViajes = viaje;
+
+            this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
+              if(detalle.length > 0){
+                this.arregloDetalle = detalle;
+
+                for(let i = 0; i < this.arregloDetalle.length; i++){
+                  this.database.buscarDatosUsuario(this.arregloDetalle[i].id_usuario).then(usuario => {
+                    if(usuario.length > 0){
+                      this.arregloUsuario.push(usuario);
+                    }
+                  })
                 }
-              })
+              }
+            })
           }
-        })
+
+        });
 
       } else {
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes iniciados.");
+
       }
+
     });
 
     this.database.buscarVehiculoUsuario(id_user)
