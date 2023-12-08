@@ -66,7 +66,7 @@ export class ViajesiniciadosPage implements OnInit {
     let estado = 'Disponible.';
 
     this.database.buscarViajeCreadoUser(id_user, estado).then(res => {
-      if(res){
+      if(res.length > 0){
 
         console.log('Viajes del usuario: ', res);
         this.database.fetchViajeCreadoUser().subscribe(viaje => {
@@ -87,12 +87,10 @@ export class ViajesiniciadosPage implements OnInit {
       }
     });
 
-    this.database.buscarVehiculoUsuario(id_user).then(res => {
-      if(res){
-        this.database.fetchVehiculoUser().subscribe(vehiculo => {
-          this.arregloVehiculo = vehiculo;
-        })
-      }
+    this.database.buscarVehiculoUsuario(id_user)
+
+    this.database.fetchVehiculoUser().subscribe(vehiculo => {
+      this.arregloVehiculo = vehiculo;
     })
 
     this.database.buscarDetalleViaje(this.arregloViajes.id_viaje);
@@ -100,6 +98,7 @@ export class ViajesiniciadosPage implements OnInit {
     this.database.fetchDetalleViaje().subscribe(detalle => {
       if(detalle.length > 0){
 
+        console.log('Detalle del viaje: ', detalle);
         this.arregloDetalle = detalle;
 
       }

@@ -82,7 +82,7 @@ export class ViajescursoPage implements OnInit {
 
       } else {
 
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes creados.");
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes iniciados.");
 
       }
 
