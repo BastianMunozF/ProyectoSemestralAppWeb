@@ -65,6 +65,8 @@ export class DbserviceService {
 
   listaVehiculoUser = new BehaviorSubject([]);
 
+  listaViajeReservado = new BehaviorSubject([]);
+
   listaUsuarioId = new BehaviorSubject([]);
 
   listaDetalle = new BehaviorSubject([]);
@@ -119,6 +121,10 @@ export class DbserviceService {
 
   fetchViajeCreadoUser(): Observable<Viaje[]>{
     return this.listaViajeCreadoUser.asObservable();
+  }
+
+  fetchViajeReservado(): Observable<Viaje[]>{
+    return this.listaViajeReservado.asObservable();
   }
 
   fetchUsuarioId(): Observable<Usuario[]>{
@@ -457,6 +463,36 @@ export class DbserviceService {
     })
   }
 
+  buscarViajeReservado(id_viaje: any, estado: any){
+    if (!this.database) {
+      console.error('La base de datos no está inicializada.');
+      return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
+    }
+    return this.database.executeSql('SELECT * FROM viaje WHERE id_viaje = ? AND estado = ?', [id_viaje, estado]).then(res => {
+      let viaje: Viaje[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          viaje.push({
+            id_viaje: res.rows.item(i).id_viaje,
+            f_viaje: res.rows.item(i).f_viaje,
+            hora_salida: res.rows.item(i).hora_salida,
+            salida: res.rows.item(i).salida,
+            destino: res.rows.item(i).destino,
+            cant_asientos: res.rows.item(i).cant_asientos,
+            valor_asiento: res.rows.item(i).valor_asiento,
+            estado: res.rows.item(i).estado,
+            id_usuario: res.rows.item(i).id_usuario,
+          })
+        }
+      }
+
+      this.listaViajeReservado.next(viaje as any);
+      return viaje;
+
+    })
+  }
+
   buscarViaje(estado: any){
     if (!this.database) {
       console.error('La base de datos no está inicializada.');
@@ -649,6 +685,21 @@ export class DbserviceService {
       }
     }).catch(e => {
       console.error('Error al eliminar viaje:', e);
+    })
+  }
+
+  cancelarReservaUser(id_usuario: any){
+    return this.database.executeSql("DELETE FROM detalle WHERE id_usuario = ?", [id_usuario]).then(res => {
+      if(res){
+
+        this.buscarDetalleUser(id_usuario);
+        return true;
+
+      } else {
+
+        return null;
+
+      }
     })
   }
 

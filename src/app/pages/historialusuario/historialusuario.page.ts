@@ -35,28 +35,7 @@ export class HistorialusuarioPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-    let id_usuario = localStorage.getItem('id');
     
-    this.database.buscarDetalleUser(id_usuario);
-
-    this.database.fetchDetalleUser().subscribe(detalle => {
-      if(detalle.length > 0){
-
-        this.arregloDetalle = detalle;
-
-        this.database.buscarViajeId(this.arregloDetalle.id_viaje);
-
-        this.database.fetchViajeId().subscribe(viaje => {
-          if(viaje.length > 0){
-            this.arregloHistorial = viaje;
-          }
-        })
-
-      } else {
-
-        this.presentarAlerta("Error al buscar viajes", "Usted no ha aceptado ningún viaje.");
-      }
-    })
   }
 
   ionViewWillEnter(){

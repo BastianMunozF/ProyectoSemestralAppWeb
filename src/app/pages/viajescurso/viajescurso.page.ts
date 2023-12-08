@@ -9,8 +9,6 @@ import { AlertController } from '@ionic/angular';
 })
 export class ViajescursoPage implements OnInit {
 
-  constructor(private database: DbserviceService, private alertController: AlertController) { }
-
   // Arreglos
   arregloDetalle: any = [
     {
@@ -60,6 +58,8 @@ export class ViajescursoPage implements OnInit {
       id_usuario: '',
     }
   ]
+
+  constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -122,6 +122,27 @@ export class ViajescursoPage implements OnInit {
 
     });
 
+  }
+
+  finalizarViaje(viaje: any){
+    let estado = 'Finalizado.';
+
+    this.database.actualizarViaje(estado, viaje.id_viaje).then(res => {
+      if(res){
+
+        this.presentarAlerta("Viaje Finalizado", "Su viaje ha sido finalizado con éxito. Puede ver su viaje en el historial.");
+        // Elimina el viaje del arreglo
+        const index = this.arregloViajes.indexOf(viaje);
+        if(index !== -1){
+          this.arregloViajes.splice(index, 1);
+        }
+
+      } else {
+
+        this.presentarAlerta("Error al finalizar viaje", "No se ha podido finalizar el viaje correctamente.");
+
+      }
+    })
   }
 
   async presentarAlerta(titulo: string, mensaje: string){

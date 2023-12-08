@@ -82,6 +82,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/viajescurso/viajescurso.module').then( m => m.ViajescursoPageModule)
   },
   {
+    path: 'viajesreservados',
+    loadChildren: () => import('./pages/viajesreservados/viajesreservados.module').then( m => m.ViajesreservadosPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
