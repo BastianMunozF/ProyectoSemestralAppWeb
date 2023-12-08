@@ -94,23 +94,52 @@ export class ViajesiniciadosPage implements OnInit {
       }
     })
 
-    this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(res => {
-      if(res){
-        this.database.fetchDetalleViaje().subscribe(detalle => {
-          this.arregloDetalle = detalle;
-
-          this.arregloDetalle.forEach((id: any) => {
-            this.database.buscarDatosUsuario(id.id_usuario).then(res => {
-              if(res){
-                this.database.fetchUsuarioId().subscribe(usuario => {
-                  this.arregloUsuario = usuario;
-                })
-              }
+    this.arregloViajes.forEach((viaje: any) => {
+      this.database.buscarDetalleViaje(viaje.id_viaje).then(res => {
+        if(res){
+          this.database.fetchDetalleViaje().subscribe(detalle => {
+            this.arregloDetalle = detalle;
+  
+            this.arregloDetalle.forEach((id: any) => {
+              this.database.buscarDatosUsuario(id.id_usuario).then(res => {
+                if(res){
+                  this.database.fetchUsuarioId().subscribe(usuario => {
+                    this.arregloUsuario.push(usuario);
+                  })
+                }
+              })
             })
           })
-        })
-      }
+        }
+      })
     })
+
+    this.arregloViajes.forEach((viajeIndividual: any) => {
+      this.database.buscarDetalleViaje(viajeIndividual.id_viaje).then(res => {
+        if(res){
+          this.database.fetchDetalleViaje().subscribe(detalle => {
+            viajeIndividual.detalle = detalle;
+    
+            detalle.forEach((detalleIndividual: any) => {
+              this.database.buscarDatosUsuario(detalleIndividual.id_usuario).then(resUsuario => {
+                if(resUsuario){
+                  this.database.fetchUsuarioId().subscribe(usuario => {
+                    if(usuario){
+                      if (!viajeIndividual.usuarios) {
+                        viajeIndividual.usuarios = [];
+                      }
+                      viajeIndividual.usuarios.push(usuario);
+                    } else {
+                      this.presentarAlerta("Error al cargar usuario", "No se ha encontrado el usuario del viaje.");
+                    }
+                  });
+                }
+              });
+            });
+          });
+        }
+      });
+    });
   }
 
   iniciarViaje(viaje: any){
