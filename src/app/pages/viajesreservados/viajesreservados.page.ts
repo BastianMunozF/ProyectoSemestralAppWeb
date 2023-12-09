@@ -68,41 +68,39 @@ export class ViajesreservadosPage implements OnInit {
 
     this.database.buscarDetalleUser(id_user);
 
-this.database.fetchDetalleUser().subscribe(detalle => {
-  if(detalle.length > 0){
-    this.arregloDetalle = detalle;
+    this.database.fetchDetalleUser().subscribe(detalle => {
+      if(detalle.length > 0){
+        this.arregloDetalle = detalle;
 
-    this.arregloDetalle.forEach((detalle: any) => {
-      this.database.buscarViajeReservado(detalle.id_viaje, estado);
+        this.arregloDetalle.forEach((detalle: any) => {
+          this.database.buscarViajeReservado(detalle.id_viaje, estado);
 
-      this.database.fetchViajeReservado().subscribe(viaje => {
-        if(viaje.length > 0){
-          this.arregloViajes = viaje;
+          this.database.fetchViajeReservado().subscribe(viaje => {
+            if(viaje.length > 0){
+              this.arregloViajes = viaje;
 
-          this.arregloViajes.forEach((viaje: any) => {
-            this.database.buscarDatosUsuario(viaje.id_usuario);
+              this.arregloViajes.forEach((viaje: any, index: number) => {
+                this.database.buscarDatosUsuario(viaje.id_usuario);
 
-            this.database.fetchUsuarioId().subscribe(usuario => {
-              if(usuario.length > 0){
-                this.arregloUsuario = usuario;
+                this.database.fetchUsuarioId().subscribe(usuario => {
+                  if(usuario.length > 0){
+                    this.arregloUsuario[index] = usuario[0];
 
-                this.arregloUsuario.forEach((usuario: any) => {
-                  this.database.buscarVehiculoUsuario(usuario.id_usuario);
+                    this.database.buscarVehiculoUsuario(usuario[0].id);
 
-                  this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                    if(vehiculo.length > 0){
-                      this.arregloVehiculo = vehiculo;
-                    }
-                  })
-                });
-              }
-            })
-          });
-        }
-      })
-    });
-  }
-})
+                    this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                      if(vehiculo.length > 0){
+                        this.arregloVehiculo[index] = vehiculo[0];
+                      }
+                    })
+                  }
+                })
+              });
+            }
+          })
+        });
+      }
+    })
   }
 
   cancelarReserva(viaje: any){
