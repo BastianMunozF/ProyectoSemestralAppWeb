@@ -12,23 +12,23 @@
     <ion-card-content>
       <form [formGroup]="formularioVehiculo" (ngSubmit)="guardarVehiculo()">
         <ion-item>
-          <ion-label>Marca:</ion-label>
+          <ion-label position="floating">Marca:</ion-label>
           <ion-input formControlName="marca" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Modelo:</ion-label>
+          <ion-label position="floating">Modelo:</ion-label>
           <ion-input formControlName="modelo" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Año:</ion-label>
+          <ion-label position="floating">Año:</ion-label>
           <ion-input formControlName="annio" type="number"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Patente:</ion-label>
+          <ion-label position="floating">Patente:</ion-label>
           <ion-input formControlName="patente" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Asientos:</ion-label>
+          <ion-label position="floating">Asientos:</ion-label>
           <select name="cant_asientos" id="cant_asientos" formControlName="cant_asientos">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -39,7 +39,7 @@
           </select>
         </ion-item>
         <ion-item>
-          <ion-label for="id_tipo">Tipo de Vehículo</ion-label>
+          <ion-label position="floating" for="id_tipo">Tipo de Vehículo</ion-label>
           <select name="id_tipo" id="id_tipo" formControlName="id_tipo">
             <option value="1">Standard</option>
             <option value="2">Large</option>
