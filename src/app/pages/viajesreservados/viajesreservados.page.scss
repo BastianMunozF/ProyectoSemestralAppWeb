@@ -1,0 +1,37 @@
+#container {
+    color:black; 
+    width: 95%;
+    border-bottom: 5%;
+    border: solid 1.5px #469597;
+
+}
+
+#us{
+    margin-left: 3%;
+    font-family: 'calibri';
+    font-size: xx-large;
+    
+}
+
+#letra{
+    font-family: 'arial';
+    font-size: medium;
+    font-weight: 500;
+}
+
+.color{
+    color: var(--ion-color-new-shade) ;
+}
+
+ion-content{
+    --ion-background-color:#f1f1ec;
+    --ion-border-color:primary;
+}
+
+.button-text {
+    font-size: 8px; /* Ajusta el tamaño del texto según sea necesario */
+    margin-top: 1px; /* Espacio adicional entre el ícono y el texto */
+    display: block; /* Hace que el texto aparezca debajo del ícono */
+    text-align: center; /* Centra el texto debajo del ícono */
+    color: #469597;
+  }
