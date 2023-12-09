@@ -67,40 +67,26 @@ export class ViajesreservadosPage implements OnInit {
   
     this.database.buscarDetalleUser(id_user);
   
-    this.database.fetchDetalleUser().subscribe(detalle => {
-      if(detalle.length > 0){
-        this.arregloDetalle = detalle;
-  
-        this.arregloDetalle.forEach((detalle: any) => {
-          this.database.buscarViajeReservado(detalle.id_viaje, estado);
-  
-          this.database.fetchViajeReservado().subscribe(viaje => {
-            if(viaje.length > 0){
-              // Agrega el nuevo viaje al arreglo existente en lugar de sobrescribirlo
-              this.arregloViajes.push(...viaje);
-  
-              // Busca los datos del usuario y del vehículo para cada viaje
-              viaje.forEach((viajeIndividual: any) => {
-                this.database.buscarDatosUsuario(viajeIndividual.id_usuario);
-  
-                this.database.fetchUsuarioId().subscribe(usuario => {
-                  if(usuario.length > 0){
-                    this.arregloUsuario.push(usuario[0]);
-  
-                    this.database.buscarVehiculoUsuario(usuario[0].id);
-  
-                    this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                      if(vehiculo.length > 0){
-                        this.arregloVehiculo.push(vehiculo[0]);
-                      }
-                    })
-                  }
-                })
-              });
-            }
-          })
-        });
-      }
+    this.database.fetchDetalleUser().forEach(detalle => {
+      this.arregloDetalle = detalle;
+    })
+
+    this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado);
+
+    this.database.fetchViajeReservado().forEach(viaje => {
+      this.arregloViajes = viaje;
+    })
+
+    this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
+
+    this.database.fetchUsuarioId().forEach(usuario => {
+      this.arregloUsuario = usuario;
+    })
+
+    this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario);
+
+    this.database.fetchVehiculoUser().forEach(vehiculo => {
+      this.arregloVehiculo = vehiculo;
     })
   }
 
