@@ -67,26 +67,32 @@ export class ViajesreservadosPage implements OnInit {
   
     this.database.buscarDetalleUser(id_user);
   
-    this.database.fetchDetalleUser().forEach(detalle => {
-      this.arregloDetalle = detalle;
-    })
-
-    this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado);
-
-    this.database.fetchViajeReservado().forEach(viaje => {
-      this.arregloViajes = viaje;
-    })
-
-    this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
-
-    this.database.fetchUsuarioId().forEach(usuario => {
-      this.arregloUsuario = usuario;
-    })
-
-    this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario);
-
-    this.database.fetchVehiculoUser().forEach(vehiculo => {
-      this.arregloVehiculo = vehiculo;
+    this.database.fetchDetalleUser().subscribe(detalle => {
+      this.arregloDetalle.push(...detalle);
+  
+      detalle.forEach((detalleIndividual: any) => {
+        this.database.buscarViajeReservado(detalleIndividual.id_viaje, estado);
+  
+        this.database.fetchViajeReservado().subscribe(viaje => {
+          this.arregloViajes.push(...viaje);
+  
+          viaje.forEach((viajeIndividual: any) => {
+            this.database.buscarDatosUsuario(viajeIndividual.id_usuario);
+  
+            this.database.fetchUsuarioId().subscribe(usuario => {
+              this.arregloUsuario.push(...usuario);
+  
+              usuario.forEach((usuarioIndividual: any) => {
+                this.database.buscarVehiculoUsuario(usuarioIndividual.id);
+  
+                this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                  this.arregloVehiculo.push(...vehiculo);
+                })
+              })
+            })
+          });
+        })
+      });
     })
   }
 
