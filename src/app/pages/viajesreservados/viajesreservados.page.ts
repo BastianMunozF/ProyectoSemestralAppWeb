@@ -110,66 +110,53 @@ export class ViajesreservadosPage implements OnInit {
   ngOnInit() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-  
+
     // Buscar todos los detalles del usuario
     this.database.buscarDetalleUser(id_user).then(detalle => {
-      if (detalle.length > 0) {
+      if(detalle.length > 0){
+
         this.database.fetchDetalleUser().subscribe(detail => {
-          if (detail.length > 0) {
-            this.arregloDetalle = detail;
+          if(detail.length > 0){
+            this.arregloDetalle = detalle;
+
+            detalle.forEach((index: any) => {
+              this.database.buscarViajeReservado(index.id_viaje, estado).then(viaje => {
+                if(viaje.length > 0){
+                  this.database.fetchViajeReservado().subscribe(viajes => {
+                    if(viajes.length > 0){
+                      this.arregloViajes = viaje;
   
-            // Utilizamos Promise.all para esperar a que todas las promesas se resuelvan
-            Promise.all(detail.map((index: any) => {
-              return this.database.buscarViajeReservado(index.id_viaje, estado).then(viaje => {
-                if (viaje.length > 0) {
-                  return this.database.fetchViajeReservado().toPromise();
-                }
-                // Agregamos un retorno de valor por defecto si la condición no se cumple
-                return null;
-              });
-            })).then(viajes => {
-              // Filtrar viajes no nulos
-              viajes = viajes.filter(viaje => viaje !== null);
-  
-              if (viajes.length > 0) {
-                // Suponemos que solo estamos interesados en el primer viaje
-                this.arregloViajes = viajes[0];
-  
-                this.database.buscarDatosUsuario(this.arregloViajes[0].id_usuario).then(usuario => {
-                  if (usuario.length > 0) {
-                    this.database.fetchUsuarioId().subscribe(usuarios => {
-                      if (usuarios.length > 0) {
-                        this.arregloUsuario = usuario;
-  
-                        // Ahora, asumiendo que puedes obtener los datos del vehículo
-                        this.database.buscarVehiculoUsuario(this.arregloViajes[0].id_vehiculo).then(vehiculo => {
-                          if (vehiculo.length > 0) {
-                            // Suponemos que solo estamos interesados en el primer vehículo
-                            let arregloVehiculo = vehiculo[0];
-  
-                            // Suponemos que ya tienes el arregloVehiculo definido en otro lugar
-                            let reserva = {
-                              detalle: this.arregloDetalle[0],
-                              usuario: this.arregloUsuario[0],
-                              vehiculo: arregloVehiculo,
-                              viaje: this.arregloViajes[0]
-                            };
-  
-                            this.arregloReserva.push(reserva);
+                      viaje.forEach((index: any) => {
+                        this.database.buscarDatosUsuario(index.id_usuario).then(usuario => {
+                          if(usuario.length > 0){
+                            this.database.fetchUsuarioId().subscribe(usuarios => {
+                              if(usuarios.length > 0){
+                                this.arregloUsuario = usuario;
+    
+                                let reserva = [
+                                  {
+                                    detalle: this.arregloDetalle,
+                                    usuario: this.arregloUsuario,
+                                    vehiculo: this.arregloVehiculo,
+                                    viaje: this.arregloViajes,
+                                  }
+                                ]
+    
+                                this.arregloReserva.push(reserva);
+                              }
+                            })
                           }
-                        });
-                      }
-                    });
-                  }
-                });
-              }
-            });
+                        })
+                      })
+                    }
+                  })
+                }
+              })
+            })
           }
-        });
+        })
       }
-      // Agregamos un retorno de valor por defecto si la condición no se cumple
-      return null;
-    });
+    })
   }
 
   cancelarReserva(viaje: any){
