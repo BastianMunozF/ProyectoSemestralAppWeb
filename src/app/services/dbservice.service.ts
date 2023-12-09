@@ -688,8 +688,8 @@ export class DbserviceService {
     })
   }
 
-  cancelarReservaUser(id_usuario: any){
-    return this.database.executeSql("DELETE FROM detalle WHERE id_usuario = ?", [id_usuario]).then(res => {
+  cancelarReservaUser(id_usuario: any, id_viaje: any){
+    return this.database.executeSql("DELETE FROM detalle WHERE id_usuario = ? AND id_viaje = ?", [id_usuario, id_viaje]).then(res => {
       if(res){
 
         this.buscarDetalleUser(id_usuario);

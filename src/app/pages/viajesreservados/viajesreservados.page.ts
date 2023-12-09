@@ -110,7 +110,8 @@ export class ViajesreservadosPage implements OnInit {
   }
 
   cancelarReserva(viaje: any){
-    this.database.cancelarReservaUser(viaje.id_viaje).then(res => {
+    let id_user = localStorage.getItem('id');
+    this.database.cancelarReservaUser(id_user, viaje.id_viaje).then(res => {
       if(res){
 
         this.presentarAlerta("Reserva cancelada", "Su reserva ha sido cancelada.");
