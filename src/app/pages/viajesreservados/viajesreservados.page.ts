@@ -149,6 +149,7 @@ export class ViajesreservadosPage implements OnInit {
                     } else {
   
                       console.log('No se han encontrado vehiculos.');
+                      this.presentarAlerta("Error aqui", "Error en buscar vehiculos");
   
                     }
                   })
@@ -156,6 +157,7 @@ export class ViajesreservadosPage implements OnInit {
                 } else {
   
                   console.log('No se han encontrado usuarios.');
+                  this.presentarAlerta("Error aqui", "Error en buscar usuarios");
   
                 }
               })
@@ -163,10 +165,13 @@ export class ViajesreservadosPage implements OnInit {
             } else {
   
               console.log('No se han encontrado viajes.');
+              this.presentarAlerta("Error aqui", "Error en buscar viajes reservados");
   
             }
           })
         })
+      } else {
+        this.presentarAlerta("Error aqui", "Error en buscar detalle user")
       }
     })
   }
