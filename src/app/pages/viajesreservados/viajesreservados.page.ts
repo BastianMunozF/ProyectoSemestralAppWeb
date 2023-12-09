@@ -61,49 +61,50 @@ export class ViajesreservadosPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
-  async ngOnInit() {
-    try {
-      let id_user = localStorage.getItem('id');
-      let estado = 'Disponible.';
+  ngOnInit() {
+    let id_user = localStorage.getItem('id');
+    let estado = 'Disponible.';
   
-      const detalle = await this.database.buscarDetalleUser(id_user);
-      if (detalle.length > 0) {
+    this.database.buscarDetalleUser(id_user);
+
+    this.database.fetchDetalleUser().subscribe(detalle => {
+      if(detalle.length > 0){
         this.arregloDetalle = detalle;
-  
-        for (const detail of this.arregloDetalle) {
-          const viajesReservados = await this.database.buscarViajeReservado(detail.id_viaje, estado);
-          
-          if (viajesReservados.length > 0) {
-            for (const viaje of viajesReservados) {
-              const usuarios = await this.database.buscarDatosUsuario(viaje.id_usuario);
-  
-              if (usuarios.length > 0) {
-                for (const usuario of usuarios) {
-                  const vehiculos = await this.database.buscarVehiculoUsuario(usuario.id);
-  
-                  if (vehiculos.length > 0) {
-                    this.arregloViajes.push(viaje);
-                    this.arregloUsuario.push(usuario);
-                    this.arregloVehiculo.push(vehiculos[0]);
+
+        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado)
+
+        this.database.fetchViajeReservado().subscribe(viaje => {
+          if(viaje.length > 0){
+            this.arregloViajes = viaje;
+
+            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario);
+
+            this.database.fetchUsuarioId().subscribe(usuario => {
+              if(usuario.length > 0){
+                this.arregloUsuario = usuario;
+
+                this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario);
+
+                this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                  if(vehiculo.length > 0){
+                    this.arregloVehiculo = vehiculo;
                   } else {
-                    this.presentarAlerta("Error aquí", "En fetch buscarVehiculoUsuario");
+                    this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
                   }
-                }
+                })
               } else {
-                this.presentarAlerta("Error aquí", "En fetch buscarDatosUsuario");
+                this.presentarAlerta("Error al cargar usuario", "Error en buscarDatosUsuario.")
               }
-            }
+            })
           } else {
-            this.presentarAlerta("Error aquí", "En fetch buscarViajeReservado");
-          }
-        }
+            this.presentarAlerta("Error al cargar viaje", "Error en buscarViajeReservado.")
+          } 
+        })
       } else {
-        this.presentarAlerta("Error aquí", "En fetch buscarDetalleUser");
+        this.presentarAlerta("Error al cargar detalle", "Error en buscarDetalleUser.")
       }
-    } catch (err) {
-      console.log('Error: ', err);
-      this.presentarAlerta("Error aquí", "Hubo un error en la carga de datos.");
-    }
+    })
+
   }
 
   cancelarReserva(viaje: any){
