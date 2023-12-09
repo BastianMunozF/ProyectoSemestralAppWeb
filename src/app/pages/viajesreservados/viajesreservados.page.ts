@@ -72,21 +72,21 @@ export class ViajesreservadosPage implements OnInit {
           if(detail.length > 0){
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
-    
+
             this.database.buscarViajeReservado(detail[2].id_viaje, estado).then(viaje => {
               if(viaje.length > 0){
                 this.database.fetchViajeReservado().subscribe(viajes => {
                   if(viajes.length > 0){
                     console.log('Viajes: ', viajes);
                     this.arregloViajes = viajes;
-    
+
                     this.database.buscarDatosUsuario(viajes[0].id_usuario).then(usuario => {
                       if(usuario.length > 0){
                         this.database.fetchUsuarioId().subscribe(usuarios => {
                           if(usuarios.length > 0){
                             console.log('Usuario: ', usuarios);
                             this.arregloUsuario = usuarios;
-    
+
                             this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
                               if(vehiculo.length > 0){
                                 this.database.fetchVehiculoUser().subscribe(vehiculos => {
@@ -98,12 +98,14 @@ export class ViajesreservadosPage implements OnInit {
                               }
                             }).catch(error => {
                               console.log('Error en Buscar Vehículo Usuario: ', error);
+                              this.presentarAlerta("Error al cargar datos", "Error en funcion buscar vehículo usuario.");
                             })
                           }
                         })
                       }
                     }).catch(error => {
                       console.log('Error en Buscar Datos Usuario: ', error);
+                      this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                     })
                   }
                 })
@@ -111,7 +113,7 @@ export class ViajesreservadosPage implements OnInit {
             }).catch(error => {
               console.log('Error en Buscar Viaje Reservado: ', error);
             })
-      
+
           }
         })
       }
