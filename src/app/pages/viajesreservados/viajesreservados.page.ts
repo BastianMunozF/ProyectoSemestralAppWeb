@@ -78,21 +78,21 @@ export class ViajesreservadosPage implements OnInit {
                 if(viaje.length > 0){
                   this.database.fetchViajeReservado().subscribe(viajes => {
                     if(viajes.length > 0){
-                      this.arregloViajes = viaje;
+                      this.arregloViajes.push({viaje});
   
                       this.arregloViajes.forEach((viaje: any) => {
                         this.database.buscarDatosUsuario(viaje.id_usuario).then(usuario => {
                           if(usuario.length > 0){
                             this.database.fetchUsuarioId().subscribe(usuarios => {
                               if(usuarios.length > 0){
-                                this.arregloUsuario = usuario;
+                                this.arregloUsuario.push({usuario});
     
                                 this.arregloUsuario.forEach((usuario: any) => {
                                   this.database.buscarVehiculoUsuario(usuario.id_usuario).then(vehiculo => {
                                     if(vehiculo.length > 0){
                                       this.database.fetchVehiculoUser().subscribe(vehiculos => {
                                         if(vehiculos.length > 0){
-                                          this.arregloVehiculo = vehiculo;
+                                          this.arregloVehiculo.push({vehiculo});
                                         }
                                       })
                                     }
