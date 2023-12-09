@@ -83,14 +83,16 @@ export class ViajesreservadosPage implements OnInit {
   
                     // Iterar sobre los viajes reservados para obtener información adicional
                     viajes.forEach(viaje => {
-                      // Obtener información del usuario
-                      this.database.buscarDatosUsuario(viaje.id_usuario).then(resUsuario => {
+                      // Obtener información del usuario directamente del viaje
+                      const idUsuario = viaje.id_usuario;
+                      this.database.buscarDatosUsuario(idUsuario).then(resUsuario => {
                         if (resUsuario.length > 0) {
                           const usuario = resUsuario[0]; // Supongo que solo hay un usuario con ese ID
                           this.arregloUsuario.push(usuario);
   
-                          // Obtener información del vehículo
-                          this.database.buscarVehiculoUsuario(usuario.id).then(resVehiculo => {
+                          // Obtener información del vehículo directamente del viaje
+                          const idVehiculo = viaje.id_usuario;
+                          this.database.buscarVehiculoUsuario(idVehiculo).then(resVehiculo => {
                             if (resVehiculo.length > 0) {
                               const vehiculo = resVehiculo[0]; // Supongo que solo hay un vehículo asociado a un usuario
                               this.arregloVehiculo.push(vehiculo);
