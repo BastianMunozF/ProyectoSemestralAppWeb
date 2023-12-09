@@ -107,47 +107,53 @@ export class ViajesreservadosPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-
-    this.database.buscarDetalleUser(id_user).then(detalle => {
-      if(detalle.length > 0){
-        this.arregloDetalle = detalle;
-
-        detalle.forEach((index: any) => {
-          this.database.buscarViajeReservado(index.id_viaje, estado).then(viaje => {
-            if(viaje.length > 0){
-              this.arregloViajes = viaje;
-
-              viaje.forEach((index: any) => {
-                this.database.buscarDatosUsuario(index.id_usuario).then(usuario => {
-                  if(usuario.length > 0){
-                    this.arregloUsuario = usuario;
-
-                    // Buscar los datos del vehículo
-                    this.database.buscarVehiculoUsuario(index.id_usuario).then(vehiculo => {
-                      if(vehiculo.length > 0){
-                        this.arregloVehiculo = vehiculo;
-
-                        let reserva = {
-                          detalle: this.arregloDetalle[0],
-                          usuario: this.arregloUsuario[0],
-                          vehiculo: this.arregloVehiculo[0],
-                          viaje: this.arregloViajes[0],
-                        }
-
-                        this.arregloReserva.push(reserva);
-                      }
-                    })
-                  }
-                })
-              })
+  
+    let detalle = await this.database.buscarDetalleUser(id_user);
+    console.log('Detalle:', detalle);
+  
+    if(detalle.length > 0){
+      this.arregloDetalle = detalle;
+  
+      for(let index of detalle) {
+        let viaje = await this.database.buscarViajeReservado(index.id_viaje, estado);
+        console.log('Viaje:', viaje);
+  
+        if(viaje.length > 0){
+          this.arregloViajes = viaje;
+  
+          for(let index of viaje) {
+            let usuario = await this.database.buscarDatosUsuario(index.id_usuario);
+            console.log('Usuario:', usuario);
+  
+            if(usuario.length > 0){
+              this.arregloUsuario = usuario;
+  
+              // Buscar los datos del vehículo
+              let vehiculo = await this.database.buscarVehiculoUsuario(index.id_usuario);
+              console.log('Vehiculo:', vehiculo);
+  
+              if(vehiculo.length > 0){
+                this.arregloVehiculo = vehiculo;
+  
+                let reserva = {
+                  detalle: this.arregloDetalle[0],
+                  usuario: this.arregloUsuario[0],
+                  vehiculo: this.arregloVehiculo[0],
+                  viaje: this.arregloViajes[0],
+                }
+  
+                this.arregloReserva.push(reserva);
+                console.log('Reserva:', reserva);
+                console.log('arregloReserva:', this.arregloReserva);
+              }
             }
-          })
-        })
+          }
+        }
       }
-    })
+    }
   }
 
   cancelarReserva(viaje: any){
