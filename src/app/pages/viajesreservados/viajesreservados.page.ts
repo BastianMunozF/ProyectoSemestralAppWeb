@@ -108,61 +108,60 @@ export class ViajesreservadosPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-    this.arregloReserva = this.cargarReservas();
-  }
-
-  cargarReservas() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-    let arregloReserva: any = [];
-  
-    return new Promise(resolve => {
-      this.database.buscarDetalleUser(id_user).then(res => {
-        if(res.length > 0){
-          this.arregloDetalle = res;
-          this.arregloDetalle.forEach((detalle: any) => {
-            this.database.buscarViajeReservado(detalle.id_viaje, estado).then(res => {
-              if(res.length > 0){
-                this.arregloViajes = res;
-                this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
-                  if(res.length > 0){
-                    this.arregloUsuario = res;
-                    this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
-                      if(res.length > 0){
-                        this.arregloVehiculo = res;
-                        let reserva = {
-                          detalle: detalle,
-                          usuario: this.arregloUsuario[0],
-                          vehiculo: this.arregloVehiculo[0],
-                          viaje: this.arregloViajes[0]
-                        };
-                        arregloReserva.push(reserva);
-                        resolve(arregloReserva);
-                      } else {
-                        console.log('No se han encontrado vehiculos.');
+
+    // Buscar todos los detalles del usuario
+    this.database.buscarDetalleUser(id_user).then(detalle => {
+      if(detalle.length > 0){
+
+        this.database.fetchDetalleUser().subscribe(detail => {
+          if(detail.length > 0){
+            this.arregloDetalle = detalle;
+
+            this.database.buscarViajeReservado(detalle[0].id_viaje, estado).then(viaje => {
+              if(viaje.length > 0){
+                this.database.fetchViajeReservado().subscribe(viajes => {
+                  if(viajes.length > 0){
+                    this.arregloViajes = viaje;
+
+                    this.database.buscarDatosUsuario(viaje[0].id_usuario).then(usuario => {
+                      if(usuario.length > 0){
+                        this.database.fetchUsuarioId().subscribe(usuarios => {
+                          if(usuarios.length > 0){
+                            this.arregloUsuario = usuario;
+
+                            let reserva = [
+                              {
+                                detalle: this.arregloDetalle,
+                                usuario: this.arregloUsuario[0],
+                                vehiculo: this.arregloVehiculo[0],
+                                viaje: this.arregloViajes[0]
+                              }
+                            ]
+
+                            this.arregloReserva = reserva;
+                          }
+                        })
                       }
                     })
-                  } else {
-                    console.log('No se han encontrado usuarios.');
                   }
                 })
-              } else {
-                console.log('No se han encontrado viajes.');
               }
             })
-          })
-        }
-      })
+          }
+        })
+      }
     })
   }
 
   cancelarReserva(viaje: any){
-    this.database.cancelarReservaUser(viaje.viaje.id_viaje).then(res => {
+    this.database.cancelarReservaUser(viaje.id_viaje).then(res => {
       if(res){
 
         this.presentarAlerta("Reserva cancelada", "Su reserva ha sido cancelada.");
         // Elimina el viaje del arreglo
-        const index = this.arregloViajes.indexOf(viaje.viaje);
+        const index = this.arregloViajes.indexOf(viaje);
         if(index !== -1){
           this.arregloViajes.splice(index, 1);
         }
