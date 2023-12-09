@@ -72,7 +72,7 @@ export class ViajesiniciadosPage implements OnInit {
         this.database.fetchViajeAceptado().subscribe(viaje => {
 
           if(viaje.length > 0){
-    
+
             console.log('Viajes del usuario: ', viaje);
             this.arregloViajes = viaje;
 
