@@ -14,41 +14,41 @@
 
   <h2 class="ion-text-center" color="primary">Sus viajes</h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let viaje of arregloViajes">
-      <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
+    <ion-item-sliding *ngFor="let viaje of arregloViajes; let i = index">
+      <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo; let i = index">
         <ion-card>
           <ion-card-content>
 
-            <ion-item *ngFor="let usuario of arregloUsuario">
+            <ion-item *ngFor="let usuario of arregloUsuario; let i = index">
               <ion-label>
                 <strong>Conductor:</strong>
               </ion-label>
 
-              <ion-label>{{ usuario.nombre }} {{ usuario.apellido }}</ion-label>
+              <ion-label>{{ usuario[i].nombre }} {{ usuario[i].apellido }}</ion-label>
             </ion-item>
 
             <ion-item>
-              <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
+              <ion-label>Fecha del Viaje: {{ viaje[i].f_viaje }}</ion-label>
             </ion-item>
             
             <ion-item>
-              <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
+              <ion-label>Hora de Salida: {{ viaje[i].hora_salida }}</ion-label>
             </ion-item>
   
             <ion-item>
-              <ion-label>Salida: {{ viaje.salida }}</ion-label>
+              <ion-label>Salida: {{ viaje[i].salida }}</ion-label>
             </ion-item>
   
             <ion-item>
-              <ion-label>Destino: {{ viaje.destino }}</ion-label>
+              <ion-label>Destino: {{ viaje[i].destino }}</ion-label>
             </ion-item>
   
             <ion-item>
-              <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
+              <ion-label>Asientos disponibles: {{ viaje[i].cant_asientos }}</ion-label>
             </ion-item>
   
             <ion-item>
-              <ion-label>Estado: {{ viaje.estado }}</ion-label>
+              <ion-label>Estado: {{ viaje[i].estado }}</ion-label>
             </ion-item>
   
             <br>
@@ -58,11 +58,11 @@
             </ion-item>
 
             <ion-item>
-              <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
+              <ion-label>Marca: {{ vehiculo[i].marca }}</ion-label>
             </ion-item>
   
             <ion-item>
-              <ion-label>Modelo: {{ vehiculo.modelo }}</ion-label>
+              <ion-label>Modelo: {{ vehiculo[i].modelo }}</ion-label>
             </ion-item>
 
             <ion-button (click)="cancelarReserva(viaje)">Cancelar Reserva</ion-button>
