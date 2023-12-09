@@ -71,43 +71,45 @@ export class ViajesreservadosPage implements OnInit {
                 
         this.arregloDetalle = res;
   
-        // Buscar todos los viajes reservados por el usuario
-        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(res => {
-          if(res.length > 0){
-  
-            this.arregloViajes = res;
-  
-            // Buscar todos los usuarios
-            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
-              if(res.length > 0){
-  
-                this.arregloUsuario = res;
-  
-                // Buscar todos los vehiculos
-                this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
-                  if(res.length > 0){
-  
-                    this.arregloVehiculo = res;
-  
-                  } else {
-  
-                    console.log('No se han encontrado vehiculos.');
-  
-                  }
-                })
-  
-              } else {
-  
-                console.log('No se han encontrado usuarios.');
-  
-              }
-            })
-  
-          } else {
-  
-            console.log('No se han encontrado viajes.');
-  
-          }
+        this.arregloDetalle.forEach((detalle: any) => {
+          // Buscar todos los viajes reservados por el usuario
+          this.database.buscarViajeReservado(detalle.id_viaje, estado).then(res => {
+            if(res.length > 0){
+    
+              this.arregloViajes = res;
+    
+              // Buscar todos los usuarios
+              this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+                if(res.length > 0){
+    
+                  this.arregloUsuario = res;
+    
+                  // Buscar todos los vehiculos
+                  this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
+                    if(res.length > 0){
+    
+                      this.arregloVehiculo = res;
+    
+                    } else {
+    
+                      console.log('No se han encontrado vehiculos.');
+    
+                    }
+                  })
+    
+                } else {
+    
+                  console.log('No se han encontrado usuarios.');
+    
+                }
+              })
+    
+            } else {
+    
+              console.log('No se han encontrado viajes.');
+    
+            }
+          })
         })
       }
     })
