@@ -109,58 +109,45 @@ export class ViajesreservadosPage implements OnInit {
 
   ngOnInit() {
     let id_user = localStorage.getItem('id');
-let estado = 'Disponible.';
+    let estado = 'Disponible.';
 
-// Buscar todos los detalles del usuario
-this.database.buscarDetalleUser(id_user).then(detalle => {
-  if(detalle.length > 0){
-    this.database.fetchDetalleUser().subscribe(detail => {
-      if(detail.length > 0){
+    this.database.buscarDetalleUser(id_user).then(detalle => {
+      if(detalle.length > 0){
         this.arregloDetalle = detalle;
 
         detalle.forEach((index: any) => {
           this.database.buscarViajeReservado(index.id_viaje, estado).then(viaje => {
             if(viaje.length > 0){
-              this.database.fetchViajeReservado().subscribe(viajes => {
-                if(viajes.length > 0){
-                  this.arregloViajes = viaje;
+              this.arregloViajes = viaje;
 
-                  viaje.forEach((index: any) => {
-                    this.database.buscarDatosUsuario(index.id_usuario).then(usuario => {
-                      if(usuario.length > 0){
-                        this.database.fetchUsuarioId().subscribe(usuarios => {
-                          if(usuarios.length > 0){
-                            this.arregloUsuario = usuario;
+              viaje.forEach((index: any) => {
+                this.database.buscarDatosUsuario(index.id_usuario).then(usuario => {
+                  if(usuario.length > 0){
+                    this.arregloUsuario = usuario;
 
-                            // Buscar los datos del vehículo
-                            this.database.buscarVehiculoUsuario(index.id_usuario).then(vehiculo => {
-                              if(vehiculo.length > 0){
-                                this.arregloVehiculo = vehiculo;
+                    // Buscar los datos del vehículo
+                    this.database.buscarVehiculoUsuario(index.id_usuario).then(vehiculo => {
+                      if(vehiculo.length > 0){
+                        this.arregloVehiculo = vehiculo;
 
-                                let reserva = {
-                                  detalle: this.arregloDetalle[0],
-                                  usuario: this.arregloUsuario[0],
-                                  vehiculo: this.arregloVehiculo[0],
-                                  viaje: this.arregloViajes[0],
-                                }
+                        let reserva = {
+                          detalle: this.arregloDetalle[0],
+                          usuario: this.arregloUsuario[0],
+                          vehiculo: this.arregloVehiculo[0],
+                          viaje: this.arregloViajes[0],
+                        }
 
-                                this.arregloReserva.push(reserva);
-                              }
-                            })
-                          }
-                        })
+                        this.arregloReserva.push(reserva);
                       }
                     })
-                  })
-                }
+                  }
+                })
               })
             }
           })
         })
       }
     })
-  }
-})
   }
 
   cancelarReserva(viaje: any){
