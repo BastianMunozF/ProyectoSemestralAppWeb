@@ -139,13 +139,13 @@ export class ViajesreservadosPage implements OnInit {
                 this.arregloVehiculo = vehiculo;
   
                 let reserva = {
-                  detalle: this.arregloDetalle[0],
-                  usuario: this.arregloUsuario[0],
-                  vehiculo: this.arregloVehiculo[0],
-                  viaje: this.arregloViajes[0],
+                  detalle: this.arregloDetalle,
+                  usuario: this.arregloUsuario,
+                  vehiculo: this.arregloVehiculo,
+                  viaje: this.arregloViajes,
                 }
   
-                this.arregloReserva.push(reserva);
+                this.arregloReserva = reserva;
                 console.log('Reserva:', reserva);
                 console.log('arregloReserva:', this.arregloReserva);
               }
