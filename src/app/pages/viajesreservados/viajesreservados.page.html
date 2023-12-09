@@ -20,24 +20,14 @@
           <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
             <ion-card>
               <ion-card-content>
-  
-                <ion-item>
-                  <ion-label>Detalle id: {{ detalle.id_detalle }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Detalles id_usuario: {{ detalle.id_usuario }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Detalles id_viaje: {{ detalle.id_viaje }}</ion-label>
-                </ion-item>
       
                 <ion-item>
                   <ion-label>
                     <strong>Conductor:</strong>
                   </ion-label>
-      
+                </ion-item>
+
+                <ion-item>
                   <ion-label>{{ usuario.nombre }} {{ usuario.apellido }}</ion-label>
                 </ion-item>
       
@@ -63,10 +53,6 @@
       
                 <ion-item>
                   <ion-label>Estado: {{ viaje.estado }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Id conductor: {{ viaje.id_usuario }}</ion-label>
                 </ion-item>
       
                 <br>
