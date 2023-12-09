@@ -79,24 +79,24 @@ export class ViajesreservadosPage implements OnInit {
               // Agrega el nuevo viaje al arreglo existente en lugar de sobrescribirlo
               this.arregloViajes.push(...viaje);
   
-              this.arregloViajes[this.arregloViajes.length - 1].usuarios = [];
-              this.arregloViajes[this.arregloViajes.length - 1].vehiculos = [];
+              // Busca los datos del usuario y del vehículo para cada viaje
+              viaje.forEach((viajeIndividual: any) => {
+                this.database.buscarDatosUsuario(viajeIndividual.id_usuario);
   
-              this.database.buscarDatosUsuario(viaje[0].id_usuario);
+                this.database.fetchUsuarioId().subscribe(usuario => {
+                  if(usuario.length > 0){
+                    this.arregloUsuario.push(usuario[0]);
   
-              this.database.fetchUsuarioId().subscribe(usuario => {
-                if(usuario.length > 0){
-                  this.arregloViajes[this.arregloViajes.length - 1].usuarios.push(usuario[0]);
+                    this.database.buscarVehiculoUsuario(usuario[0].id);
   
-                  this.database.buscarVehiculoUsuario(usuario[0].id);
-  
-                  this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                    if(vehiculo.length > 0){
-                      this.arregloViajes[this.arregloViajes.length - 1].vehiculos.push(vehiculo[0]);
-                    }
-                  })
-                }
-              })
+                    this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                      if(vehiculo.length > 0){
+                        this.arregloVehiculo.push(vehiculo[0]);
+                      }
+                    })
+                  }
+                })
+              });
             }
           })
         });
