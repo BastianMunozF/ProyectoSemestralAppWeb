@@ -661,7 +661,7 @@ export class DbserviceService {
   insertarViajeAceptado(id_usuario: any, id_viaje: any){
     return this.database.executeSql("INSERT INTO detalle(id_usuario, id_viaje) VALUES (?, ?)", [id_usuario, id_viaje]).then(res => {
       if(res){
-        this.buscarDetalle();
+        this.buscarDetalleUser(id_usuario);
         return true;
       } else {
         this.presentAlert('Error al insertar detalle');
