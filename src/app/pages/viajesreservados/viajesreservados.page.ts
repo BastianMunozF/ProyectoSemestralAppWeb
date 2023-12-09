@@ -133,14 +133,20 @@ export class ViajesreservadosPage implements OnInit {
 
                             let reserva = [
                               {
-                                detalle: this.arregloDetalle,
-                                usuario: this.arregloUsuario[0],
-                                vehiculo: this.arregloVehiculo[0],
+                                detalle: this.arregloDetalle
+                              },
+                              {
+                                usuario: this.arregloUsuario[0]
+                              },
+                              {
+                                vehiculo: this.arregloVehiculo[0]
+                              },
+                              {
                                 viaje: this.arregloViajes[0]
-                              }
+                              },
                             ]
 
-                            this.arregloReserva = reserva;
+                            this.arregloReserva.push(reserva);
                           }
                         })
                       }
