@@ -51,6 +51,8 @@ export class DbserviceService {
 
   listaUsuarioViaje = new BehaviorSubject([]);
 
+  listaConductor = new BehaviorSubject([]);
+
   listaViaje = new BehaviorSubject([]);
 
   listaViajeId = new BehaviorSubject([]);
@@ -93,6 +95,10 @@ export class DbserviceService {
 
   fetchUsuario(): Observable<Usuario[]>{
     return this.listaUsuario.asObservable();
+  }
+
+  fetchConductor(): Observable<Usuario[]>{
+    return this.listaConductor.asObservable();
   }
 
   fetchUsuarioViaje(): Observable<Usuario[]>{
@@ -195,7 +201,37 @@ export class DbserviceService {
       this.listaUsuarioId.next(datos as any);
       return datos;
 
-    });
+    })
+  }
+
+  buscarDatosConductor(id: any){
+    if (!this.database){
+      console.error('La base de datos no está inicializada.');
+    return Promise.resolve([]);
+    }
+    return this.database.executeSql("SELECT * FROM usuario WHERE id = ?", [id]).then(res => {
+      let datos: Usuario[] = [];
+
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          datos.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            correo: res.rows.item(i).correo,
+            fechanacimiento: res.rows.item(i).fechanacimiento,
+            rut: res.rows.item(i).rut,
+            celular: res.rows.item(i).celular,
+            contrasena: res.rows.item(i).contrasena,
+            fotoperfil: res.rows.item(i).fotoperfil
+          })
+        }
+      }
+
+      this.listaConductor.next(datos as any);
+      return datos;
+
+    })
   }
 
   buscarUsuarioViaje(id: any){
