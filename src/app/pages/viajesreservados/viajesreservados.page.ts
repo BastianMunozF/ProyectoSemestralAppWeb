@@ -65,65 +65,53 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
   
-    this.database.buscarDetalleUser(id_user).then(res => {
-      if(res.length > 0){
-        this.database.fetchDetalleUser().subscribe(detalle => {
-          this.arregloDetalle = detalle;
-    
-          this.arregloDetalle.forEach((detail: any) => {
-            this.database.buscarViajeReservado(detail.id_viaje, estado).then(res => {
-              if(res.length > 0){
-                this.database.fetchViajeReservado().subscribe(viaje => {
-                  this.arregloViajes.push(viaje);
-          
-                  this.arregloViajes.forEach((viaje: any) => {
-                    this.database.buscarDatosUsuario(viaje.id_usuario).then(res => {
-                      if(res.length > 0){
-                        this.database.fetchUsuarioId().subscribe(usuario => {
+    this.database.buscarDetalleUser(id_user).then(detalle => {
+      if (detalle.length > 0) {
+        this.arregloDetalle = detalle;
+  
+        this.arregloDetalle.forEach((detail: any) => {
+          this.database.buscarViajeReservado(detail.id_viaje, estado).then(viajesReservados => {
+            if (viajesReservados.length > 0) {
+              viajesReservados.forEach((viaje: any) => {
+                this.database.buscarDatosUsuario(viaje.id_usuario).then(usuarios => {
+                  if (usuarios.length > 0) {
+                    usuarios.forEach((usuario: any) => {
+                      this.database.buscarVehiculoUsuario(usuario.id_usuario).then(vehiculos => {
+                        if (vehiculos.length > 0) {
+                          this.arregloViajes.push(viaje);
                           this.arregloUsuario.push(usuario);
-                
-                          this.arregloUsuario.forEach((user: any) => {
-                            this.database.buscarVehiculoUsuario(user.id_usuario).then(res => {
-                              if(res.length > 0){
-                                this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                                  this.arregloVehiculo.push(vehiculo);
-                                })
-                              } else {
-                                this.presentarAlerta("Error aqui", "En fetch buscarVehiculoUsuario");
-                              }
-                            }).catch(err => {
-                              console.log('Error: ', err);
-                              this.presentarAlerta("Error aqui", "En funcion buscarVehiculoUsuario");
-                            })
-                          })
-                        })
-                      } else {
-                        this.presentarAlerta("Error aqui", "En fetch buscarDatosUsuario");
-                      }
-                    }).catch(err => {
-                      console.log('Error: ', err);
-                      this.presentarAlerta("Error aqui", "En funcion buscarDatosUsuario");
-                    })
-                  })
-                })
-              } else {
-                this.presentarAlerta("Error aqui", "En fetch buscarViajeReservado");
-              }
-            }).catch(err => {
-              console.log('Error: ', err);
-              this.presentarAlerta("Error aqui", "En funcion buscarViajeReservado");
-            })
-          })
-    
-        })
+                          this.arregloVehiculo.push(vehiculos[0]); // Supongo que solo quieres el primer vehículo
+                        } else {
+                          this.presentarAlerta("Error aqui", "En fetch buscarVehiculoUsuario");
+                        }
+                      }).catch(err => {
+                        console.log('Error: ', err);
+                        this.presentarAlerta("Error aqui", "En funcion buscarVehiculoUsuario");
+                      });
+                    });
+                  } else {
+                    this.presentarAlerta("Error aqui", "En fetch buscarDatosUsuario");
+                  }
+                }).catch(err => {
+                  console.log('Error: ', err);
+                  this.presentarAlerta("Error aqui", "En funcion buscarDatosUsuario");
+                });
+              });
+            } else {
+              this.presentarAlerta("Error aqui", "En fetch buscarViajeReservado");
+            }
+          }).catch(err => {
+            console.log('Error: ', err);
+            this.presentarAlerta("Error aqui", "En funcion buscarViajeReservado");
+          });
+        });
       } else {
         this.presentarAlerta("Error aqui", "En fetch buscarDetalleUser");
       }
     }).catch(err => {
       console.log('Error: ', err);
       this.presentarAlerta("Error aqui", "En funcion buscarDetalleUser");
-    })
-
+    });
   }
 
   cancelarReserva(viaje: any){
