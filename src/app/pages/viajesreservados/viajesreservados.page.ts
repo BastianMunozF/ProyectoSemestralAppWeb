@@ -107,53 +107,62 @@ export class ViajesreservadosPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-  
-    let detalle = await this.database.buscarDetalleUser(id_user);
-    console.log('Detalle:', detalle);
-  
-    if(detalle.length > 0){
-      this.arregloDetalle = detalle;
-  
-      for(let index of detalle) {
-        let viaje = await this.database.buscarViajeReservado(index.id_viaje, estado);
-        console.log('Viaje:', viaje);
-  
-        if(viaje.length > 0){
-          this.arregloViajes = viaje;
-  
-          for(let index of viaje) {
-            let usuario = await this.database.buscarDatosUsuario(index.id_usuario);
-            console.log('Usuario:', usuario);
-  
-            if(usuario.length > 0){
-              this.arregloUsuario = usuario;
-  
-              // Buscar los datos del vehículo
-              let vehiculo = await this.database.buscarVehiculoUsuario(index.id_usuario);
-              console.log('Vehiculo:', vehiculo);
-  
-              if(vehiculo.length > 0){
-                this.arregloVehiculo = vehiculo;
-  
-                let reserva = {
-                  detalle: this.arregloDetalle,
-                  usuario: this.arregloUsuario,
-                  vehiculo: this.arregloVehiculo,
-                  viaje: this.arregloViajes,
-                }
-  
-                this.arregloReserva = reserva;
-                console.log('Reserva:', reserva);
-                console.log('arregloReserva:', this.arregloReserva);
+    let reserva: any = [];
+
+    // Buscar todos los detalles del usuario
+    this.database.buscarDetalleUser(id_user).then(detalle => {
+      if(detalle.length > 0){
+
+        this.database.fetchDetalleUser().subscribe(detail => {
+          if(detail.length > 0){
+            this.arregloDetalle = detalle;
+
+            this.database.buscarViajeReservado(detalle[0].id_viaje, estado).then(viaje => {
+              if(viaje.length > 0){
+                this.database.fetchViajeReservado().subscribe(viajes => {
+                  if(viajes.length > 0){
+                    this.arregloViajes = viaje;
+
+                    this.database.buscarDatosUsuario(viaje[0].id_usuario).then(usuario => {
+                      if(usuario.length > 0){
+                        this.database.fetchUsuarioId().subscribe(usuarios => {
+                          if(usuarios.length > 0){
+                            this.arregloUsuario = usuario;
+
+                            this.database.buscarVehiculoUsuario(usuario[0].id).then(vehiculo => {
+                              if(vehiculo.length > 0){
+                                for(var i = 0; i < this.arregloDetalle.length; i++){
+                                  for(var j = 0; j < this.arregloUsuario.length; j++){
+                                    for(var k = 0; k < this.arregloViajes.length; k++){
+                                      for(var l = 0; l < vehiculo.length; l++){
+                                        reserva.push({
+                                          detalle: this.arregloDetalle[i],
+                                          usuario: this.arregloUsuario[j],
+                                          vehiculo: vehiculo[l],
+                                          viaje: this.arregloViajes[k]
+                                        })
+                                      }
+                                    }
+                                  }
+                                }
+                                return this.arregloReserva.push(reserva);
+                              }
+                            })
+                          }
+                        })
+                      }
+                    })
+                  }
+                })
               }
-            }
+            })
           }
-        }
+        })
       }
-    }
+    })
   }
 
   cancelarReserva(viaje: any){
