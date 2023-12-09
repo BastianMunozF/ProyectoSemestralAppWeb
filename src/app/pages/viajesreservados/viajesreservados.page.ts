@@ -125,13 +125,13 @@ export class ViajesreservadosPage implements OnInit {
               this.arregloViajes = res;
   
               // Buscar todos los usuarios
-              this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+              this.database.buscarDatosUsuario(res[8].id_usuario).then(res => {
                 if(res.length > 0){
   
                   this.arregloUsuario = res;
   
                   // Buscar todos los vehiculos
-                  this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
+                  this.database.buscarVehiculoUsuario(res[0].id).then(res => {
                     if(res.length > 0){
   
                       this.arregloVehiculo = res;
