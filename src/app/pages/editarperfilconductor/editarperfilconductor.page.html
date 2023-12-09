@@ -12,6 +12,8 @@
       </ion-item>
     </ion-card-title>
 
+    <ion-card-content>
+
     <form [formGroup]="formularioActualizar" (ngSubmit)="actualizarUsuario()">
 
       <ion-label position="stacked">Toca la foto para actualizar</ion-label>
@@ -23,54 +25,54 @@
       </div>
       
       <ion-item>
-        <ion-label>Nombre:</ion-label>
+        <ion-label position="floating">Nombre:</ion-label>
         <ion-input formControlName="nombre" type="text"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Apellido:</ion-label>
+        <ion-label position="floating">Apellido:</ion-label>
         <ion-input formControlName="apellido" type="text"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Correo:</ion-label>
+        <ion-label position="floating">Correo:</ion-label>
         <ion-input formControlName="correo" type="email"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Fecha Nacimiento:</ion-label>
+        <ion-label position="floating">Fecha Nacimiento:</ion-label>
         <ion-input formControlName="fechanacimiento" type="date"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Rut:</ion-label>
+        <ion-label position="floating">Rut:</ion-label>
         <ion-input formControlName="rut" type="text" [readonly]="true"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Celular:</ion-label>
+        <ion-label position="floating">Celular:</ion-label>
         <ion-input formControlName="celular" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
         <h3>Vehículo</h3>
 
-        <ion-label>Marca:</ion-label>
+        <ion-label position="floating">Marca:</ion-label>
         <ion-input formControlName="marca" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Modelo:</ion-label>
+        <ion-label position="floating">Modelo:</ion-label>
         <ion-input formControlName="modelo" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Año:</ion-label>
+        <ion-label position="floating">Año:</ion-label>
         <ion-input formControlName="anio" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Patente:</ion-label>
+        <ion-label position="floating">Patente:</ion-label>
         <ion-input formControlName="patente" type="text"></ion-input>
       </ion-item>
 
@@ -86,9 +88,12 @@
         </select>
       </ion-item>
 
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
       <ion-button color="primary" [routerLink]="['/perfilconductor']">Perfil Usuario</ion-button>
       <ion-button color="primary" type="submit">Guardar</ion-button>
+      </div>
     </form>
+  </ion-card-content>
   </ion-card>
 </ion-content>
 

@@ -8,19 +8,21 @@
   <ion-card class="ion-text-center">
     <ion-card-title>
       <ion-item color="primary">
-        <ion-label style="text-align: center; font-weight: 800;">Viaje</ion-label>
+        <ion-label style="text-align: center; font-weight: 800;">Crear Viaje</ion-label>
       </ion-item>
     </ion-card-title>
+
+    <ion-card-content>
 
     <form [formGroup]="formularioRuta" (ngSubmit)="crearRuta()">
 
       <ion-item>
-        <ion-label>Fecha Viaje:</ion-label>
+        <ion-label position="floating">Fecha Viaje:</ion-label>
         <ion-input formControlName="f_viaje" type="date"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Hora Salida:</ion-label>
+        <ion-label position="floating">Hora Salida:</ion-label>
         <ion-input formControlName="hora_salida" type="time" id="horasalida"></ion-input>
       </ion-item>
 
@@ -92,18 +94,23 @@
       </ion-item>
 
       <ion-item>
-        <ion-input name="valor_asiento" id="valor_asiento" formControlName="valor_asiento">Valor Asiento:</ion-input>
+        <ion-label><ion-input name="valor_asiento" id="valor_asiento" formControlName="valor_asiento">Valor Asiento:</ion-input></ion-label>
       </ion-item>
 
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
       <ion-button color="primary" type="submit">Aceptar</ion-button> 
       <ion-button color="primary" [routerLink]="['/menuprincipalconductor']">Menú principal</ion-button>
+    </div>
     </form>
+  </ion-card-content>
   
   </ion-card>
+  <br> 
+  <br>
 
   <ion-card>
     <ion-item>
-      <ion-button size="large" color="primary" [routerLink]="['/viajesiniciados']">Ver viajes creados</ion-button>
+      <ion-button size="large" class="custom-button" [routerLink]="['/viajesiniciados']">Ver viajes creados</ion-button>
     </ion-item>
   </ion-card>
 

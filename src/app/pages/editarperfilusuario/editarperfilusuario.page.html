@@ -11,6 +11,8 @@
         <ion-label style="text-align: center; font-weight: 800;">Editar Perfil</ion-label>
       </ion-item>
     </ion-card-title>
+
+    <ion-card-content>
     <form [formGroup]="formularioActualizar" (ngSubmit)="actualizarUsuario()">
       <ion-label position="stacked">Toca la foto para actualizar</ion-label>
 
@@ -19,38 +21,41 @@
       </div>
       
       <ion-item>
-        <ion-label>Nombre:</ion-label>
+        <ion-label position="floating">Nombre:</ion-label>
         <ion-input formControlName="nombre" type="text"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Apellido:</ion-label>
+        <ion-label position="floating">Apellido:</ion-label>
         <ion-input formControlName="apellido" type="text"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Correo:</ion-label>
+        <ion-label position="floating">Correo:</ion-label>
         <ion-input formControlName="correo" type="email"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Fecha Nacimiento:</ion-label>
+        <ion-label position="floating">Fecha Nacimiento:</ion-label>
         <ion-input formControlName="fechanacimiento" type="date"></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label>Rut:</ion-label>
+        <ion-label position="floating">Rut:</ion-label>
         <ion-input formControlName="rut" type="text" [readonly]="true"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Celular:</ion-label>
+        <ion-label position="floating">Celular:</ion-label>
         <ion-input formControlName="celular" type="number"></ion-input>
       </ion-item>
 
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
       <ion-button color="primary" [routerLink]="['/modificarcontrasena']">Modificar Contraseña</ion-button>
       <ion-button color="primary" type="submit">Guardar</ion-button>
+      </div>
     </form>
+    </ion-card-content>
   </ion-card>
 </ion-content>
 
