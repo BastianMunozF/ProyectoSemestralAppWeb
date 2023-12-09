@@ -54,28 +54,32 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
-  <section style="display: flex; justify-content: center; align-items: center;">
-    <div class="example-button-row">
-      <div class="example-flex-container">
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
-          <ion-icon name="home" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
-          <ion-icon name="location" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
-          <ion-icon name="person" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
-          <ion-icon name="car-sport" color="primary"></ion-icon>
-        </button>
-        <button mat-icon-button aria-label="Example icon button with a open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
-          <ion-icon name="exit" color="primary"></ion-icon>
-        </button>
-      </div>
+<section style="display: flex; justify-content: center; align-items: center;">
+  <div class="example-button-row">
+    <div class="example-flex-container">
+      <button mat-icon-button aria-label="Example icon button with a vertical three-dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
+        <ion-icon name="home" color="primary"></ion-icon>
+        <span class="button-text">Inicio</span>
+      </button>
+      <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
+        <ion-icon name="location" color="primary"></ion-icon>
+        <span class="button-text">Viaje</span>
+      </button>
+      <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
+        <ion-icon name="person" color="primary"></ion-icon>
+        <span class="button-text">Perfil</span>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
+        <ion-icon name="car-sport" color="primary"></ion-icon>
+        <span class="button-text">Auto</span>
+      </button>
+      <button mat-icon-button aria-label="Example icon button with an open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
+        <ion-icon name="exit" color="primary"></ion-icon>
+        <span class="button-text">Cierre</span>
+      </button>
     </div>
-  </section>
-</ion-footer>
+  </div>
+</section>
+
 
 

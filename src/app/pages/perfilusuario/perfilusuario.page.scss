@@ -45,3 +45,11 @@ ion-content{
   border-radius: 50%; /* Hace que la imagen tenga bordes redondeados */
 }
 
+.button-text {
+  font-size: 8px; /* Ajusta el tamaño del texto según sea necesario */
+  margin-top: 1px; /* Espacio adicional entre el ícono y el texto */
+  display: block; /* Hace que el texto aparezca debajo del ícono */
+  text-align: center; /* Centra el texto debajo del ícono */
+  color: #469597;
+}
+
