@@ -172,12 +172,12 @@ export class ViajesreservadosPage implements OnInit {
   }
 
   cancelarReserva(viaje: any){
-    this.database.cancelarReservaUser(viaje.id_viaje).then(res => {
+    this.database.cancelarReservaUser(viaje.viaje.id_viaje).then(res => {
       if(res){
 
         this.presentarAlerta("Reserva cancelada", "Su reserva ha sido cancelada.");
         // Elimina el viaje del arreglo
-        const index = this.arregloViajes.indexOf(viaje);
+        const index = this.arregloViajes.indexOf(viaje.viaje);
         if(index !== -1){
           this.arregloViajes.splice(index, 1);
         }
