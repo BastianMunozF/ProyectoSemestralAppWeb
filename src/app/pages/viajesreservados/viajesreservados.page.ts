@@ -86,32 +86,20 @@ export class ViajesreservadosPage implements OnInit {
                       // Obtener información del usuario
                       this.database.buscarDatosUsuario(viaje.id_usuario).then(resUsuario => {
                         if (resUsuario.length > 0) {
-                          this.database.fetchUsuarioId().subscribe(usuario => {
-                            if (usuario.length > 0) {
-                              // Agregar información del usuario al arreglo
-                              this.arregloUsuario.push(usuario);
+                          const usuario = resUsuario[0]; // Supongo que solo hay un usuario con ese ID
+                          this.arregloUsuario.push(usuario);
   
-                              // Obtener información del vehículo
-                              this.database.buscarVehiculoUsuario(usuario[0].id).then(resVehiculo => {
-                                if (resVehiculo.length > 0) {
-                                  this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                                    if (vehiculo.length > 0) {
-                                      // Agregar información del vehículo al arreglo
-                                      this.arregloVehiculo.push(vehiculo);
-                                    } else {
-                                      this.presentarAlerta("Error al cargar vehículo", "Error en fetch buscarVehiculoUsuario.")
-                                    }
-                                  })
-                                } else {
-                                  this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
-                                }
-                              })
+                          // Obtener información del vehículo
+                          this.database.buscarVehiculoUsuario(usuario.id).then(resVehiculo => {
+                            if (resVehiculo.length > 0) {
+                              const vehiculo = resVehiculo[0]; // Supongo que solo hay un vehículo asociado a un usuario
+                              this.arregloVehiculo.push(vehiculo);
                             } else {
-                              this.presentarAlerta("Error al cargar usuario", "Error en fetch buscarDatosUsuario.")
+                              this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
                             }
                           })
                         } else {
-                          this.presentarAlerta("Error al cargar usuario", "Error en buscarDatosUsuario.")
+                          this.presentarAlerta("Error al cargar usuario", "No se encontraron datos del usuario.")
                         }
                       })
                     });
