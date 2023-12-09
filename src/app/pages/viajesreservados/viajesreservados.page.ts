@@ -66,64 +66,52 @@ export class ViajesreservadosPage implements OnInit {
     let estado = 'Disponible.';
   
     // Buscar todos los detalles del usuario
-    this.database.buscarDetalleUser(id_user).then(resDetalle => {
-      if (resDetalle.length > 0) {
-        // Obtener el arreglo de detalles
-        this.database.fetchDetalleUser().subscribe(detalle => {
-          if (detalle.length > 0) {
-            this.arregloDetalle = detalle;
+    this.database.buscarDetalleUser(id_user).then(res => {
+      if(res.length > 0){
+                
+        this.arregloDetalle = res;
   
-            // Obtener los viajes reservados del usuario
-            this.database.buscarViajeReservado(detalle[2].id_viaje, estado).then(resViajes => {
-              if (resViajes.length > 0) {
-                // Obtener los detalles de los viajes reservados
-                this.database.fetchViajeReservado().subscribe(viajes => {
-                  if (viajes.length > 0) {
-                    this.arregloViajes = viajes;
+        // Buscar todos los viajes reservados por el usuario
+        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(res => {
+          if(res.length > 0){
   
-                    // Iterar sobre los viajes reservados para obtener información adicional
-                    viajes.forEach(viaje => {
-                      // Obtener información del usuario directamente del viaje
-                      const idUsuario = viaje.id_usuario;
-                      this.database.buscarDatosUsuario(idUsuario).then(resUsuario => {
-                        if (resUsuario.length > 0) {
-                          const usuario = resUsuario[0]; // Supongo que solo hay un usuario con ese ID
-                          this.arregloUsuario.push(usuario);
+            this.arregloViajes = res;
   
-                          // Obtener información del vehículo directamente del viaje
-                          const idVehiculo = viaje.id_usuario;
-                          this.database.buscarVehiculoUsuario(idVehiculo).then(resVehiculo => {
-                            if (resVehiculo.length > 0) {
-                              const vehiculo = resVehiculo[0]; // Supongo que solo hay un vehículo asociado a un usuario
-                              this.arregloVehiculo.push(vehiculo);
-                            } else {
-                              this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
-                            }
-                          })
-                        } else {
-                          this.presentarAlerta("Error al cargar usuario", "No se encontraron datos del usuario.")
-                        }
-                      })
-                    });
+            // Buscar todos los usuarios
+            this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+              if(res.length > 0){
+  
+                this.arregloUsuario = res;
+  
+                // Buscar todos los vehiculos
+                this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
+                  if(res.length > 0){
+  
+                    this.arregloVehiculo = res;
   
                   } else {
-                    this.presentarAlerta("Error al cargar viaje", "Error en buscarViajeReservado.")
+  
+                    console.log('No se han encontrado vehiculos.');
+  
                   }
                 })
   
               } else {
-                this.presentarAlerta("Error al cargar viaje", "Error en buscarViajeReservado.")
+  
+                console.log('No se han encontrado usuarios.');
+  
               }
             })
   
           } else {
-            this.presentarAlerta("Error al cargar detalle", "Error en fetch buscarDetalleUser.")
+  
+            console.log('No se han encontrado viajes.');
+  
           }
         })
-      } else {
-        this.presentarAlerta("Error al cargar detalle", "Error en buscarDetalleUser.")
       }
-    });
+    })
+      
   }
 
   cancelarReserva(viaje: any){
