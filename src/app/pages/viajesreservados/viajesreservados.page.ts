@@ -108,71 +108,51 @@ export class ViajesreservadosPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+    this.arregloReserva = this.cargarReservas();
+  }
+
+  cargarReservas() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
+    let arregloReserva: any = [];
   
-    // Buscar todos los detalles del usuario
-    this.database.buscarDetalleUser(id_user).then(res => {
-      if(res.length > 0){
-  
-        this.arregloDetalle = res;
-  
-        this.arregloDetalle.forEach((detalle: any) => {
-          // Buscar todos los viajes reservados por el usuario
-          this.database.buscarViajeReservado(detalle.id_viaje, estado).then(res => {
-            if(res.length > 0){
-  
-              this.arregloViajes = res;
-  
-              // Buscar todos los usuarios
-              this.database.buscarDatosUsuario(res[8].id_usuario).then(res => {
-                if(res.length > 0){
-  
-                  this.arregloUsuario = res;
-  
-                  // Buscar todos los vehiculos
-                  this.database.buscarVehiculoUsuario(res[0].id).then(res => {
-                    if(res.length > 0){
-  
-                      this.arregloVehiculo = res;
-  
-                      // Crear un objeto temporal y empujarlo al arregloReserva
-                      let reserva = {
-                        detalle: detalle,
-                        usuario: this.arregloUsuario[0],
-                        vehiculo: this.arregloVehiculo[0],
-                        viaje: this.arregloViajes[0]
-                      };
-  
-                      this.arregloReserva.push(reserva);
-  
-                    } else {
-  
-                      console.log('No se han encontrado vehiculos.');
-                      this.presentarAlerta("Error aqui", "Error en buscar vehiculos");
-  
-                    }
-                  })
-  
-                } else {
-  
-                  console.log('No se han encontrado usuarios.');
-                  this.presentarAlerta("Error aqui", "Error en buscar usuarios");
-  
-                }
-              })
-  
-            } else {
-  
-              console.log('No se han encontrado viajes.');
-              this.presentarAlerta("Error aqui", "Error en buscar viajes reservados");
-  
-            }
+    return new Promise(resolve => {
+      this.database.buscarDetalleUser(id_user).then(res => {
+        if(res.length > 0){
+          this.arregloDetalle = res;
+          this.arregloDetalle.forEach((detalle: any) => {
+            this.database.buscarViajeReservado(detalle.id_viaje, estado).then(res => {
+              if(res.length > 0){
+                this.arregloViajes = res;
+                this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(res => {
+                  if(res.length > 0){
+                    this.arregloUsuario = res;
+                    this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(res => {
+                      if(res.length > 0){
+                        this.arregloVehiculo = res;
+                        let reserva = {
+                          detalle: detalle,
+                          usuario: this.arregloUsuario[0],
+                          vehiculo: this.arregloVehiculo[0],
+                          viaje: this.arregloViajes[0]
+                        };
+                        arregloReserva.push(reserva);
+                        resolve(arregloReserva);
+                      } else {
+                        console.log('No se han encontrado vehiculos.');
+                      }
+                    })
+                  } else {
+                    console.log('No se han encontrado usuarios.');
+                  }
+                })
+              } else {
+                console.log('No se han encontrado viajes.');
+              }
+            })
           })
-        })
-      } else {
-        this.presentarAlerta("Error aqui", "Error en buscar detalle user")
-      }
+        }
+      })
     })
   }
 
