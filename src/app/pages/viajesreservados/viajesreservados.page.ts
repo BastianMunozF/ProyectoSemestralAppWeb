@@ -119,41 +119,43 @@ export class ViajesreservadosPage implements OnInit {
           if(detail.length > 0){
             this.arregloDetalle = detalle;
 
-            this.database.buscarViajeReservado(detalle[0].id_viaje, estado).then(viaje => {
-              if(viaje.length > 0){
-                this.database.fetchViajeReservado().subscribe(viajes => {
-                  if(viajes.length > 0){
-                    this.arregloViajes = viaje;
-
-                    this.database.buscarDatosUsuario(viaje[0].id_usuario).then(usuario => {
-                      if(usuario.length > 0){
-                        this.database.fetchUsuarioId().subscribe(usuarios => {
-                          if(usuarios.length > 0){
-                            this.arregloUsuario = usuario;
-
-                            let reserva = [
-                              {
-                                detalle: this.arregloDetalle
-                              },
-                              {
-                                usuario: this.arregloUsuario[0]
-                              },
-                              {
-                                vehiculo: this.arregloVehiculo[0]
-                              },
-                              {
-                                viaje: this.arregloViajes[0]
-                              },
-                            ]
-
-                            this.arregloReserva.push(reserva);
-                          }
-                        })
-                      }
-                    })
-                  }
-                })
-              }
+            detalle.forEach((index: any) => {
+              this.database.buscarViajeReservado(index.id_viaje, estado).then(viaje => {
+                if(viaje.length > 0){
+                  this.database.fetchViajeReservado().subscribe(viajes => {
+                    if(viajes.length > 0){
+                      this.arregloViajes = viaje;
+  
+                      this.database.buscarDatosUsuario(viaje[0].id_usuario).then(usuario => {
+                        if(usuario.length > 0){
+                          this.database.fetchUsuarioId().subscribe(usuarios => {
+                            if(usuarios.length > 0){
+                              this.arregloUsuario = usuario;
+  
+                              let reserva = [
+                                {
+                                  detalle: this.arregloDetalle
+                                },
+                                {
+                                  usuario: this.arregloUsuario[0]
+                                },
+                                {
+                                  vehiculo: this.arregloVehiculo[0]
+                                },
+                                {
+                                  viaje: this.arregloViajes[0]
+                                },
+                              ]
+  
+                              this.arregloReserva.push(reserva);
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
             })
           }
         })
