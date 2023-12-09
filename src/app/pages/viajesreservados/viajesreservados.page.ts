@@ -62,54 +62,61 @@ export class ViajesreservadosPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+    let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
 
     // Buscar todos los detalles del usuario
-    this.database.fetchDetalleUser().subscribe(detail => {
-      if(detail.length > 0){
-        console.log('Detalle: ', detail);
-        this.arregloDetalle = detail;
-
-        this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(viaje => {
-          if(viaje.length > 0){
-            this.database.fetchViajeReservado().subscribe(viajes => {
-              if(viajes.length > 0){
-                console.log('Viajes: ', viajes);
-                this.arregloViajes = viajes;
-
-                this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
-                  if(usuario.length > 0){
-                    this.database.fetchUsuarioId().subscribe(usuarios => {
-                      if(usuarios.length > 0){
-                        console.log('Usuario: ', usuarios);
-                        this.arregloUsuario = usuarios;
-
-                        this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(vehiculo => {
-                          if(vehiculo.length > 0){
-                            this.database.fetchVehiculoUser().subscribe(vehiculos => {
-                              if(vehiculos.length > 0){
-                                console.log('Vehiculo: ', vehiculos);
-                                this.arregloVehiculo = vehiculos;
+    this.database.buscarDetalleUser(id_user).then(res => {
+      if(res.length > 0){
+        this.database.fetchDetalleUser().subscribe(detail => {
+          if(detail.length > 0){
+            console.log('Detalle: ', detail);
+            this.arregloDetalle = detail;
+    
+            this.database.buscarViajeReservado(this.arregloDetalle.id_viaje, estado).then(viaje => {
+              if(viaje.length > 0){
+                this.database.fetchViajeReservado().subscribe(viajes => {
+                  if(viajes.length > 0){
+                    console.log('Viajes: ', viajes);
+                    this.arregloViajes = viajes;
+    
+                    this.database.buscarDatosUsuario(this.arregloViajes.id_usuario).then(usuario => {
+                      if(usuario.length > 0){
+                        this.database.fetchUsuarioId().subscribe(usuarios => {
+                          if(usuarios.length > 0){
+                            console.log('Usuario: ', usuarios);
+                            this.arregloUsuario = usuarios;
+    
+                            this.database.buscarVehiculoUsuario(this.arregloUsuario.id_usuario).then(vehiculo => {
+                              if(vehiculo.length > 0){
+                                this.database.fetchVehiculoUser().subscribe(vehiculos => {
+                                  if(vehiculos.length > 0){
+                                    console.log('Vehiculo: ', vehiculos);
+                                    this.arregloVehiculo = vehiculos;
+                                  }
+                                })
                               }
+                            }).catch(error => {
+                              console.log('Error en Buscar Vehículo Usuario: ', error);
                             })
                           }
-                        }).catch(error => {
-                          console.log('Error en Buscar Vehículo Usuario: ', error);
                         })
                       }
+                    }).catch(error => {
+                      console.log('Error en Buscar Datos Usuario: ', error);
                     })
                   }
-                }).catch(error => {
-                  console.log('Error en Buscar Datos Usuario: ', error);
                 })
               }
+            }).catch(error => {
+              console.log('Error en Buscar Viaje Reservado: ', error);
             })
+      
           }
-        }).catch(error => {
-          console.log('Error en Buscar Viaje Reservado: ', error);
         })
-  
       }
+    }).catch(error => {
+      console.log('Error en Buscar Detalle User: ', error);
     })
   }
 
