@@ -62,32 +62,32 @@ export class ViajesreservadosPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-
+  
     this.database.buscarDetalleUser(id_user);
-
+  
     this.database.fetchDetalleUser().subscribe(detalle => {
       if(detalle.length > 0){
         this.arregloDetalle = detalle;
-
+  
         this.arregloDetalle.forEach((detalle: any) => {
           this.database.buscarViajeReservado(detalle.id_viaje, estado);
-
+  
           this.database.fetchViajeReservado().subscribe(viaje => {
             if(viaje.length > 0){
               this.arregloViajes = viaje;
-
+  
               this.arregloViajes.forEach((viaje: any, index: number) => {
                 this.database.buscarDatosUsuario(viaje.id_usuario);
-
+  
                 this.database.fetchUsuarioId().subscribe(usuario => {
                   if(usuario.length > 0){
-                    this.arregloUsuario[index] = usuario[0];
-
+                    // Aquí es donde agregamos el usuario al arregloUsuario
+                    this.arregloUsuario.push(usuario[0]);
+  
                     this.database.buscarVehiculoUsuario(usuario[0].id);
-
+  
                     this.database.fetchVehiculoUser().subscribe(vehiculo => {
                       if(vehiculo.length > 0){
                         this.arregloVehiculo[index] = vehiculo[0];
