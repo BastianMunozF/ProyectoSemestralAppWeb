@@ -25,7 +25,7 @@ export class TomarviajePage implements OnInit {
     }
   ]
 
-  constructor(private alertController: AlertController, private database: DbserviceService, private router: Router) { }
+  constructor(private alertController: AlertController, private database: DbserviceService) { }
 
   ngOnInit() {
 
