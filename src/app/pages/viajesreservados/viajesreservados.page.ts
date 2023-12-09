@@ -65,55 +65,62 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
   
+    // Buscar todos los detalles del usuario
     this.database.buscarDetalleUser(id_user).then(resDetalle => {
       if (resDetalle.length > 0) {
+        // Obtener el arreglo de detalles
         this.database.fetchDetalleUser().subscribe(detalle => {
           if (detalle.length > 0) {
             this.arregloDetalle = detalle;
   
-            const idViaje = detalle[2].id_viaje;
+            // Obtener los viajes reservados del usuario
+            this.database.buscarViajeReservado(detalle[2].id_viaje, estado).then(resViajes => {
+              if (resViajes.length > 0) {
+                // Obtener los detalles de los viajes reservados
+                this.database.fetchViajeReservado().subscribe(viajes => {
+                  if (viajes.length > 0) {
+                    this.arregloViajes = viajes;
   
-            // Obtener información del viaje reservado
-            this.database.buscarViajeReservado(idViaje, estado).then(resViaje => {
-              if (resViaje.length > 0) {
-                this.database.fetchViajeReservado().subscribe(viaje => {
-                  if (viaje.length > 0) {
-                    this.arregloViajes = viaje;
-                    const idUsuario = viaje[8].id_usuario;
+                    // Iterar sobre los viajes reservados para obtener información adicional
+                    viajes.forEach(viaje => {
+                      // Obtener información del usuario
+                      this.database.buscarDatosUsuario(viaje.id_usuario).then(resUsuario => {
+                        if (resUsuario.length > 0) {
+                          this.database.fetchUsuarioId().subscribe(usuario => {
+                            if (usuario.length > 0) {
+                              // Agregar información del usuario al arreglo
+                              this.arregloUsuario.push(usuario);
   
-                    // Obtener información del usuario
-                    this.database.buscarDatosUsuario(idUsuario).then(resUsuario => {
-                      if (resUsuario.length > 0) {
-                        this.database.fetchUsuarioId().subscribe(usuario => {
-                          if (usuario.length > 0) {
-                            this.arregloUsuario = usuario;
+                              // Obtener información del vehículo
+                              this.database.buscarVehiculoUsuario(usuario[0].id).then(resVehiculo => {
+                                if (resVehiculo.length > 0) {
+                                  this.database.fetchVehiculoUser().subscribe(vehiculo => {
+                                    if (vehiculo.length > 0) {
+                                      // Agregar información del vehículo al arreglo
+                                      this.arregloVehiculo.push(vehiculo);
+                                    } else {
+                                      this.presentarAlerta("Error al cargar vehículo", "Error en fetch buscarVehiculoUsuario.")
+                                    }
+                                  })
+                                } else {
+                                  this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
+                                }
+                              })
+                            } else {
+                              this.presentarAlerta("Error al cargar usuario", "Error en fetch buscarDatosUsuario.")
+                            }
+                          })
+                        } else {
+                          this.presentarAlerta("Error al cargar usuario", "Error en buscarDatosUsuario.")
+                        }
+                      })
+                    });
   
-                            // Obtener información del vehículo
-                            this.database.buscarVehiculoUsuario(idUsuario).then(resVehiculo => {
-                              if (resVehiculo.length > 0) {
-                                this.database.fetchVehiculoUser().subscribe(vehiculo => {
-                                  if (vehiculo.length > 0) {
-                                    this.arregloVehiculo = vehiculo;
-                                  } else {
-                                    this.presentarAlerta("Error al cargar vehículo", "Error en fetch buscarVehiculoUsuario.")
-                                  }
-                                })
-                              } else {
-                                this.presentarAlerta("Error al cargar vehículo", "Error en buscarVehiculoUsuario.")
-                              }
-                            })
-                          } else {
-                            this.presentarAlerta("Error al cargar usuario", "Error en fetch buscarDatosUsuario.")
-                          }
-                        })
-                      } else {
-                        this.presentarAlerta("Error al cargar usuario", "Error en buscarDatosUsuario.")
-                      }
-                    })
                   } else {
                     this.presentarAlerta("Error al cargar viaje", "Error en buscarViajeReservado.")
                   }
                 })
+  
               } else {
                 this.presentarAlerta("Error al cargar viaje", "Error en buscarViajeReservado.")
               }
