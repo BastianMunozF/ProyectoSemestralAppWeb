@@ -76,18 +76,18 @@ export class ViajesreservadosPage implements OnInit {
   
           this.database.fetchViajeReservado().subscribe(viaje => {
             if(viaje.length > 0){
-              this.arregloViajes = viaje;
-  
+              // Agrega el nuevo viaje al arreglo existente en lugar de sobrescribirlo
+              this.arregloViajes.push(viaje);
+          
               this.arregloViajes.forEach((viaje: any, index: number) => {
                 this.database.buscarDatosUsuario(viaje.id_usuario);
-  
+          
                 this.database.fetchUsuarioId().subscribe(usuario => {
                   if(usuario.length > 0){
-                    // Aquí es donde agregamos el usuario al arregloUsuario
                     this.arregloUsuario.push(usuario[0]);
-  
+          
                     this.database.buscarVehiculoUsuario(usuario[0].id);
-  
+          
                     this.database.fetchVehiculoUser().subscribe(vehiculo => {
                       if(vehiculo.length > 0){
                         this.arregloVehiculo[index] = vehiculo[0];
