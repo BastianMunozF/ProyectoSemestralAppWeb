@@ -72,8 +72,7 @@ export class ViajesiniciadosPage implements OnInit {
         this.arregloViajes = res;
 
         this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
-          if(detalle.length > 0){
-            this.arregloDetalle = detalle;
+          this.arregloDetalle = detalle;
 
             for(let i = 0; i < this.arregloDetalle.length; i++){
               this.database.buscarDatosUsuario(this.arregloDetalle[i].id_usuario).then(usuario => {
@@ -82,7 +81,6 @@ export class ViajesiniciadosPage implements OnInit {
                 }
               })
             }
-          }
         })
 
       } else {
