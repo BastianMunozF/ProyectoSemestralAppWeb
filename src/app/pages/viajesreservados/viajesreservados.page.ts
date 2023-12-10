@@ -59,42 +59,47 @@ export class ViajesreservadosPage implements OnInit {
     }
   ]
 
-  elemento: any;
-
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
-
+  
     // Buscar todos los detalles del usuario
     this.database.buscarDetalleUser(id_user).then(res => {
-      if(res.length > 0){
+      if (res.length > 0) {
         this.database.fetchDetalleUser().subscribe(detail => {
-          if(detail.length > 0){
+          if (detail.length > 0) {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
-
-            this.arregloDetalle.forEach((element: any) => {
-              this.elemento = element.id_viaje;
-              this.database.buscarViajeReservado(element.id_viaje, estado).then(viaje => {
-                if(viaje.length > 0){
+  
+            // Limpiar los arreglos antes de llenarlos nuevamente
+            this.arregloViajes = [];
+            this.arregloUsuario = [];
+            this.arregloVehiculo = [];
+  
+            // Iterar sobre todos los detalles y buscar la información correspondiente
+            for (let i = 0; i < detail.length; i++) {
+              // Para cada detalle, buscar el viaje reservado
+              this.database.buscarViajeReservado(detail[i].id_viaje, estado).then(viaje => {
+                if (viaje.length > 0) {
                   this.database.fetchViajeReservado().subscribe(viajes => {
-                    if(viajes.length > 0){
+                    if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
-                      this.arregloViajes = viajes;
+                      // Agregar los viajes al arreglo existente en lugar de sobrescribirlo
+                      this.arregloViajes.push(...viajes);
   
                       this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
-                        if(usuario.length > 0){
+                        if (usuario.length > 0) {
                           this.database.fetchConductor().subscribe(usuarios => {
-                            if(usuarios.length > 0){
+                            if (usuarios.length > 0) {
                               console.log('Usuario: ', usuarios);
                               this.arregloUsuario = usuarios;
   
                               this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
-                                if(vehiculo.length > 0){
+                                if (vehiculo.length > 0) {
                                   this.database.fetchVehiculoUser().subscribe(vehiculos => {
-                                    if(vehiculos.length > 0){
+                                    if (vehiculos.length > 0) {
                                       console.log('Vehiculo: ', vehiculos);
                                       this.arregloVehiculo = vehiculos;
                                     }
@@ -116,17 +121,16 @@ export class ViajesreservadosPage implements OnInit {
                         this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                       })
                     } else {
-                      this.presentarAlerta("Error aqui", "Error en funcion fetch viaje reservado.");
+                      this.presentarAlerta("Error aquí", "Error en funcion fetch viaje reservado.");
                     }
                   })
                 } else {
-                  this.presentarAlerta("Error aqui", "Error en funcion buscar viaje reservado.");
+                  this.presentarAlerta("Error aquí", "Error en funcion buscar viaje reservado.");
                 }
               }).catch(error => {
                 console.log('Error en Buscar Viaje Reservado: ', error);
               })
-            })
-
+            }
           }
         })
       }
