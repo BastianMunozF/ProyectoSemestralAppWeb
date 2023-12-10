@@ -546,7 +546,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_conductor
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
@@ -561,7 +561,7 @@ export class DbserviceService {
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
 
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = ?", [id_conductor, estado]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ? AND estado = ?", [id_conductor, estado]).then(res => {
       let viaje: Viaje[] = [];
 
       if(res.rows.length > 0){
@@ -575,7 +575,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_conductor
+            id_usuario: res.rows.item(i).id_usuario
           })
         }
       }
