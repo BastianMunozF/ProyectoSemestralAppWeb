@@ -33,7 +33,7 @@ export class DbserviceService {
     tablaVehiculo: string = "CREATE TABLE IF NOT EXISTS vehiculo (id_vehiculo INTEGER PRIMARY KEY AUTOINCREMENT, marca VARCHAR(30) NOT NULL, modelo VARCHAR(30) NOT NULL, anio INTEGER NOT NULL, patente VARCHAR(6) NOT NULL, asientos INTEGER NOT NULL, id_usuario INTEGER NOT NULL, id_tipo INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(id_tipo) REFERENCES tipo(id_tipo));";
 
     //Tabla para Viajes(Conductor):
-    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado VARCHAR(20) NOT NULL, id_usuario INTEGER NOT NULL, FOREIGN KEY(id_usuario) REFERENCES usuario(id));";
+    tablaViajes: string = "CREATE TABLE IF NOT EXISTS viaje (id_viaje INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL, cant_asientos INTEGER NOT NULL, valor_asiento INTEGER NOT NULL, estado VARCHAR(20) NOT NULL, id_conductor INTEGER NOT NULL, FOREIGN KEY(id_conductor) REFERENCES usuario(id));";
 
     //Tabla para Viajes(Clientes):
     tablaViajesUser: string = "CREATE TABLE IF NOT EXISTS viajeuser(id_viajeuser INTEGER PRIMARY KEY AUTOINCREMENT, f_viaje DATE NOT NULL, hora_salida DATETIME NOT NULL, salida VARCHAR(30) NOT NULL, destino VARCHAR(30) NOT NULL)";
@@ -253,7 +253,7 @@ export class DbserviceService {
             rut: res.rows.item(i).rut,
             celular: res.rows.item(i).celular,
             contrasena: res.rows.item(i).contrasena,
-            fotoperfil: res.rows.item(i).fotoperfil
+            fotoperfil: res.rows.item(i).fotoperfil,
           })
         }
       }
@@ -282,7 +282,7 @@ export class DbserviceService {
             patente: res.rows.item(i).patente,
             asientos: res.rows.item(i).asientos,
             id_usuario: res.rows.item(i).id_usuario,
-            id_tipo: res.rows.item(i).id_tipo
+            id_tipo: res.rows.item(i).id_tipo,
           });
         }
       }
@@ -310,7 +310,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_usuario
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
@@ -338,7 +338,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_usuario
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
@@ -459,7 +459,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_conductor
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
@@ -575,7 +575,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_usuario
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
@@ -622,7 +622,7 @@ export class DbserviceService {
             rut: res.rows.item(i).rut,
             celular: res.rows.item(i).celular,
             contrasena: res.rows.item(i).contrasena,
-            fotoperfil: res.rows.item(i).fotoperfil
+            fotoperfil: res.rows.item(i).fotoperfil,
           })
         }
       }
@@ -646,7 +646,7 @@ export class DbserviceService {
             patente: res.rows.item(i).patente,
             asientos: res.rows.item(i).asientos,
             id_usuario: res.rows.item(i).id_usuario,
-            id_tipo: res.rows.item(i).id_tipo
+            id_tipo: res.rows.item(i).id_tipo,
           })
         }
       }
