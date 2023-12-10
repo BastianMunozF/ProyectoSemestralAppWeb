@@ -59,6 +59,8 @@ export class ViajesreservadosPage implements OnInit {
     }
   ]
 
+  elemento: any;
+
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
@@ -74,6 +76,7 @@ export class ViajesreservadosPage implements OnInit {
             this.arregloDetalle = detail;
 
             this.arregloDetalle.forEach((element: any) => {
+              this.elemento = element.id_viaje;
               this.database.buscarViajeReservado(element.id_viaje, estado).then(viaje => {
                 if(viaje.length > 0){
                   this.database.fetchViajeReservado().subscribe(viajes => {
