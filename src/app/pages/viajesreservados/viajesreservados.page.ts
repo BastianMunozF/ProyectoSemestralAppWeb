@@ -73,7 +73,7 @@ export class ViajesreservadosPage implements OnInit {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
 
-            this.database.buscarViajeReservado(detail[2], estado).then(viaje => {
+            this.database.buscarViajeReservado(detail[2].id_viaje, estado).then(viaje => {
               if(viaje.length > 0){
                 this.database.fetchViajeReservado().subscribe(viajes => {
                   if(viajes.length > 0){
@@ -107,8 +107,12 @@ export class ViajesreservadosPage implements OnInit {
                       console.log('Error en Buscar Datos Usuario: ', error);
                       this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                     })
+                  } else {
+                    this.presentarAlerta("Error aqui", "Error en funcion fetch viaje reservado.");
                   }
                 })
+              } else {
+                this.presentarAlerta("Error aqui", "Error en funcion buscar viaje reservado.");
               }
             }).catch(error => {
               console.log('Error en Buscar Viaje Reservado: ', error);
