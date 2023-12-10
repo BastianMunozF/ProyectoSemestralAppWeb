@@ -87,7 +87,7 @@ export class ViajesreservadosPage implements OnInit {
                     if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
                       // Agregar los viajes al arreglo existente en lugar de sobrescribirlo
-                      this.arregloViajes.push(...viajes);
+                      this.arregloViajes = viajes;
   
                       this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
                         if (usuario.length > 0) {
