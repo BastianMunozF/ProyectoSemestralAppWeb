@@ -107,14 +107,12 @@ export class HistorialusuarioPage implements OnInit {
                                 }
                               }).catch(error => {
                                 console.log('Error en Buscar Vehículo Usuario: ', error);
-                                this.presentarAlerta("Error al cargar datos", "Error en funcion buscar vehículo usuario.");
                               })
                             }
                           })
                         }
                       }).catch(error => {
                         console.log('Error en Buscar Datos Usuario: ', error);
-                        this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                       })
                     }
                   })
