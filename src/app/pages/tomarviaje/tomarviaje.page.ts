@@ -72,11 +72,6 @@ export class TomarviajePage implements OnInit {
                 if(result){
 
                   this.presentarAlerta("Viaje Confirmado", "Su viaje ha sido reservado con éxito.");
-                  // Elimina el viaje del arreglo
-                  const index = this.arregloViajes.findIndex((viaje: any) => viaje.id_viaje === x.id_viaje);
-                  if(index !== -1){
-                    this.arregloViajes.splice(index, 1);
-                  }
 
                 } else {
 
