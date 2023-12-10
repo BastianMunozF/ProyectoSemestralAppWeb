@@ -915,7 +915,7 @@ export class DbserviceService {
     }catch(e){
 
       //Capturamos y mostramos el error en la creación de las tablas
-      this.presentAlert('Error en Crear Tablas: ' + e)
+      console.error('Error en Crear Tablas: ' + e)
     }
   }
 
