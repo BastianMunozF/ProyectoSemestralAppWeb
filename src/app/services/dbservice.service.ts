@@ -561,7 +561,7 @@ export class DbserviceService {
       return Promise.resolve([]); // O cualquier valor predeterminado que desees devolver
     }
 
-    return this.database.executeSql("SELECT * FROM viaje WHERE id_usuario = ? AND estado = ?", [id_conductor, estado]).then(res => {
+    return this.database.executeSql("SELECT * FROM viaje WHERE id_conductor = ? AND estado = ?", [id_conductor, estado]).then(res => {
       let viaje: Viaje[] = [];
 
       if(res.rows.length > 0){
