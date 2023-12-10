@@ -107,25 +107,15 @@ export class ViajesreservadosPage implements OnInit {
                                 }
                               }).catch(error => {
                                 console.log('Error en Buscar Vehículo Usuario: ', error);
-                                this.presentarAlerta("Error al cargar datos", "Error en funcion buscar vehículo usuario.");
                               })
-                            } else {
-                              this.presentarAlerta("Error al cargar datos", "Error en funcion fetch conductor.");
                             }
                           })
-                        } else {
-                          this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos conductor.");
                         }
                       }).catch(error => {
                         console.log('Error en Buscar Datos Usuario: ', error);
-                        this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                       })
-                    } else {
-                      this.presentarAlerta("Error aquí", "Error en funcion fetch viaje reservado.");
                     }
                   })
-                } else {
-                  this.presentarAlerta("Error aquí", "Error en funcion buscar viaje reservado.");
                 }
               }).catch(error => {
                 console.log('Error en Buscar Viaje Reservado: ', error);
@@ -133,6 +123,8 @@ export class ViajesreservadosPage implements OnInit {
             }
           }
         })
+      } else {
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes reservados.");
       }
     }).catch(error => {
       console.log('Error en Buscar Detalle User: ', error);
