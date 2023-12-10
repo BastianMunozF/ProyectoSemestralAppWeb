@@ -73,9 +73,7 @@ export class ViajesreservadosPage implements OnInit {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
 
-            let id_viaje = detail[0].id_viaje;
-
-            this.database.buscarViajeReservado(id_viaje, estado).then(viaje => {
+            this.database.buscarViajeReservado(detail[2], estado).then(viaje => {
               if(viaje.length > 0){
                 this.database.fetchViajeReservado().subscribe(viajes => {
                   if(viajes.length > 0){
