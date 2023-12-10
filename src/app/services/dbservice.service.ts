@@ -223,7 +223,7 @@ export class DbserviceService {
             rut: res.rows.item(i).rut,
             celular: res.rows.item(i).celular,
             contrasena: res.rows.item(i).contrasena,
-            fotoperfil: res.rows.item(i).fotoperfil
+            fotoperfil: res.rows.item(i).fotoperfil,
           })
         }
       }
@@ -518,7 +518,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_conductor,
+            id_usuario: res.rows.item(i).id_usuario,
           })
         }
       }
