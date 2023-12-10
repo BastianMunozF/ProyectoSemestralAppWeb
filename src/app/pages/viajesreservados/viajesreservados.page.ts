@@ -77,7 +77,7 @@ export class ViajesreservadosPage implements OnInit {
             this.arregloViajes = [];
             this.arregloUsuario = [];
             this.arregloVehiculo = [];
-  
+
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
               // Para cada detalle, buscar el viaje reservado
