@@ -77,25 +77,7 @@ export class ViajescursoPage implements OnInit {
             console.log('Viajes del usuario: ', viaje);
             this.arregloViajes = viaje;
 
-            this.database.buscarDetalleViaje(viaje[0].id_viaje).then(detalle => {
-              if(detalle.length > 0){
-                this.database.fetchDetalleViaje().subscribe(detail => {
-                  if(detail.length > 0){
-                    this.arregloDetalle = detalle;
-
-                    this.database.buscarDatosUsuario(detail[0].id_usuario).then(usuario => {
-                      if(usuario.length > 0){
-                        this.database.fetchUsuarioId().subscribe(usuarios => {
-                          if(usuarios.length > 0){
-                            this.arregloUsuario = usuarios;
-                          }
-                        })
-                      }
-                    })
-                  }
-                }) 
-              }
-            })
+            
           }
 
         });
