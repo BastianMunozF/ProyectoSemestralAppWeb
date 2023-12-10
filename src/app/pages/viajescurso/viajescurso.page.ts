@@ -62,46 +62,38 @@ export class ViajescursoPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
-
     let id_user = localStorage.getItem('id');
     let estado = 'Iniciado.';
 
     this.database.buscarViajeIniciado(id_user, estado).then(res => {
       if(res.length > 0){
 
-        console.log('Viajes del usuario: ', res);
         this.database.fetchViajeAceptado().subscribe(viaje => {
-
           if(viaje.length > 0){
-    
             console.log('Viajes del usuario: ', viaje);
             this.arregloViajes = viaje;
 
             this.database.buscarDetalleViaje(viaje[0].id_viaje).then(detalle => {
               if(detalle.length > 0){
-
                 this.database.fetchDetalleViaje().subscribe(detail => {
-                  if(detail.length > 0){
-                    this.arregloDetalle = detail;
+                  this.arregloDetalle = detail;
 
-                    for(let i = 0; i < detail.length; i++){
-                      this.database.buscarDatosUsuario(detail[i].id_usuario).then(user => {
+                  this.database.buscarDatosUsuario(detail[0].id_usuario).then(usuario => {
+                    if(usuario.length > 0){
+                      this.database.fetchUsuarioId().subscribe(user => {
                         if(user.length > 0){
-                          this.database.fetchUsuarioId().subscribe(usuario => {
-                            if(usuario.length > 0){
-                              this.arregloUsuario.push(usuario);
-                            }
-                          })
+
+                          this.arregloUsuario = user;
+
                         }
                       })
                     }
-                  }
+                  })
                 })
               }
             })
           }
-
-        });
+        })
 
       } else {
 
@@ -111,7 +103,7 @@ export class ViajescursoPage implements OnInit {
 
     });
 
-    this.database.buscarVehiculoUsuario(id_user);
+    this.database.buscarVehiculoUsuario(id_user)
 
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
       this.arregloVehiculo = vehiculo;
