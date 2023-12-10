@@ -77,7 +77,7 @@ export class ViajesreservadosPage implements OnInit {
             this.arregloViajes = [];
             this.arregloUsuario = [];
             this.arregloVehiculo = [];
-  
+
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
               // Para cada detalle, buscar el viaje reservado
@@ -87,21 +87,21 @@ export class ViajesreservadosPage implements OnInit {
                     if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
                       // Agregar los viajes al arreglo existente en lugar de sobrescribirlo
-                      this.arregloViajes = [...this.arregloViajes, ...viajes];
+                      this.arregloViajes.push(...viajes);
   
                       this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
                         if (usuario.length > 0) {
                           this.database.fetchConductor().subscribe(usuarios => {
                             if (usuarios.length > 0) {
                               console.log('Usuario: ', usuarios);
-                              this.arregloUsuario = [...this.arregloUsuario, ...usuarios];
+                              this.arregloUsuario = usuarios;
   
                               this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
                                 if (vehiculo.length > 0) {
                                   this.database.fetchVehiculoUser().subscribe(vehiculos => {
                                     if (vehiculos.length > 0) {
                                       console.log('Vehiculo: ', vehiculos);
-                                      this.arregloVehiculo = [...this.arregloVehiculo, ...vehiculos];
+                                      this.arregloVehiculo = vehiculos;
                                     }
                                   })
                                 }
