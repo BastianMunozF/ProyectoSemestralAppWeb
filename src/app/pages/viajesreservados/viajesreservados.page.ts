@@ -80,7 +80,7 @@ export class ViajesreservadosPage implements OnInit {
                     console.log('Viajes: ', viajes);
                     this.arregloViajes = viajes;
 
-                    this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
+                    this.database.buscarDatosConductor(viajes[8].id_usuario).then(usuario => {
                       if(usuario.length > 0){
                         this.database.fetchConductor().subscribe(usuarios => {
                           if(usuarios.length > 0){
