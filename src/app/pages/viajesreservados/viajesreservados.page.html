@@ -15,70 +15,76 @@
   <h2 class="ion-text-center" color="primary">Sus viajes</h2>
   <ion-list>
     <ion-item-sliding *ngFor="let detalle of arregloDetalle">
-      <ion-card>
-        <ion-card-content>
-
-          <ion-item>
-            <ion-label>Id Detalle: {{ detalle.id_detalle }}</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Id Viaje: {{ detalle.id_viaje }}</ion-label>
-          </ion-item>
-
-          <ng-container *ngIf="getViaje(detalle.id_viaje) as viaje">
-            <ion-item>
-              <ion-label>
-                <strong>Conductor:</strong>
-                {{ getConductor(viaje.id_usuario)?.nombre }} {{ getConductor(viaje.id_usuario)?.apellido }}
-              </ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
-            </ion-item>
-
-            <!-- Agrega el resto de los detalles del viaje aquí -->
-
-            <ion-item>
-              <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Salida: {{ viaje.salida }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Destino: {{ viaje.destino }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Estado: {{ viaje.estado }}</ion-label>
-            </ion-item>
-
-            <br>
-
-            <ion-item>
-              <ion-label><strong>Vehículo</strong></ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Marca: {{ getVehiculo(viaje.id_usuario)?.marca }}</ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Modelo: {{ getVehiculo(viaje.id_usuario)?.modelo }}</ion-label>
-            </ion-item>
-
-            <ion-button (click)="cancelarReserva(viaje)">Cancelar Reserva</ion-button>
-          </ng-container>
-
-        </ion-card-content>
-      </ion-card>
+      <ion-item-sliding *ngFor="let viaje of arregloViajes">
+        <ion-item-sliding *ngFor="let usuario of arregloUsuario">
+          <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
+            <ion-card>
+              <ion-card-content>
+      
+                <ion-item>
+                  <ion-label>Id Detalle: {{ detalle.id_detalle }}</ion-label>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-label>Id Viaje: {{ detalle.id_viaje }}</ion-label>
+                </ion-item>
+      
+                <ng-container *ngIf="getViaje(detalle.id_viaje) as viaje">
+                  <ion-item>
+                    <ion-label>
+                      <strong>Conductor:</strong>
+                      {{ getConductor(viaje.id_usuario)?.nombre }} {{ getConductor(viaje.id_usuario)?.apellido }}
+                    </ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
+                  </ion-item>
+      
+                  <!-- Agrega el resto de los detalles del viaje aquí -->
+      
+                  <ion-item>
+                    <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Salida: {{ viaje.salida }}</ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Destino: {{ viaje.destino }}</ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Estado: {{ viaje.estado }}</ion-label>
+                  </ion-item>
+      
+                  <br>
+      
+                  <ion-item>
+                    <ion-label><strong>Vehículo</strong></ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Marca: {{ getVehiculo(viaje.id_usuario)?.marca }}</ion-label>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label>Modelo: {{ getVehiculo(viaje.id_usuario)?.modelo }}</ion-label>
+                  </ion-item>
+      
+                  <ion-button (click)="cancelarReserva(viaje)">Cancelar Reserva</ion-button>
+                </ng-container>
+      
+              </ion-card-content>
+            </ion-card>
+          </ion-item-sliding>
+        </ion-item-sliding>
+      </ion-item-sliding>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
