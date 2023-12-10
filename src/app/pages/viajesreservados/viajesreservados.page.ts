@@ -77,7 +77,10 @@ export class ViajesreservadosPage implements OnInit {
             this.arregloViajes = [];
             this.arregloUsuario = [];
             this.arregloVehiculo = [];
-
+  
+            // Usar un conjunto para evitar duplicados
+            let conjuntoViajes = new Set();
+  
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
               // Para cada detalle, buscar el viaje reservado
@@ -86,57 +89,33 @@ export class ViajesreservadosPage implements OnInit {
                   this.database.fetchViajeReservado().subscribe(viajes => {
                     if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
-                      // Agregar los viajes al arreglo existente en lugar de sobrescribirlo
-                      this.arregloViajes.push(...viajes);
   
-                      this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
-                        if (usuario.length > 0) {
-                          this.database.fetchConductor().subscribe(usuarios => {
-                            if (usuarios.length > 0) {
-                              console.log('Usuario: ', usuarios);
-                              this.arregloUsuario = usuarios;
+                      // Agregar los identificadores únicos al conjunto
+                      viajes.forEach(viaje => {
+                        conjuntoViajes.add(viaje.id_viaje);
+                      });
   
-                              this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
-                                if (vehiculo.length > 0) {
-                                  this.database.fetchVehiculoUser().subscribe(vehiculos => {
-                                    if (vehiculos.length > 0) {
-                                      console.log('Vehiculo: ', vehiculos);
-                                      this.arregloVehiculo = vehiculos;
-                                    }
-                                  })
-                                }
-                              }).catch(error => {
-                                console.log('Error en Buscar Vehículo Usuario: ', error);
-                                this.presentarAlerta("Error al cargar datos", "Error en funcion buscar vehículo usuario.");
-                              })
-                            } else {
-                              this.presentarAlerta("Error al cargar datos", "Error en funcion fetch conductor.");
-                            }
-                          })
-                        } else {
-                          this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos conductor.");
-                        }
-                      }).catch(error => {
-                        console.log('Error en Buscar Datos Usuario: ', error);
-                        this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
-                      })
+                      // Agregar los viajes al arreglo existente
+                      this.arregloViajes = Array.from(conjuntoViajes);
+                      
+                      // Resto del código para buscar datos de conductor, vehículo, etc.
                     } else {
                       this.presentarAlerta("Error aquí", "Error en funcion fetch viaje reservado.");
                     }
-                  })
+                  });
                 } else {
                   this.presentarAlerta("Error aquí", "Error en funcion buscar viaje reservado.");
                 }
               }).catch(error => {
                 console.log('Error en Buscar Viaje Reservado: ', error);
-              })
+              });
             }
           }
-        })
+        });
       }
     }).catch(error => {
       console.log('Error en Buscar Detalle User: ', error);
-    })
+    });
   }
 
   cancelarReserva(viaje: any){
