@@ -73,21 +73,21 @@ export class ViajesreservadosPage implements OnInit {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
 
-            this.database.buscarViajeReservado(detail[2].id_viaje, estado).then(viaje => {
+            this.database.buscarViajeReservado(parseInt(detail[2].id_viaje), estado).then(viaje => {
               if(viaje.length > 0){
                 this.database.fetchViajeReservado().subscribe(viajes => {
                   if(viajes.length > 0){
                     console.log('Viajes: ', viajes);
                     this.arregloViajes = viajes;
 
-                    this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
+                    this.database.buscarDatosConductor(parseInt(viajes[0].id_usuario)).then(usuario => {
                       if(usuario.length > 0){
                         this.database.fetchConductor().subscribe(usuarios => {
                           if(usuarios.length > 0){
                             console.log('Usuario: ', usuarios);
                             this.arregloUsuario = usuarios;
 
-                            this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
+                            this.database.buscarVehiculoUsuario(parseInt(usuarios[0].id)).then(vehiculo => {
                               if(vehiculo.length > 0){
                                 this.database.fetchVehiculoUser().subscribe(vehiculos => {
                                   if(vehiculos.length > 0){

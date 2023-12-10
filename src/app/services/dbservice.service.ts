@@ -522,10 +522,8 @@ export class DbserviceService {
           })
         }
       }
-
       this.listaViajeReservado.next(viaje as any);
       return viaje;
-
     })
   }
 
