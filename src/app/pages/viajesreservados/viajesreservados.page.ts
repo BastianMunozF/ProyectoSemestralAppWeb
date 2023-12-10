@@ -73,14 +73,14 @@ export class ViajesreservadosPage implements OnInit {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
 
-            this.database.buscarViajeReservado(detail[2].id_viaje, estado).then(viaje => {
+            this.database.buscarViajeReservado(detail[0].id_viaje, estado).then(viaje => {
               if(viaje.length > 0){
                 this.database.fetchViajeReservado().subscribe(viajes => {
                   if(viajes.length > 0){
                     console.log('Viajes: ', viajes);
                     this.arregloViajes = viajes;
 
-                    this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
+                    this.database.buscarDatosConductor(viajes[8].id_usuario).then(usuario => {
                       if(usuario.length > 0){
                         this.database.fetchConductor().subscribe(usuarios => {
                           if(usuarios.length > 0){
@@ -107,8 +107,12 @@ export class ViajesreservadosPage implements OnInit {
                       console.log('Error en Buscar Datos Usuario: ', error);
                       this.presentarAlerta("Error al cargar datos", "Error en funcion buscar datos usuario.");
                     })
+                  } else {
+                    this.presentarAlerta("Error aqui", "Error en funcion fetch viaje reservado.");
                   }
                 })
+              } else {
+                this.presentarAlerta("Error aqui", "Error en funcion buscar viaje reservado.");
               }
             }).catch(error => {
               console.log('Error en Buscar Viaje Reservado: ', error);
