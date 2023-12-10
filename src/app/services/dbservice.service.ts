@@ -575,7 +575,7 @@ export class DbserviceService {
             cant_asientos: res.rows.item(i).cant_asientos,
             valor_asiento: res.rows.item(i).valor_asiento,
             estado: res.rows.item(i).estado,
-            id_usuario: res.rows.item(i).id_usuario,
+            id_usuario: res.rows.item(i).id_conductor,
           })
         }
       }
