@@ -78,13 +78,22 @@ export class ViajesiniciadosPage implements OnInit {
 
             this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
               if(detalle.length > 0){
-                this.arregloDetalle = detalle;
+                this.database.fetchDetalleViaje().subscribe(detail => {
+                  if(detail.length > 0){
+                    this.arregloDetalle = detalle;
 
                     this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
                       if(usuario.length > 0){
-                        this.arregloUsuario = usuario;
+                        this.database.fetchUsuarioId().subscribe(user => {
+                          if(user.length > 0){
+                            this.arregloUsuario = user;
+                          }
+                        
+                        })
                       }
                     })
+                  }
+                })
               }
             })
           }
