@@ -65,6 +65,15 @@ export class ViajesreservadosPage implements OnInit {
     let id_user = localStorage.getItem('id');
     let estado = 'Disponible.';
   
+    // Limpiar los arreglos antes de llenarlos nuevamente
+    this.arregloDetalle = [];
+    this.arregloUsuario = [];
+    this.arregloVehiculo = [];
+    this.arregloViajes = [];
+  
+    // Utilizar un conjunto para evitar duplicados
+    let conjuntoViajes = new Set();
+  
     // Buscar todos los detalles del usuario
     this.database.buscarDetalleUser(id_user).then(res => {
       if (res.length > 0) {
@@ -72,14 +81,6 @@ export class ViajesreservadosPage implements OnInit {
           if (detail.length > 0) {
             console.log('Detalle: ', detail);
             this.arregloDetalle = detail;
-  
-            // Limpiar los arreglos antes de llenarlos nuevamente
-            this.arregloViajes = [];
-            this.arregloUsuario = [];
-            this.arregloVehiculo = [];
-  
-            // Usar un conjunto para evitar duplicados
-            let conjuntoViajes = new Set();
   
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
@@ -94,11 +95,6 @@ export class ViajesreservadosPage implements OnInit {
                       viajes.forEach(viaje => {
                         conjuntoViajes.add(viaje.id_viaje);
                       });
-  
-                      // Agregar los viajes al arreglo existente
-                      this.arregloViajes = Array.from(conjuntoViajes);
-                      
-                      // Resto del código para buscar datos de conductor, vehículo, etc.
                     } else {
                       this.presentarAlerta("Error aquí", "Error en funcion fetch viaje reservado.");
                     }
@@ -110,6 +106,9 @@ export class ViajesreservadosPage implements OnInit {
                 console.log('Error en Buscar Viaje Reservado: ', error);
               });
             }
+  
+            // Convertir el conjunto en un arreglo antes de asignarlo
+            this.arregloViajes = Array.from(conjuntoViajes);
           }
         });
       }
