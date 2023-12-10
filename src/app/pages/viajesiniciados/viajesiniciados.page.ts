@@ -69,36 +69,19 @@ export class ViajesiniciadosPage implements OnInit {
       if(res.length > 0){
 
         console.log('Viajes del usuario: ', res);
-        this.database.fetchViajeAceptado().subscribe(viaje => {
-
-          if(viaje.length > 0){
-
-            console.log('Viajes del usuario: ', viaje);
-            this.arregloViajes = viaje;
+            this.arregloViajes = res;
 
             this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
               if(detalle.length > 0){
-                this.database.fetchDetalleViaje().subscribe(detail => {
-                  if(detail.length > 0){
-                    this.arregloDetalle = detalle;
+                this.arregloDetalle = detalle;
 
                     this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
                       if(usuario.length > 0){
-                        this.database.fetchUsuarioId().subscribe(user => {
-                          if(user.length > 0){
-                            this.arregloUsuario = user;
-                          }
-                        
-                        })
+                        this.arregloUsuario = usuario;
                       }
                     })
-                  }
-                })
               }
             })
-          }
-
-        });
 
       } else {
 
