@@ -68,46 +68,61 @@ export class HistorialconductorPage implements OnInit {
   constructor(private database: DbserviceService, private alertController: AlertController) { }
 
   ngOnInit() {
+
     let id_user = localStorage.getItem('id');
     let estado = 'Finalizado.';
 
-    this.database.buscarViajeCreadoUser(id_user, estado).then(viajes => {
-      if (viajes.length > 0) {
-        console.log('Viajes del usuario: ', viajes);
-        this.arregloViajes = viajes;
+    this.database.buscarViajeIniciado(id_user, estado).then(res => {
+      if(res.length > 0){
 
-        this.database.buscarDetalleViaje(this.arregloViajes.id_viaje).then(detalle => {
-          if (detalle.length > 0) {
-            console.log('Detalle del viaje: ', detalle);
-            this.arregloDetalle = detalle;
+        console.log('Viajes del usuario: ', res);
+        this.database.fetchViajeAceptado().subscribe(viaje => {
 
-            this.database.buscarDatosUsuario(this.arregloDetalle.id_usuario).then(usuario => {
-              if (usuario.length > 0) {
-                console.log('Usuario del viaje: ', usuario);
-                this.arregloUsuario = usuario;
-              } else {
-                this.presentarAlerta("Error al cargar usuario", "No se ha podido cargar el usuario correctamente.");
+          if(viaje.length > 0){
+    
+            console.log('Viajes del usuario: ', viaje);
+            this.arregloViajes = viaje;
+
+            this.database.buscarDetalleViaje(viaje[0].id_viaje).then(detalle => {
+              if(detalle.length > 0){
+
+                this.database.fetchDetalleViaje().subscribe(detail => {
+                  if(detail.length > 0){
+                    this.arregloDetalle = detail;
+
+                    for(let i = 0; i < detail.length; i++){
+                      this.database.buscarDatosUsuario(detail[i].id_usuario).then(user => {
+                        if(user.length > 0){
+                          this.database.fetchUsuarioId().subscribe(usuario => {
+                            if(usuario.length > 0){
+                              this.arregloUsuario.push(usuario);
+                            }
+                          })
+                        }
+                      })
+                    }
+                  }
+                })
               }
-            });
-
-          } else {
-            this.presentarAlerta("Error al cargar detalle", "No se ha podido cargar el detalle correctamente.");
+            })
           }
-        
-        })
+
+        });
 
       } else {
 
-        this.presentarAlerta("Error al cargar viajes", "Usted aún no ha finalizado un viaje.");
+        this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes iniciados.");
 
       }
+
     });
 
-    this.database.buscarVehiculoUsuario(id_user)
+    this.database.buscarVehiculoUsuario(id_user);
 
     this.database.fetchVehiculoUser().subscribe(vehiculo => {
       this.arregloVehiculo = vehiculo;
     })
+
   }
 
   async presentarAlerta(titulo: string, mensaje: string){
