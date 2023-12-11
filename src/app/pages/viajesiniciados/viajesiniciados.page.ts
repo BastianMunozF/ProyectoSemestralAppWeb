@@ -118,7 +118,6 @@ export class ViajesiniciadosPage implements OnInit {
       if(res){
 
         this.presentarAlerta("Viaje Iniciado", "Su viaje ha sido iniciado con éxito.");
-        // Elimina el viaje del arreglo
         const index = this.arregloViajes.indexOf(viaje);
         if(index !== -1){
           this.arregloViajes.splice(index, 1);

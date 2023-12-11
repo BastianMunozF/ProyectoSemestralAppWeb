@@ -30,19 +30,23 @@ export class TomarviajePage implements OnInit {
 
     let estado = 'Disponible.';
 
-    this.database.buscarViaje(estado);
+    this.database.buscarViaje(estado).then(res => {
+      if(res.length > 0){
+        this.database.fetchViaje().subscribe(datos => {
 
-    this.database.fetchViaje().subscribe(datos => {
-
-      if(datos.length > 0){
-
-        console.log('Viajes: ', datos);
-        this.arregloViajes = datos;
-
+          if(datos.length > 0){
+    
+            console.log('Viajes: ', datos);
+            this.arregloViajes = datos;
+    
+          } else {
+    
+            console.log('Datos no encontrados.');
+    
+          }
+        })
       } else {
-
-        console.log('Datos no encontrados.');
-
+        this.presentarAlerta("No hay viajes disponibles", "No hay viajes disponibles en este momento.");
       }
     })
   }
