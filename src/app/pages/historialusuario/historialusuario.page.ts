@@ -86,8 +86,13 @@ export class HistorialusuarioPage implements OnInit {
                   this.database.fetchViajeReservado().subscribe(viajes => {
                     if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
-                      // Agregar los viajes al arreglo existente en lugar de sobrescribirlo
-                      this.arregloViajes.push(...viajes);
+                      // Iterar sobre los viajes obtenidos y agregar solo aquellos que no estén en el arreglo
+                      for (const nuevoViaje of viajes) {
+                        if (!this.arregloViajes.some((v: any) => v.id_viaje === nuevoViaje.id_viaje)) {
+                          // Agregar solo si no existe ya en el arreglo
+                          this.arregloViajes.push(nuevoViaje);
+                        }
+                      }
   
                       this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
                         if (usuario.length > 0) {
