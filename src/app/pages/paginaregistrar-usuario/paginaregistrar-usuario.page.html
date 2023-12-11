@@ -24,7 +24,7 @@
 
         <ion-item>
           <ion-label position="floating" required>Nombre:</ion-label>
-          <ion-input formControlName="nombre" id="nombre"></ion-input>
+          <ion-input formControlName="nombre" id="nombre" placeholder="Juan"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
@@ -38,7 +38,7 @@
 
         <ion-item>
           <ion-label position="floating">Apellido:</ion-label>
-          <ion-input formControlName="apellido" type="text"></ion-input>
+          <ion-input formControlName="apellido" type="text" placeholder="Perez"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
@@ -52,7 +52,7 @@
 
         <ion-item>
           <ion-label position="floating">Correo:</ion-label>
-          <ion-input formControlName="correo" type="text"></ion-input>
+          <ion-input formControlName="correo" type="text" placeholder="juan22@duocuc.cl"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
@@ -77,7 +77,7 @@
 
         <ion-item>
           <ion-label position="floating">Rut:</ion-label>
-          <ion-input formControlName="rut" type="text"></ion-input>
+          <ion-input formControlName="rut" type="text" placeholder="09.345.678-0"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
@@ -92,7 +92,7 @@
 
         <ion-item>
           <ion-label position="floating">Celular:</ion-label>
-          <ion-input formControlName="celular" type="number"></ion-input>
+          <ion-input formControlName="celular" type="number" placeholder="969504323"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
@@ -106,7 +106,7 @@
 
         <ion-item>
           <ion-label position="floating">Contraseña:</ion-label>
-          <ion-input formControlName="password" type="password" ></ion-input>
+          <ion-input formControlName="password" type="password"></ion-input>
         </ion-item>
 
         <div *ngIf="formularioRegistro.invalid && (formularioRegistro.dirty || formularioRegistro.touched)">
