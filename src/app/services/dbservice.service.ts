@@ -7,7 +7,6 @@ import { Usuario } from './usuario';
 import { Vehiculo } from './vehiculo';
 import { Viaje } from './viaje';
 import { Detalle } from './detalle';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Injectable({
   providedIn: 'root'
