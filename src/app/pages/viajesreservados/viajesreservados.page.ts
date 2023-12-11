@@ -121,6 +121,8 @@ export class ViajesreservadosPage implements OnInit {
                 console.log('Error en Buscar Viaje Reservado: ', error);
               })
             }
+          } else {
+            this.presentarAlerta("Error al cargar viajes", "Usted aún no tiene viajes reservados.");
           }
         })
       } else {
