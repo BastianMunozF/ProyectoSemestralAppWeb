@@ -584,6 +584,10 @@ export class DbserviceService {
   }
 
   buscarDetalle(){
+    if (!this.database) {
+      console.error('Error: this.database no está definido.');
+      return Promise.resolve([]);
+    }
     return this.database.executeSql("SELECT * FROM detalle", []).then(res => {
       let detalle: Detalle[] = [];
 

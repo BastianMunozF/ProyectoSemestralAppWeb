@@ -9,7 +9,7 @@ describe('ViajesiniciadosPage', () => {
   beforeEach(async() => {
     await TestBed.configureTestingModule({
       providers: [SQLite]
-    })
+    }).compileComponents();
     fixture = TestBed.createComponent(ViajesiniciadosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
