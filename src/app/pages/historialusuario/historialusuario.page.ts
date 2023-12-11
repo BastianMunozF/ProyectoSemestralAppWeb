@@ -78,11 +78,11 @@ export class HistorialusuarioPage implements OnInit {
             this.arregloUsuario = [];
             this.arregloVehiculo = [];
 
+            // Crear un conjunto para almacenar IDs de viajes únicos
+            let viajesSet = new Set();
+
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
-              // Crear un conjunto para almacenar IDs de viajes únicos
-              let viajesSet = new Set();
-
               // Para cada detalle, buscar el viaje reservado
               this.database.buscarViajeReservado(detail[i].id_viaje, estado).then(viaje => {
                 if (viaje.length > 0) {
@@ -91,17 +91,38 @@ export class HistorialusuarioPage implements OnInit {
                       console.log('Viajes: ', viajes);
                       // Iterar sobre los viajes obtenidos y agregar solo aquellos que no estén en el conjunto
                       for (const nuevoViaje of viajes) {
-                        const idViajeLowerCase = nuevoViaje.id_viaje.toLowerCase();
-
-                        if (!viajesSet.has(idViajeLowerCase)) {
+                        if (!viajesSet.has(nuevoViaje.id_viaje)) {
                           // Agregar solo si no existe ya en el conjunto
-                          viajesSet.add(idViajeLowerCase);
+                          viajesSet.add(nuevoViaje.id_viaje);
                           this.arregloViajes.push(nuevoViaje);
                         }
                       }
-
-                      // Resto del código...
-
+              
+                      this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
+                        if (usuario.length > 0) {
+                          this.database.fetchConductor().subscribe(usuarios => {
+                            if (usuarios.length > 0) {
+                              console.log('Usuario: ', usuarios);
+                              this.arregloUsuario = usuarios;
+              
+                              this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
+                                if (vehiculo.length > 0) {
+                                  this.database.fetchVehiculoUser().subscribe(vehiculos => {
+                                    if (vehiculos.length > 0) {
+                                      console.log('Vehiculo: ', vehiculos);
+                                      this.arregloVehiculo = vehiculos;
+                                    }
+                                  })
+                                }
+                              }).catch(error => {
+                                console.log('Error en Buscar Vehículo Usuario: ', error);
+                              })
+                            }
+                          })
+                        }
+                      }).catch(error => {
+                        console.log('Error en Buscar Datos Usuario: ', error);
+                      })
                     }
                   })
                 }
