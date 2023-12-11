@@ -78,6 +78,9 @@ export class HistorialusuarioPage implements OnInit {
             this.arregloUsuario = [];
             this.arregloVehiculo = [];
 
+            // Crear un conjunto para almacenar IDs de viajes únicos
+            let viajesSet = new Set();
+
             // Iterar sobre todos los detalles y buscar la información correspondiente
             for (let i = 0; i < detail.length; i++) {
               // Para cada detalle, buscar el viaje reservado
@@ -86,21 +89,22 @@ export class HistorialusuarioPage implements OnInit {
                   this.database.fetchViajeReservado().subscribe(viajes => {
                     if (viajes.length > 0) {
                       console.log('Viajes: ', viajes);
-                      // Iterar sobre los viajes obtenidos y agregar solo aquellos que no estén en el arreglo
+                      // Iterar sobre los viajes obtenidos y agregar solo aquellos que no estén en el conjunto
                       for (const nuevoViaje of viajes) {
-                        if (!this.arregloViajes.some((v: any) => v.id_viaje === nuevoViaje.id_viaje)) {
-                          // Agregar solo si no existe ya en el arreglo
+                        if (!viajesSet.has(nuevoViaje.id_viaje)) {
+                          // Agregar solo si no existe ya en el conjunto
+                          viajesSet.add(nuevoViaje.id_viaje);
                           this.arregloViajes.push(nuevoViaje);
                         }
                       }
-  
+              
                       this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
                         if (usuario.length > 0) {
                           this.database.fetchConductor().subscribe(usuarios => {
                             if (usuarios.length > 0) {
                               console.log('Usuario: ', usuarios);
                               this.arregloUsuario = usuarios;
-  
+              
                               this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
                                 if (vehiculo.length > 0) {
                                   this.database.fetchVehiculoUser().subscribe(vehiculos => {
