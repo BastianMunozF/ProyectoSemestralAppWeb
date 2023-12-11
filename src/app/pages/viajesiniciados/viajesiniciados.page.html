@@ -65,9 +65,10 @@
                 <ion-item>
                   <ion-label>Modelo: {{ vehiculo.modelo }}</ion-label>
                 </ion-item>
-    
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                 <ion-button (click)="iniciarViaje(viaje)">Iniciar Viaje</ion-button>
                 <ion-button (click)="cancelarViaje(viaje)">Cancelar Viaje</ion-button>
+                </div>
     
               </ion-card-content>
             </ion-card>
