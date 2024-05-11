@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { ApiFlowService } from 'src/app/services/api-flow.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -59,7 +60,21 @@ export class HistorialusuarioPage implements OnInit {
     }
   ]
 
-  constructor(private database: DbserviceService, private alertController: AlertController) { }
+  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService) { }
+
+  postFlow(){
+
+    const params = {
+      apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+      currency: 'CLP',
+      amount: this.arregloViajes.valor_asiento
+    }
+
+    const firma = this.apiFlow.firmarParametros(params);
+    this.apiFlow.enviarPago(params);
+    console.log(firma);
+
+  }
 
   ngOnInit() {
     let id_user = localStorage.getItem('id');

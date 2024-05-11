@@ -18,11 +18,7 @@
         <div>
           <ion-button (click)="takePicture()" class="custom-button">Tomar Foto de Perfil</ion-button>
           <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de Perfil" class="profile-picture">
-
-          <p color="danger" *ngIf="formularioRegistro.get('profile')?.errors?.['required']">Debe seleccionar/tomar una Foto de Perfil</p>
         </div>
-        
-
 
         <ion-item>
           <ion-label position="floating" required>Nombre:</ion-label>

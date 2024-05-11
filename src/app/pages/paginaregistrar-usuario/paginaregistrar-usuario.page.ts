@@ -24,7 +24,6 @@ export class PaginaregistrarUsuarioPage implements OnInit {
 
   constructor(public fb: FormBuilder, public alertController: AlertController, private database: DbserviceService, public router: Router) { 
     this.formularioRegistro = this.fb.group({
-      'profile': new FormControl("", [Validators.required]),
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')]),
       'apellido': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-ZñÑ]*')]),
       'rut': new FormControl("", [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern('[0-9K.-]*')]),
