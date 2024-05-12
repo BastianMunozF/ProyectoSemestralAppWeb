@@ -75,8 +75,6 @@ export class HistorialusuarioPage implements OnInit {
     this.apiFlow.enviarPago(params);
     console.log(firma);
 
-    this.router.navigate(['/pago'])
-
   }
 
   ngOnInit() {
