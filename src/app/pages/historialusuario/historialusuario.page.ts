@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { ApiFlowService } from 'src/app/services/api-flow.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historialusuario',
@@ -60,7 +61,7 @@ export class HistorialusuarioPage implements OnInit {
     }
   ]
 
-  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService) { }
+  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService, private router: Router) { }
 
   postFlow(){
 
@@ -73,6 +74,8 @@ export class HistorialusuarioPage implements OnInit {
     const firma = this.apiFlow.firmarParametros(params);
     this.apiFlow.enviarPago(params);
     console.log(firma);
+
+    this.router.navigate(['/pago'])
 
   }
 
