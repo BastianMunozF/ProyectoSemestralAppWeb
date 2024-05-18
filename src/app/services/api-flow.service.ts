@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
+import { retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,23 @@ export class ApiFlowService {
 
     //Realizar solicitud POST
     return this.http.post<any>(`${this.url}/payments/create`, params, this.httpOptions);
+  }
+
+  obtenerPago(params: any){
+    params['s'] = this.firmarParametros(params);
+
+    let httpParams = new HttpParams();
+
+    //Codificamos los parámetros
+    for(let key in params) {
+      if(params.hasOwnProperty(key)){
+        httpParams = httpParams.append(key, params[key]);
+      }
+    }
+
+    //Realizamos solicitud GET
+    return this.http.get<any>(`${this.url}/payment/getStatus`, {params: httpParams}).pipe(
+      retry(3)
+    );
   }
 }

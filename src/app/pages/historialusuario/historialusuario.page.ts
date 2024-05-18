@@ -61,6 +61,8 @@ export class HistorialusuarioPage implements OnInit {
     }
   ]
 
+  transaccion: any;
+
   constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService, private router: Router) { }
 
   postFlow(){
@@ -72,8 +74,66 @@ export class HistorialusuarioPage implements OnInit {
     }
 
     const firma = this.apiFlow.firmarParametros(params);
-    this.apiFlow.enviarPago(params);
+    this.transaccion =  this.apiFlow.enviarPago(params);
     console.log(firma);
+
+    if(firma !== null){
+
+      let estado: any = this.getFlowStatus();
+
+      JSON.parse(estado)
+
+      if(estado !== null){
+
+        if(estado.status = 1){
+
+          this.presentarAlerta('Estado del pago', 'Su pago está siendo procesado y está pendiente.');
+
+        } else if(estado.status = 2){
+
+          this.presentarAlerta('Estado del pago', 'Su pago ha sido aprobado.');
+
+        } else if(estado.status = 3){
+
+          this.presentarAlerta('Estado del pago', 'Su pago ha sido rechazado.');
+
+        } else if(estado.status = 4){
+
+          this.presentarAlerta('Estado del pago', 'Su pago ha sido anulado.');
+
+        }
+
+      }
+    } else {
+
+      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
+
+    }
+
+  }
+
+  getFlowStatus(){
+
+    let token = this.transaccion.token
+
+    let paramsGet = {
+      apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+      tokenFlow: token
+    };
+
+    this.apiFlow.obtenerPago(paramsGet).subscribe(res => {
+
+      if(res){
+
+        console.log('Estado del pago.');
+
+      } else {
+
+        console.error('Ha ocurrido un error.');
+
+      }
+
+    });
 
   }
 
