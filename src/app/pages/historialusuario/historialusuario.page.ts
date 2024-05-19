@@ -34,6 +34,20 @@ export class HistorialusuarioPage implements OnInit {
     }
   ]
 
+  arregloUser: any = [
+    {
+      id: '',
+      nombre: '',
+      apellido: '',
+      correo: '',
+      fechanacimiento: '',
+      rut: '',
+      celular: '',
+      contrasena: '',
+      fotoperfil: '',
+    }
+  ]
+
   arregloVehiculo: any = [
     {
       id_vehiculo: '',
@@ -67,48 +81,39 @@ export class HistorialusuarioPage implements OnInit {
 
   async postFlow(){
 
+    let id_user = localStorage.getItem('id');
+
+    this.database.buscarDatosUsuario(id_user);
+
+    this.database.fetchUsuarioId().subscribe(datos => {
+      if(datos.length > 0){
+        this.arregloUser = datos;
+      }
+    })
+
     const params = {
       apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-      currency: 'CLP',
-      amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0
+      commerceOrder: 'ORDEN1',
+      subject: 'Pago de Viaje',
+      amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
+      email: this.arregloUser[0].correo,
+      paymentMethod: 9,
+      urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
+      urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
+      timeout: 3600,
     }
 
-    const firma = this.apiFlow.firmarParametros(params);
-    console.log(firma);
+    try{
+      const response = await this.apiFlow.crearOrdenPago(params).toPromise();
 
-    if (firma) {
-      try {
-        this.transaccion = await this.apiFlow.enviarPago(params).toPromise();
-        if (this.transaccion) {
-          const estado = await this.apiFlow.obtenerPago({ 
-            apiKey: params.apiKey, 
-            tokenFlow: this.transaccion.token 
-          }).toPromise();
-
-          if (estado) {
-            switch (estado.status) {
-              case 1:
-                this.presentarAlerta('Estado del pago', 'Su pago está siendo procesado y está pendiente.');
-                break;
-              case 2:
-                this.presentarAlerta('Estado del pago', 'Su pago ha sido aprobado.');
-                break;
-              case 3:
-                this.presentarAlerta('Estado del pago', 'Su pago ha sido rechazado.');
-                break;
-              case 4:
-                this.presentarAlerta('Estado del pago', 'Su pago ha sido anulado.');
-                break;
-              default:
-                this.presentarAlerta('Estado del pago', 'Estado desconocido.');
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error en la transacción:', error);
-        this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
+      if(response && response.url && response.token){
+        const redirectUrl = `${response.url}?token=${response.token}`;
+        window.location.href = redirectUrl;
+      } else {
+        this.presentarAlerta('Error en la transacción', 'No se recibió la URL de redirección.');
       }
-    } else {
+    } catch(error){
+      console.error('Error en la transacción:', error);
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
     }
 

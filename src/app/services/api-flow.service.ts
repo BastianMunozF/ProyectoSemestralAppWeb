@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
-import { retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,21 @@ export class ApiFlowService {
 
     return firma;
 
+  }
+
+  //Orden de pago
+  crearOrdenPago(params: any){
+
+    const firma = this.firmarParametros(params);
+    params['s'] = firma;
+
+    const body = new HttpParams({ fromObject: params});
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
   }
 
   //Función para enviar el pago
