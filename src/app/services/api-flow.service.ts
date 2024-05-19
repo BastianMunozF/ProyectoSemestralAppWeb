@@ -49,17 +49,11 @@ export class ApiFlowService {
     return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
   }
 
-  //Función para enviar el pago
-  enviarPago(params: any){
-    //Agregar firma a los params
-    params['s'] = this.firmarParametros(params);
-
-    //Realizar solicitud POST
-    return this.http.post<any>(`${this.url}/payment/create`, params, this.httpOptions);
-  }
-
   obtenerPago(params: any){
-    params['s'] = this.firmarParametros(params);
+
+    const firma = this.firmarParametros(params);
+
+    params['s'] = firma;
 
     let httpParams = new HttpParams();
 

@@ -104,6 +104,7 @@ export class HistorialusuarioPage implements OnInit {
     }
 
     try{
+
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
 
       if(response && response.url && response.token){
