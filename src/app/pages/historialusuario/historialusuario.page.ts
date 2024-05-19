@@ -81,7 +81,7 @@ export class HistorialusuarioPage implements OnInit {
 
       let estado: any = this.getFlowStatus();
 
-      JSON.parse(estado)
+      estado.json();
 
       if(estado !== null){
 

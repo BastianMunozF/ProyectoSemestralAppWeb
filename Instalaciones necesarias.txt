@@ -6,7 +6,9 @@ Estas son las instalaciones necesarias para que el proyecto funcione(CMD fuera d
 
 3. npm install -g @angular/cli
 
-4. Abrir el proyecto en CMD y ejecutar "npm install", una vez termine de instalarse, ejecutar "ionic cap sync".
+4. npm install crypto-js
+
+5. Abrir el proyecto en CMD y ejecutar "npm install", una vez termine de instalarse, ejecutar "ionic cap sync".
 
 
 Estos son los pasos para poder hacer funcionar la página de DJANGO en la que se encuentra el código QR:
