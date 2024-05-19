@@ -65,49 +65,51 @@ export class HistorialusuarioPage implements OnInit {
 
   constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService, private router: Router) { }
 
-  postFlow(){
+  async postFlow(){
 
     const params = {
       apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
       currency: 'CLP',
-      amount: this.arregloViajes.valor_asiento
+      amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0
     }
 
     const firma = this.apiFlow.firmarParametros(params);
-    this.transaccion =  this.apiFlow.enviarPago(params);
     console.log(firma);
 
-    if(firma !== null){
+    if (firma) {
+      try {
+        this.transaccion = await this.apiFlow.enviarPago(params).toPromise();
+        if (this.transaccion) {
+          const estado = await this.apiFlow.obtenerPago({ 
+            apiKey: params.apiKey, 
+            tokenFlow: this.transaccion.token 
+          }).toPromise();
 
-      let estado: any = this.getFlowStatus();
-
-      estado.json();
-
-      if(estado !== null){
-
-        if(estado.status = 1){
-
-          this.presentarAlerta('Estado del pago', 'Su pago está siendo procesado y está pendiente.');
-
-        } else if(estado.status = 2){
-
-          this.presentarAlerta('Estado del pago', 'Su pago ha sido aprobado.');
-
-        } else if(estado.status = 3){
-
-          this.presentarAlerta('Estado del pago', 'Su pago ha sido rechazado.');
-
-        } else if(estado.status = 4){
-
-          this.presentarAlerta('Estado del pago', 'Su pago ha sido anulado.');
-
+          if (estado) {
+            switch (estado.status) {
+              case 1:
+                this.presentarAlerta('Estado del pago', 'Su pago está siendo procesado y está pendiente.');
+                break;
+              case 2:
+                this.presentarAlerta('Estado del pago', 'Su pago ha sido aprobado.');
+                break;
+              case 3:
+                this.presentarAlerta('Estado del pago', 'Su pago ha sido rechazado.');
+                break;
+              case 4:
+                this.presentarAlerta('Estado del pago', 'Su pago ha sido anulado.');
+                break;
+              default:
+                this.presentarAlerta('Estado del pago', 'Estado desconocido.');
+            }
+          }
         }
-
+      } catch (error) {
+        console.error('Error en la transacción:', error);
+        this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
       }
     } else {
-
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
-
     }
 
   }
@@ -137,7 +139,7 @@ export class HistorialusuarioPage implements OnInit {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     let id_user = localStorage.getItem('id');
     let estado = 'Finalizado.';
   

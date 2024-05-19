@@ -523,7 +523,7 @@ export class DbserviceService {
       }
       this.listaViajeReservado.next(viaje as any);
       return viaje;
-    })
+    });
   }
 
   buscarViaje(estado: any){
@@ -686,9 +686,10 @@ export class DbserviceService {
   insertarRutaC(f_viaje: any, hora_salida: any, salida: any, destino: any, cant_asientos: any, valor_asiento: any, estado: any, id_conductor: any){
     return this.database.executeSql("INSERT INTO viaje(f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [f_viaje, hora_salida, salida, destino, cant_asientos, valor_asiento, estado, id_conductor]).then(res => {
       if(res){
-        this.buscarViaje(estado);
+        return true;
       } else {
         this.presentAlert('Error al insertar ruta.')
+        return false;
       }
     }).catch(error => {
       console.error('Error al insertar el vehículo:', error)
