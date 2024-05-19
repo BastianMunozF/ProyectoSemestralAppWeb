@@ -40,7 +40,7 @@ export class ApiFlowService {
     params['s'] = this.firmarParametros(params);
 
     //Realizar solicitud POST
-    return this.http.post<any>(`${this.url}/payments/create`, params, this.httpOptions);
+    return this.http.post<any>(`${this.url}/payment/create`, params, this.httpOptions);
   }
 
   obtenerPago(params: any){
