@@ -11,227 +11,94 @@ import { Router } from '@angular/router';
 })
 export class HistorialusuarioPage implements OnInit {
 
-  // Arreglos
-  arregloDetalle: any = [
-    {
-      id_detalle: '',
-      id_usuario: '',
-      id_viaje: '',
-    }
-  ]
+  arregloDetalle: any[] = [];
 
-  arregloUsuario: any = [
-    {
-      id: '',
-      nombre: '',
-      apellido: '',
-      correo: '',
-      fechanacimiento: '',
-      rut: '',
-      celular: '',
-      contrasena: '',
-      fotoperfil: '',
-    }
-  ]
+  constructor(
+    private database: DbserviceService,
+    private alertController: AlertController,
+    private apiFlow: ApiFlowService,
+    private router: Router
+  ) { }
 
-  arregloUser: any = [
-    {
-      id: '',
-      nombre: '',
-      apellido: '',
-      correo: '',
-      fechanacimiento: '',
-      rut: '',
-      celular: '',
-      contrasena: '',
-      fotoperfil: '',
-    }
-  ]
-
-  arregloVehiculo: any = [
-    {
-      id_vehiculo: '',
-      marca: '',
-      modelo: '',
-      anio: '',
-      patente: '',
-      asientos: '',
-      id_usuario: '',
-      id_tipo: '',
-    }
-  ]
-
-  arregloViajes: any = [
-    {
-      id_viaje: '',
-      f_viaje: '',
-      hora_salida: '',
-      salida: '',
-      destino: '',
-      cant_asientos: '',
-      valor_asiento: '',
-      estado: '',
-      id_usuario: '',
-    }
-  ]
-
-  transaccion: any;
-
-  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService, private router: Router) { }
-
-  async postFlow(){
-
+  async ngOnInit() {
     let id_user = localStorage.getItem('id');
+    let estado = 'Finalizado.';
 
-    this.database.buscarDatosUsuario(id_user);
+    try {
+      const res = await this.database.buscarDetalleUser(id_user);
+      if (res.length > 0) {
+        const detail = await this.database.fetchDetalleUser().toPromise();
+        if (detail && detail.length > 0) {
+          this.arregloDetalle = detail.map(d => ({
+            ...d,
+            usuario: null,
+            viaje: null,
+            vehiculo: null
+          }));
 
-    this.database.fetchUsuarioId().subscribe(datos => {
-      if(datos.length > 0){
-        this.arregloUser = datos;
+          for (let i = 0; i < this.arregloDetalle.length; i++) {
+            const detalle = this.arregloDetalle[i];
+
+            const viaje = await this.database.buscarViajeReservado(detalle.id_viaje, estado);
+            if (viaje && viaje.length > 0) {
+              detalle.viaje = viaje[0];
+
+              const usuario = await this.database.buscarDatosConductor(viaje[0].id_usuario);
+              if (usuario && usuario.length > 0) {
+                detalle.usuario = usuario[0];
+
+                const vehiculo = await this.database.buscarVehiculoUsuario(usuario[0].id);
+                if (vehiculo && vehiculo.length > 0) {
+                  detalle.vehiculo = vehiculo[0];
+                }
+              }
+            }
+          }
+        } else {
+          this.presentarAlerta("Viajes no encontrados", "Aún no ha concretado ninguno de sus viajes.");
+        }
+      } else {
+        this.presentarAlerta("Viajes no encontrados", "Aún no ha concretado ninguno de sus viajes.");
       }
-    })
+    } catch (error) {
+      console.error('Error en la carga del historial:', error);
+      this.presentarAlerta("Error", "Ha ocurrido un error al cargar el historial de viajes.");
+    }
+  }
 
+  async postFlow(detalle: any) {
     const params = {
       apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-      commerceOrder: 'ORDEN1',
+      commerceOrder: `ORDEN${detalle.viaje.id_viaje}`,
       subject: 'Pago de Viaje',
-      amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
-      email: this.arregloUser[0].correo,
+      amount: detalle.viaje.valor_asiento,
+      email: detalle.usuario.correo,
       paymentMethod: 9,
       urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
       urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
       timeout: 3600,
-    }
+    };
 
-    try{
-
+    try {
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
-
-      if(response && response.url && response.token){
+      if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
         window.location.href = redirectUrl;
       } else {
         this.presentarAlerta('Error en la transacción', 'No se recibió la URL de redirección.');
       }
-    } catch(error){
+    } catch (error) {
       console.error('Error en la transacción:', error);
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
     }
-
   }
 
-  getFlowStatus(){
-
-    let token = this.transaccion.token
-
-    let paramsGet = {
-      apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-      tokenFlow: token
-    };
-
-    this.apiFlow.obtenerPago(paramsGet).subscribe(res => {
-
-      if(res){
-
-        console.log('Estado del pago.');
-
-      } else {
-
-        console.error('Ha ocurrido un error.');
-
-      }
-
-    });
-
-  }
-
-  async ngOnInit() {
-    let id_user = localStorage.getItem('id');
-    let estado = 'Finalizado.';
-  
-    // Buscar todos los detalles del usuario
-    this.database.buscarDetalleUser(id_user).then(res => {
-      if (res.length > 0) {
-        this.database.fetchDetalleUser().subscribe(detail => {
-          if (detail.length > 0) {
-            console.log('Detalle: ', detail);
-            this.arregloDetalle = detail;
-  
-            // Limpiar los arreglos antes de llenarlos nuevamente
-            this.arregloViajes = [];
-            this.arregloUsuario = [];
-            this.arregloVehiculo = [];
-
-            // Crear un conjunto para almacenar IDs de viajes únicos
-            let viajesSet = new Set();
-
-            // Iterar sobre todos los detalles y buscar la información correspondiente
-            for (let i = 0; i < detail.length; i++) {
-              // Para cada detalle, buscar el viaje reservado
-              this.database.buscarViajeReservado(detail[i].id_viaje, estado).then(viaje => {
-                if (viaje.length > 0) {
-                  this.database.fetchViajeReservado().subscribe(viajes => {
-                    if (viajes.length > 0) {
-                      console.log('Viajes: ', viajes);
-                      // Iterar sobre los viajes obtenidos y agregar solo aquellos que no estén en el conjunto
-                      for (const nuevoViaje of viajes) {
-                        if (!viajesSet.has(nuevoViaje.id_viaje)) {
-                          // Agregar solo si no existe ya en el conjunto
-                          viajesSet.add(nuevoViaje.id_viaje);
-                          this.arregloViajes.push(nuevoViaje);
-                        }
-                      }
-              
-                      this.database.buscarDatosConductor(viajes[0].id_usuario).then(usuario => {
-                        if (usuario.length > 0) {
-                          this.database.fetchConductor().subscribe(usuarios => {
-                            if (usuarios.length > 0) {
-                              console.log('Usuario: ', usuarios);
-                              this.arregloUsuario = usuarios;
-              
-                              this.database.buscarVehiculoUsuario(usuarios[0].id).then(vehiculo => {
-                                if (vehiculo.length > 0) {
-                                  this.database.fetchVehiculoUser().subscribe(vehiculos => {
-                                    if (vehiculos.length > 0) {
-                                      console.log('Vehiculo: ', vehiculos);
-                                      this.arregloVehiculo = vehiculos;
-                                    }
-                                  })
-                                }
-                              }).catch(error => {
-                                console.log('Error en Buscar Vehículo Usuario: ', error);
-                              })
-                            }
-                          })
-                        }
-                      }).catch(error => {
-                        console.log('Error en Buscar Datos Usuario: ', error);
-                      })
-                    }
-                  })
-                }
-              }).catch(error => {
-                console.log('Error en Buscar Viaje Reservado: ', error);
-              })
-            }
-          }
-        })
-      } else {
-        this.presentarAlerta("Viajes no encontrados", "Aun no ha concretado ninguno de sus viajes.")
-      }
-    }).catch(error => {
-      console.log('Error en Buscar Detalle User: ', error);
-    })
-  }
-
-  async presentarAlerta(titulo: string, mensaje: string){
+  async presentarAlerta(titulo: string, mensaje: string) {
     const alert = await this.alertController.create({
       header: titulo,
       message: mensaje,
       buttons: ['Aceptar']
     });
-
     await alert.present();
   }
-
 }
