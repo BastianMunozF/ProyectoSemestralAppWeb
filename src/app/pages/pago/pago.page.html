@@ -1,71 +1,33 @@
-<ion-header>
-  <ion-toolbar color="primary" style="text-align: center;">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title style="text-align: center;">Datos de Pago</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-card>
-    <ion-card-title>
-      <ion-item color="primary">
-        <ion-label style="text-align: center; font-weight: 800;">Ingrese sus Datos</ion-label>
-      </ion-item>
-    </ion-card-title>
+  <!-- ... -->
+  <form [formGroup]="formularioPago">
+    <ion-item>
+      <ion-label position="floating">Número de Tarjeta</ion-label>
+      <ion-input formControlName="cardnumber"></ion-input>
+    </ion-item>
+    <p *ngIf="formularioPago.get('cardnumber')?.errors?.['required']">Este campo es obligatorio</p>
+    <p *ngIf="formularioPago.get('cardnumber')?.errors?.['minlength']">Debe ingresar una tarjeta válida</p>
+    <p *ngIf="formularioPago.get('cardnumber')?.errors?.['maxlength']">Debe ingresar una tarjeta válida</p>
 
-    <ion-card-content>
-      <form [formGroup]="formularioPago" (ngSubmit)="realizarPago()">
-        <ion-label>Número de Tarjeta</ion-label>
-        <ion-input formControlName="cardnumber" type="number" placeholder="XXXX XXXX XXXX XXXX"></ion-input>
+    <ion-item>
+      <ion-label position="floating">Nombre en la Tarjeta</ion-label>
+      <ion-input formControlName="cardname"></ion-input>
+    </ion-item>
+    <p *ngIf="formularioPago.get('cardname')?.errors?.['required']">Este campo es obligatorio</p>
+    <p *ngIf="formularioPago.get('cardname')?.errors?.['minlength']">Debe ingresar un nombre válido</p>
+    <p *ngIf="formularioPago.get('cardname')?.errors?.['maxlength']">Debe contener un máximo de 30 caracteres</p>
+    <p *ngIf="formularioPago.get('cardname')?.errors?.['pattern']">No debe contener números ni caracteres especiales</p>
 
-        <div *ngIf="formularioPago.get('cardnumber')?.errors && (formularioPago.get('cardnumber')?.dirty || formularioPago.get('cardnumber')?.touched)">
-          <p *ngIf="formularioPago.get('cardnumber')?.errors.required">Este campo es obligatorio</p>
-          <p *ngIf="formularioPago.get('cardnumber')?.errors.minlength">Debe ingresar una tarjeta válida</p>
-          <p *ngIf="formularioPago.get('cardnumber')?.errors.maxlength">Debe ingresar una tarjeta válida</p>
-        </div>
+    <ion-item>
+      <ion-label position="floating">CVV</ion-label>
+      <ion-input formControlName="cvv"></ion-input>
+    </ion-item>
+    <p *ngIf="formularioPago.get('cvv')?.errors?.['required']">Este campo es obligatorio</p>
+    <p *ngIf="formularioPago.get('cvv')?.errors?.['minlength']">Debe ingresar un CVV válido</p>
+    <p *ngIf="formularioPago.get('cvv')?.errors?.['maxlength']">Debe ingresar un CVV válido</p>
+    <p *ngIf="formularioPago.get('cvv')?.errors?.['min']">Debe ingresar un CVV válido</p>
+    <p *ngIf="formularioPago.get('cvv')?.errors?.['max']">Debe ingresar un CVV válido</p>
 
-        <ion-label>Nombre del Titular</ion-label>
-        <ion-input formControlName="cardname" maxlength="30" type="text"></ion-input>
-
-        <div *ngIf="formularioPago.get('cardname')?.errors && (formularioPago.get('cardname')?.dirty || formularioPago.get('cardname')?.touched)">
-          <p *ngIf="formularioPago.get('cardname')?.errors.required">Este campo es obligatorio</p>
-          <p *ngIf="formularioPago.get('cardname')?.errors.minlength">Debe ingresar un nombre válido</p>
-          <p *ngIf="formularioPago.get('cardname')?.errors.maxlength">Debe contener un máximo de 30 caracteres</p>
-          <p *ngIf="formularioPago.get('cardname')?.errors.pattern">No debe contener números ni caracteres especiales</p>
-        </div>
-
-        <ion-label>Fecha de Expiración</ion-label>
-
-        <div>
-          <ion-label>Mes</ion-label>
-          <select formControlName="expMonth">
-            <option *ngFor="let month of months" [value]="month.value">{{ month.display }}</option>
-          </select>
-        </div>
-
-        <div>
-          <ion-label>Año</ion-label>
-          <select formControlName="expYear">
-            <option *ngFor="let year of years" [value]="year.value">{{ year.display }}</option>
-          </select>
-        </div>
-
-        <ion-label>CVV</ion-label>
-        <ion-input formControlName="cvv" type="number"></ion-input>
-
-        <div *ngIf="formularioPago.get('cvv')?.errors && (formularioPago.get('cvv')?.dirty || formularioPago.get('cvv')?.touched)">
-          <p *ngIf="formularioPago.get('cvv')?.errors.required">Este campo es obligatorio</p>
-          <p *ngIf="formularioPago.get('cvv')?.errors.minlength">Debe ingresar un CVV válido</p>
-          <p *ngIf="formularioPago.get('cvv')?.errors.maxlength">Debe ingresar un CVV válido</p>
-          <p *ngIf="formularioPago.get('cvv')?.errors.min">Debe ingresar un CVV válido</p>
-          <p *ngIf="formularioPago.get('cvv')?.errors.max">Debe ingresar un CVV válido</p>
-        </div>
-
-        <ion-button type="submit" color="primary" style="margin-top: 50px;">Pagar</ion-button>
-      </form>
-
-    </ion-card-content>
-  </ion-card>
+    <ion-button expand="full" (click)="pagar()">Pagar</ion-button>
+  </form>
 </ion-content>
