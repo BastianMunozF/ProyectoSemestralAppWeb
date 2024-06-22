@@ -85,27 +85,27 @@ export class HistorialusuarioPage implements OnInit {
       this.presentarAlerta('Error', 'No se encontró el ID del usuario.');
       return;
     }
-
+  
     try {
       const datos = await this.database.buscarDatosUsuario(id_user);
       if (datos.length > 0) {
         this.arregloUser = datos;
       }
-
+  
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN1',
         subject: 'Pago de Viaje',
         amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
-        email: this.arregloUser[0].correo,
+        email: this.arregloUser.length > 0 ? this.arregloUser[0].correo : '',
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         timeout: 3600,
       };
-
+  
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
-
+  
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
         window.location.href = redirectUrl;
@@ -116,7 +116,7 @@ export class HistorialusuarioPage implements OnInit {
       console.error('Error en la transacción:', error);
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
     }
-}
+  }
 
 getFlowStatus() {
     if (!this.transaccion || !this.transaccion.token) {
