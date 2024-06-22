@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import * as crypto from 'crypto-js';
-import { Observable, retry } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,58 +16,59 @@ export class ApiFlowService {
     })
   }
 
-  //URL Api Flow
-  url = 'https://www.flow.cl/api';
-
-  secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
+  // URL Api Flow
+  private url = 'https://www.flow.cl/api';
+  private secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
   constructor(private http: HttpClient) { }
 
-  //Función para firmar los parámetros
-  firmarParametros(params: any){
-
-    //Ordeno de parámetros alfabéticamente
+  // Función para firmar los parámetros
+  private firmarParametros(params: any): string {
     const paramsOrdenados = Object.keys(params).sort().map(key => key + params[key]).join('');
-
-    const firma = crypto.HmacSHA256(paramsOrdenados, this.secretKey).toString();
-
+    const firma = CryptoJS.HmacSHA256(paramsOrdenados, this.secretKey).toString(CryptoJS.enc.Hex);
     return firma;
-
   }
 
-  //Orden de pago
-  crearOrdenPago(params: any){
-
+  // Orden de pago
+  crearOrdenPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
     params['s'] = firma;
 
-    const body = new HttpParams({ fromObject: params});
+    const body = new HttpParams({ fromObject: params });
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
+    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
   }
 
-  obtenerPago(params: any){
-
+  // Obtener estado de pago
+  obtenerPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
-
     params['s'] = firma;
 
     let httpParams = new HttpParams();
-
-    //Codificamos los parámetros
-    for(let key in params) {
-      if(params.hasOwnProperty(key)){
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
         httpParams = httpParams.append(key, params[key]);
       }
     }
 
-    //Realizamos solicitud GET
-    return this.http.get<any>(`${this.url}/payment/getStatus`, {params: httpParams}).pipe(
-      retry(3)
-    );
+    return this.http.get<any>(`${this.url}/payment/getStatus`, { params: httpParams })
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
+  }
+
+  // Manejo de errores
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('Something went wrong; please try again later.'));
   }
 }

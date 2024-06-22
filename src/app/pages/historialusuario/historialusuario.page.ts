@@ -77,73 +77,71 @@ export class HistorialusuarioPage implements OnInit {
 
   transaccion: any;
 
-  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService, private router: Router) { }
+  constructor(private database: DbserviceService, private alertController: AlertController, private apiFlow: ApiFlowService) { }
 
-  async postFlow(){
-
-    let id_user = localStorage.getItem('id');
-
-    this.database.buscarDatosUsuario(id_user);
-
-    this.database.fetchUsuarioId().subscribe(datos => {
-      if(datos.length > 0){
-        this.arregloUser = datos;
-      }
-    })
-
-    const params = {
-      apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-      commerceOrder: 'ORDEN1',
-      subject: 'Pago de Viaje',
-      amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
-      email: this.arregloUser[0].correo,
-      paymentMethod: 9,
-      urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
-      urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
-      timeout: 3600,
+  async postFlow() {
+    const id_user = localStorage.getItem('id');
+    if (!id_user) {
+      this.presentarAlerta('Error', 'No se encontró el ID del usuario.');
+      return;
     }
 
-    try{
+    try {
+      const datos = await this.database.buscarDatosUsuario(id_user);
+      if (datos.length > 0) {
+        this.arregloUser = datos;
+      }
+
+      const params = {
+        apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+        commerceOrder: 'ORDEN1',
+        subject: 'Pago de Viaje',
+        amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
+        email: this.arregloUser[0].correo,
+        paymentMethod: 9,
+        urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
+        urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
+        timeout: 3600,
+      };
 
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
 
-      if(response && response.url && response.token){
+      if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
         window.location.href = redirectUrl;
       } else {
         this.presentarAlerta('Error en la transacción', 'No se recibió la URL de redirección.');
       }
-    } catch(error){
+    } catch (error) {
       console.error('Error en la transacción:', error);
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
     }
+}
 
-  }
+getFlowStatus() {
+    if (!this.transaccion || !this.transaccion.token) {
+        console.error('Token de transacción no disponible.');
+        return;
+    }
 
-  getFlowStatus(){
+    const token = this.transaccion.token;
 
-    let token = this.transaccion.token
-
-    let paramsGet = {
-      apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-      tokenFlow: token
+    const paramsGet = {
+        apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+        tokenFlow: token
     };
 
     this.apiFlow.obtenerPago(paramsGet).subscribe(res => {
-
-      if(res){
-
-        console.log('Estado del pago.');
-
-      } else {
-
-        console.error('Ha ocurrido un error.');
-
-      }
-
+        if (res) {
+            console.log('Estado del pago:', res);
+        } else {
+            console.error('Ha ocurrido un error al obtener el estado del pago.');
+        }
+    }, error => {
+        console.error('Error en la obtención del estado del pago:', error);
     });
+}
 
-  }
 
   async ngOnInit() {
     let id_user = localStorage.getItem('id');
