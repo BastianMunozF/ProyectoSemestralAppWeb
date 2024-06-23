@@ -170,10 +170,6 @@ export class HistorialusuarioPage implements OnInit {
         "amount": viaje.valor_asiento
       }
 
-      const secretKey = this.apiFlow.firmarParametros(paramsGet);
-
-      console.log(secretKey)
-
       let id_user = localStorage.getItem('id')
 
       this.database.buscarDatosUsuario(id_user).then(res => {
@@ -192,7 +188,7 @@ export class HistorialusuarioPage implements OnInit {
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         timeout: 3600,
-        s: secretKey
+        s: ''
       };
   
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();

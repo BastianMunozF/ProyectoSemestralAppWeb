@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
-import { Observable, catchError, retry } from 'rxjs';
+import { Observable, catchError, map, retry, throwError } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -29,18 +29,25 @@ export class ApiFlowService {
 
   crearOrdenPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
-    params['s'] = firma;
+    params['s'] = firma; // Añadir la firma a los parámetros
     const body = new HttpParams({ fromObject: params });
-    this.presentarAlerta('Error Aquí body', body.toString())
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    this.presentarAlerta('Error aquí headers', headers.toString())
-  
+
     return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
       .pipe(
+        map(response => {
+          if (response.url && response.token) {
+            return {
+              redirectUrl: `${response.url}?token=${response.token}`,
+              flowOrder: response.flowOrder
+            };
+          } else {
+            throw new Error('Respuesta inesperada de Flow');
+          }
+        }),
         catchError(error => {
-          console.error('Error en la solicitud crearOrdenPago:', error);
-          this.presentarAlerta('Error en función crearOrdenPago', 'Arréglalo llenaor');
-          throw error; // Puedes lanzar el error nuevamente para manejarlo en el componente que llama a esta función
+          console.error('Error en la solicitud:', error);
+          return throwError(error);
         })
       );
   }
