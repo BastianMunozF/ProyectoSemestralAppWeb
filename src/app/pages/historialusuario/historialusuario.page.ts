@@ -194,6 +194,8 @@ export class HistorialusuarioPage implements OnInit {
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
 
       console.log(response)
+
+      this.presentarAlerta("Error en response", response.toString())
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
