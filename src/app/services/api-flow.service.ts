@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
-import { Observable, retry } from 'rxjs';
+import { Observable, catchError, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +29,20 @@ export class ApiFlowService {
   crearOrdenPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
     params['s'] = firma;
+    console.log(firma)
+    console.log(params)
     const body = new HttpParams({ fromObject: params });
+    console.log(body)
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
+    console.log(headers)
+  
+    return this.http.post<any>(`${this.url}/payment/create`, body, { headers })
+      .pipe(
+        catchError(error => {
+          console.error('Error en la solicitud crearOrdenPago:', error);
+          throw error; // Puedes lanzar el error nuevamente para manejarlo en el componente que llama a esta función
+        })
+      );
   }
 
   obtenerPago(params: any): Observable<any> {

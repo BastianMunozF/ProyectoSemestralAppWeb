@@ -34,6 +34,20 @@ export class HistorialusuarioPage implements OnInit {
     }
   ]
 
+  arregloUser: any = [
+    {
+      id: '',
+      nombre: '',
+      apellido: '',
+      correo: '',
+      fechanacimiento: '',
+      rut: '',
+      celular: '',
+      contrasena: '',
+      fotoperfil: '',
+    }
+  ]
+
   arregloVehiculo: any = [
     {
       id_vehiculo: '',
@@ -48,20 +62,6 @@ export class HistorialusuarioPage implements OnInit {
   ]
 
   arregloViajes: any = [
-    {
-      id_viaje: '',
-      f_viaje: '',
-      hora_salida: '',
-      salida: '',
-      destino: '',
-      cant_asientos: '',
-      valor_asiento: '',
-      estado: '',
-      id_usuario: '',
-    }
-  ]
-
-  arregloViajesFirma: any = [
     {
       id_viaje: '',
       f_viaje: '',
@@ -158,7 +158,12 @@ export class HistorialusuarioPage implements OnInit {
     })
   }
 
-  async postFlow(viaje: any) {
+  async postFlow(detalle: any, viaje: any, usuario: any, vehiculo: any) {
+
+    console.log(detalle)
+    console.log(viaje)
+    console.log(usuario)
+    console.log(vehiculo)
   
     try {
 
@@ -174,12 +179,20 @@ export class HistorialusuarioPage implements OnInit {
 
       let id_user = localStorage.getItem('id')
 
+      this.database.buscarDatosUsuario(id_user).then(res => {
+        if(res){
+          this.arregloUser = res;
+        }
+      })
+
+      console.log(usuario)
+
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN' + viaje.id_viaje,
         subject: 'Pago de Viaje',
         amount: viaje.valor_asiento,
-        email: id_user,
+        email: this.arregloUser.correo,
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
@@ -187,7 +200,9 @@ export class HistorialusuarioPage implements OnInit {
         s: secretKey
       };
   
-      const response = await this.apiFlow.crearOrdenPago(paramsGet).toPromise();
+      const response = await this.apiFlow.crearOrdenPago(params).toPromise();
+
+      console.log(response)
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
