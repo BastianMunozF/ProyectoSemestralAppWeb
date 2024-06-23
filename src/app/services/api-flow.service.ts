@@ -35,7 +35,9 @@ export class ApiFlowService {
       const body = new HttpParams({ fromObject: params });
       const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
   
-      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers }).toPromise();
+      const response = this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
+
+      this.presentarAlerta("Response", "Response" + JSON.stringify(response))
   
       console.log('Respuesta de crearOrdenPago:', response); // Imprime la respuesta para verificar
   

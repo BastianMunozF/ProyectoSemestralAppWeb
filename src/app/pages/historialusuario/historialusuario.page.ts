@@ -160,8 +160,6 @@ export class HistorialusuarioPage implements OnInit {
 
   async postFlow(viaje: any) {
 
-    this.presentarAlerta("Estos son los datos", "Los datos del viaje son: " + JSON.stringify(viaje));
-
     try {
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
