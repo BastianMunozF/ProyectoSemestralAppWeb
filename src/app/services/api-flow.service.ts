@@ -43,7 +43,7 @@ export class ApiFlowService {
         // Configurar los encabezados
         const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
-        this.presentarAlerta("Params", "Params de crearOrdenPago()" + params);
+        this.presentarAlerta("Params", "Params de crearOrdenPago()" + JSON.stringify(params));
         
         // Enviar la solicitud y esperar la respuesta
         const response = await this.http.post<any>(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
