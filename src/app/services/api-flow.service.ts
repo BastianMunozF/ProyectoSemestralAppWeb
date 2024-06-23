@@ -32,11 +32,19 @@ export class ApiFlowService {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
   
-      const body = new HttpParams({ fromObject: params });
-      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+      // Configurar los parámetros como HttpParams
+      let httpParams = new HttpParams();
+      for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      }
+  
+      // Configurar los headers adecuadamente
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
   
       const response = await firstValueFrom(
-        this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
+        this.http.post<any>(`${this.url}/payment/create`, httpParams, { headers })
           .pipe(
             retry(3),
             catchError(error => {
@@ -53,7 +61,7 @@ export class ApiFlowService {
       console.error('Error en la solicitud crearOrdenPago:', error);
       throw error; // Lanza el error para manejarlo en el componente que llama a esta función
     }
-  }
+  }  
 
   obtenerPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
