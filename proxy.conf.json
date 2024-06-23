@@ -3,8 +3,9 @@
       "target": "https://www.flow.cl",
       "secure": false,
       "changeOrigin": true,
+      "logLevel": "debug",
       "pathRewrite": {
         "^/api": ""
       }
     }
-}
+  }
