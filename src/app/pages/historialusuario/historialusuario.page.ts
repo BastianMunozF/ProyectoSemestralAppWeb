@@ -202,7 +202,7 @@ export class HistorialusuarioPage implements OnInit {
       }
     } catch (error) {
       console.error('Error en la transacción:', error);
-      this.presentarAlerta('Error en la transacción catch error', 'Ha ocurrido un error al momento de efectuar la transacción.');
+      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.' + error);
     }
   }
 
