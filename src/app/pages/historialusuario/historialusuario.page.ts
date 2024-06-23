@@ -173,7 +173,8 @@ export class HistorialusuarioPage implements OnInit {
       };
   
       const response = await this.apiFlow.crearOrdenPago(params);
-  
+
+      this.presentarAlerta("Response", "Response" + JSON.stringify(response));
       console.log('Respuesta de postFlow:', response); // Imprime la respuesta para verificar
   
       if (response && response.url && response.token) {
@@ -185,7 +186,7 @@ export class HistorialusuarioPage implements OnInit {
       }
     } catch (error) {
       console.error('Error en la transacción:', error);
-      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
+      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.' + JSON.stringify(error));
     }
   }
 
