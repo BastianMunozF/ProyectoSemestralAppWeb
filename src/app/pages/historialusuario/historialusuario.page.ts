@@ -187,7 +187,7 @@ export class HistorialusuarioPage implements OnInit {
         s: secretKey
       };
   
-      const response = await this.apiFlow.crearOrdenPago(params).toPromise();
+      const response = await this.apiFlow.crearOrdenPago(paramsGet).toPromise();
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
