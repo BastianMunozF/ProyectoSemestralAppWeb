@@ -35,7 +35,7 @@ export class ApiFlowService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     this.presentarAlerta('Error aquí', headers.toString())
   
-    return this.http.post<any>(`${this.url}/payment/create`, body, { headers })
+    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
       .pipe(
         catchError(error => {
           console.error('Error en la solicitud crearOrdenPago:', error);
