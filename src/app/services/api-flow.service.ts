@@ -36,7 +36,7 @@ export class ApiFlowService {
   
     try {
       const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
-      this.presentarAlerta("Esta es la response", "response" + response)
+      this.presentarAlerta("Esta es la response", "response" + JSON.stringify(response))
       return response;
     } catch (error) {
       console.error('Error en la solicitud crearOrdenPago:', error);
