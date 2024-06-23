@@ -182,8 +182,6 @@ export class HistorialusuarioPage implements OnInit {
         }
       })
 
-      console.log(usuario)
-
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN' + viaje.id_viaje,
