@@ -176,11 +176,9 @@ export class HistorialusuarioPage implements OnInit {
 
       let id_user = localStorage.getItem('id')
 
-      this.database.buscarDatosUsuario(id_user)
-
-      this.database.fetchUsuarioId().subscribe(datos => {
-        if(datos.length > 0){
-          this.arregloUser = datos;
+      this.database.buscarDatosUsuario(id_user).then(res => {
+        if(res){
+          this.arregloUser = res
         }
       })
 
@@ -189,7 +187,7 @@ export class HistorialusuarioPage implements OnInit {
         commerceOrder: 'ORDEN' + viaje.id_viaje,
         subject: 'Pago de Viaje',
         amount: viaje.valor_asiento,
-        email: this.arregloUser.correo,
+        email: 'basti.munoz.f@hotmail.com',
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
