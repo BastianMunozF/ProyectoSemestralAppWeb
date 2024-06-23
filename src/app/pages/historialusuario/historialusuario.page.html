@@ -8,107 +8,56 @@
   <h2 class="ion-text-center" color="primary">Historial de Viajes Realizados</h2>
   <ion-list>
     <ion-item-sliding *ngFor="let detalle of arregloDetalle">
-      <ion-item-sliding *ngFor="let viaje of arregloViajes">
-        <ion-item-sliding *ngFor="let usuario of arregloUsuario">
-          <ion-item-sliding *ngFor="let vehiculo of arregloVehiculo">
-            <ion-card>
-              <ion-card-content>
-
-                <ion-item>
-                  <ion-label>
-                    <strong>Conductor:</strong>
-                    {{ usuario.nombre }} {{ usuario.apellido }}
-                  </ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Celular: {{ usuario.celular }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Correo: {{ usuario.correo }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label><strong>Viaje:</strong></ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
-                </ion-item>
-                
-                <ion-item>
-                  <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Salida: {{ viaje.salida }}</ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Destino: {{ viaje.destino }}</ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Estado: {{ viaje.estado }}</ion-label>
-                </ion-item>
-      
-                <br>
-      
-                <ion-item>
-                  <ion-label><strong>Vehículo</strong></ion-label>
-                </ion-item>
-      
-                <ion-item>
-                  <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Modelo: {{ vehiculo.modelo }}</ion-label>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Patente: {{ vehiculo.patente }}</ion-label>
-                </ion-item>
-
-                <ion-button (click)="postFlow()">Pagar</ion-button>
-      
-              </ion-card-content>
-            </ion-card>
-          </ion-item-sliding>
-        </ion-item-sliding>
-      </ion-item-sliding>
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>
+              <strong>Conductor:</strong>
+              {{ detalle.usuario.nombre }} {{ detalle.usuario.apellido }}
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Celular: {{ detalle.usuario.celular }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Correo: {{ detalle.usuario.correo }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Viaje:</strong></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Fecha del Viaje: {{ detalle.viaje.f_viaje }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Hora de Salida: {{ detalle.viaje.hora_salida }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Salida: {{ detalle.viaje.salida }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Destino: {{ detalle.viaje.destino }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Asientos disponibles: {{ detalle.viaje.cant_asientos }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Estado: {{ detalle.viaje.estado }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Vehículo</strong></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Marca: {{ detalle.vehiculo.marca }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Modelo: {{ detalle.vehiculo.modelo }}</ion-label> <!-- Corrige el cierre de la etiqueta -->
+          </ion-item>
+          <ion-item>
+            <ion-label>Patente: {{ detalle.vehiculo.patente }}</ion-label>
+          </ion-item>
+          <ion-button (click)="postFlow(detalle)">Pagar</ion-button>
+        </ion-card-content>
+      </ion-card>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
-
-<section style="display: flex; justify-content: center; align-items: center;">
-  <div class="example-button-row">
-    <div class="example-flex-container">
-      <button mat-icon-button aria-label="Example icon button with a vertical three-dot icon" [routerLink]="['/menuprincipal']" style="margin-right: 20px;">
-        <ion-icon name="home" color="primary"></ion-icon>
-        <span class="button-text">Inicio</span>
-      </button>
-      <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" [routerLink]="['/tomarviaje']" style="margin-right: 20px;">
-        <ion-icon name="location" color="primary"></ion-icon>
-        <span class="button-text">Viaje</span>
-      </button>
-      <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon" [routerLink]="['/perfilusuario']" style="margin-right: 20px;">
-        <ion-icon name="person" color="primary"></ion-icon>
-        <span class="button-text">Perfil</span>
-      </button>
-      <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" [routerLink]="['/comenzarviaje']" style="margin-right: 20px;">
-        <ion-icon name="car-sport" color="primary"></ion-icon>
-        <span class="button-text">Auto</span>
-      </button>
-      <button mat-icon-button aria-label="Example icon button with an open in new tab icon" [routerLink]="['/paginalogin-usuario']" style="margin-right: 10px;">
-        <ion-icon name="exit" color="primary"></ion-icon>
-        <span class="button-text">Cierre</span>
-      </button>
-    </div>
-  </div>
-</section>

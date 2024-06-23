@@ -118,29 +118,29 @@ export class HistorialusuarioPage implements OnInit {
     }
   }
 
-getFlowStatus() {
-    if (!this.transaccion || !this.transaccion.token) {
-        console.error('Token de transacción no disponible.');
-        return;
-    }
+  getFlowStatus() {
+      if (!this.transaccion || !this.transaccion.token) {
+          console.error('Token de transacción no disponible.');
+          return;
+      }
 
-    const token = this.transaccion.token;
+      const token = this.transaccion.token;
 
-    const paramsGet = {
-        apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-        tokenFlow: token
-    };
+      const paramsGet = {
+          apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+          tokenFlow: token
+      };
 
-    this.apiFlow.obtenerPago(paramsGet).subscribe(res => {
-        if (res) {
-            console.log('Estado del pago:', res);
-        } else {
-            console.error('Ha ocurrido un error al obtener el estado del pago.');
-        }
-    }, error => {
-        console.error('Error en la obtención del estado del pago:', error);
-    });
-}
+      this.apiFlow.obtenerPago(paramsGet).subscribe(res => {
+          if (res) {
+              console.log('Estado del pago:', res);
+          } else {
+              console.error('Ha ocurrido un error al obtener el estado del pago.');
+          }
+      }, error => {
+          console.error('Error en la obtención del estado del pago:', error);
+      });
+  }
 
 
   async ngOnInit() {
@@ -222,14 +222,12 @@ getFlowStatus() {
     })
   }
 
-  async presentarAlerta(titulo: string, mensaje: string){
+  async presentarAlerta(titulo: string, mensaje: string) {
     const alert = await this.alertController.create({
       header: titulo,
       message: mensaje,
       buttons: ['Aceptar']
     });
-
     await alert.present();
   }
-
 }
