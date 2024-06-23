@@ -161,7 +161,7 @@ export class HistorialusuarioPage implements OnInit {
   async postFlow(viaje: any) {
 
     try {
-      const params = {
+      var params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN' + viaje.id_viaje,
         subject: 'Pago de Viaje',
@@ -171,7 +171,6 @@ export class HistorialusuarioPage implements OnInit {
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         timeout: 3600,
-        s: ''
       };
   
       const response = await this.apiFlow.crearOrdenPago(params);
@@ -181,7 +180,6 @@ export class HistorialusuarioPage implements OnInit {
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
-        this.presentarAlerta("RedirectURL", "" + redirectUrl.toString());
         window.location.href = redirectUrl;
       } else {
         console.error('Error en la transacción: No se recibió la URL de redirección.');

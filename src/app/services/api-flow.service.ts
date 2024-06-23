@@ -29,22 +29,32 @@ export class ApiFlowService {
 
   async crearOrdenPago(params: any): Promise<any> {
     try {
-      const firma = this.firmarParametros(params);
-      params['s'] = firma;
-  
-      const body = new HttpParams({ fromObject: params });
-      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-  
-      const response = this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
+        const firma = this.firmarParametros(params);
+        params['s'] = firma;
+        
+        // Construir el cuerpo de la solicitud
+        let body = new HttpParams();
+        for (const key in params) {
+            if (params.hasOwnProperty(key)) {
+                body = body.append(key, params[key]);
+            }
+        }
+        
+        // Configurar los encabezados
+        const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
-      this.presentarAlerta("Response", "Response" + JSON.stringify(response))
-  
-      console.log('Respuesta de crearOrdenPago:', response); // Imprime la respuesta para verificar
-  
-      return response;
+        this.presentarAlerta("Params", "Params de crearOrdenPago()" + params);
+        
+        // Enviar la solicitud y esperar la respuesta
+        const response = await this.http.post<any>(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
+
+        this.presentarAlerta("Response crearOrdenPago()", "Response " + JSON.stringify(response))
+        console.log('Respuesta de crearOrdenPago:', response); // Imprime la respuesta para verificar
+        
+        return response;
     } catch (error) {
-      console.error('Error en la solicitud crearOrdenPago:', error);
-      throw error; // Lanza el error para manejarlo en el componente que llama a esta función
+        console.error('Error en la solicitud crearOrdenPago:', error);
+        throw error; // Lanza el error para manejarlo en el componente que llama a esta función
     }
   }
 
