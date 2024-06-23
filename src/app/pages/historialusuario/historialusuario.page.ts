@@ -159,25 +159,7 @@ export class HistorialusuarioPage implements OnInit {
   }
 
   async postFlow(viaje: any) {
-
-    console.log(viaje)
-  
     try {
-
-      const paramsGet = {
-        "apiKey": '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-        "currency": 'CLP',
-        "amount": viaje.valor_asiento
-      }
-
-      let id_user = localStorage.getItem('id')
-
-      this.database.buscarDatosUsuario(id_user).then(res => {
-        if(res){
-          this.arregloUser = res
-        }
-      })
-
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN' + viaje.id_viaje,
@@ -187,12 +169,10 @@ export class HistorialusuarioPage implements OnInit {
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
-        timeout: 3600,
+        timeout: 3600
       };
   
       const response = await this.apiFlow.crearOrdenPago(params);
-
-      this.presentarAlerta("Error en response", response.toString())
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
