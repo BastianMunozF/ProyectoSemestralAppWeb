@@ -35,10 +35,12 @@ export class ApiFlowService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
   
     try {
-      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers }).toPromise();
+      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
+      this.presentarAlerta("Esta es la response", "response" + response)
       return response;
     } catch (error) {
       console.error('Error en la solicitud crearOrdenPago:', error);
+      this.presentarAlerta("Error en try crearordenpago", "Error es" + error)
       throw error;
     }
   }
