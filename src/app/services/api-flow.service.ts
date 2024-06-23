@@ -44,7 +44,7 @@ export class ApiFlowService {
         const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
         
         // Enviar la solicitud y esperar la respuesta
-        this.presentarAlerta("Esta sería la URL", "URL" + this.http.post<any>(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise())
+        this.presentarAlerta("Esta sería la URL", "URL" + this.http.post<any>(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise().toString())
 
         const response = await this.http.post<any>(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
 
