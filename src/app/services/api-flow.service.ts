@@ -28,20 +28,21 @@ export class ApiFlowService {
   }
 
   async crearOrdenPago(params: any): Promise<any> {
-    const firma = this.firmarParametros(params);
-    params['s'] = firma;
-  
-    const body = new HttpParams({ fromObject: params });
-    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-  
     try {
-      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers });
-      this.presentarAlerta("Esta es la response", "response" + JSON.stringify(response))
+      const firma = this.firmarParametros(params);
+      params['s'] = firma;
+  
+      const body = new HttpParams({ fromObject: params });
+      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+  
+      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers }).toPromise();
+  
+      console.log('Respuesta de crearOrdenPago:', response); // Imprime la respuesta para verificar
+  
       return response;
     } catch (error) {
       console.error('Error en la solicitud crearOrdenPago:', error);
-      this.presentarAlerta("Error en try crearordenpago", "Error es" + error)
-      throw error;
+      throw error; // Lanza el error para manejarlo en el componente que llama a esta función
     }
   }
 

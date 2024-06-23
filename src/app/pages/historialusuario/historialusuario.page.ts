@@ -174,15 +174,18 @@ export class HistorialusuarioPage implements OnInit {
   
       const response = await this.apiFlow.crearOrdenPago(params);
   
+      console.log('Respuesta de postFlow:', response); // Imprime la respuesta para verificar
+  
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
         window.location.href = redirectUrl;
       } else {
+        console.error('Error en la transacción: No se recibió la URL de redirección.');
         this.presentarAlerta('Error en la transacción', 'No se recibió la URL de redirección.');
       }
     } catch (error) {
       console.error('Error en la transacción:', error);
-      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.' + error);
+      this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.');
     }
   }
 
