@@ -158,12 +158,9 @@ export class HistorialusuarioPage implements OnInit {
     })
   }
 
-  async postFlow(detalle: any, viaje: any, usuario: any, vehiculo: any) {
+  async postFlow(viaje: any) {
 
-    console.log(detalle)
     console.log(viaje)
-    console.log(usuario)
-    console.log(vehiculo)
   
     try {
 
