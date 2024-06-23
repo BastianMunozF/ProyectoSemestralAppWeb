@@ -170,7 +170,8 @@ export class HistorialusuarioPage implements OnInit {
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
-        timeout: 3600
+        timeout: 3600,
+        s: ''
       };
   
       const response = await this.apiFlow.crearOrdenPago(params);
@@ -180,6 +181,7 @@ export class HistorialusuarioPage implements OnInit {
   
       if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
+        this.presentarAlerta("RedirectURL", "" + redirectUrl.toString());
         window.location.href = redirectUrl;
       } else {
         console.error('Error en la transacción: No se recibió la URL de redirección.');
