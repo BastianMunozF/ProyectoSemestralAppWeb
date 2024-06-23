@@ -91,10 +91,19 @@ export class HistorialusuarioPage implements OnInit {
       if (datos.length > 0) {
         this.arregloUser = datos;
       }
+
+      const token = this.transaccion.token;
+
+      const paramsGet = {
+        apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
+        tokenFlow: token
+      }
+
+      const secretKey = this.apiFlow.firmarParametros(paramsGet)
   
       const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
-        commerceOrder: 'ORDEN1',
+        commerceOrder: 'ORDEN' + this.arregloDetalle.id_detalle,
         subject: 'Pago de Viaje',
         amount: this.arregloViajes.length > 0 ? this.arregloViajes[0].valor_asiento : 0,
         email: this.arregloUser.length > 0 ? this.arregloUser[0].correo : '',
@@ -102,6 +111,7 @@ export class HistorialusuarioPage implements OnInit {
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         timeout: 3600,
+        s: secretKey
       };
   
       const response = await this.apiFlow.crearOrdenPago(params).toPromise();
