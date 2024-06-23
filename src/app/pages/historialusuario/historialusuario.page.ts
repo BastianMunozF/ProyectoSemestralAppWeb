@@ -176,9 +176,11 @@ export class HistorialusuarioPage implements OnInit {
 
       let id_user = localStorage.getItem('id')
 
-      this.database.buscarDatosUsuario(id_user).then(res => {
-        if(res){
-          this.arregloUser = res;
+      this.database.buscarDatosUsuario(id_user)
+
+      this.database.fetchUsuarioId().subscribe(datos => {
+        if(datos.length > 0){
+          this.arregloUser = datos;
         }
       })
 

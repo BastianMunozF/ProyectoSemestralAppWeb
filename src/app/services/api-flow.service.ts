@@ -31,9 +31,9 @@ export class ApiFlowService {
     const firma = this.firmarParametros(params);
     params['s'] = firma;
     const body = new HttpParams({ fromObject: params });
-    this.presentarAlerta('Error Aquí', body.toString())
+    this.presentarAlerta('Error Aquí body', body.toString())
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    this.presentarAlerta('Error aquí', headers.toString())
+    this.presentarAlerta('Error aquí headers', headers.toString())
   
     return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
       .pipe(
