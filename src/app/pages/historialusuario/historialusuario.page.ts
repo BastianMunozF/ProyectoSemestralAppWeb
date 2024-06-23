@@ -92,7 +92,7 @@ export class HistorialusuarioPage implements OnInit {
         this.arregloUser = datos;
       }
 
-      const token = this.transaccion.token;
+      const token = 'ASDFGHJKL123'
 
       const paramsGet = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
