@@ -9,14 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class ApiFlowService {
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    })
-  }
-
-  url = 'https://www.flow.cl/api';
+  url = 'https://sandbox.flow.cl/api';
   secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
@@ -32,19 +25,23 @@ export class ApiFlowService {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
   
-      // Configurar los parámetros como HttpParams
-      let httpParams = new HttpParams();
+      // Convertir los parámetros a una cadena codificada
+      const httpParams = new URLSearchParams();
       for (const key in params) {
         if (params.hasOwnProperty(key)) {
-          httpParams = httpParams.set(key, params[key]);
+          httpParams.set(key, params[key]);
         }
       }
-  
-      // Configurar los headers adecuadamente
-      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*'
+        })
+      }
   
       const response = await firstValueFrom(
-        this.http.post<any>(`${this.url}/payment/create`, httpParams, { headers })
+        this.http.post<any>(`${this.url}/payment/create`, httpParams.toString(), httpOptions)
           .pipe(
             retry(3),
             catchError(error => {
@@ -61,7 +58,8 @@ export class ApiFlowService {
       console.error('Error en la solicitud crearOrdenPago:', error);
       throw error; // Lanza el error para manejarlo en el componente que llama a esta función
     }
-  }  
+  }
+   
 
   obtenerPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
