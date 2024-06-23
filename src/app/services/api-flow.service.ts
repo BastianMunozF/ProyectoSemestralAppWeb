@@ -30,12 +30,10 @@ export class ApiFlowService {
   crearOrdenPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
     params['s'] = firma;
-    console.log(firma)
-    console.log(params)
     const body = new HttpParams({ fromObject: params });
-    console.log(body)
+    this.presentarAlerta('Error Aquí', body.toString())
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    console.log(headers)
+    this.presentarAlerta('Error aquí', headers.toString())
   
     return this.http.post<any>(`${this.url}/payment/create`, body, { headers })
       .pipe(
