@@ -188,12 +188,9 @@ export class HistorialusuarioPage implements OnInit {
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         timeout: 3600,
-        s: ''
       };
   
-      const response = await this.apiFlow.crearOrdenPago(params).toPromise();
-
-      console.log(response)
+      const response = await this.apiFlow.crearOrdenPago(params);
 
       this.presentarAlerta("Error en response", response.toString())
   

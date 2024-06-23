@@ -16,7 +16,7 @@ export class ApiFlowService {
     })
   }
 
-  url = 'https://www.flow.cl/api';
+  url = 'https://sandbox.flow.cl/api';
   secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
@@ -27,21 +27,20 @@ export class ApiFlowService {
     return firma;
   }
 
-  crearOrdenPago(params: any): Observable<any> {
+  async crearOrdenPago(params: any): Promise<any> {
     const firma = this.firmarParametros(params);
     params['s'] = firma;
+  
     const body = new HttpParams({ fromObject: params });
-    this.presentarAlerta('Error Aquí body', body.toString())
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
   
-    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
-      .pipe(
-        catchError(error => {
-          console.error('Error en la solicitud crearOrdenPago:', error);
-          this.presentarAlerta('Error en función crearOrdenPago', 'Error: ' + error.message);
-          throw error; // Puedes lanzar el error nuevamente para manejarlo en el componente que llama a esta función
-        })
-      );
+    try {
+      const response = await this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error en la solicitud crearOrdenPago:', error);
+      throw error;
+    }
   }
 
   obtenerPago(params: any): Observable<any> {
