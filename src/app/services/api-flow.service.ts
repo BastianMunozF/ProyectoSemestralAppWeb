@@ -42,6 +42,7 @@ export class ApiFlowService {
               flowOrder: response.flowOrder
             };
           } else {
+            this.presentarAlerta('Error aquí en crear orden pago', response.toStrirng())
             throw new Error('Respuesta inesperada de Flow');
           }
         }),
