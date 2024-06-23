@@ -16,7 +16,7 @@ export class ApiFlowService {
     })
   }
 
-  url = 'https://sandbox.flow.cl/api';
+  url = 'https://www.flow.cl/api';
   secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
