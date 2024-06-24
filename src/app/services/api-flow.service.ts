@@ -10,7 +10,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class ApiFlowService {
 
-  url = 'https://sandbox.flow.cl/api';
+  url = 'https://www.flow.cl/api';
   secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
@@ -31,7 +31,7 @@ export class ApiFlowService {
       const body = new HttpParams({ fromObject: params });
       const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 
-      const response = this.http.post(`${this.url}/payment/create/` + params, body, { headers }).toPromise();
+      const response = this.http.post(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
 
       this.presentarAlerta("Response", "Response" + JSON.stringify(response))
   

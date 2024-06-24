@@ -181,7 +181,7 @@ export class HistorialusuarioPage implements OnInit {
       const redirecturl = `${response.url}?token=${response.token}`;
 
       this.presentarAlerta("redirecturl con datos de response", "Historialusuario" + JSON.stringify(redirecturl));
-      if (response && response.urlReturn && response.token) {
+      if (response && response.url && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
         this.presentarAlerta("RedirectURL", "" + redirectUrl.toString());
         window.location.href = redirectUrl;
