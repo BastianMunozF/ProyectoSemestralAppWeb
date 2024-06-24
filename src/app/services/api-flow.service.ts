@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
 import { Observable, catchError, retry, firstValueFrom } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +25,20 @@ export class ApiFlowService {
     try {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
+
+      this.presentarAlerta("Firma en service de la api", "A " + firma)
   
       // Convertir los parámetros a una cadena codificada
       const httpParams = new URLSearchParams();
+
+      this.presentarAlerta("HTTPARAMS", "Api service" + httpParams)
       for (const key in params) {
         if (params.hasOwnProperty(key)) {
           httpParams.set(key, params[key]);
         }
       }
+
+      this.presentarAlerta("2da Firma", "" + params)
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -50,6 +57,8 @@ export class ApiFlowService {
             })
           )
       );
+
+      this.presentarAlerta("Response", "Response" + JSON.stringify(response))
   
       console.log('Respuesta de crearOrdenPago:', JSON.stringify(response));
   

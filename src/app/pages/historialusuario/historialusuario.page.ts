@@ -161,7 +161,7 @@ export class HistorialusuarioPage implements OnInit {
   async postFlow(viaje: any) {
 
     try {
-      var params = {
+      const params = {
         apiKey: '1F8DDF83-C842-41A6-8A41-5D848L6E0AC0',
         commerceOrder: 'ORDEN' + viaje.id_viaje,
         subject: 'Pago de Viaje',
@@ -170,16 +170,20 @@ export class HistorialusuarioPage implements OnInit {
         paymentMethod: 9,
         urlConfirmation: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
         urlReturn: 'https://proyecto-semestral-app-web.vercel.app/historialusuario',
-        timeout: 3600,
+        timeout: 3600
       };
-  
+
       const response = await this.apiFlow.crearOrdenPago(params);
 
-      this.presentarAlerta("Response", "Response" + JSON.stringify(response));
+      this.presentarAlerta("Response en historialusuario", "Response" + JSON.stringify(response));
       console.log('Respuesta de postFlow:', response); // Imprime la respuesta para verificar
-  
-      if (response && response.url && response.token) {
+
+      const redirecturl = `${response.url}?token=${response.token}`;
+
+      this.presentarAlerta("redirecturl con datos de response", "Historialusuario" + JSON.stringify(redirecturl));
+      if (response && response.urlReturn && response.token) {
         const redirectUrl = `${response.url}?token=${response.token}`;
+        this.presentarAlerta("RedirectURL", "" + redirectUrl.toString());
         window.location.href = redirectUrl;
       } else {
         console.error('Error en la transacción: No se recibió la URL de redirección.');
