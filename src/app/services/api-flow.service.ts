@@ -10,6 +10,13 @@ import { JsonPipe } from '@angular/common';
 })
 export class ApiFlowService {
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Origin': '*'
+    })
+  }
+
   url = 'https://www.flow.cl/api';
   secretKey = '2b29f9a892dbfb86067cdda2123753e1d2b3db74';
 
@@ -27,12 +34,8 @@ export class ApiFlowService {
       params['s'] = firma;
 
       this.presentarAlerta("Firma en service de la api", "A " + firma)
-  
-      const body = new HttpParams({ fromObject: params });
-      this.presentarAlerta("Body", "Body" + body)
-      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 
-      const response = this.http.post(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
+      const response = this.http.post(`${this.url}/payment/create/` + firma, { Headers }).toPromise();
 
       this.presentarAlerta("Response", "Response" + JSON.stringify(response))
   
