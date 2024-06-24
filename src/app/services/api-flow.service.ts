@@ -26,9 +26,10 @@ export class ApiFlowService {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
 
-      this.presentarAlerta("Firma en service de la api", "A " + JSON.stringify(firma))
+      this.presentarAlerta("Firma en service de la api", "A " + firma)
   
       const body = new HttpParams({ fromObject: params });
+      this.presentarAlerta("Body", "Body" + body)
       const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 
       const response = this.http.post(`${this.url}/payment/create/`, body.toString(), { headers }).toPromise();
