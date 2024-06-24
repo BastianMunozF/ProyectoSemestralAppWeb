@@ -3,7 +3,6 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import * as crypto from 'crypto-js';
 import { Observable, catchError, retry, firstValueFrom } from 'rxjs';
 import { AlertController } from '@ionic/angular';
-import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -28,26 +27,36 @@ export class ApiFlowService {
     return firma;
   }
 
-  crearOrdenPago(params: any): Promise<any> {
-    try {
-      const firma = this.firmarParametros(params);
-      params['s'] = firma;
-
-      this.presentarAlerta("Firma en service de la api", "A " + firma)
-
-      const response = this.http.post(`${this.url}/payment/create/` + firma, { Headers }).toPromise();
-
-      this.presentarAlerta("Response", "Response" + JSON.stringify(response))
+  crearOrdenPago(params: any): Observable<any> {
+    const firma = this.firmarParametros(params);
+    params['s'] = firma;
   
-      console.log('Respuesta de crearOrdenPago:', JSON.stringify(response));
+    this.presentarAlerta("Params firmados", "Params " + JSON.stringify(params));
   
-      return response;
-    } catch (error) {
-      console.error('Error en la solicitud crearOrdenPago:', error);
-      throw error; // Lanza el error para manejarlo en el componente que llama a esta función
+    // Crear HttpParams
+    let body = new HttpParams();
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        body = body.set(key, params[key]);
+      }
     }
+  
+    this.presentarAlerta("Body", "Body " + body.toString());
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    // Mostrar encabezados de forma legible
+    headers.keys().forEach(key => {
+      this.presentarAlerta("Headers", `${key}: ${headers.get(key)}`);
+    });
+  
+    return this.http.post<any>(`${this.url}/payment/create`, body.toString(), { headers })
+      .pipe(
+        retry(3),
+      );
   }
-   
 
   obtenerPago(params: any): Observable<any> {
     const firma = this.firmarParametros(params);
