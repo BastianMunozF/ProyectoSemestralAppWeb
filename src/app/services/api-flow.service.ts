@@ -26,19 +26,18 @@ export class ApiFlowService {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
 
-      this.presentarAlerta("Firma en service de la api", "A " + firma)
+      this.presentarAlerta("Firma en service de la api", "A " + JSON.stringify(firma))
   
       // Convertir los parámetros a una cadena codificada
       const httpParams = new URLSearchParams();
 
-      this.presentarAlerta("HTTPARAMS", "Api service" + httpParams)
       for (const key in params) {
         if (params.hasOwnProperty(key)) {
           httpParams.set(key, params[key]);
         }
       }
 
-      this.presentarAlerta("2da Firma", "" + params)
+      this.presentarAlerta("2da Firma", "" + JSON.stringify(params))
 
       const httpOptions = {
         headers: new HttpHeaders({
