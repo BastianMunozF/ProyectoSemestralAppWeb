@@ -21,41 +21,17 @@ export class ApiFlowService {
     return firma;
   }
 
-  async crearOrdenPago(params: any): Promise<any> {
+  crearOrdenPago(params: any): Promise<any> {
     try {
       const firma = this.firmarParametros(params);
       params['s'] = firma;
 
       this.presentarAlerta("Firma en service de la api", "A " + JSON.stringify(firma))
   
-      // Convertir los parámetros a una cadena codificada
-      const httpParams = new URLSearchParams();
+      const body = new HttpParams({ fromObject: params });
+      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 
-      for (const key in params) {
-        if (params.hasOwnProperty(key)) {
-          httpParams.set(key, params[key]);
-        }
-      }
-
-      this.presentarAlerta("2da Firma", "" + JSON.stringify(params))
-
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*'
-        })
-      }
-  
-      const response = await firstValueFrom(
-        this.http.post<any>(`${this.url}/payment/create`, httpParams.toString(), httpOptions)
-          .pipe(
-            retry(3),
-            catchError(error => {
-              console.error('Error en la solicitud crearOrdenPago:', error);
-              throw error;
-            })
-          )
-      );
+      const response = this.http.post(`${this.url}/payment/create/` + params, body, { headers }).toPromise();
 
       this.presentarAlerta("Response", "Response" + JSON.stringify(response))
   
