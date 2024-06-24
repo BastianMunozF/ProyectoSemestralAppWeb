@@ -173,12 +173,23 @@ export class HistorialusuarioPage implements OnInit {
         timeout: 3600
       };
 
-      const response = await this.apiFlow.crearOrdenPago(params);
+      const response = await this.apiFlow.crearOrdenPago(params).toPromise();
 
       this.presentarAlerta("Response en historialusuario", "Response" + JSON.stringify(response));
       console.log('Respuesta de postFlow:', response); // Imprime la respuesta para verificar
 
-      
+      const redirecturl = `${response.url}?token=${response.token}`;
+
+      this.presentarAlerta("redirecturl con datos de response", "Historialusuario" + JSON.stringify(redirecturl));
+      if (response && response.url && response.token) {
+        const redirectUrl = `${response.url}?token=${response.token}`;
+        this.presentarAlerta("RedirectURL", "" + redirectUrl.toString());
+        window.location.href = redirectUrl;
+      } else {
+        console.error('Error en la transacción: No se recibió la URL de redirección.');
+        this.presentarAlerta('Error en la transacción', 'No se recibió la URL de redirección.');
+      }
+  
     } catch (error) {
       console.error('Error en la transacción:', error);
       this.presentarAlerta('Error en la transacción', 'Ha ocurrido un error al momento de efectuar la transacción.' + JSON.stringify(error));
