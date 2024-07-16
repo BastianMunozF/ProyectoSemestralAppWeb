@@ -4,6 +4,8 @@ import { ApiFlowService } from 'src/app/services/api-flow.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+declare var paypal: any;
+
 @Component({
   selector: 'app-historialusuario',
   templateUrl: './historialusuario.page.html',
@@ -157,6 +159,34 @@ export class HistorialusuarioPage implements OnInit {
       console.log('Error en Buscar Detalle User: ', error);
     })
   }
+
+
+  //PAYPAL
+  ngAfterViewInit() {
+    this.loadPayPalButtons();
+  }
+
+  loadPayPalButtons() {
+    for (const viaje of this.arregloViajes) {
+      paypal.Buttons({
+        createOrder: (data: any, actions: any) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: viaje.valor_asiento.toString()
+              }
+            }]
+          });
+        },
+        onApprove: (data: any, actions: any) => {
+          return actions.order.capture().then((details: any) => {
+            alert('Transacción realizada por ' + details.payer.name.given_name);
+          });
+        }
+      }).render(`#paypal-button-container-${viaje.id_viaje}`);
+    }
+  }
+  
 
   async postFlow(viaje: any) {
 

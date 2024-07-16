@@ -32,37 +32,37 @@
                 <ion-item>
                   <ion-label><strong>Viaje:</strong></ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Fecha del Viaje: {{ viaje.f_viaje }}</ion-label>
                 </ion-item>
-                
+
                 <ion-item>
                   <ion-label>Hora de Salida: {{ viaje.hora_salida }}</ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Salida: {{ viaje.salida }}</ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Destino: {{ viaje.destino }}</ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Asientos disponibles: {{ viaje.cant_asientos }}</ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Estado: {{ viaje.estado }}</ion-label>
                 </ion-item>
-      
+
                 <br>
-      
+
                 <ion-item>
                   <ion-label><strong>Vehículo</strong></ion-label>
                 </ion-item>
-      
+
                 <ion-item>
                   <ion-label>Marca: {{ vehiculo.marca }}</ion-label>
                 </ion-item>
@@ -75,8 +75,10 @@
                   <ion-label>Patente: {{ vehiculo.patente }}</ion-label>
                 </ion-item>
 
-                <ion-button (click)="postFlow(viaje)">Pagar</ion-button>
-      
+                <ion-button (click)="loadPayPalButtons()">Pagar</ion-button>
+                <!-- Agregar el botón de PayPal aquí -->
+                <div id="paypal-button-container-{{viaje.id_viaje}}"></div>
+
               </ion-card-content>
             </ion-card>
           </ion-item-sliding>
