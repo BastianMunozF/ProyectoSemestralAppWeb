@@ -75,9 +75,8 @@
                   <ion-label>Patente: {{ vehiculo.patente }}</ion-label>
                 </ion-item>
 
-                <ion-button (click)="loadPayPalButtons()">Pagar</ion-button>
-                <!-- Agregar el botón de PayPal aquí -->
-                <div id="paypal-button-container-{{viaje.id_viaje}}"></div>
+                <ion-button (click)="loadPayPalButtons(viaje.id_viaje)">Pagar</ion-button>
+                <div id="paypal-button-container-{{viaje.id_viaje}}" class="paypal-button-container"></div>
 
               </ion-card-content>
             </ion-card>

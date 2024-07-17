@@ -163,30 +163,57 @@ export class HistorialusuarioPage implements OnInit {
 
   //PAYPAL
   ngAfterViewInit() {
-    this.loadPayPalButtons();
+    this.loadAllPayPalButtons();
   }
-
-  loadPayPalButtons() {
+  
+  loadAllPayPalButtons() {
     for (const viaje of this.arregloViajes) {
-      paypal.Buttons({
-        createOrder: (data: any, actions: any) => {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: viaje.valor_asiento.toString()
-              }
-            }]
-          });
-        },
-        onApprove: (data: any, actions: any) => {
-          return actions.order.capture().then((details: any) => {
-            alert('Transacción realizada por ' + details.payer.name.given_name);
-          });
-        }
-      }).render(`#paypal-button-container-${viaje.id_viaje}`);
+      this.loadPayPalButtons(viaje.id_viaje);
     }
   }
   
+  loadPayPalButtons(id_viaje: string) {
+    // Limpia el contenedor del botón de PayPal antes de renderizar uno nuevo
+    const container = document.getElementById(`paypal-button-container-${id_viaje}`);
+    if (container) {
+      container.innerHTML = ''; // Elimina cualquier contenido previo
+  
+      const viaje = this.arregloViajes.find((v: { id_viaje: string; valor_asiento: number; }) => v.id_viaje === id_viaje);
+      if (viaje) {
+        paypal.Buttons({
+          createOrder: (data: any, actions: any) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: viaje.valor_asiento.toString()
+                }
+              }]
+            });
+          },
+          onApprove: (data: any, actions: any) => {
+            return actions.order.capture().then((details: any) => {
+              alert('Transacción realizada por ' + details.payer.name.given_name);
+            }).catch((error: any) => {
+              console.error('Error al capturar la transacción:', error);
+              this.presentarAlerta('Error en la transacción', 'Hubo un problema al completar el pago. Por favor, inténtalo de nuevo.');
+            });
+          },
+          onError: (err: any) => {
+            console.error('Error en PayPal:', err);
+            this.presentarAlerta('Error en PayPal', 'Hubo un problema con el pago. Por favor, inténtalo de nuevo.');
+          }
+        }).render(`#paypal-button-container-${id_viaje}`);
+      } else {
+        console.error('Viaje no encontrado:', id_viaje);
+        this.presentarAlerta('Error', 'Viaje no encontrado. Por favor, inténtalo de nuevo.');
+      }
+    } else {
+      console.error('Contenedor de PayPal no encontrado:', `paypal-button-container-${id_viaje}`);
+      this.presentarAlerta('Error', 'Contenedor de PayPal no encontrado. Por favor, inténtalo de nuevo.');
+    }
+  }
+    
+  //
 
   async postFlow(viaje: any) {
 

@@ -35,3 +35,19 @@ ion-content{
     text-align: center; /* Centra el texto debajo del ícono */
     color: #469597;
   }
+
+
+  /* styles.scss o el archivo de estilos correspondiente */
+.paypal-button-container {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .paypal-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
